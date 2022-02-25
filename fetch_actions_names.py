@@ -1,7 +1,6 @@
 from html import unescape
 
 import logging
-import random
 import re
 import requests
 import threading
@@ -13,7 +12,6 @@ def get_max_page(from_index: int = 1) -> int:
     Get the number of the last page. It is useful to know it for multithreading.
 
     :param from_index: The page index to start from.
-    :param end: Tell if should stop the program.
     :return: The number of the last page.
     """
     session = requests.Session()
@@ -23,8 +21,8 @@ def get_max_page(from_index: int = 1) -> int:
     found = False
     while request.status_code == 200 or request.status_code == 429:
         if request.status_code == 429:
-            logging.info("get_max_page - sleeping " + str(int(request.headers["Retry-After"]) + 10) + " seconds")
-            time.sleep(int(request.headers["Retry-After"]) + 10)
+            logging.info("get_max_page - sleeping " + str(int(request.headers["Retry-After"]) + 1) + " seconds")
+            time.sleep(int(request.headers["Retry-After"]) + 1)
             logging.info("get_max_page - sleeping finished")
         k += 1
         url = f"https://github.com/marketplace?page={k}&query=&type=actions"
@@ -37,7 +35,7 @@ def get_max_page(from_index: int = 1) -> int:
         return k - 1
     session.close()
     if from_index == 0:
-        logging.error("No page found")
+        logging.error("No page found for Actions... Weird.")
         exit()
     return get_max_page(int(from_index / 2))
 
@@ -52,6 +50,8 @@ def get_categories() -> list:
     session = requests.Session()
     url = "https://github.com/marketplace?category=&type=actions"
     request = session.get(url)
+
+    return []
 
 
 def fetch_names(pages: list) -> None:
@@ -88,6 +88,21 @@ def fetch_names(pages: list) -> None:
     session.close()
 
 
+def test_names(p_names):
+    test_session = requests.Session()
+    for name in p_names:
+        url = f"https://github.com/marketplace/actions/{name}"
+        test_request = test_session.get(url)
+        while test_request.status_code == 429:
+            time.sleep(int(test_request.headers["Retry-After"]) + 1)
+            test_request = test_session.get(url)
+        if test_request.status_code == 404:
+            logging.info(f"The Action '{name}' don't have a marketplace page.")
+            names.remove(name)
+
+    test_session.close()
+
+
 if __name__ == "__main__":
     log_file_name = "fetch_actions_names.log"
     logging.basicConfig(filename=log_file_name, level=logging.INFO, filemode='w', format='%(asctime)s %(message)s')
@@ -95,12 +110,10 @@ if __name__ == "__main__":
     while True:
         try:
             index = int(input("From index > "))
-            if index > 49:
-                index = 49
             break
         except ValueError:
             index = int(input("Enter a correct value for the index > "))
-    logging.info("Index: " + str(index))
+    logging.info("Index input by user: " + str(index))
 
     max_page_number = get_max_page(index)
     logging.info("Number of pages: " + str(max_page_number))
@@ -108,14 +121,14 @@ if __name__ == "__main__":
     while True:
         try:
             number_of_threads = int(input("Number of threads to use > "))
+            # the point here is not to allow more threads then the number of pages
+            if number_of_threads > max_page_number:
+                number_of_threads = max_page_number
+            elif number_of_threads < 1:
+                number_of_threads = 1
             break
         except ValueError:
             number_of_threads = int(input("Enter a correct value for the number of threads to use > "))
-    # the point here is not to allow more threads then the number of pages
-    if number_of_threads > max_page_number:
-        number_of_threads = max_page_number
-    elif number_of_threads < 1:
-        number_of_threads = 1
     logging.info("Number of threads: " + str(number_of_threads))
 
     start_time = time.time()
@@ -136,39 +149,11 @@ if __name__ == "__main__":
 
     threads = []
 
-    def test_names(p_names):
-        test_session = requests.Session()
-        for name in p_names:
-            url = f"https://github.com/marketplace/actions/{name}"
-            test_request = ''
-            try:
-                test_request = test_session.get(url)
-            except:
-                print(name)
-                exit()
-            while test_request.status_code == 429:
-                logging.info("test - sleeping " + str(int(test_request.headers["Retry-After"])) + " seconds")
-                time.sleep(int(test_request.headers["Retry-After"]))
-                logging.info("test - sleeping finished")
-                test_request = test_session.get(url)
-            logging.info(f">>>>>>>>>> {name}")
-            if test_request.status_code == 404:
-                print(name)
-                names.remove(name)
-            time.sleep(random.randint(1, 5))
+    logging.info(f"Number of Actions: {len(names)}")
 
-        test_session.close()
-
-    print(len(names))
-
-    """
-    50 threads
-    10, 60
-    none
-    490 sec
-    """
-    for i in range(0, 20):
-        list_of_names = [names[x] for x in range(0, len(names)) if x % 20 == i]
+    number_of_threads = 10
+    for i in range(0, number_of_threads):
+        list_of_names = [names[x] for x in range(0, len(names)) if x % number_of_threads == i]
         threads.append(threading.Thread(target=test_names, args=(list_of_names,)))
 
     for thread in threads:
@@ -177,9 +162,6 @@ if __name__ == "__main__":
     for thread in threads:
         thread.join()
 
-    print(names)
-    print(len(names))
-    print("azure-devops-npm" in names)
-    print(f"--- {time.time() - start_time} seconds ---")
+    logging.info(f"Number of accessible actions: {len(names)}")
 
-    # TODO check how many requests before wait for different number of threads
+    print(f"--- {time.time() - start_time} seconds ---")
