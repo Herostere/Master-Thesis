@@ -221,7 +221,7 @@ def test_names(p_names: list) -> None:
         while request.status_code == 429:
             logging.info("test_names - sleeping " + str(int(request.headers["Retry-After"]) + 1) + " seconds")
             time.sleep(int(request.headers["Retry-After"]) + 1)
-            logging.info("test_names - sleeping " + str(int(request.headers["Retry-After"]) + 1) + " seconds")
+            logging.info("test_names - sleeping finished")
             request = session.get(url)
         if request.status_code == 404:
             logging.info(f"The Action '{name}' don't have a marketplace page.")
