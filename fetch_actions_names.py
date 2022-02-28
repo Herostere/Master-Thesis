@@ -1,7 +1,6 @@
 """
 This script identify the actions with a valid marketplace page.
 """
-
 from bs4 import BeautifulSoup
 from html import unescape
 from lxml import html
