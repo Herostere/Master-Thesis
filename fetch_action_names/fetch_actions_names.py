@@ -21,9 +21,9 @@ def get_categories() -> list:
     :return: A list with the GitHub Actions categories as strings.
     """
     return_categories = []
-    session = requests.Session()
     url = "https://github.com/marketplace?type=actions"
-    request = session.get(url)
+
+    session, request = get_request("get_categories", url)
 
     soup = BeautifulSoup(request.text, 'html.parser')
     pretty_soup = soup.prettify()
@@ -38,11 +38,32 @@ def get_categories() -> list:
     return return_categories
 
 
+def get_request(function: str, url: str) -> tuple[requests.Session, requests.Response]:
+    """
+    Create a session and get a webpage with a status code of 200.
+
+    :param function: The name of the calling function.
+    :param url: The url to connect to.
+    :return: The session and the response with status code 200.
+    """
+    session = requests.Session()
+    request = session.get(url)
+
+    while request.status_code != 200:
+        if request.status_code == 429:
+            logging.info(f"{function} - sleeping " + str(int(request.headers["Retry-After"]) + 1) + " seconds")
+            time.sleep(int(request.headers["Retry-After"]) + 1)
+            logging.info(f"{function} - sleeping finished")
+        request = session.get(url)
+
+    return session, request
+
+
 def get_names_of_actions() -> None:
     """
-    Fetching the names of Actions.
+    Fetching the names of Actions in each category.
     """
-    global names
+    global actions_names
     global categories
 
     for category in categories:
@@ -63,7 +84,7 @@ def get_names_of_actions() -> None:
         for thread in threads:
             thread.join()
 
-    logging.info(f"Number of Actions: {len(names)}")
+    logging.info(f"Number of Actions: {len(actions_names)}")
 
 
 def get_page_index(category: str) -> int:
@@ -92,18 +113,11 @@ def get_max_page(category: str) -> int:
     Get the number of the last page. It is useful to know it for multithreading.
 
     :param category: The category we are interested of knowing the number of pages.
-    :return: The number of the last page.
+    :return: The number of the last page. Returns 0 if there is Actions in this category.
     """
-    session = requests.Session()
     url = f"https://github.com/marketplace?category={category}&page=1&type=actions"
-    request = session.get(url)
 
-    while request.status_code != 200:
-        if request.status_code == 429:
-            logging.info("get_max_page - sleeping " + str(int(request.headers["Retry-After"]) + 1) + " seconds")
-            time.sleep(int(request.headers["Retry-After"]) + 1)
-            logging.info("get_max_page - sleeping finished")
-        request = session.get(url)
+    session, request = get_request("get_max_page", url)
 
     page_xpath_0 = '//*[@id="js-pjax-container"]/div[2]/div[1]/div[3]/div/a[not(@class="next_page")]'
     page_xpath_1 = '//*[@id="js-pjax-container"]/div[2]/div[1]/div[3]/div/em'
@@ -129,17 +143,19 @@ def get_number_of_threads(max_page_number: int) -> int:
     :param max_page_number: The number of pages on the GitHub marketplace.
     :return: The number of threads to use.
     """
-    num_of_threads = conf.get_page_index["threads"]
+    num_of_threads = conf.get_page_index["max_threads"]
     try:
         num_of_threads = int(num_of_threads)
+
         # the point here is not to allow more threads then the number of pages
         if num_of_threads > max_page_number:
             num_of_threads = max_page_number
         elif num_of_threads < 1:
             num_of_threads = 1
+
     except ValueError:
         logging.error("Bad number of threads in configuration file.\nBad value is " + num_of_threads)
-        num_of_threads = 5
+        num_of_threads = 5  # this value has been chosen because "trust me".
     logging.info("Number of threads: " + str(num_of_threads))
 
     return num_of_threads
@@ -149,43 +165,39 @@ def fetch_names(pages: list, category: str) -> None:
     """
     Get the actions names from GitHub marketplace.
 
-    :param pages: The list of pages on which fetch the actions names
+    :param pages: The list of pages on which fetch the actions names.
     :param category: The category of GitHub Actions.
     """
-    global names
+    global actions_names
 
     actions_names_pattern = '<h3 class="h4">.*</h3>'
     actions_names_pattern_compiled = re.compile(actions_names_pattern)
 
-    session = requests.Session()
-
     for page in pages:
         url = f"https://github.com/marketplace?category={category}&page={page}&query=&type=actions"
 
-        request = session.get(url)
-
-        while request.status_code != 200:
-            if request.status_code == 429:
-                logging.info("fetch_names - sleeping " + str(int(request.headers["Retry-After"]) + 1) + " seconds")
-                time.sleep(int(request.headers["Retry-After"]) + 1)
-                logging.info("fetch_names - sleeping finished")
-            request = session.get(url)
+        session, request = get_request("fetch_names", url)
 
         actions_names = actions_names_pattern_compiled.findall(request.text)
+
+        # Below is used to format the name as in the marketplace urls.
         for j in range(0, len(actions_names)):
             actions_names[j] = actions_names[j].split('<h3 class="h4">')[1].split('</h3>')[0].lower()
-            actions_names[j] = unescape(actions_names[j])  # convert html code to utf-8 ex: &quot -> "
+            actions_names[j] = unescape(actions_names[j])  # convert html code to utf-8 ex: &quot becomes "
             actions_names[j] = actions_names[j].replace(" - ", "-").replace(" ", "-")
             actions_names[j] = re.sub("[^0-9a-zA-Z_-]", "-", actions_names[j])
+
+            # Removes - at the beginning and the end of a name.
             while re.search("^-.*$", actions_names[j]):
                 actions_names[j] = actions_names[j][1:]
             while re.search("^.*-$", actions_names[j]):
                 actions_names[j] = actions_names[j][:-1]
-            actions_names[j] = re.sub("-{2,}", "-", actions_names[j])
-            if actions_names[j] not in names:
-                names.append(actions_names[j])
 
-    session.close()
+            actions_names[j] = re.sub("-{2,}", "-", actions_names[j])
+            if actions_names[j] not in actions_names:
+                actions_names.append(actions_names[j])
+
+        session.close()
 
 
 def do_name_verification() -> None:
@@ -193,11 +205,12 @@ def do_name_verification() -> None:
     Verifications of names of Actions. Some marketplace page of Actions are not accessible.
     Only start 10 threads because there is a limit of 100 requests per minutes on the GitHub marketplace.
     """
+    # Idk if it is possible to check that faster.
     threads = []
 
     num_of_threads = 10
     for i in range(0, num_of_threads):
-        list_of_names = [names[x] for x in range(0, len(names)) if x % num_of_threads == i]
+        list_of_names = [actions_names[x] for x in range(0, len(actions_names)) if x % num_of_threads == i]
         threads.append(threading.Thread(target=test_names, args=(list_of_names,)))
 
     for thread in threads:
@@ -224,7 +237,7 @@ def test_names(p_names: list) -> None:
             request = session.get(url)
         if request.status_code == 404:
             logging.info(f"The Action '{name}' don't have a marketplace page.")
-            names.remove(name)
+            actions_names.remove(name)
 
     session.close()
 
@@ -238,21 +251,24 @@ if __name__ == "__main__":
     log_file_name = "fetch_actions_names.log"
     logging.basicConfig(filename=log_file_name, level=logging.INFO, filemode='w', format='%(asctime)s %(message)s')
 
-    execute_names_of_actions = conf.get_names_of_actions["execute"]
-    if execute_names_of_actions:
+    """
+    Starting fetching
+    """
+    run = conf.run
+    if run:
         categories = get_categories()
 
-        names = []
+        actions_names = []
         get_names_of_actions()
 
         name_verification = conf.name_verification
         if name_verification:
             do_name_verification()
-            logging.info(f"Number of accessible actions: {len(names)}")
+            logging.info(f"Number of accessible actions: {len(actions_names)}")
         else:
             logging.info(f"Number of accessible actions: N/A")
 
-        save_names = numpy.array(names)
+        save_names = numpy.array(actions_names)
         numpy.save("names_of_actions", save_names)
 
     logging.info(f"--- {time.time() - start_time} seconds ---")
