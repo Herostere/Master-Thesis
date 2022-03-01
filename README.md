@@ -1,2 +1,2 @@
 # Master-Thesis
-Code for my master thesis.
+Fine-grained Exploration of the GitHub Workflow Ecosystem
