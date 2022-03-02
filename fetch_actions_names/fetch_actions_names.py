@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 from html import unescape
 from lxml import html
 
-import fetch_actions_names_config as conf
+import fetch_actions_names_config as config
 import logging
 import numpy
 import re
@@ -94,7 +94,7 @@ def get_page_index(category: str) -> int:
     :param category: The category we are interested of knowing the number of pages.
     :return: The higher page number.
     """
-    start_index = conf.get_page_index["start_index"]
+    start_index = config.get_page_index["start_index"]
     try:
         index = int(start_index)
     except ValueError:
@@ -143,7 +143,7 @@ def get_number_of_threads(max_page_number: int) -> int:
     :param max_page_number: The number of pages on the GitHub marketplace.
     :return: The number of threads to use.
     """
-    num_of_threads = conf.get_page_index["max_threads"]
+    num_of_threads = config.get_page_index["max_threads"]
     try:
         num_of_threads = int(num_of_threads)
 
@@ -187,7 +187,7 @@ def fetch_names(pages: list, category: str) -> None:
             actions_names[j] = actions_names[j].replace(" - ", "-").replace(" ", "-")
             actions_names[j] = re.sub("[^0-9a-zA-Z_-]", "-", actions_names[j])
 
-            # Removes - at the beginning and the end of a name.
+            # Removes '-' at the beginning and the end of a name.
             while re.search("^-.*$", actions_names[j]):
                 actions_names[j] = actions_names[j][1:]
             while re.search("^.*-$", actions_names[j]):
@@ -254,14 +254,14 @@ if __name__ == "__main__":
     """
     Starting fetching
     """
-    run = conf.run
+    run = config.run
     if run:
         categories = get_categories()
 
         actions_names = []
         get_names_of_actions()
 
-        name_verification = conf.name_verification
+        name_verification = config.name_verification
         if name_verification:
             do_name_verification()
             logging.info(f"Number of accessible actions: {len(actions_names)}")
@@ -272,4 +272,3 @@ if __name__ == "__main__":
         numpy.save("names_of_actions", save_names)
 
     logging.info(f"--- {time.time() - start_time} seconds ---")
-    # np.load("test.npy").tolist()
