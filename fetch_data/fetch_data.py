@@ -47,38 +47,18 @@ def get_request(function: str, url: str) -> tuple[requests.Session, requests.Res
     """
     session = requests.Session()
     request = session.get(url)
-    check_request_speed(function)
 
     while request.status_code != 200:
         if request.status_code == 429:
-            logging.info(f"{function} - sleeping " + str(int(request.headers["Retry-After"]) + 1) + " seconds")
-            time.sleep(int(request.headers["Retry-After"]) + 1)
+            logging.info(f"{function} - sleeping " + str(int(request.headers["Retry-After"]) + 0.3) + " seconds")
+            time.sleep(int(request.headers["Retry-After"]) + 0.3)
             logging.info(f"{function} - sleeping finished")
         if request.status_code == 404:
             session.close()
             return None, None
         request = session.get(url)
-        check_request_speed(function)
 
     return session, request
-
-
-def check_request_speed(function: str) -> None:
-    """
-    Speed limit for the requests.
-
-    :param function: The name of the calling function (get_request).
-    """
-    global number_of_requests
-
-    number_of_requests -= 1
-
-    if number_of_requests < 1:
-        logging.info(f"{function} - sleeping 60 seconds")
-        time.sleep(60)
-        logging.info(f"{function} - is done sleeping")
-        if number_of_requests < 1:
-            number_of_requests = config.limit_requests
 
 
 def beautiful_html(request_text: str) -> html.document_fromstring:
@@ -274,8 +254,6 @@ def test_link(url: str) -> bool:
 if __name__ == "__main__":
     start_time = time.time()
 
-    number_of_requests = config.limit_requests
-
     """
     Logging config.
     """
@@ -305,7 +283,7 @@ if __name__ == "__main__":
 
             actions_names = numpy.array(actions_names)
             numpy.save("names_of_actions", actions_names)
-            logging.info(f"Number of accessible actions: {actions_names.shape}")
+            logging.info(f"Number of accessible actions: {actions_names.shape[0]}")
         else:
             logging.info(f"Number of accessible actions: N/A")
 
