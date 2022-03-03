@@ -47,6 +47,7 @@ def get_request(function: str, url: str) -> tuple[requests.Session, requests.Res
     """
     session = requests.Session()
     request = session.get(url)
+    check_request_speed(function)
 
     while request.status_code != 200:
         if request.status_code == 429:
@@ -54,10 +55,30 @@ def get_request(function: str, url: str) -> tuple[requests.Session, requests.Res
             time.sleep(int(request.headers["Retry-After"]) + 1)
             logging.info(f"{function} - sleeping finished")
         if request.status_code == 404:
+            session.close()
             return None, None
         request = session.get(url)
+        check_request_speed(function)
 
     return session, request
+
+
+def check_request_speed(function: str) -> None:
+    """
+    Speed limit for the requests.
+
+    :param function: The name of the calling function (get_request).
+    """
+    global number_of_requests
+
+    number_of_requests -= 1
+
+    if number_of_requests < 1:
+        logging.info(f"{function} - sleeping 60 seconds")
+        time.sleep(60)
+        logging.info(f"{function} - is done sleeping")
+        if number_of_requests < 1:
+            number_of_requests = config.limit_requests
 
 
 def beautiful_html(request_text: str) -> html.document_fromstring:
@@ -229,8 +250,9 @@ def test_mp_page(name: str) -> tuple[bool, str | None]:
         session.close()
         root = beautiful_html(request.text)
         url = root.xpath('//*[@id="js-pjax-container"]/div/div/div[3]/aside/div[4]/a[1]/@href')
-        return True, url
-    session.close()
+        if url:
+            return True, url[0]
+        return False, None
     return False, None
 
 
@@ -246,12 +268,13 @@ def test_link(url: str) -> bool:
     if request:
         session.close()
         return True
-    session.close()
     return False
 
 
 if __name__ == "__main__":
     start_time = time.time()
+
+    number_of_requests = config.limit_requests
 
     """
     Logging config.
@@ -272,10 +295,7 @@ if __name__ == "__main__":
             get_categories()
 
         """
-        The following function should:
-            - Fetch the name of each Action, one by one
-            - Test if it has a valid marketplace URL
-                - If it is the case, request this URL and retrieve data
+        Main steps of the code. Retrieves the data.
         """
         run_fetch_data = config.fetch_data['run']
         if run_fetch_data:

@@ -8,7 +8,9 @@ get_categories = {
 }
 
 fetch_data = {
-    "run": False,
+    "run": True,
     "start_index": 50,
-    "max_threads": 19,
+    "max_threads": 50,
 }
+
+limit_requests = 120
