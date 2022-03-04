@@ -46,6 +46,7 @@ def get_request(function: str, url: str) -> tuple[requests.Session, requests.Res
     :return: The session and the response with status code 200. If error 404, returns (None, None).
     """
     session = requests.Session()
+    limit_requests(function)
     request = session.get(url)
 
     while request.status_code != 200:
@@ -56,9 +57,27 @@ def get_request(function: str, url: str) -> tuple[requests.Session, requests.Res
         if request.status_code == 404:
             session.close()
             return None, None
+        limit_requests(function)
         request = session.get(url)
 
     return session, request
+
+
+def limit_requests(function: str) -> None:
+    """
+    Limit the number of requests made every minute.
+
+    :param function: The name of the calling function (in get_request).
+    """
+    global number_of_requests
+
+    number_of_requests -= 1
+    if number_of_requests < 1:
+        logging.info(f"{function} is sleeping for 60 seconds")
+        time.sleep(60)
+        logging.info(f"{function} stopped sleeping")
+        if number_of_requests < 1:
+            number_of_requests = config.limit_requests
 
 
 def beautiful_html(request_text: str) -> html.document_fromstring:
@@ -253,6 +272,8 @@ def test_link(url: str) -> bool:
 
 if __name__ == "__main__":
     start_time = time.time()
+
+    number_of_requests = config.limit_requests
 
     """
     Logging config.
