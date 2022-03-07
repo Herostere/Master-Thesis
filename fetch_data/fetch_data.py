@@ -9,6 +9,7 @@ from ratelimit import limits, sleep_and_retry
 import fetch_data_config as config
 import logging
 import numpy
+import os
 import re
 import requests
 import sqlite3
@@ -24,6 +25,7 @@ def get_categories() -> None:
     """
     Save the list of GitHub Actions categories as a numpy array.
     """
+    logging.info("Fetching the categories")
     save_categories = []
     url = "https://github.com/marketplace?type=actions"
 
@@ -49,6 +51,8 @@ def get_categories() -> None:
         category = re.sub(re.compile(r" {2,}"), '', re.sub(pattern, '', li).lower()).replace(' ', '-')
         save_categories.append(category)
 
+    logging.info(f"Categories: \n{save_categories}")
+
     save_categories = numpy.array(save_categories)
     numpy.save("categories.npy", save_categories)
 
@@ -66,7 +70,13 @@ def get_request(function: str, url: str) -> tuple[requests.Session, requests.Res
     global T_R
 
     session = requests.Session()
-    request = session.get(url)
+    session.cookies['user_session'] = os.getenv("CONNECTION_COOKIE")
+    while True:
+        try:
+            request = session.get(url)
+            break
+        except requests.ConnectionError:
+            return get_request(function, url)
     T_R += 1
 
     logging.info(f"request {T_R}")
@@ -106,7 +116,10 @@ def fetch_data_multithread() -> None:
     """
     categories = numpy.load("categories.npy")
 
+    logging.info("Fetching the data")
+
     for category in categories:
+        logging.info(f"***** {category} *****")
 
         max_page_number = get_max_page(category)
 
@@ -132,14 +145,6 @@ def get_max_page(category: str) -> int:
     :param category: The category we are interested of knowing the number of pages.
     :return: The number of the last page. Returns 0 if there is no Actions in this category.
     """
-    start_index = config.fetch_data["start_index"]
-    try:
-        index = int(start_index)
-    except ValueError:
-        logging.error("Bad index in configuration file.\nBad value is " + start_index)
-        index = 49  # arbitrary because it looks like there is a maximum of 50 pages by category on the MP.
-    logging.info("Start index: " + str(index))
-
     url = f"https://github.com/marketplace?category={category}&page=1&type=actions"
 
     session, request = get_request("get_max_page", url)
@@ -203,6 +208,9 @@ def thread_data(pages: list, category: str) -> None:
     """
     global actions_names
 
+    connection = sqlite3.connect("actions_data.db")
+    cursor = connection.cursor()
+
     actions_names_pattern = '<h3 class="h4">.*</h3>'
     actions_names_pattern_compiled = re.compile(actions_names_pattern)
 
@@ -228,12 +236,21 @@ def thread_data(pages: list, category: str) -> None:
                     data = test_link(url)
                     if data:
                         actions_names = numpy.append(actions_names, actions_names_ugly[j])
+                        table_name = category.replace('-', '_')
+                        connection.commit()
                         try:
-                            cursor.execute(f"CREATE TABLE {category} (name text, versions integer)")
+                            cursor.execute(f"CREATE TABLE {table_name} (name text primary key, versions integer)")
                         except sqlite3.OperationalError:
                             pass
-                        finally:
+                        try:
+                            versions = get_versions(data)
+                            cursor.execute(f"INSERT INTO {table_name} VALUES ('{actions_names_ugly[j]}', {versions})")
+                            connection.commit()
+                        except sqlite3.OperationalError:
                             pass
+                        except sqlite3.IntegrityError:
+                            pass
+        connection.close()
 
 
 def format_action_name(ugly_name: str) -> str:
@@ -305,11 +322,26 @@ def test_link(url: str) -> str | None:
     return None
 
 
+def get_versions(data: str) -> int:
+    """
+    Retrieve the number of versions for an Action.
+
+    :param data: The HTML on which retrieve the number of versions.
+    :return: The number of versions.
+    """
+    versions_xpath = '//*[@id="repo-content-pjax-container"]/div/div[3]/div[2]/div/div[2]/div/h2/a/span/@title'
+
+    root = beautiful_html(data)
+    versions = root.xpath(versions_xpath)
+
+    if len(versions) < 1:
+        return 1
+
+    return int(versions[0])
+
+
 if __name__ == "__main__":
     start_time = time.time()
-
-    connection = sqlite3.connect("actions_data.db")
-    cursor = connection.cursor()
 
     """
     Logging config.
@@ -320,6 +352,8 @@ if __name__ == "__main__":
     """
     Starting fetching.
     """
+    logging.info("Starting program")
+
     run = config.run
     if run:
         """
