@@ -4,14 +4,20 @@ This script identify the actions with a valid marketplace page.
 from bs4 import BeautifulSoup
 from html import unescape
 from lxml import html
+from ratelimit import limits, sleep_and_retry
 
 import fetch_data_config as config
 import logging
 import numpy
 import re
 import requests
+import sqlite3
 import threading
 import time
+
+
+LIMIT = config.limit_requests
+T_R = 0
 
 
 def get_categories() -> None:
@@ -23,12 +29,22 @@ def get_categories() -> None:
 
     session, request = get_request("get_categories", url)
 
+    if request:
+        while request.status_code != 200:
+            session.close()
+            session, request = get_request("get_categories", url)
+
+    if not request:
+        logging.error("Not supposed to happen...")
+        exit()
+
     root = beautiful_html(request.text)
     session.close()
 
     result = root.xpath('//*[@id="js-pjax-container"]/div[2]/div[1]/nav/ul[2]/li/a/text()')
 
     pattern = re.compile(r'[^a-zA-Z ]')
+
     for li in result:
         category = re.sub(re.compile(r" {2,}"), '', re.sub(pattern, '', li).lower()).replace(' ', '-')
         save_categories.append(category)
@@ -37,47 +53,37 @@ def get_categories() -> None:
     numpy.save("categories.npy", save_categories)
 
 
+@sleep_and_retry
+@limits(calls=LIMIT, period=60.0)
 def get_request(function: str, url: str) -> tuple[requests.Session, requests.Response] | tuple[None, None]:
     """
-    Create a session and get a webpage with a status code of 200.
+    Create a session and get a webpage.
 
     :param function: The name of the calling function.
     :param url: The url to connect to.
-    :return: The session and the response with status code 200. If error 404, returns (None, None).
+    :return: The session and the response. If error 404, returns (None, None).
     """
-    session = requests.Session()
-    limit_requests(function)
-    request = session.get(url)
+    global T_R
 
-    while request.status_code != 200:
+    session = requests.Session()
+    request = session.get(url)
+    T_R += 1
+
+    logging.info(f"request {T_R}")
+
+    if request.status_code != 200:
         if request.status_code == 429:
+            logging.info(">" + str(T_R))
             logging.info(f"{function} - sleeping " + str(int(request.headers["Retry-After"]) + 0.3) + " seconds")
             time.sleep(int(request.headers["Retry-After"]) + 0.3)
             logging.info(f"{function} - sleeping finished")
         if request.status_code == 404:
             session.close()
+            logging.info(url)
             return None, None
-        limit_requests(function)
-        request = session.get(url)
+        T_R += 1
 
     return session, request
-
-
-def limit_requests(function: str) -> None:
-    """
-    Limit the number of requests made every minute.
-
-    :param function: The name of the calling function (in get_request).
-    """
-    global number_of_requests
-
-    number_of_requests -= 1
-    if number_of_requests < 1:
-        logging.info(f"{function} is sleeping for 60 seconds")
-        time.sleep(60)
-        logging.info(f"{function} stopped sleeping")
-        if number_of_requests < 1:
-            number_of_requests = config.limit_requests
 
 
 def beautiful_html(request_text: str) -> html.document_fromstring:
@@ -94,13 +100,14 @@ def beautiful_html(request_text: str) -> html.document_fromstring:
     return root
 
 
-def fetch_data() -> None:
+def fetch_data_multithread() -> None:
     """
     Retrieve information about each Action.
     """
     categories = numpy.load("categories.npy")
 
     for category in categories:
+
         max_page_number = get_max_page(category)
 
         number_of_threads = get_number_of_threads(max_page_number)
@@ -137,6 +144,11 @@ def get_max_page(category: str) -> int:
 
     session, request = get_request("get_max_page", url)
 
+    if request:
+        while request.status_code != 200:
+            session.close()
+            session, request = get_request("get_categories", url)
+
     page_xpath_0 = '//*[@id="js-pjax-container"]/div[2]/div[1]/div[3]/div/a[not(@class="next_page")]'
     page_xpath_1 = '//*[@id="js-pjax-container"]/div[2]/div[1]/div[3]/div/em'
     page_xpath = f'{page_xpath_0} | {page_xpath_1}'
@@ -151,6 +163,7 @@ def get_max_page(category: str) -> int:
         logging.info("Number of pages: " + str(max_page))
         return int(max_page)
     else:
+        session.close()
         logging.info("Number of pages: " + str(0))
         return 0
 
@@ -197,6 +210,11 @@ def thread_data(pages: list, category: str) -> None:
         url = f"https://github.com/marketplace?category={category}&page={page}&query=&type=actions"
         session, request = get_request("fetch_names", url)
 
+        if request:
+            while request.status_code != 200:
+                session.close()
+                session, request = get_request("get_categories", url)
+
         actions_names_ugly = actions_names_pattern_compiled.findall(request.text)
         session.close()
 
@@ -207,8 +225,15 @@ def thread_data(pages: list, category: str) -> None:
             if actions_names_ugly[j] not in actions_names:
                 mp_page, url = test_mp_page(actions_names_ugly[j])
                 if mp_page:
-                    if test_link(url):
+                    data = test_link(url)
+                    if data:
                         actions_names = numpy.append(actions_names, actions_names_ugly[j])
+                        try:
+                            cursor.execute(f"CREATE TABLE {category} (name text, versions integer)")
+                        except sqlite3.OperationalError:
+                            pass
+                        finally:
+                            pass
 
 
 def format_action_name(ugly_name: str) -> str:
@@ -246,6 +271,11 @@ def test_mp_page(name: str) -> tuple[bool, str | None]:
     session, request = get_request("test_name", url)
 
     if request:
+        while request.status_code != 200:
+            session.close()
+            session, request = get_request("get_categories", url)
+
+    if request:
         session.close()
         root = beautiful_html(request.text)
         url = root.xpath('//*[@id="js-pjax-container"]/div/div/div[3]/aside/div[4]/a[1]/@href')
@@ -255,25 +285,31 @@ def test_mp_page(name: str) -> tuple[bool, str | None]:
     return False, None
 
 
-def test_link(url: str) -> bool:
+def test_link(url: str) -> str | None:
     """
-    Test if a link is valid.
+    Test if a link is valid and return it's content.
 
     :param url: The URL to check.
-    :return: True if the URL is accessible. Otherwise False.
+    :return: The content if the URL is accessible. Otherwise None.
     """
     session, request = get_request("test_link", url)
 
     if request:
+        while request.status_code != 200:
+            session.close()
+            session, request = get_request("get_categories", url)
+
+    if request:
         session.close()
-        return True
-    return False
+        return request.text
+    return None
 
 
 if __name__ == "__main__":
     start_time = time.time()
 
-    number_of_requests = config.limit_requests
+    connection = sqlite3.connect("actions_data.db")
+    cursor = connection.cursor()
 
     """
     Logging config.
@@ -300,7 +336,7 @@ if __name__ == "__main__":
         if run_fetch_data:
             actions_names = []
 
-            fetch_data()
+            fetch_data_multithread()
 
             actions_names = numpy.array(actions_names)
             numpy.save("names_of_actions", actions_names)
