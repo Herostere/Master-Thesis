@@ -222,11 +222,8 @@ def thread_data(pages: list, category: str) -> None:
         for j in range(0, len(actions_names_ugly)):
             pretty_name = format_action_name(actions_names_ugly[j])
 
-<<<<<<< Updated upstream
             if pretty_name not in actions_names:  # and pretty_name not in already_fetched:
-=======
-            if pretty_name not in actions_names and pretty_name not in already_fetched:
->>>>>>> Stashed changes
+
                 mp_page, url = test_mp_page(pretty_name)
                 if mp_page:
                     data = test_link(url)
