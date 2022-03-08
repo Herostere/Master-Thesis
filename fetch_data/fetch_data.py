@@ -64,22 +64,22 @@ def get_request(function: str, url: str) -> requests.Response | None:
     :return: The response. If error 404, returns None.
     """
     global T_R
+    global session
 
     while True:
         try:
             request = session.get(url)
-            if "security" in url:
-                print(request.status_code)
             break
         except requests.ConnectionError:
+            session.close()
+            session = requests.Session()
+            session.cookies['user_session'] = os.getenv("CONNECTION_COOKIE")
             return get_request(function, url)
     T_R += 1
 
     logging.info(f"request {T_R}")
 
     if request.status_code != 200:
-        if "security" in url:
-            print(request.status_code)
         if request.status_code == 429:
             logging.info(">" + str(T_R))
             logging.info(f"{function} - sleeping " + str(int(request.headers["Retry-After"]) + 0.3) + " seconds")
@@ -148,13 +148,7 @@ def get_max_page(category: str) -> int:
     """
     url = f"https://github.com/marketplace?category={category}&page=1&type=actions"
 
-    if category == "security":
-        print("here")
-
     request = get_request("get_max_page", url)
-
-    if category == "security":
-        print("here2")
 
     page_xpath_0 = '//*[@id="js-pjax-container"]/div[2]/div[1]/div[3]/div/a[not(@class="next_page")]'
     page_xpath_1 = '//*[@id="js-pjax-container"]/div[2]/div[1]/div[3]/div/em'
@@ -228,7 +222,7 @@ def thread_data(pages: list, category: str) -> None:
         for j in range(0, len(actions_names_ugly)):
             pretty_name = format_action_name(actions_names_ugly[j])
 
-            if pretty_name not in actions_names and pretty_name not in already_fetched:
+            if pretty_name not in actions_names:  # and pretty_name not in already_fetched:
                 mp_page, url = test_mp_page(pretty_name)
                 if mp_page:
                     data = test_link(url)
@@ -321,6 +315,11 @@ def get_versions(data: str) -> int:
 
     if len(versions) < 1:
         return 1
+
+    try:
+        int(versions[0])
+    except ValueError:
+        print(versions)
 
     return int(versions[0])
 
