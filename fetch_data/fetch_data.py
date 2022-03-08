@@ -12,6 +12,7 @@ import numpy
 import os
 import re
 import requests
+import requests.adapters
 import sqlite3
 import threading
 import time
@@ -29,19 +30,13 @@ def get_categories() -> None:
     save_categories = []
     url = "https://github.com/marketplace?type=actions"
 
-    session, request = get_request("get_categories", url)
-
-    if request:
-        while request.status_code != 200:
-            session.close()
-            session, request = get_request("get_categories", url)
+    request = get_request("get_categories", url)
 
     if not request:
         logging.error("Not supposed to happen...")
         exit()
 
     root = beautiful_html(request.text)
-    session.close()
 
     result = root.xpath('//*[@id="js-pjax-container"]/div[2]/div[1]/nav/ul[2]/li/a/text()')
 
@@ -54,26 +49,27 @@ def get_categories() -> None:
     logging.info(f"Categories: \n{save_categories}")
 
     save_categories = numpy.array(save_categories)
+
     numpy.save("categories.npy", save_categories)
 
 
 @sleep_and_retry
 @limits(calls=LIMIT, period=60.0)
-def get_request(function: str, url: str) -> tuple[requests.Session, requests.Response] | tuple[None, None]:
+def get_request(function: str, url: str) -> requests.Response | None:
     """
-    Create a session and get a webpage.
+    Get a webpage.
 
     :param function: The name of the calling function.
     :param url: The url to connect to.
-    :return: The session and the response. If error 404, returns (None, None).
+    :return: The response. If error 404, returns None.
     """
     global T_R
 
-    session = requests.Session()
-    session.cookies['user_session'] = os.getenv("CONNECTION_COOKIE")
     while True:
         try:
             request = session.get(url)
+            if "security" in url:
+                print(request.status_code)
             break
         except requests.ConnectionError:
             return get_request(function, url)
@@ -82,18 +78,20 @@ def get_request(function: str, url: str) -> tuple[requests.Session, requests.Res
     logging.info(f"request {T_R}")
 
     if request.status_code != 200:
+        if "security" in url:
+            print(request.status_code)
         if request.status_code == 429:
             logging.info(">" + str(T_R))
             logging.info(f"{function} - sleeping " + str(int(request.headers["Retry-After"]) + 0.3) + " seconds")
             time.sleep(int(request.headers["Retry-After"]) + 0.3)
             logging.info(f"{function} - sleeping finished")
+            return get_request(function, url)
         if request.status_code == 404:
-            session.close()
             logging.info(url)
-            return None, None
+            return None
         T_R += 1
 
-    return session, request
+    return request
 
 
 def beautiful_html(request_text: str) -> html.document_fromstring:
@@ -125,6 +123,9 @@ def fetch_data_multithread() -> None:
 
         number_of_threads = get_number_of_threads(max_page_number)
 
+        adapter = requests.adapters.HTTPAdapter(pool_connections=number_of_threads, pool_maxsize=number_of_threads)
+        session.mount("https://", adapter)
+
         threads = []
 
         for i in range(0, number_of_threads):
@@ -147,12 +148,13 @@ def get_max_page(category: str) -> int:
     """
     url = f"https://github.com/marketplace?category={category}&page=1&type=actions"
 
-    session, request = get_request("get_max_page", url)
+    if category == "security":
+        print("here")
 
-    if request:
-        while request.status_code != 200:
-            session.close()
-            session, request = get_request("get_categories", url)
+    request = get_request("get_max_page", url)
+
+    if category == "security":
+        print("here2")
 
     page_xpath_0 = '//*[@id="js-pjax-container"]/div[2]/div[1]/div[3]/div/a[not(@class="next_page")]'
     page_xpath_1 = '//*[@id="js-pjax-container"]/div[2]/div[1]/div[3]/div/em'
@@ -164,11 +166,9 @@ def get_max_page(category: str) -> int:
 
     if last_index > 0:
         max_page = re.sub(re.compile(r"\s{2,}"), '', numbers[last_index].text)
-        session.close()
         logging.info("Number of pages: " + str(max_page))
         return int(max_page)
     else:
-        session.close()
         logging.info("Number of pages: " + str(0))
         return 0
 
@@ -214,29 +214,26 @@ def thread_data(pages: list, category: str) -> None:
     actions_names_pattern = '<h3 class="h4">.*</h3>'
     actions_names_pattern_compiled = re.compile(actions_names_pattern)
 
+    table_name = category.replace('-', '_')
+    already_fetched = cursor.execute(f"SELECT name FROM {table_name}").fetchall()
+
     for page in pages:
         url = f"https://github.com/marketplace?category={category}&page={page}&query=&type=actions"
-        session, request = get_request("fetch_names", url)
 
-        if request:
-            while request.status_code != 200:
-                session.close()
-                session, request = get_request("get_categories", url)
+        request = get_request("fetch_names", url)
 
         actions_names_ugly = actions_names_pattern_compiled.findall(request.text)
-        session.close()
 
         # Below is used to format the name as in the marketplace urls.
         for j in range(0, len(actions_names_ugly)):
-            actions_names_ugly[j] = format_action_name(actions_names_ugly[j])
+            pretty_name = format_action_name(actions_names_ugly[j])
 
-            if actions_names_ugly[j] not in actions_names:
-                mp_page, url = test_mp_page(actions_names_ugly[j])
+            if pretty_name not in actions_names:
+                mp_page, url = test_mp_page(pretty_name)
                 if mp_page:
                     data = test_link(url)
                     if data:
-                        actions_names = numpy.append(actions_names, actions_names_ugly[j])
-                        table_name = category.replace('-', '_')
+                        actions_names = numpy.append(actions_names, pretty_name)
                         connection.commit()
                         try:
                             cursor.execute(f"CREATE TABLE {table_name} (name text primary key, versions integer)")
@@ -244,7 +241,7 @@ def thread_data(pages: list, category: str) -> None:
                             pass
                         try:
                             versions = get_versions(data)
-                            cursor.execute(f"INSERT INTO {table_name} VALUES ('{actions_names_ugly[j]}', {versions})")
+                            cursor.execute(f"INSERT INTO {table_name} VALUES ('{pretty_name}', {versions})")
                             connection.commit()
                         except sqlite3.OperationalError:
                             pass
@@ -285,15 +282,9 @@ def test_mp_page(name: str) -> tuple[bool, str | None]:
     """
     url = f"https://github.com/marketplace/actions/{name}"
 
-    session, request = get_request("test_name", url)
+    request = get_request("test_name", url)
 
     if request:
-        while request.status_code != 200:
-            session.close()
-            session, request = get_request("get_categories", url)
-
-    if request:
-        session.close()
         root = beautiful_html(request.text)
         url = root.xpath('//*[@id="js-pjax-container"]/div/div/div[3]/aside/div[4]/a[1]/@href')
         if url:
@@ -309,15 +300,9 @@ def test_link(url: str) -> str | None:
     :param url: The URL to check.
     :return: The content if the URL is accessible. Otherwise None.
     """
-    session, request = get_request("test_link", url)
+    request = get_request("test_link", url)
 
     if request:
-        while request.status_code != 200:
-            session.close()
-            session, request = get_request("get_categories", url)
-
-    if request:
-        session.close()
         return request.text
     return None
 
@@ -359,6 +344,9 @@ if __name__ == "__main__":
         """
         Fetch the categories.
         """
+        session = requests.Session()
+        session.cookies['user_session'] = os.getenv("CONNECTION_COOKIE")
+
         run_categories = config.get_categories['run']
         if run_categories:
             get_categories()
@@ -377,5 +365,7 @@ if __name__ == "__main__":
             logging.info(f"Number of accessible actions: {actions_names.shape[0]}")
         else:
             logging.info(f"Number of accessible actions: N/A")
+
+        session.close()
 
     logging.info(f"--- {time.time() - start_time} seconds ---")
