@@ -215,7 +215,7 @@ def thread_data(pages: list, category: str) -> None:
     actions_names_pattern_compiled = re.compile(actions_names_pattern)
 
     table_name = category.replace('-', '_')
-    already_fetched = cursor.execute(f"SELECT name FROM {table_name}").fetchall()
+    already_fetched = [name[0] for name in cursor.execute(f"SELECT name FROM {table_name}").fetchall()]
 
     for page in pages:
         url = f"https://github.com/marketplace?category={category}&page={page}&query=&type=actions"
@@ -228,7 +228,7 @@ def thread_data(pages: list, category: str) -> None:
         for j in range(0, len(actions_names_ugly)):
             pretty_name = format_action_name(actions_names_ugly[j])
 
-            if pretty_name not in actions_names:
+            if pretty_name not in actions_names and pretty_name not in already_fetched:
                 mp_page, url = test_mp_page(pretty_name)
                 if mp_page:
                     data = test_link(url)
