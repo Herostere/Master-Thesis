@@ -50,15 +50,6 @@ def get_categories() -> None:
 
     save_categories = numpy.array(save_categories)
 
-    """
-    DELETE
-    """
-    save_categories = ['dependency-management']
-    save_categories = numpy.array(save_categories)
-    """
-    ======
-    """
-
     numpy.save("categories.npy", save_categories)
 
 
