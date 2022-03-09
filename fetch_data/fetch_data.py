@@ -344,7 +344,7 @@ def get_versions(data: str) -> int:
                     versions[0] = versions.replace(',', '')
 
             return int(versions[0])
-        
+
     return 1
 
 
