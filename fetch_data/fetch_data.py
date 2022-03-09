@@ -64,22 +64,22 @@ def get_request(function: str, url: str) -> requests.Response | None:
     :return: The response. If error 404, returns None.
     """
     global T_R
+    global session
 
     while True:
         try:
             request = session.get(url)
-            if "security" in url:
-                print(request.status_code)
             break
         except requests.ConnectionError:
+            session.close()
+            session = requests.Session()
+            session.cookies['user_session'] = os.getenv("CONNECTION_COOKIE")
             return get_request(function, url)
     T_R += 1
 
     logging.info(f"request {T_R}")
 
     if request.status_code != 200:
-        if "security" in url:
-            print(request.status_code)
         if request.status_code == 429:
             logging.info(">" + str(T_R))
             logging.info(f"{function} - sleeping " + str(int(request.headers["Retry-After"]) + 0.3) + " seconds")
@@ -87,7 +87,6 @@ def get_request(function: str, url: str) -> requests.Response | None:
             logging.info(f"{function} - sleeping finished")
             return get_request(function, url)
         if request.status_code == 404:
-            logging.info(url)
             return None
         T_R += 1
 
@@ -148,13 +147,7 @@ def get_max_page(category: str) -> int:
     """
     url = f"https://github.com/marketplace?category={category}&page=1&type=actions"
 
-    if category == "security":
-        print("here")
-
     request = get_request("get_max_page", url)
-
-    if category == "security":
-        print("here2")
 
     page_xpath_0 = '//*[@id="js-pjax-container"]/div[2]/div[1]/div[3]/div/a[not(@class="next_page")]'
     page_xpath_1 = '//*[@id="js-pjax-container"]/div[2]/div[1]/div[3]/div/em'
@@ -206,8 +199,6 @@ def thread_data(pages: list, category: str) -> None:
     :param pages: The list of pages on which fetch the actions names.
     :param category: The category of GitHub Actions.
     """
-    global actions_names
-
     connection = sqlite3.connect("actions_data.db")
     cursor = connection.cursor()
 
@@ -215,7 +206,7 @@ def thread_data(pages: list, category: str) -> None:
     actions_names_pattern_compiled = re.compile(actions_names_pattern)
 
     table_name = category.replace('-', '_')
-    already_fetched = cursor.execute(f"SELECT name FROM {table_name}").fetchall()
+    already_fetched = [name[0] for name in cursor.execute(f"SELECT name FROM {table_name}").fetchall()]
 
     for page in pages:
         url = f"https://github.com/marketplace?category={category}&page={page}&query=&type=actions"
@@ -228,12 +219,12 @@ def thread_data(pages: list, category: str) -> None:
         for j in range(0, len(actions_names_ugly)):
             pretty_name = format_action_name(actions_names_ugly[j])
 
-            if pretty_name not in actions_names:
+            if pretty_name not in already_fetched:
+
                 mp_page, url = test_mp_page(pretty_name)
                 if mp_page:
                     data = test_link(url)
                     if data:
-                        actions_names = numpy.append(actions_names, pretty_name)
                         connection.commit()
                         try:
                             cursor.execute(f"CREATE TABLE {table_name} (name text primary key, versions integer)")
@@ -322,6 +313,11 @@ def get_versions(data: str) -> int:
     if len(versions) < 1:
         return 1
 
+    try:
+        int(versions[0])
+    except ValueError:
+        print(versions)
+
     return int(versions[0])
 
 
@@ -356,15 +352,25 @@ if __name__ == "__main__":
         """
         run_fetch_data = config.fetch_data['run']
         if run_fetch_data:
-            actions_names = []
-
             fetch_data_multithread()
 
-            actions_names = numpy.array(actions_names)
-            numpy.save("names_of_actions", actions_names)
-            logging.info(f"Number of accessible actions: {actions_names.shape[0]}")
+            number_of_actions = 0
+
+            connection_ = sqlite3.connect("actions_data.db")
+            cursor_ = connection_.cursor()
+
+            categories_ = numpy.load("categories.npy")
+            for category_ in categories_:
+                sql_command = f"SELECT name FROM sqlite_master WHERE type = 'table' AND name='{category_}'"
+                if cursor_.execute(sql_command).fetchall():
+                    table_name_ = category_.replace("-", "_")
+                    number_of_actions += len(cursor_.execute(f"SELECT name FROM {table_name_}").fetchall())
+
+            connection_.close()
+
+            logging.info(f"Number of fetched actions: {number_of_actions}")
         else:
-            logging.info(f"Number of accessible actions: N/A")
+            logging.info(f"Number of fetched actions: N/A")
 
         session.close()
 
