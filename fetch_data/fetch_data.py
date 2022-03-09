@@ -199,8 +199,6 @@ def thread_data(pages: list, category: str) -> None:
     :param pages: The list of pages on which fetch the actions names.
     :param category: The category of GitHub Actions.
     """
-    global actions_names
-
     connection = sqlite3.connect("actions_data.db")
     cursor = connection.cursor()
 
@@ -221,13 +219,12 @@ def thread_data(pages: list, category: str) -> None:
         for j in range(0, len(actions_names_ugly)):
             pretty_name = format_action_name(actions_names_ugly[j])
 
-            if pretty_name not in actions_names and pretty_name not in already_fetched:
+            if pretty_name not in already_fetched:
 
                 mp_page, url = test_mp_page(pretty_name)
                 if mp_page:
                     data = test_link(url)
                     if data:
-                        actions_names = numpy.append(actions_names, pretty_name)
                         connection.commit()
                         try:
                             cursor.execute(f"CREATE TABLE {table_name} (name text primary key, versions integer)")
@@ -355,15 +352,25 @@ if __name__ == "__main__":
         """
         run_fetch_data = config.fetch_data['run']
         if run_fetch_data:
-            actions_names = []
-
             fetch_data_multithread()
 
-            actions_names = numpy.array(actions_names)
-            numpy.save("names_of_actions", actions_names)
-            logging.info(f"Number of accessible actions: {actions_names.shape[0]}")
+            number_of_actions = 0
+
+            connection_ = sqlite3.connect("actions_data.db")
+            cursor_ = connection_.cursor()
+
+            categories_ = numpy.load("categories.npy")
+            for category_ in categories_:
+                sql_command = f"SELECT name FROM sqlite_master WHERE type = 'table' AND name='{category_}'"
+                if cursor_.execute(sql_command).fetchall():
+                    table_name_ = category_.replace("-", "_")
+                    number_of_actions += len(cursor_.execute(f"SELECT name FROM {table_name_}").fetchall())
+
+            connection_.close()
+
+            logging.info(f"Number of fetched actions: {number_of_actions}")
         else:
-            logging.info(f"Number of accessible actions: N/A")
+            logging.info(f"Number of fetched actions: N/A")
 
         session.close()
 
