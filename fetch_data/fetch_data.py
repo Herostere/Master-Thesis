@@ -220,7 +220,6 @@ def thread_data(pages: list, category: str) -> None:
             pretty_name = format_action_name(actions_names_ugly[j])
 
             if pretty_name not in already_fetched:
-
                 mp_page, url = test_mp_page(pretty_name)
                 if mp_page:
                     data = test_link(url)
