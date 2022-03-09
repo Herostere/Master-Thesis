@@ -50,6 +50,15 @@ def get_categories() -> None:
 
     save_categories = numpy.array(save_categories)
 
+    """
+    TO DELETE
+    """
+    save_categories = ['security']
+    save_categories = numpy.array(save_categories)
+    """
+    --------------------------------------------------------------------------------------------------------------------
+    """
+
     numpy.save("categories.npy", save_categories)
 
 
@@ -206,7 +215,12 @@ def thread_data(pages: list, category: str) -> None:
     actions_names_pattern_compiled = re.compile(actions_names_pattern)
 
     table_name = category.replace('-', '_')
-    already_fetched = [name[0] for name in cursor.execute(f"SELECT name FROM {table_name}").fetchall()]
+
+    sql_command = f"SELECT name FROM sqlite_master WHERE type = 'table' AND name='{table_name}'"
+    if cursor.execute(sql_command).fetchall():
+        already_fetched = [name[0] for name in cursor.execute(f"SELECT name FROM {table_name}").fetchall()]
+    else:
+        already_fetched = []
 
     for page in pages:
         url = f"https://github.com/marketplace?category={category}&page={page}&query=&type=actions"
@@ -226,12 +240,14 @@ def thread_data(pages: list, category: str) -> None:
                     if data:
                         connection.commit()
                         try:
-                            cursor.execute(f"CREATE TABLE {table_name} (name text primary key, versions integer)")
+                            table_format = "name TEXT PRIMARY KEY, versions INTEGER, official INTEGER"
+                            cursor.execute(f"CREATE TABLE {table_name} ({table_format})")
                         except sqlite3.OperationalError:
                             pass
                         try:
                             versions = get_versions(data)
-                            cursor.execute(f"INSERT INTO {table_name} VALUES ('{pretty_name}', {versions})")
+                            official = get_official(url)
+                            cursor.execute(f"INSERT INTO {table_name} VALUES ('{pretty_name}', {versions}, {official})")
                             connection.commit()
                         except sqlite3.OperationalError:
                             pass
@@ -304,20 +320,44 @@ def get_versions(data: str) -> int:
     :param data: The HTML on which retrieve the number of versions.
     :return: The number of versions.
     """
-    versions_xpath = '//*[@id="repo-content-pjax-container"]/div/div[3]/div[2]/div/div[2]/div/h2/a/span/@title'
+    releases_xpath = '//*[@id="repo-content-pjax-container"]/div/div[3]/div[2]/div/div[2]/div/h2/a/text()'
+    releases_number_xpath = '//*[@id="repo-content-pjax-container"]/div/div[3]/div[2]/div/div[2]/div/h2/a/span/@title'
 
     root = beautiful_html(data)
-    versions = root.xpath(versions_xpath)
 
-    if len(versions) < 1:
+    pattern = re.compile(r'\s{2,}')
+
+    if len(root.xpath(releases_xpath)) > 0:
+        is_releases = "Releases" == re.sub(pattern, '', root.xpath(releases_xpath)[0])
+
+        if is_releases:
+            versions = root.xpath(releases_number_xpath)
+
+            if len(versions) < 1:
+                return 1
+
+            while True:
+                try:
+                    int(versions[0])
+                    break
+                except ValueError:
+                    versions[0] = versions.replace(',', '')
+
+            return int(versions[0])
+        
+    return 1
+
+
+def get_official(url: str) -> int:
+    """
+    Determine if it is an "official" GitHub action.
+
+    :param url: The URL used to determine if it is an Action developed by GitHub or not.
+    :return: 1 if it is a GitHub Action and 0 otherwise.
+    """
+    if "/actions/" in url:
         return 1
-
-    try:
-        int(versions[0])
-    except ValueError:
-        print(versions)
-
-    return int(versions[0])
+    return 0
 
 
 if __name__ == "__main__":
@@ -360,8 +400,8 @@ if __name__ == "__main__":
 
             categories_ = numpy.load("categories.npy")
             for category_ in categories_:
-                sql_command = f"SELECT name FROM sqlite_master WHERE type = 'table' AND name='{category_}'"
-                if cursor_.execute(sql_command).fetchall():
+                sql_command_ = f"SELECT name FROM sqlite_master WHERE type = 'table' AND name='{category_}'"
+                if cursor_.execute(sql_command_).fetchall():
                     table_name_ = category_.replace("-", "_")
                     number_of_actions += len(cursor_.execute(f"SELECT name FROM {table_name_}").fetchall())
 
