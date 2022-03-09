@@ -50,6 +50,15 @@ def get_categories() -> None:
 
     save_categories = numpy.array(save_categories)
 
+    """
+    DELETE
+    """
+    save_categories = ['dependency-management']
+    save_categories = numpy.array(save_categories)
+    """
+    ======
+    """
+
     numpy.save("categories.npy", save_categories)
 
 
@@ -229,7 +238,6 @@ def thread_data(pages: list, category: str) -> None:
                 if mp_page:
                     data = test_link(url)
                     if data:
-                        connection.commit()
                         try:
                             table_format = "name TEXT PRIMARY KEY, versions INTEGER, official INTEGER"
                             cursor.execute(f"CREATE TABLE {table_name} ({table_format})")
@@ -390,9 +398,9 @@ if __name__ == "__main__":
 
             categories_ = numpy.load("categories.npy")
             for category_ in categories_:
-                sql_command_ = f"SELECT name FROM sqlite_master WHERE type = 'table' AND name='{category_}'"
+                table_name_ = category_.replace("-", "_")
+                sql_command_ = f"SELECT name FROM sqlite_master WHERE type = 'table' AND name='{table_name_}'"
                 if cursor_.execute(sql_command_).fetchall():
-                    table_name_ = category_.replace("-", "_")
                     number_of_actions += len(cursor_.execute(f"SELECT name FROM {table_name_}").fetchall())
 
             connection_.close()
