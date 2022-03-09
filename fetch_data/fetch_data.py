@@ -87,7 +87,6 @@ def get_request(function: str, url: str) -> requests.Response | None:
             logging.info(f"{function} - sleeping finished")
             return get_request(function, url)
         if request.status_code == 404:
-            logging.info(url)
             return None
         T_R += 1
 
@@ -222,7 +221,7 @@ def thread_data(pages: list, category: str) -> None:
         for j in range(0, len(actions_names_ugly)):
             pretty_name = format_action_name(actions_names_ugly[j])
 
-            if pretty_name not in actions_names:  # and pretty_name not in already_fetched:
+            if pretty_name not in actions_names and pretty_name not in already_fetched:
 
                 mp_page, url = test_mp_page(pretty_name)
                 if mp_page:
