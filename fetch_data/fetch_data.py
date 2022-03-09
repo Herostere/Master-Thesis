@@ -283,7 +283,7 @@ def test_mp_page(name: str) -> tuple[bool, str | None]:
 
     if request:
         root = beautiful_html(request.text)
-        url = root.xpath('//*[@id="js-pjax-container"]/div/div/div[3]/aside/div[4]/a[1]/@href')
+        url = root.xpath('//h5[text()="\n          Links\n         "]/following-sibling::a[1]/@href')
         if url:
             return True, url[0]
         return False, None
