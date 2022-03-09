@@ -331,6 +331,7 @@ def get_versions(data: str) -> int:
                     int(versions[0])
                     break
                 except ValueError:
+                    logging.info(f"WARNING!! get_versions! {versions[0]}")
                     versions[0] = versions.replace(',', '')
 
             return int(versions[0])
