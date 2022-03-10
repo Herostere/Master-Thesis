@@ -7,16 +7,22 @@ from lxml import html
 from ratelimit import limits, sleep_and_retry
 
 import fetch_data_config as config
+import json
 import logging
 import numpy
 import os
 import re
 import requests
 import requests.adapters
-import sqlite3
 import threading
 import time
 
+
+try:
+    with open("actions_data.json", 'r') as f:
+        DATA = json.load(f)
+except FileNotFoundError:
+    DATA = json.loads('{}')
 
 LIMIT = config.limit_requests
 T_R = 0
@@ -199,19 +205,8 @@ def thread_data(pages: list, category: str) -> None:
     :param pages: The list of pages on which fetch the actions names.
     :param category: The category of GitHub Actions.
     """
-    connection = sqlite3.connect("actions_data.db")
-    cursor = connection.cursor()
-
     actions_names_pattern = '<h3 class="h4">.*</h3>'
     actions_names_pattern_compiled = re.compile(actions_names_pattern)
-
-    table_name = category.replace('-', '_')
-
-    sql_command = f"SELECT name FROM sqlite_master WHERE type = 'table' AND name='{table_name}'"
-    if cursor.execute(sql_command).fetchall():
-        already_fetched = [name[0] for name in cursor.execute(f"SELECT name FROM {table_name}").fetchall()]
-    else:
-        already_fetched = []
 
     for page in pages:
         url = f"https://github.com/marketplace?category={category}&page={page}&query=&type=actions"
@@ -223,27 +218,18 @@ def thread_data(pages: list, category: str) -> None:
         # Below is used to format the name as in the marketplace urls.
         for j in range(0, len(actions_names_ugly)):
             pretty_name = format_action_name(actions_names_ugly[j])
-
+            already_fetched = DATA.keys()
             if pretty_name not in already_fetched:
                 mp_page, url = test_mp_page(pretty_name)
                 if mp_page:
                     data = test_link(url)
                     if data:
-                        try:
-                            table_format = "name TEXT PRIMARY KEY, versions INTEGER, official INTEGER"
-                            cursor.execute(f"CREATE TABLE {table_name} ({table_format})")
-                        except sqlite3.OperationalError:
-                            pass
-                        try:
-                            versions = get_versions(data)
-                            official = get_official(url)
-                            cursor.execute(f"INSERT INTO {table_name} VALUES ('{pretty_name}', {versions}, {official})")
-                            connection.commit()
-                        except sqlite3.OperationalError:
-                            pass
-                        except sqlite3.IntegrityError:
-                            pass
-        connection.close()
+                        versions = get_versions(data)
+                        official = get_official(url)
+                        DATA[pretty_name] = {}
+                        DATA[pretty_name]['category'] = category
+                        DATA[pretty_name]['versions'] = versions
+                        DATA[pretty_name]['official'] = official
 
 
 def format_action_name(ugly_name: str) -> str:
@@ -338,16 +324,14 @@ def get_versions(data: str) -> int:
     return 1
 
 
-def get_official(url: str) -> int:
+def get_official(url: str) -> bool:
     """
     Determine if it is an "official" GitHub action.
 
     :param url: The URL used to determine if it is an Action developed by GitHub or not.
-    :return: 1 if it is a GitHub Action and 0 otherwise.
+    :return: True if it is a GitHub Action and False otherwise.
     """
-    if "/actions/" in url:
-        return 1
-    return 0
+    return "/actions/" in url
 
 
 if __name__ == "__main__":
@@ -383,19 +367,10 @@ if __name__ == "__main__":
         if run_fetch_data:
             fetch_data_multithread()
 
-            number_of_actions = 0
+            with open("actions_data.json", 'w') as f:
+                json.dump(DATA, f, sort_keys=True, indent=4)
 
-            connection_ = sqlite3.connect("actions_data.db")
-            cursor_ = connection_.cursor()
-
-            categories_ = numpy.load("categories.npy")
-            for category_ in categories_:
-                table_name_ = category_.replace("-", "_")
-                sql_command_ = f"SELECT name FROM sqlite_master WHERE type = 'table' AND name='{table_name_}'"
-                if cursor_.execute(sql_command_).fetchall():
-                    number_of_actions += len(cursor_.execute(f"SELECT name FROM {table_name_}").fetchall())
-
-            connection_.close()
+            number_of_actions = len(DATA.keys())
 
             logging.info(f"Number of fetched actions: {number_of_actions}")
         else:
