@@ -226,12 +226,14 @@ def thread_data(pages: list, category: str) -> None:
                     if data:
                         official = get_official(url)
                         owner = get_owner(url)
+                        repo_name = get_repo_name(url)
                         versions = get_versions(data)
 
                         DATA[pretty_name] = {}
                         DATA[pretty_name]['category'] = category
                         DATA[pretty_name]['official'] = official
                         DATA[pretty_name]['owner'] = owner
+                        DATA[pretty_name]['repository'] = repo_name
                         DATA[pretty_name]['versions'] = versions
 
 
@@ -292,6 +294,36 @@ def test_link(url: str) -> str | None:
     return None
 
 
+def get_official(url: str) -> bool:
+    """
+    Determine if it is an "official" GitHub action.
+
+    :param url: The URL used to determine if it is an Action developed by GitHub or not.
+    :return: True if it is a GitHub Action and False otherwise.
+    """
+    return "/actions/" in url
+
+
+def get_owner(url: str) -> str:
+    """
+    Get the owner of a repo.
+
+    :param url: The URL on which the owner will be retrieved.
+    :return: The owner of the repo.
+    """
+    return url.split("https://github.com/")[1].split("/")[0]
+
+
+def get_repo_name(url: str) -> str:
+    """
+    Get the name of the repo.
+
+    :param url: The URL on which the name of the repo will be retrieved.
+    :return: The name of the repo.
+    """
+    return url.split('https://github.com/')[1].split('/')[1]
+
+
 def get_versions(data: str) -> int:
     """
     Retrieve the number of versions for an Action.
@@ -325,26 +357,6 @@ def get_versions(data: str) -> int:
 
             return int(versions[0])
     return 1
-
-
-def get_official(url: str) -> bool:
-    """
-    Determine if it is an "official" GitHub action.
-
-    :param url: The URL used to determine if it is an Action developed by GitHub or not.
-    :return: True if it is a GitHub Action and False otherwise.
-    """
-    return "/actions/" in url
-
-
-def get_owner(url: str) -> str:
-    """
-    Get the owner of a repo.
-
-    :param url: The URL on which the owner will be retrieved.
-    :return: The owner of the repo.
-    """
-    return url.split("https://github.com/")[1].split("/")[0]
 
 
 if __name__ == "__main__":
