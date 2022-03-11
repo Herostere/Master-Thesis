@@ -224,12 +224,15 @@ def thread_data(pages: list, category: str) -> None:
                 if mp_page:
                     data = test_link(url)
                     if data:
-                        versions = get_versions(data)
                         official = get_official(url)
+                        owner = get_owner(url)
+                        versions = get_versions(data)
+
                         DATA[pretty_name] = {}
                         DATA[pretty_name]['category'] = category
-                        DATA[pretty_name]['versions'] = versions
                         DATA[pretty_name]['official'] = official
+                        DATA[pretty_name]['owner'] = owner
+                        DATA[pretty_name]['versions'] = versions
 
 
 def format_action_name(ugly_name: str) -> str:
@@ -332,6 +335,16 @@ def get_official(url: str) -> bool:
     :return: True if it is a GitHub Action and False otherwise.
     """
     return "/actions/" in url
+
+
+def get_owner(url: str) -> str:
+    """
+    Get the owner of a repo.
+
+    :param url: The URL on which the owner will be retrieved.
+    :return: The owner of the repo.
+    """
+    return url.split("https://github.com/")[1].split("/")[0]
 
 
 if __name__ == "__main__":
