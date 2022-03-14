@@ -350,7 +350,7 @@ def get_versions(owner: str, repo_name: str) -> list:
     """
     url = f"https://api.github.com/repos/{owner}/{repo_name}/releases?per_page=100&page=1"
     headers = {
-        'Authorization': 'token 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',
+        'Authorization': f'token {GITHUB_TOKEN}',
         'accept': 'application/vnd.github.v3+json'
     }
 
