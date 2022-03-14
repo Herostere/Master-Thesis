@@ -237,13 +237,7 @@ def thread_data(pages: list, category: str) -> None:
                         official = get_official(url)
                         owner = get_owner(url)
                         repo_name = get_repo_name(url)
-                        """
-                        The following data should be retrieved with the api
-                        """
                         versions = get_versions(owner, repo_name)
-                        """
-                        ===================================================
-                        """
 
                         DATA[pretty_name] = {}
                         DATA[pretty_name]['category'] = category
