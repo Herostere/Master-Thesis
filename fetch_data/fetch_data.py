@@ -24,6 +24,7 @@ try:
 except FileNotFoundError:
     DATA = json.loads('{}')
 
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 LIMIT = config.limit_requests
 T_R = 0
 
@@ -55,6 +56,15 @@ def get_categories() -> None:
     logging.info(f"Categories: \n{save_categories}")
 
     save_categories = numpy.array(save_categories)
+
+    # """
+    # TO DELETE
+    # """
+    # save_categories = ["monitoring"]
+    # save_categories = numpy.array(save_categories)
+    # """
+    # -----
+    # """
 
     numpy.save("categories.npy", save_categories)
 
@@ -226,12 +236,14 @@ def thread_data(pages: list, category: str) -> None:
                     if data:
                         official = get_official(url)
                         owner = get_owner(url)
-                        versions = get_versions(data)
+                        repo_name = get_repo_name(url)
+                        versions = get_versions(owner, repo_name)
 
                         DATA[pretty_name] = {}
                         DATA[pretty_name]['category'] = category
                         DATA[pretty_name]['official'] = official
                         DATA[pretty_name]['owner'] = owner
+                        DATA[pretty_name]['repository'] = repo_name
                         DATA[pretty_name]['versions'] = versions
 
 
@@ -292,41 +304,6 @@ def test_link(url: str) -> str | None:
     return None
 
 
-def get_versions(data: str) -> int:
-    """
-    Retrieve the number of versions for an Action.
-
-    :param data: The HTML on which retrieve the number of versions.
-    :return: The number of versions.
-    """
-    releases_xpath = '//*[@id="repo-content-pjax-container"]/div/div[3]/div[2]/div/div[2]/div/h2/a/text()'
-    releases_number_xpath = '//*[@id="repo-content-pjax-container"]/div/div[3]/div[2]/div/div[2]/div/h2/a/span/@title'
-
-    root = beautiful_html(data)
-
-    pattern = re.compile(r'\s{2,}')
-
-    if len(root.xpath(releases_xpath)) > 0:
-        is_releases = "Releases" == re.sub(pattern, '', root.xpath(releases_xpath)[0])
-
-        if is_releases:
-            versions = root.xpath(releases_number_xpath)
-
-            if len(versions) < 1:
-                return 1
-
-            while True:
-                try:
-                    int(versions[0])
-                    break
-                except ValueError:
-                    logging.info(f"WARNING!! get_versions! {versions[0]}")
-                    versions[0] = versions.replace(',', '')
-
-            return int(versions[0])
-    return 1
-
-
 def get_official(url: str) -> bool:
     """
     Determine if it is an "official" GitHub action.
@@ -345,6 +322,68 @@ def get_owner(url: str) -> str:
     :return: The owner of the repo.
     """
     return url.split("https://github.com/")[1].split("/")[0]
+
+
+def get_repo_name(url: str) -> str:
+    """
+    Get the name of the repo.
+
+    :param url: The URL on which the name of the repo will be retrieved.
+    :return: The name of the repo.
+    """
+    return url.split('https://github.com/')[1].split('/')[1]
+
+
+def get_versions(owner: str, repo_name: str) -> list:
+    """
+    Retrieve the releases for an Action.
+
+    :param owner: The owner of the repository.
+    :param repo_name: The name of the repository.
+    :return: The list of releases versions.
+    """
+    url = f"https://api.github.com/repos/{owner}/{repo_name}/releases?per_page=100&page=1"
+    headers = {
+        'Authorization': 'token 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',
+        'accept': 'application/vnd.github.v3+json'
+    }
+
+    versions = []
+    api_call = requests.get(url, headers=headers)
+    if 'next' in api_call.links.keys():
+        while 'next' in api_call.links.keys():
+            temps_versions = extract_versions(api_call)
+            for version in temps_versions:
+                versions.append(version)
+            requests.get(api_call.links['next'], headers)
+    else:
+        temp_versions = extract_versions(api_call)
+        for version in temp_versions:
+            versions.append(version)
+    return versions
+
+
+def extract_versions(api_call: requests.Response) -> list:
+    """
+    Extracts the versions from a response.
+
+    :param api_call: The response from which extract the versions.
+    :return: The list of versions on this response.
+    """
+    versions = []
+    if api_call.status_code == 200:
+        for version in api_call.json():
+            versions.append(version['tag_name'])
+    if api_call.status_code == 403:
+        if 'Retry-After' in api_call.headers.keys():
+            time.sleep(int(api_call.headers['Retry-After']))
+        else:
+            reset = int(api_call.headers['X-RateLimit-Reset'])
+            current = int(time.time())
+            time_for_reset = reset - current
+            time.sleep(time_for_reset)
+
+    return versions
 
 
 if __name__ == "__main__":
