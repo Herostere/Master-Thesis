@@ -1,5 +1,7 @@
 """
 This script identify the actions with a valid marketplace page.
+
+You will need to use Python3.10.
 """
 from bs4 import BeautifulSoup
 from html import unescape
@@ -234,19 +236,21 @@ def thread_data(pages: list, category: str) -> None:
                 if mp_page:
                     data = test_link(url)
                     if data:
-                        official = get_official(url)
+                        # official = get_official(url)
                         owner = get_owner(url)
                         repo_name = get_repo_name(url)
                         # versions = get_versions(owner, repo_name)
-                        stars = get_api('stars', owner, repo_name)
+                        # stars = get_api('stars', owner, repo_name)
+                        dependents = get_dependents(owner, repo_name)
 
                         DATA[pretty_name] = {}
                         DATA[pretty_name]['category'] = category
-                        DATA[pretty_name]['official'] = official
+                        # DATA[pretty_name]['official'] = official
                         DATA[pretty_name]['owner'] = owner
                         DATA[pretty_name]['repository'] = repo_name
                         # DATA[pretty_name]['versions'] = versions
-                        DATA[pretty_name]['stars'] = stars
+                        # DATA[pretty_name]['stars'] = stars
+                        DATA[pretty_name]['dependents'] = dependents
 
 
 def format_action_name(ugly_name: str) -> str:
@@ -336,7 +340,15 @@ def get_repo_name(url: str) -> str:
     return url.split('https://github.com/')[1].split('/')[1]
 
 
-def get_api(key, owner, repo_name):
+def get_api(key: str, owner: str, repo_name: str) -> int | list:
+    """
+    Contaxt the API to fetch information.
+
+    :param key: The kind of data to retrieve.
+    :param owner: The owner of the repository.
+    :param repo_name: The name of the repository.
+    :return: An integer or a list, depending of the nature of the needed information.
+    """
     urls = {
         'versions': f"https://api.github.com/repos/{owner}/{repo_name}/releases?per_page=100&page=1",
         'stars': f"https://api.github.com/repos/{owner}/{repo_name}/stargazers?per_page=100&page=1",
@@ -373,7 +385,14 @@ def get_api(key, owner, repo_name):
     return final
 
 
-def extract(api_call, to_extract):
+def extract(api_call: requests.Response, to_extract: str) -> list:
+    """
+    Extract the information from the API.
+
+    :param api_call: The call to the API.
+    :param to_extract: The information we need to extract.
+    :return: The extracted information in a list.
+    """
     extracted = []
     if api_call.status_code == 200:
         for needed in api_call.json():
@@ -388,6 +407,19 @@ def extract(api_call, to_extract):
             time.sleep(time_for_reset)
 
     return extracted
+
+
+def get_dependents(owner, repo_name):
+    url = f"https://github.com/{owner}/{repo_name}/network/dependents"
+    xpath = '//*[@id="dependents"]/div[3]/div[1]/div/div/a[1]/text()'
+
+    request = get_request("get_dependents", url)
+
+    root = beautiful_html(request.text)
+    ugly_dependents = root.xpath(xpath)[1]
+    dependents = int(re.findall(re.compile(r'\d+'), ugly_dependents)[0])
+
+    return dependents
 
 
 if __name__ == "__main__":
