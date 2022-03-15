@@ -250,6 +250,7 @@ def thread_data(pages: list, category: str) -> None:
                         DATA[pretty_name]['repository'] = repo_name
                         # DATA[pretty_name]['versions'] = versions
                         # DATA[pretty_name]['stars'] = stars
+                        DATA[pretty_name]['dependents'] = dependents
 
 
 def format_action_name(ugly_name: str) -> str:
@@ -408,8 +409,17 @@ def extract(api_call: requests.Response, to_extract: str) -> list:
     return extracted
 
 
-def get_dependents():
-    pass
+def get_dependents(owner, repo_name):
+    url = f"https://github.com/{owner}/{repo_name}/network/dependents"
+    xpath = '//*[@id="dependents"]/div[3]/div[1]/div/div/a[1]/text()'
+
+    request = get_request("get_dependents", url)
+
+    root = beautiful_html(request.text)
+    ugly_dependents = root.xpath(xpath)[1]
+    dependents = int(re.findall(re.compile(r'\d+'), ugly_dependents)[0])
+
+    return dependents
 
 
 if __name__ == "__main__":
