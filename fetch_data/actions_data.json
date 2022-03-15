@@ -1,1561 +1,2519 @@
 {
     "a11ywatch-the-accessibility-suite": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "j-mendez"
+        ],
         "owner": "A11yWatch",
         "repository": "github-action"
     },
     "accum-board-stats": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "andry81"
+        ],
         "owner": "andry81-devops",
         "repository": "gh-action--accum-board-stats"
     },
     "accum-gh-rate-limits": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "andry81"
+        ],
         "owner": "andry81-devops",
         "repository": "gh-action--accum-gh-rate-limits"
     },
     "accum-gh-stats": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "andry81"
+        ],
         "owner": "andry81-devops",
         "repository": "gh-action--accum-gh-stats"
     },
     "accum-inpage-downloads": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "andry81"
+        ],
         "owner": "andry81-devops",
         "repository": "gh-action--accum-inpage-downloads"
     },
     "ackee-analytics-action": {
         "category": "monitoring",
-        "dependents": 2,
+        "contributors": [
+            "jackdbd",
+            "semantic-release-bot"
+        ],
         "owner": "jackdbd",
         "repository": "ackee-action"
     },
     "action-for-dynamic-badges": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "loicdiridollou"
+        ],
         "owner": "loicdiridollou",
         "repository": "dyn-badge-action"
     },
     "action-join": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "ShaunLWM"
+        ],
         "owner": "ShaunLWM",
         "repository": "action-join"
     },
     "action-newrelic-segment-lint": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "budougumi0617"
+        ],
         "owner": "budougumi0617",
         "repository": "action-newrelic-segment-lint"
     },
     "action-steammessage": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "ShaunLWM",
+            "dependabot[bot]"
+        ],
         "owner": "ShaunLWM",
         "repository": "action-steammessage"
     },
     "add-grafana-annotation": {
         "category": "monitoring",
-        "dependents": 20,
+        "contributors": [
+            "frankie567"
+        ],
         "owner": "frankie567",
         "repository": "grafana-annotation-action"
     },
     "aggregit": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "MichaelJolley",
+            "dependabot[bot]"
+        ],
         "owner": "MichaelJolley",
         "repository": "aggregit"
     },
     "amtoolcm-github-actions": {
         "category": "monitoring",
-        "dependents": 2,
+        "contributors": [],
         "owner": "peimanja",
         "repository": "amtoolcm-github-actions"
     },
     "annotate-akamai-mpulse": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "jdmevo123",
+            "tvereecke"
+        ],
         "owner": "jdmevo123",
         "repository": "akamai-mpulse-annotation-action"
     },
     "app-insights-event": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "syedhassaanahmed"
+        ],
         "owner": "syedhassaanahmed",
         "repository": "app-insights-event-action"
     },
     "aws-cloudwatch-canary-monitor": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "janerikcarlsen"
+        ],
         "owner": "janerikcarlsen",
         "repository": "aws-canary-monitoring"
     },
     "azure-monitor-action": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "dependabot[bot]",
+            "hoisjp"
+        ],
         "owner": "hoisjp",
         "repository": "azure-monitor-action"
     },
     "badge-action": {
         "category": "monitoring",
-        "dependents": 175,
+        "contributors": [
+            "actions-user",
+            "deepsource-autofix[bot]",
+            "deepsourcebot",
+            "dependabot[bot]",
+            "emibcn"
+        ],
         "owner": "emibcn",
         "repository": "badge-action"
     },
     "barechek-newrelic-metric-reporter": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "vitaliimelnychuk"
+        ],
         "owner": "barecheck",
         "repository": "newrelic-metric-action"
     },
     "bark-notification": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "lxzxl",
+            "shink"
+        ],
         "owner": "lxzxl",
         "repository": "bark-action"
     },
     "bigquery-service-action": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "PalashPaul-Ingka"
+        ],
         "owner": "pal-paul",
         "repository": "bigquery-service-action"
     },
     "bigquery-sql-execution-with-slack-notification-for-results": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "umemotoryo",
+            "varadiz"
+        ],
         "owner": "data-i-consulting",
         "repository": "bq2slack-github-action"
     },
     "bot-status": {
         "category": "monitoring",
-        "dependents": 2,
+        "contributors": [
+            "jainamoswal"
+        ],
         "owner": "jainamoswal",
         "repository": "BotStatus"
     },
     "broken-links-crawler": {
         "category": "monitoring",
-        "dependents": 5,
+        "contributors": [
+            "ImgBotApp",
+            "ScholliYT",
+            "aceberle",
+            "kwsp"
+        ],
         "owner": "ScholliYT",
         "repository": "Broken-Links-Crawler-Action"
     },
     "bugsnag-release": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "psprings"
+        ],
         "owner": "psprings",
         "repository": "bugsnag-release-action"
     },
     "buildpulse-discord": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "Benjadahl",
+            "jasonrudolph"
+        ],
         "owner": "Rabatta-ApS",
         "repository": "BuildPulse-Discord"
     },
     "bundle-size-diff": {
         "category": "monitoring",
-        "dependents": 4,
+        "contributors": [
+            "NejcZdovc"
+        ],
         "owner": "NejcZdovc",
         "repository": "bundle-size-diff"
     },
     "bundlewatch-github-action": {
         "category": "monitoring",
-        "dependents": 134,
+        "contributors": [
+            "JakePartusch",
+            "XhmikosR",
+            "dependabot[bot]",
+            "jackyef",
+            "mkai"
+        ],
         "owner": "jackyef",
         "repository": "bundlewatch-gh-action"
     },
     "check-http-status": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "samiahmedsiddiqui"
+        ],
         "owner": "trunkcode",
         "repository": "check-http-status-action"
     },
     "check-urls": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "levidurfee"
+        ],
         "owner": "bythepixel",
         "repository": "urlchecker"
     },
     "cinotify-email": {
         "category": "monitoring",
-        "dependents": 4,
+        "contributors": [
+            "jshawl"
+        ],
         "owner": "cinotify",
         "repository": "github-action"
     },
     "close-opsgenie-alert": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "rockem"
+        ],
         "owner": "rockem",
         "repository": "close-opsgenie-alert-action"
     },
     "cloud-foundry-cli-github-action": {
         "category": "monitoring",
-        "dependents": 5,
+        "contributors": [
+            "elliottpope"
+        ],
         "owner": "elliottpope",
         "repository": "cloudfoundry-cli-action"
     },
     "cloud-notify-send-push-notifications-to-your-devices": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "Nathan1258"
+        ],
         "owner": "Nathan1258",
         "repository": "cloudNotify-action"
     },
     "cloudflare-pages-await": {
         "category": "monitoring",
-        "dependents": 5,
+        "contributors": [
+            "WalshyDev"
+        ],
         "owner": "WalshyDev",
         "repository": "cf-pages-await"
     },
     "comment-gas-report-from-eth-gas-report": {
         "category": "monitoring",
-        "dependents": 3,
+        "contributors": [
+            "santiac89"
+        ],
         "owner": "santiac89",
         "repository": "gas-report-action"
     },
     "comment-with-pytest-benchmark-result": {
         "category": "monitoring",
-        "dependents": 3,
+        "contributors": [
+            "dependabot[bot]",
+            "nils-braun"
+        ],
         "owner": "nils-braun",
         "repository": "pytest-benchmark-commenter"
     },
     "commit-issue-action": {
         "category": "monitoring",
-        "dependents": 4,
+        "contributors": [
+            "wescran"
+        ],
         "owner": "wescran",
         "repository": "commit-issue-action"
     },
     "commithawk": {
         "category": "monitoring",
-        "dependents": 3,
+        "contributors": [
+            "dependabot[bot]",
+            "jesalg"
+        ],
         "owner": "jesalg",
         "repository": "commit-hawk-action"
     },
     "container-action-using-github-stats-pages": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "astrochun"
+        ],
         "owner": "astrochun",
         "repository": "github-stats-pages"
     },
     "continuous-benchmarking-for-go": {
         "category": "monitoring",
-        "dependents": 8,
+        "contributors": [
+            "JRascagneres",
+            "angeleneleow",
+            "bobheadxi",
+            "piotrekmonko"
+        ],
         "owner": "bobheadxi",
         "repository": "gobenchdata"
     },
     "count-action-users": {
         "category": "monitoring",
-        "dependents": 2,
+        "contributors": [
+            "cicirello",
+            "dependabot[bot]"
+        ],
         "owner": "cicirello",
         "repository": "count-action-users"
     },
     "covid-19-box": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "casperdcl",
+            "github-actions[bot]"
+        ],
         "owner": "casperdcl",
         "repository": "covid-19-box"
     },
     "create-an-event-using-microsoft-graph": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "anoopt",
+            "dependabot[bot]"
+        ],
         "owner": "anoopt",
         "repository": "ms-graph-create-event"
     },
     "create-opsgenie-alert": {
         "category": "monitoring",
-        "dependents": 4,
+        "contributors": [
+            "Debora38",
+            "rockem"
+        ],
         "owner": "rockem",
         "repository": "create-opsgenie-alert-action"
     },
     "crypto-box": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "austenstone"
+        ],
         "owner": "austenstone",
         "repository": "crypto-box"
     },
     "dashpanel": {
         "category": "monitoring",
-        "dependents": 9,
+        "contributors": [
+            "sanjacodes"
+        ],
         "owner": "haveyoudebuggedit",
         "repository": "dashpanel"
     },
     "datadog-action": {
         "category": "monitoring",
-        "dependents": 71,
+        "contributors": [
+            "dependabot[bot]",
+            "masci",
+            "trfv"
+        ],
         "owner": "masci",
         "repository": "datadog"
     },
     "datadog-actions-metrics": {
         "category": "monitoring",
-        "dependents": 5,
+        "contributors": [
+            "asproul",
+            "int128",
+            "renovate[bot]"
+        ],
         "owner": "int128",
         "repository": "datadog-actions-metrics"
     },
     "datadog-actions-release-metrics": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "asproul",
+            "int128",
+            "lukascaska",
+            "renovate[bot]"
+        ],
         "owner": "lukascaska",
         "repository": "datadog-actions-metrics"
     },
     "datadog-agent": {
         "category": "monitoring",
-        "dependents": 4,
+        "contributors": [
+            "cg14823",
+            "fermayo"
+        ],
         "owner": "DataDog",
         "repository": "agent-github-action"
     },
     "datadog-event-action": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "Glennmen",
+            "dependabot[bot]",
+            "jordan-simonovski"
+        ],
         "owner": "Glennmen",
         "repository": "datadog-event-action"
     },
     "datadog-event-trigger": {
         "category": "monitoring",
-        "dependents": 7,
+        "contributors": [
+            "jordan-simonovski"
+        ],
         "owner": "jordan-simonovski",
         "repository": "datadog-event-action"
     },
     "datadog-synthetic": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "ugurtemiz"
+        ],
         "owner": "ugurtemiz",
         "repository": "datadog-synthetic-action"
     },
     "debugging-with-ssh": {
         "category": "monitoring",
-        "dependents": 110,
+        "contributors": [
+            "GabLeRoux",
+            "lhotari",
+            "owenthereal"
+        ],
         "owner": "lhotari",
         "repository": "action-upterm"
     },
     "define-service": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "bripkens"
+        ],
         "owner": "steadybit",
         "repository": "define-service"
     },
     "detect-env-file-changes": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "jovanblazek"
+        ],
         "owner": "jovanblazek",
         "repository": "env-changes-detector"
     },
     "dingtalk-robot-message": {
         "category": "monitoring",
-        "dependents": 7,
+        "contributors": [
+            "ImgBotApp",
+            "fifsky"
+        ],
         "owner": "fifsky",
         "repository": "dingtalk-action"
     },
     "discord-activity-badge": {
         "category": "monitoring",
-        "dependents": 5,
+        "contributors": [
+            "CodexLink"
+        ],
         "owner": "CodexLink",
         "repository": "discord-activity-badge"
     },
     "discord-hook-action": {
         "category": "monitoring",
-        "dependents": 6,
+        "contributors": [
+            "Poss111"
+        ],
         "owner": "Poss111",
         "repository": "discord-hook-action"
     },
     "discord-webhook-notify": {
         "category": "monitoring",
-        "dependents": 508,
+        "contributors": [
+            "rjstone"
+        ],
         "owner": "rjstone",
         "repository": "discord-webhook-notify"
     },
     "discord-workflow-status-notifier": {
         "category": "monitoring",
-        "dependents": 19,
+        "contributors": [
+            "dependabot[bot]",
+            "nobrayner"
+        ],
         "owner": "nobrayner",
         "repository": "discord-webhook"
     },
     "docker-action-send-skype": {
         "category": "monitoring",
-        "dependents": 32,
+        "contributors": [
+            "Eloco"
+        ],
         "owner": "Eloco",
         "repository": "docker-action-send-skype"
     },
     "docker-status": {
         "category": "monitoring",
-        "dependents": 18,
+        "contributors": [
+            "crazy-max",
+            "dependabot[bot]"
+        ],
         "owner": "crazy-max",
         "repository": "ghaction-docker-status"
     },
     "docs-progress": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "Jalkhov"
+        ],
         "owner": "Jalkhov",
         "repository": "docs-progress"
     },
     "domain-and-ssl-cert-watcher": {
         "category": "monitoring",
-        "dependents": 60,
+        "contributors": [
+            "iineva",
+            "talyguryn"
+        ],
         "owner": "codex-team",
         "repository": "action-check-domain"
     },
     "dupicate-line-remover-action": {
         "category": "monitoring",
-        "dependents": 4,
+        "contributors": [
+            "maharishi-coder"
+        ],
         "owner": "maharishi-coder",
         "repository": "Duplicate-Line-Remover-Action"
     },
     "dynatraceaction": {
         "category": "monitoring",
-        "dependents": 5,
+        "contributors": [
+            "arminru",
+            "dependabot[bot]",
+            "wolfgangB33r"
+        ],
         "owner": "dynatrace-oss",
         "repository": "dynatrace-github-action"
     },
     "effx-event": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "cjs226"
+        ],
         "owner": "cjs226",
         "repository": "effx-event-action"
     },
     "effx-lint": {
         "category": "monitoring",
-        "dependents": 7,
+        "contributors": [
+            "euriostigue",
+            "weeyum"
+        ],
         "owner": "effxhq",
         "repository": "effx-lint-action"
     },
     "effx-sync": {
         "category": "monitoring",
-        "dependents": 9,
+        "contributors": [
+            "euriostigue",
+            "nickdaigler",
+            "weeyum"
+        ],
         "owner": "effxhq",
         "repository": "effx-sync-action"
     },
     "elastic-logs": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "dependabot[bot]",
+            "masci"
+        ],
         "owner": "masci",
         "repository": "elastic-logs"
     },
     "elasticapm-sourcemap-action": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "finleygn"
+        ],
         "owner": "strikelabs",
         "repository": "elastic-apm-sourcemap-action"
     },
     "elmah-io-create-deployment-action": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "ThomasArdal"
+        ],
         "owner": "elmahio",
         "repository": "github-create-deployment-action"
     },
     "elmah-io-upload-source-map-action": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "ThomasArdal"
+        ],
         "owner": "elmahio",
         "repository": "github-upload-source-map-action"
     },
     "email-addresses-in-comments-monitor": {
         "category": "monitoring",
-        "dependents": 7,
+        "contributors": [
+            "seisvelas"
+        ],
         "owner": "seisvelas",
         "repository": "comment-email-address-alerts"
     },
     "ember-asset-size": {
         "category": "monitoring",
-        "dependents": 21,
+        "contributors": [
+            "NullVoxPopuli",
+            "Techn1x",
+            "dependabot[bot]",
+            "mansona",
+            "raido"
+        ],
         "owner": "simplabs",
         "repository": "ember-asset-size-action"
     },
     "ember-performance-monitoring-tracerbench-compare-action": {
         "category": "monitoring",
-        "dependents": 28,
+        "contributors": [
+            "dependabot-preview[bot]",
+            "dependabot[bot]",
+            "efx",
+            "krisselden",
+            "lynchbomb",
+            "runspired"
+        ],
         "owner": "TracerBench",
         "repository": "tracerbench-compare-action"
     },
     "endid-action": {
         "category": "monitoring",
-        "dependents": 3,
+        "contributors": [
+            "danlester"
+        ],
         "owner": "endid-app",
         "repository": "endid-github-action"
     },
     "enterprise-members-report-action": {
         "category": "monitoring",
-        "dependents": 2,
+        "contributors": [
+            "dependabot[bot]",
+            "droidpl",
+            "evgenyrahman",
+            "steve-norman-rft",
+            "stoe"
+        ],
         "owner": "ActionsDesk",
         "repository": "enterprise-members-report-action"
     },
     "eonx-com-actions-opsgenie": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "dddaaammmooo",
+            "drautureau-sonarsource"
+        ],
         "owner": "eonx-com",
         "repository": "actions-opsgenie"
     },
     "fetch-data-to-file": {
         "category": "monitoring",
-        "dependents": 11,
+        "contributors": [
+            "dependabot[bot]",
+            "gautemo"
+        ],
         "owner": "gautemo",
         "repository": "fetch-api-data-action"
     },
     "fetch-updown-io-checks": {
         "category": "monitoring",
-        "dependents": 32,
+        "contributors": [
+            "revolunet",
+            "tristanrobert"
+        ],
         "owner": "MTES-MCT",
         "repository": "updownio-action"
     },
     "fixed-issues-labeler": {
         "category": "monitoring",
-        "dependents": 64,
+        "contributors": [
+            "ENikS"
+        ],
         "owner": "gh-bot",
         "repository": "fix-labeler"
     },
     "flutter-package-updater": {
         "category": "monitoring",
-        "dependents": 4,
+        "contributors": [
+            "allcontributors[bot]",
+            "ilteoood",
+            "preetjdp",
+            "tianhaoz95"
+        ],
         "owner": "tianhaoz95",
         "repository": "update-flutter-packages"
     },
     "generate-azure-resource-topology-diagrams-with-azviz-azure-visualizer": {
         "category": "monitoring",
-        "dependents": 2,
+        "contributors": [
+            "JosiahSiegel"
+        ],
         "owner": "JosiahSiegel",
         "repository": "AzViz-action"
     },
     "get-all-contributors": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "dependabot[bot]",
+            "harshraj8843"
+        ],
         "owner": "codinasion",
         "repository": "get-all-contributors"
     },
     "get-pr-info-action": {
         "category": "monitoring",
-        "dependents": 4,
+        "contributors": [
+            "Brymastr",
+            "dependabot[bot]"
+        ],
         "owner": "Brymastr",
         "repository": "pr-info-action"
     },
     "get-the-default-branch": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "scottmmjackson"
+        ],
         "owner": "scottmmjackson",
         "repository": "get-the-default-branch-action"
     },
     "getnighthawk-layer5": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "Abhijay007",
+            "Abusayid693",
+            "Anita-ihuman",
+            "AnshumanDhiman",
+            "Ayush-Khandelwal-007",
+            "DelusionalOptimist",
+            "FidalMathew",
+            "Grumpyyash",
+            "Harshita-Kanal",
+            "ImgBotApp",
+            "Jashpatel1",
+            "Manish-210",
+            "Neilblaze",
+            "Nikhil-Ladha",
+            "NikhilSharma03",
+            "Ruth-ikegah",
+            "Sonichigo",
+            "Sunnyio",
+            "Zain-Muiz",
+            "afzal442",
+            "akashc777",
+            "akashprasher",
+            "akshitarora921",
+            "amino19",
+            "aneeshnema",
+            "anirudh-bukka",
+            "chinmaym07",
+            "cpepper96",
+            "crustyy",
+            "debo19",
+            "dependabot[bot]",
+            "harshitpheonix",
+            "kumarabd",
+            "kushthedude",
+            "leecalcote",
+            "navendu-pottekkat",
+            "ritesh-karankal",
+            "ruhi09",
+            "sayantan1413",
+            "soham4abc",
+            "theBeginner86",
+            "toth2000",
+            "vinayaksh42",
+            "warunicorn19"
+        ],
         "owner": "layer5io",
         "repository": "getnighthawk"
     },
     "ghstat": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "casperdcl"
+        ],
         "owner": "casperdcl",
         "repository": "ghstat"
     },
     "git-status-threads-on-slack": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "watson-w"
+        ],
         "owner": "watson-w",
         "repository": "slack-threaded-git-notifications"
     },
     "githits-action": {
         "category": "monitoring",
-        "dependents": 36,
+        "contributors": [
+            "kausko"
+        ],
         "owner": "kausko",
         "repository": "GitHits"
     },
     "github-action-for-mackerel-api": {
         "category": "monitoring",
-        "dependents": 6,
+        "contributors": [
+            "dependabot[bot]",
+            "yutailang0119"
+        ],
         "owner": "yutailang0119",
         "repository": "action-mackerel-api"
     },
     "github-action-for-slack-notification": {
         "category": "monitoring",
-        "dependents": 6,
+        "contributors": [
+            "svikramjeet"
+        ],
         "owner": "svikramjeet",
         "repository": "git-actions"
     },
     "github-action-to-otlp": {
         "category": "monitoring",
-        "dependents": 6,
+        "contributors": [
+            "codeboten"
+        ],
         "owner": "codeboten",
         "repository": "github-action-to-otlp"
     },
     "github-actions-alerts": {
         "category": "monitoring",
-        "dependents": 3,
+        "contributors": [
+            "github-suraj"
+        ],
         "owner": "github-suraj",
         "repository": "git-action-alerts"
     },
     "github-actions-metrics-to-datadog": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "dependabot[bot]",
+            "renovate-bot",
+            "yuya-takeyama"
+        ],
         "owner": "yuya-takeyama",
         "repository": "github-actions-metrics-to-datadog-action"
     },
-    "github-logs-to-elastic": {
-        "category": "monitoring",
-        "dependents": 1,
-        "owner": "KnutFr",
-        "repository": "github-actions-to-elk"
-    },
     "github-rank-action": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "filiptronicek"
+        ],
         "owner": "filiptronicek",
         "repository": "github-rank-action"
     },
     "github-readme-generator": {
         "category": "monitoring",
-        "dependents": 26,
+        "contributors": [
+            "dependabot[bot]",
+            "th3c0d3br34ker"
+        ],
         "owner": "th3c0d3br34ker",
         "repository": "github-readme-info"
     },
     "github-repo-stats": {
         "category": "monitoring",
-        "dependents": 128,
+        "contributors": [
+            "davidpfarrell",
+            "fboemer",
+            "flaix",
+            "gautamkrishnar",
+            "jgehrcke"
+        ],
         "owner": "jgehrcke",
         "repository": "github-repo-stats"
     },
-    "github-repos-status": {
-        "category": "monitoring",
-        "dependents": 2,
-        "owner": "pacoxu",
-        "repository": "github-repos-stats"
-    },
     "github-status": {
         "category": "monitoring",
-        "dependents": 310,
+        "contributors": [
+            "crazy-max",
+            "dependabot[bot]",
+            "github-actions[bot]"
+        ],
         "owner": "crazy-max",
         "repository": "ghaction-github-status"
     },
     "github-user-contribution": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "AlexRogalskiy",
+            "stickler-ci"
+        ],
         "owner": "AlexRogalskiy",
         "repository": "github-action-user-contribution"
     },
     "githubactions-com-result-reporter": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "dkershner6"
+        ],
         "owner": "dkershner6",
         "repository": "githubactions-result-reporter"
     },
     "gotify-notification": {
         "category": "monitoring",
-        "dependents": 2,
+        "contributors": [
+            "eikendev"
+        ],
         "owner": "eikendev",
         "repository": "gotify-action"
     },
     "grafana-annotation-actions": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "danieloneilldazn",
+            "dependabot[bot]"
+        ],
         "owner": "danieloneilldazn",
         "repository": "grafana-annotation-action"
     },
     "graphql-inspector": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "0xflotus",
+            "B2o5T",
+            "BeeeQueue",
+            "ChopperLee2011",
+            "FrankiePo",
+            "JustinTRoss",
+            "Urigo",
+            "alinsimoc",
+            "alx13",
+            "amshalem",
+            "ardatan",
+            "brasilikum",
+            "charlypoly",
+            "chronark",
+            "chunksnbits",
+            "danielrearden",
+            "dependabot-preview[bot]",
+            "dependabot[bot]",
+            "dotansimha",
+            "dslzuha",
+            "edin0x",
+            "ertrzyiks",
+            "fabsrc",
+            "filipncs",
+            "gilgardosh",
+            "github-actions[bot]",
+            "jinhong-",
+            "joejemmely",
+            "jracabado",
+            "kalbert312",
+            "kamilkisiela",
+            "kesne",
+            "kevgo",
+            "kvnkusch",
+            "lamchau",
+            "leethree",
+            "loremaps",
+            "maapteh",
+            "manicmaniac",
+            "marocchino",
+            "martinglova",
+            "martyganz",
+            "mkaradeniz",
+            "mosheboker1",
+            "mrtrom",
+            "naruaway",
+            "nickhudkins",
+            "notrab",
+            "renovate[bot]",
+            "singingwolfboy",
+            "spawnia",
+            "tbrannam",
+            "thawsitt",
+            "tjwelde",
+            "tvvignesh",
+            "tylercrumpton",
+            "vitorbal"
+        ],
         "owner": "kamilkisiela",
         "repository": "graphql-inspector"
     },
     "gravatar-to-twitter": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "myl7"
+        ],
         "owner": "myl7",
         "repository": "gravatar2twitter"
     },
     "groupme-action-notifier": {
         "category": "monitoring",
-        "dependents": 8,
+        "contributors": [
+            "nhomble"
+        ],
         "owner": "nhomble",
         "repository": "groupme-notify-action"
     },
     "heads-up-uptime-monitoring-alerting": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "dependabot[bot]",
+            "matchai"
+        ],
         "owner": "matchai",
         "repository": "heads-up"
     },
     "healthy-checkup": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "APina03",
+            "nev7n"
+        ],
         "owner": "APina03",
         "repository": "wait_for_response"
     },
     "hl-weather-box": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "casperdcl",
+            "dependabot[bot]"
+        ],
         "owner": "casperdcl",
         "repository": "hl-weather-box"
     },
     "honeybadger-deploy-action": {
         "category": "monitoring",
-        "dependents": 12,
+        "contributors": [
+            "rabidpraxis",
+            "tenpaiyomi"
+        ],
         "owner": "honeybadger-io",
         "repository": "github-notify-deploy-action"
     },
     "honeybadger-upload-sourcemap-action": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "rabidpraxis"
+        ],
         "owner": "honeybadger-io",
         "repository": "github-upload-sourcemap-action"
     },
     "honeycomb-buildevents": {
         "category": "monitoring",
-        "dependents": 37,
+        "contributors": [
+            "DavidS",
+            "dependabot[bot]",
+            "kvrhdn",
+            "sargunv"
+        ],
         "owner": "kvrhdn",
         "repository": "gha-buildevents"
     },
     "http-s-url-health-check-and-tls-ssl-certification-expiry-check": {
         "category": "monitoring",
-        "dependents": 2,
+        "contributors": [
+            "danylevskyi",
+            "padurean"
+        ],
         "owner": "padurean",
         "repository": "https-certificate-expiry-health-check-action"
     },
     "http-status": {
         "category": "monitoring",
-        "dependents": 48,
+        "contributors": [
+            "lakuapik"
+        ],
         "owner": "lakuapik",
         "repository": "gh-actions-http-status"
     },
     "hue-action": {
         "category": "monitoring",
-        "dependents": 2,
+        "contributors": [
+            "dependabot[bot]",
+            "manekinekko"
+        ],
         "owner": "manekinekko",
         "repository": "hue-action"
     },
     "instana-gitops-trigger-host-agent-configuration-updates": {
         "category": "monitoring",
-        "dependents": 2,
+        "contributors": [
+            "mmanciop"
+        ],
         "owner": "instana",
         "repository": "github-action-update-agent-configurations"
     },
     "instana-release": {
         "category": "monitoring",
-        "dependents": 8,
+        "contributors": [
+            "hoegertn",
+            "mmanciop",
+            "timoinstana"
+        ],
         "owner": "taimos",
         "repository": "github-action-instana-release"
     },
     "issuetron-3000": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [],
         "owner": "mxarc",
         "repository": "issuetron-3000"
     },
     "jaimin-patel30-notedown": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "Jaimin-Patel30",
+            "dependabot[bot]"
+        ],
         "owner": "Jaimin-Patel30",
         "repository": "actions-tracker"
     },
     "jekyll-diff": {
         "category": "monitoring",
-        "dependents": 3,
+        "contributors": [
+            "David-Byrne"
+        ],
         "owner": "David-Byrne",
         "repository": "jekyll-diff-action"
     },
     "jest-coverage-report": {
         "category": "monitoring",
-        "dependents": 488,
+        "contributors": [
+            "ArtiomTr",
+            "BohdanPetryshyn",
+            "JacobLinCool",
+            "Raigen",
+            "Samic8",
+            "Zajozor",
+            "aaimio",
+            "allcontributors[bot]",
+            "atuttle",
+            "bluelovers",
+            "bot",
+            "chrisui",
+            "dadayama",
+            "dependabot[bot]",
+            "gdelahodde-masteos",
+            "github-actions[bot]",
+            "herberttn",
+            "jaylenw",
+            "jgillick",
+            "jlim9333",
+            "laurislokalise",
+            "noslouch",
+            "princeIta",
+            "raspo",
+            "rena-h",
+            "sidharthv96",
+            "taschetto",
+            "thomasplevy",
+            "ybiquitous"
+        ],
         "owner": "ArtiomTr",
         "repository": "jest-coverage-report-action"
     },
     "jira-issue-creation": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "bryan-nice"
+        ],
         "owner": "bryannice",
         "repository": "gitactions-jira-issue-creation"
     },
     "keybase-build-notifications": {
         "category": "monitoring",
-        "dependents": 15,
+        "contributors": [
+            "marvinpinto"
+        ],
         "owner": "marvinpinto",
         "repository": "action-keybase-notifications"
     },
     "label-pr-on-merge-bot": {
         "category": "monitoring",
-        "dependents": 47,
+        "contributors": [
+            "abhijith-vijayan",
+            "abhijithvijayan"
+        ],
         "owner": "abhijithvijayan",
         "repository": "label-pr-on-merge-bot"
     },
     "label-slow-prs": {
         "category": "monitoring",
-        "dependents": 9,
+        "contributors": [
+            "luckysori"
+        ],
         "owner": "coblox",
         "repository": "label-slow-prs"
     },
     "lifx-build-light": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [],
         "owner": "LIFX",
         "repository": "buildlight-action"
     },
     "lighthouse-badger": {
         "category": "monitoring",
-        "dependents": 14,
+        "contributors": [
+            "sitdisch"
+        ],
         "owner": "MyActionWay",
         "repository": "lighthouse-badger-action"
     },
     "lighthouse-check": {
         "category": "monitoring",
-        "dependents": 348,
+        "contributors": [
+            "adamhenson",
+            "dependabot[bot]",
+            "mmoga-uf"
+        ],
         "owner": "foo-software",
         "repository": "lighthouse-check-action"
     },
     "lighthouse-ci-action": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "Kobe",
+            "YashTotale",
+            "alekseykulikov",
+            "arnellebalane",
+            "bep",
+            "coliff",
+            "connorjclark",
+            "denar90",
+            "dependabot[bot]",
+            "emmekappa",
+            "exterkamp",
+            "gregjopa",
+            "gvdp",
+            "kiwiupover",
+            "masuP9",
+            "mbj36",
+            "nschonni",
+            "orta",
+            "paulirish",
+            "revolunet",
+            "riccardogiorato"
+        ],
         "owner": "treosh",
         "repository": "lighthouse-ci-action"
     },
     "lighthouse-ci-on-shopify-theme": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "anark",
+            "charlespwd",
+            "lukeshumard",
+            "tuktukvlad"
+        ],
         "owner": "tuktukvlad",
         "repository": "lighthouse-ci-action"
     },
     "lightstep-pre-deploy-check": {
         "category": "monitoring",
-        "dependents": 4,
+        "contributors": [
+            "rooneyshuman",
+            "smithclay"
+        ],
         "owner": "lightstep",
         "repository": "lightstep-action-predeploy"
     },
     "lightstep-services-change-report": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "smithclay"
+        ],
         "owner": "lightstep",
         "repository": "lightstep-action-snapshot"
     },
     "line-notify-actions": {
         "category": "monitoring",
-        "dependents": 8,
+        "contributors": [
+            "louis70109"
+        ],
         "owner": "louis70109",
         "repository": "line-notify-action"
     },
     "link-snitch": {
         "category": "monitoring",
-        "dependents": 19,
+        "contributors": [
+            "ChrisCarini",
+            "victoriadrake"
+        ],
         "owner": "victoriadrake",
         "repository": "link-snitch"
     },
     "load-runner-information": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "dependabot[bot]",
+            "rajbos"
+        ],
         "owner": "devops-actions",
         "repository": "load-runner-info"
     },
     "log-build-context": {
         "category": "monitoring",
-        "dependents": 23,
+        "contributors": [
+            "BernhardFuchs"
+        ],
         "owner": "danubetech",
         "repository": "github-action-log-build-context"
     },
     "log-to-logsnag": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "jsmrcaga"
+        ],
         "owner": "jsmrcaga",
         "repository": "action-logsnag"
     },
     "logflare-log": {
         "category": "monitoring",
-        "dependents": 30,
+        "contributors": [
+            "chasers",
+            "dependabot[bot]",
+            "gr2m",
+            "semantic-release-bot"
+        ],
         "owner": "Logflare",
         "repository": "action"
     },
     "make-tcp-connection": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "BGarber42"
+        ],
         "owner": "BGarber42",
         "repository": "action-tcp-connection"
     },
     "mention-to-slack-actions": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "Laurenfrost",
+            "actions-user"
+        ],
         "owner": "Laurenfrost",
         "repository": "mention-to-slack"
     },
     "milestones-managment": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "dependabot[bot]",
+            "nitzanashi"
+        ],
         "owner": "zattoo",
         "repository": "milestones"
     },
     "modified-cves-checker": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [],
         "owner": "doshyt",
         "repository": "cve-monitor"
     },
     "monitor-document": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "shinhwagk"
+        ],
         "owner": "shinhwagk",
         "repository": "monitoring_document"
     },
     "mudlet-map-diff": {
         "category": "monitoring",
-        "dependents": 6,
+        "contributors": [
+            "Delwing",
+            "keneanung"
+        ],
         "owner": "Delwing",
         "repository": "mudlet-map-diff-action"
     },
     "netlify-analytics-collector": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "DavidM42",
+            "NiklasMerz"
+        ],
         "owner": "NiklasMerz",
         "repository": "netlify-analytics-collector"
     },
     "node-js-dependency-freshness-via-libyear": {
         "category": "monitoring",
-        "dependents": 2,
+        "contributors": [
+            "s0"
+        ],
         "owner": "s0",
         "repository": "libyear-node-action"
     },
     "notfoundbot": {
         "category": "monitoring",
-        "dependents": 68,
+        "contributors": [
+            "domoritz",
+            "mattdsteele",
+            "parkr",
+            "steveoh",
+            "tmcw"
+        ],
         "owner": "tmcw",
         "repository": "notfoundbot"
     },
     "notify-lark-slack-telegram": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "zeroooooooo"
+        ],
         "owner": "echoings",
         "repository": "actions.notify"
     },
     "notify-slack": {
         "category": "monitoring",
-        "dependents": 8,
+        "contributors": [
+            "kirtangajjar",
+            "maitreyie-chavan",
+            "mbtamuli",
+            "mrrobot47",
+            "pradeep910",
+            "rahul286",
+            "topikito"
+        ],
         "owner": "drilonrecica",
         "repository": "action-slack-notify"
     },
     "notify-via-slack": {
         "category": "monitoring",
-        "dependents": 25,
+        "contributors": [
+            "BobosilaVictor",
+            "luchihoratiu"
+        ],
         "owner": "luchihoratiu",
         "repository": "notify-via-slack"
     },
     "notionhook": {
         "category": "monitoring",
-        "dependents": 5,
+        "contributors": [
+            "alessandrobelli"
+        ],
         "owner": "alessandrobelli",
         "repository": "NotionHook"
     },
     "opentelemetry-export-trace": {
         "category": "monitoring",
-        "dependents": 3,
+        "contributors": [
+            "nikordaris"
+        ],
         "owner": "inception-health",
         "repository": "otel-export-trace-action"
     },
     "opentelemetry-upload-trace-artifact": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "nikordaris"
+        ],
         "owner": "inception-health",
         "repository": "otel-upload-test-artifact-action"
     },
     "organization-repository-audit": {
         "category": "monitoring",
-        "dependents": 2,
+        "contributors": [
+            "gr2m",
+            "semantic-release-bot"
+        ],
         "owner": "gr2m",
         "repository": "github-organization-repository-auditing-action"
     },
     "outedated-version": {
         "category": "monitoring",
-        "dependents": 55,
+        "contributors": [
+            "ycjcl868"
+        ],
         "owner": "ycjcl868",
         "repository": "outdated-version-action"
     },
     "page2pdf": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "gniquyij"
+        ],
         "owner": "gniquyij",
         "repository": "page2pdf"
     },
     "pagerduty-alert": {
         "category": "monitoring",
-        "dependents": 3,
+        "contributors": [
+            "JohJonker",
+            "miparnisari",
+            "szunami"
+        ],
         "owner": "Entle",
         "repository": "action-pagerduty-alert"
     },
     "pagerduty-downtime-trigger": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [],
         "owner": "keylightberlin",
         "repository": "pagerduty-downtime-incident"
     },
     "ping-my-site": {
         "category": "monitoring",
-        "dependents": 3,
+        "contributors": [
+            "Leocardoso94"
+        ],
         "owner": "Leocardoso94",
         "repository": "is-my-site-up"
     },
     "pixela-pi-action": {
         "category": "monitoring",
-        "dependents": 5,
+        "contributors": [
+            "dependabot-preview[bot]",
+            "dependabot[bot]",
+            "peaceiris"
+        ],
         "owner": "peaceiris",
         "repository": "actions-pixela"
     },
     "pkg-size-action": {
         "category": "monitoring",
-        "dependents": 9,
+        "contributors": [
+            "keyboard-clacker",
+            "privatenumber"
+        ],
         "owner": "pkg-size",
         "repository": "action"
     },
     "points-bar": {
         "category": "monitoring",
-        "dependents": 183,
+        "contributors": [
+            "dependabot[bot]",
+            "markpatterson27"
+        ],
         "owner": "markpatterson27",
         "repository": "points-bar"
     },
     "pr-label-by-files-changed": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "TDAK1509"
+        ],
         "owner": "TDAK1509",
         "repository": "label-pr-based-on-files-changed"
     },
     "pr-merge-bot": {
         "category": "monitoring",
-        "dependents": 97,
+        "contributors": [
+            "IgnusG",
+            "aaron-trout",
+            "dependabot[bot]",
+            "squalrus"
+        ],
         "owner": "squalrus",
         "repository": "merge-bot"
     },
     "profile-readme-stats": {
         "category": "monitoring",
-        "dependents": 143,
+        "contributors": [
+            "aitikgupta",
+            "fawazsiddiqi",
+            "github-actions[bot]",
+            "teoxoy",
+            "umutphp"
+        ],
         "owner": "teoxoy",
         "repository": "profile-readme-stats"
     },
     "provider-status-checker": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "gardarik"
+        ],
         "owner": "gardarik",
         "repository": "provider-status-action"
     },
     "psi-gh-action": {
         "category": "monitoring",
-        "dependents": 3,
+        "contributors": [
+            "ImgBotApp",
+            "actions-user",
+            "dependabot[bot]",
+            "irfan-maulana-tkp",
+            "mazipan"
+        ],
         "owner": "mazipan",
         "repository": "psi-gh-action"
     },
     "publish-release-assets-to-asset-transparency-log": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "philips"
+        ],
         "owner": "transparencylog",
         "repository": "publish-releases-asset-transparency-action"
     },
+    "pull-request-slack-notifier": {
+        "category": "monitoring",
+        "contributors": [
+            "daint-1849",
+            "daint2git",
+            "dependabot[bot]"
+        ],
+        "owner": "daint2git",
+        "repository": "pull-request-slack-notifier"
+    },
     "pushbullet-notification": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "ShaunLWM"
+        ],
         "owner": "ShaunLWM",
         "repository": "action-pushbullet"
     },
     "pushnotifier-send-action": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "bluefirex"
+        ],
         "owner": "bluefirex",
         "repository": "pushnotifier-send-action"
     },
     "qmsg-action": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "Y2Nk4"
+        ],
         "owner": "Y2Nk4",
         "repository": "qmsg-action"
     },
+    "quarkus-health-check": {
+        "category": "monitoring",
+        "contributors": [
+            "andriidyban"
+        ],
+        "owner": "SkyCell-AG",
+        "repository": "quarkus-healthcheck-action"
+    },
     "quickmetrics-action": {
         "category": "monitoring",
-        "dependents": 2,
+        "contributors": [
+            "renovate-bot",
+            "screendriver"
+        ],
         "owner": "screendriver",
         "repository": "quickmetrics-action"
     },
     "real-time-log-action": {
         "category": "monitoring",
-        "dependents": 2,
+        "contributors": [
+            "cn007b"
+        ],
         "owner": "cn007b",
         "repository": "log-action"
     },
     "record-newrelic-deployment": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "aabed"
+        ],
         "owner": "aabed",
         "repository": "newrelic-record-deployment"
     },
     "relativeci-agent": {
         "category": "monitoring",
-        "dependents": 27,
+        "contributors": [
+            "vio"
+        ],
         "owner": "relative-ci",
         "repository": "agent-action"
     },
     "relativeci-agent-upload-artifact": {
         "category": "monitoring",
-        "dependents": 3,
+        "contributors": [
+            "vio"
+        ],
         "owner": "relative-ci",
         "repository": "agent-upload-artifact-action"
     },
     "remote-bash": {
         "category": "monitoring",
-        "dependents": 20,
+        "contributors": [
+            "shinhwagk"
+        ],
         "owner": "shinhwagk",
         "repository": "remote-bash"
     },
     "remote-time": {
         "category": "monitoring",
-        "dependents": 3,
+        "contributors": [
+            "Plabick",
+            "dependabot[bot]"
+        ],
         "owner": "Plabick",
         "repository": "Remote-Time-Action"
     },
     "report-link-action": {
         "category": "monitoring",
-        "dependents": 33,
+        "contributors": [
+            "ad-m",
+            "dependabot[bot]"
+        ],
         "owner": "ad-m",
         "repository": "report-link-action"
     },
     "repository-notifications": {
         "category": "monitoring",
-        "dependents": 6,
+        "contributors": [
+            "olabini",
+            "olabiniV2"
+        ],
         "owner": "olabiniV2",
         "repository": "repo-notifications-action"
     },
     "required-labels-action": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "MuhaddiMu",
+            "NomanGul"
+        ],
         "owner": "foretheta",
         "repository": "required-labels"
     },
     "rollbar-deploy": {
         "category": "monitoring",
-        "dependents": 57,
+        "contributors": [
+            "TiagoGouvea",
+            "austenLacy",
+            "basoko",
+            "bxsx",
+            "gavinsharp",
+            "jackton1",
+            "mani-rollbar"
+        ],
         "owner": "rollbar",
         "repository": "github-deploy-action"
     },
     "rootly-pulse": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "gleich"
+        ],
         "owner": "rootlyhq",
         "repository": "pulse-action"
     },
     "send-email": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "JustinGOSSES",
+            "Simonwep",
+            "a08381",
+            "cbbm142",
+            "danielhomola",
+            "dawidd6",
+            "dependabot-preview[bot]",
+            "dougpagani",
+            "droidpl",
+            "heinrichreimer",
+            "jiacai2050",
+            "jimfilippou",
+            "krzywiecki",
+            "matttbe",
+            "sturman"
+        ],
         "owner": "dawidd6",
         "repository": "action-send-mail"
     },
     "send-email-with-oauth2": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "JustinGOSSES",
+            "Simonwep",
+            "a08381",
+            "au5ton",
+            "cbbm142",
+            "danielhomola",
+            "dawidd6",
+            "dependabot-preview[bot]",
+            "dougpagani",
+            "droidpl",
+            "heinrichreimer",
+            "jiacai2050",
+            "jimfilippou",
+            "krzywiecki",
+            "matttbe",
+            "sturman"
+        ],
         "owner": "cougargrades",
         "repository": "action-send-mail"
     },
     "send-job-status-to-azure-queue": {
         "category": "monitoring",
-        "dependents": 4,
+        "contributors": [
+            "amongil"
+        ],
         "owner": "amongil",
         "repository": "gh-action-push-workflow-last-job-status-to-azure-queue"
     },
     "send-mailer": {
         "category": "monitoring",
-        "dependents": 20,
+        "contributors": [
+            "devellany"
+        ],
         "owner": "devellany",
         "repository": "send-mail"
     },
     "send-push-notification": {
         "category": "monitoring",
-        "dependents": 79,
+        "contributors": [
+            "arjunkomath",
+            "bsoyka",
+            "greg-dryke"
+        ],
         "owner": "techulus",
         "repository": "push-github-action"
     },
     "send-rcon-commands-to-minecraft-server": {
         "category": "monitoring",
-        "dependents": 6,
+        "contributors": [
+            "Plagiatus"
+        ],
         "owner": "Plagiatus",
         "repository": "RCON-Action"
     },
     "send-sms-notification-with-free-mobile": {
         "category": "monitoring",
-        "dependents": 2,
+        "contributors": [
+            "aslafy-z"
+        ],
         "owner": "aslafy-z",
         "repository": "freemobile-sms-action"
     },
     "sensuctl": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "jspaleta"
+        ],
         "owner": "jspaleta",
         "repository": "sensuctl-action"
     },
     "sensuflow": {
         "category": "monitoring",
-        "dependents": 2,
+        "contributors": [
+            "bananabele",
+            "calebhailey",
+            "jspaleta"
+        ],
         "owner": "sensu",
         "repository": "sensu-flow"
     },
     "sentry-actions": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "jnewland"
+        ],
         "owner": "urcomputeringpal",
         "repository": "sentry-actions"
     },
     "sentry-cli-action": {
         "category": "monitoring",
-        "dependents": 3,
+        "contributors": [
+            "bjacobel"
+        ],
         "owner": "bjacobel",
         "repository": "sentry-cli-action"
     },
     "sentry-io-cli-action": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "NSCoder"
+        ],
         "owner": "NSCoder",
         "repository": "sentry"
     },
     "sentry-release": {
         "category": "monitoring",
-        "dependents": 893,
+        "contributors": [
+            "airgrim",
+            "dependabot[bot]",
+            "dirkgroenen",
+            "jonesphillip",
+            "kamilogorek",
+            "mgaeta",
+            "pbstriker38",
+            "scefali"
+        ],
         "owner": "getsentry",
         "repository": "action-release"
     },
     "sentry-release-with-custom-url": {
         "category": "monitoring",
-        "dependents": 2,
+        "contributors": [
+            "LasaleFamine",
+            "dependabot[bot]",
+            "jonesphillip",
+            "mgaeta",
+            "scefali"
+        ],
         "owner": "LasaleFamine",
         "repository": "action-release"
     },
     "serato-lhci-notification": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "electric",
+            "harrietrc"
+        ],
         "owner": "serato",
         "repository": "serato-lhci-notification"
     },
     "server-alert-in-telegram": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "dependabot[bot]",
+            "fengkx"
+        ],
         "owner": "fengkx",
         "repository": "server-tg-alert"
     },
     "settings-check": {
         "category": "monitoring",
-        "dependents": 2,
+        "contributors": [
+            "GavinF17"
+        ],
         "owner": "ghr-actions",
         "repository": "settings-check"
     },
     "setup-mkr": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "dependabot[bot]",
+            "susisu"
+        ],
         "owner": "susisu",
         "repository": "setup-mkr"
     },
     "setup-statusfy": {
         "category": "monitoring",
-        "dependents": 5,
+        "contributors": [
+            "devkanro"
+        ],
         "owner": "devkanro",
         "repository": "setup-statusfy"
     },
     "should-i-notify-slack": {
         "category": "monitoring",
-        "dependents": 7,
+        "contributors": [
+            "jadolg"
+        ],
         "owner": "Jimdo",
         "repository": "should-i-notify-action"
     },
     "signalfx-action": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "FalconerTC",
+            "dependabot[bot]",
+            "masci"
+        ],
         "owner": "RentTheRunway",
         "repository": "signalfx-reporting-action"
     },
     "size-limit-action": {
         "category": "monitoring",
-        "dependents": 2,
+        "contributors": [
+            "CliftonH",
+            "Drapegnik",
+            "Ninerian",
+            "ai",
+            "andresz1",
+            "azu",
+            "billyvg",
+            "dcwither",
+            "dependabot[bot]",
+            "faergeek",
+            "nwaughachukwuma",
+            "vincentmacri",
+            "vmizgiris-equinix"
+        ],
         "owner": "andresz1",
         "repository": "size-limit-action"
     },
     "slack-action-status": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "navilan"
+        ],
         "owner": "navilan",
         "repository": "slack-action-status"
     },
     "slack-build-notifier": {
         "category": "monitoring",
-        "dependents": 23,
+        "contributors": [
+            "8398a7",
+            "CruzMolina",
+            "case",
+            "hennejg",
+            "smknstd"
+        ],
         "owner": "hennejg",
         "repository": "slack-build-notifier"
     },
     "slack-message": {
         "category": "monitoring",
-        "dependents": 3,
+        "contributors": [
+            "dependabot[bot]",
+            "jdrydn",
+            "meugen"
+        ],
         "owner": "someimportantcompany",
         "repository": "github-actions-slack-message"
     },
     "slack-messaging": {
         "category": "monitoring",
-        "dependents": 23,
+        "contributors": [
+            "dependabot[bot]",
+            "github-actions[bot]",
+            "ocean90",
+            "szepeviktor"
+        ],
         "owner": "wearerequired",
         "repository": "slack-messaging-action"
     },
     "slack-notifier": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "danlake",
+            "dgoemans",
+            "jaffacake",
+            "mikezange"
+        ],
         "owner": "gymshark",
         "repository": "slack-notifier-action"
     },
     "slack-release-notifier": {
         "category": "monitoring",
-        "dependents": 6,
+        "contributors": [
+            "fedecalendino"
+        ],
         "owner": "fedecalendino",
         "repository": "slack-release-notifier"
     },
     "slack-webhook-channel-notifications": {
         "category": "monitoring",
-        "dependents": 12,
+        "contributors": [
+            "FeinesFabi",
+            "dependabot[bot]",
+            "tiloio"
+        ],
         "owner": "tiloio",
         "repository": "slack-webhook-action"
     },
     "slack-workflow-notifier": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "samalexander"
+        ],
         "owner": "Jiro-Digital",
         "repository": "slack-workflow-action"
     },
     "spm-dependencies-checker": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "sbertix"
+        ],
         "owner": "sbertix",
         "repository": "spm-dependencies-checker"
     },
     "ssl-tls-monitor": {
         "category": "monitoring",
-        "dependents": 2,
+        "contributors": [
+            "dependabot[bot]",
+            "zrosenbauer"
+        ],
         "owner": "bluenovaio",
         "repository": "action-tls-monitor"
     },
     "statusoli": {
         "category": "monitoring",
-        "dependents": 6,
+        "contributors": [
+            "athul"
+        ],
         "owner": "athul",
         "repository": "statusoli"
     },
     "subdomain-finding-using-subfinder": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "v1dhun"
+        ],
         "owner": "v1dhun",
         "repository": "subfinder-action"
     },
     "sync-branch-action": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "LucasRuy"
+        ],
         "owner": "LucasRuy",
         "repository": "sync-branch-action"
     },
     "telegram-ci-notify": {
         "category": "monitoring",
-        "dependents": 14,
+        "contributors": [
+            "KaMeHb-UA"
+        ],
         "owner": "KaMeHb-UA",
         "repository": "telegram-ci-notify-action"
     },
     "test-autograde": {
         "category": "monitoring",
-        "dependents": 22,
+        "contributors": [
+            "masaditya"
+        ],
         "owner": "masaditya",
         "repository": "test-autograde"
     },
     "tg-message-sender": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "preved911"
+        ],
         "owner": "sputnik-systems",
         "repository": "tg-message-sender"
     },
     "thundra-foresight-js-action": {
         "category": "monitoring",
-        "dependents": 12,
+        "contributors": [
+            "bcaglayan",
+            "serkan-ozal"
+        ],
         "owner": "thundra-io",
         "repository": "thundra-foresight-js-action"
     },
     "thundra-foresight-python-action": {
         "category": "monitoring",
-        "dependents": 7,
+        "contributors": [
+            "gokhan721",
+            "serkan-ozal"
+        ],
         "owner": "thundra-io",
         "repository": "thundra-foresight-python-action"
     },
     "thundra-gradle-test-instrumentation": {
         "category": "monitoring",
-        "dependents": 56,
+        "contributors": [
+            "rwxdash",
+            "serkan-ozal",
+            "yusuf-erdem"
+        ],
         "owner": "thundra-io",
         "repository": "thundra-gradle-test-action"
     },
     "thundra-maven-test-instrumentation": {
         "category": "monitoring",
-        "dependents": 104,
+        "contributors": [
+            "Hakky54",
+            "rwxdash",
+            "serkan-ozal"
+        ],
         "owner": "thundra-io",
         "repository": "thundra-maven-test-action"
     },
     "thundra-test-initializer": {
         "category": "monitoring",
-        "dependents": 27,
+        "contributors": [
+            "bcaglayan",
+            "rwxdash",
+            "serkan-ozal"
+        ],
         "owner": "thundra-io",
         "repository": "thundra-test-init-action"
     },
     "toast-ui-detect-runtime-error-actions": {
         "category": "monitoring",
-        "dependents": 56,
+        "contributors": [
+            "dependabot[bot]",
+            "jung-han"
+        ],
         "owner": "nhn",
         "repository": "toast-ui.detect-runtime-error-actions"
     },
     "todoist-readme": {
         "category": "monitoring",
-        "dependents": 104,
+        "contributors": [
+            "abhisheknaiidu",
+            "ypresion"
+        ],
         "owner": "abhisheknaiidu",
         "repository": "todoist-readme"
     },
     "todoist-readme-tasks-list": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "abhisheknaiidu",
+            "rxcod9",
+            "ypresion"
+        ],
         "owner": "rxcod9",
         "repository": "todoist-readme"
     },
     "track-commits-to-issue": {
         "category": "monitoring",
-        "dependents": 3,
+        "contributors": [
+            "AlexxNB"
+        ],
         "owner": "AlexxNB",
         "repository": "track-commits-to-issue"
     },
     "traffic-to-badge": {
         "category": "monitoring",
-        "dependents": 40,
+        "contributors": [
+            "dependabot-preview[bot]",
+            "dependabot[bot]",
+            "yi-Xu-0100"
+        ],
         "owner": "yi-Xu-0100",
         "repository": "traffic-to-badge"
     },
     "trains-get-task-stats": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "JDennisJ",
+            "allegroai-git",
+            "shomratalon"
+        ],
         "owner": "allegroai",
         "repository": "trains-actions-get-stats"
     },
     "trains-train-model": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "JDennisJ",
+            "allegroai-git",
+            "shomratalon"
+        ],
         "owner": "allegroai",
         "repository": "trains-actions-train-model"
     },
     "transfer-github-project-issues-into-google-sheets": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "ViRGiL175"
+        ],
         "owner": "ViRGiL175",
         "repository": "github-project-issue-to-sheets"
     },
     "trigger-aws-lamba": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "KhannaAbhinav"
+        ],
         "owner": "KhannaAbhinav",
         "repository": "trigger-aws-lambda-action"
     },
     "upload-github-action-workflows-logs-to-elastic": {
         "category": "monitoring",
-        "dependents": 3,
+        "contributors": [
+            "shahargl"
+        ],
         "owner": "shahargl",
         "repository": "upload-github-workflow-logs-to-elastic"
     },
     "url-health-check": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "Jtalk",
+            "MarekLani",
+            "dependabot[bot]"
+        ],
         "owner": "Jtalk",
         "repository": "url-health-check-action"
     },
     "urlchecker-action": {
         "category": "monitoring",
-        "dependents": 152,
+        "contributors": [
+            "SuperKogito",
+            "lucasrangit",
+            "maelle",
+            "mrmundt",
+            "shahzebsiddiqui",
+            "vsoch"
+        ],
         "owner": "urlstechie",
         "repository": "urlchecker-action"
     },
+    "user-statistician": {
+        "category": "monitoring",
+        "contributors": [
+            "5d-jh",
+            "Anik-Bardhan",
+            "Jibendu007",
+            "Rutujabadve",
+            "YasiOnFire",
+            "a-ayush19",
+            "andrefpoliveira",
+            "berviantoleo",
+            "cicirello",
+            "dependabot[bot]",
+            "mantasio",
+            "pje3110",
+            "rafiuzzaman7",
+            "therrance",
+            "thomasbnt",
+            "ziriuz84"
+        ],
+        "owner": "cicirello",
+        "repository": "user-statistician"
+    },
     "verify-service": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "bripkens"
+        ],
         "owner": "steadybit",
         "repository": "verify-service"
     },
     "virustotal-github-action": {
         "category": "monitoring",
-        "dependents": 295,
+        "contributors": [
+            "crazy-max",
+            "dependabot[bot]",
+            "github-actions[bot]",
+            "tryallthethings"
+        ],
         "owner": "crazy-max",
         "repository": "ghaction-virustotal"
     },
     "vk-actions-notify": {
         "category": "monitoring",
-        "dependents": 0,
+        "contributors": [
+            "ItzNeviKat"
+        ],
         "owner": "cteamdev",
         "repository": "vk-actions-notify"
     },
     "voorhees-for-github-actions": {
         "category": "monitoring",
-        "dependents": 2,
+        "contributors": [
+            "Nivl",
+            "dependabot[bot]"
+        ],
         "owner": "Nivl",
         "repository": "voorhees-github-action"
     },
     "wait-for-http-responses": {
         "category": "monitoring",
-        "dependents": 39,
+        "contributors": [
+            "NathanielHill",
+            "brendan-hall",
+            "nev7n"
+        ],
         "owner": "cygnetdigital",
         "repository": "wait_for_response"
     },
     "wakatime-coding-statistics": {
         "category": "monitoring",
-        "dependents": 18,
+        "contributors": [
+            "tariksahni"
+        ],
         "owner": "tariksahni",
         "repository": "coding-stats-wakatime"
     },
     "webflow-get": {
         "category": "monitoring",
-        "dependents": 8,
+        "contributors": [
+            "loomchild"
+        ],
         "owner": "loomchild",
         "repository": "webflow-get"
     },
     "webhook-action": {
         "category": "monitoring",
-        "dependents": 568,
+        "contributors": [
+            "AnandChowdhary",
+            "dependabot[bot]",
+            "joelwmale",
+            "mergify[bot]"
+        ],
         "owner": "joelwmale",
         "repository": "webhook-action"
     },
     "webpack-stats-difference": {
         "category": "monitoring",
-        "dependents": 7,
+        "contributors": [
+            "WilliamDASILVA",
+            "duncan-truss",
+            "maxprilutskiy"
+        ],
         "owner": "chronotruck",
         "repository": "webpack-stats-diff-action"
     },
     "workflow-status": {
         "category": "monitoring",
-        "dependents": 14,
+        "contributors": [
+            "LASER-Yi",
+            "dependabot[bot]"
+        ],
         "owner": "LASER-Yi",
         "repository": "workflow-status"
     },
     "workflow-status-action": {
         "category": "monitoring",
-        "dependents": 66,
+        "contributors": [
+            "martialonline"
+        ],
         "owner": "martialonline",
         "repository": "workflow-status"
     },
     "wpt-unofficial-action": {
         "category": "monitoring",
-        "dependents": 2,
+        "contributors": [
+            "jackdbd",
+            "semantic-release-bot"
+        ],
         "owner": "jackdbd",
         "repository": "wpt-action"
     },
     "x-developer-analysis-action": {
         "category": "monitoring",
-        "dependents": 2,
+        "contributors": [
+            "RCFans"
+        ],
         "owner": "FieldTech",
         "repository": "x-developer-analysis-action"
     },
     "xunit-slack-reporter": {
         "category": "monitoring",
-        "dependents": 7,
+        "contributors": [
+            "dependabot-preview[bot]",
+            "ivanklee86",
+            "renovate[bot]"
+        ],
         "owner": "ivanklee86",
         "repository": "xunit-slack-reporter"
     },
     "yor-github-action": {
         "category": "monitoring",
-        "dependents": 254,
+        "contributors": [
+            "BorisO",
+            "actions-user",
+            "bclewis1",
+            "dependabot[bot]",
+            "eurogig",
+            "nimrodkor",
+            "schosterbarak",
+            "t-botz"
+        ],
         "owner": "bridgecrewio",
         "repository": "yor-action"
     },
     "youtube-checker": {
         "category": "monitoring",
-        "dependents": 1,
+        "contributors": [
+            "heeenkie"
+        ],
         "owner": "heeenkie",
         "repository": "youtube-link-checker-action"
     },
     "zju-ncov-hitcarder-action": {
         "category": "monitoring",
-        "dependents": 551,
+        "contributors": [
+            "Long0x0",
+            "Tishacy",
+            "diaozhongpu"
+        ],
         "owner": "Long0x0",
         "repository": "ZJU-nCov-Hitcarder"
     }

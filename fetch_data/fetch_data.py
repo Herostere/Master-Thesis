@@ -241,7 +241,9 @@ def thread_data(pages: list, category: str) -> None:
                         repo_name = get_repo_name(url)
                         # versions = get_versions(owner, repo_name)
                         # stars = get_api('stars', owner, repo_name)
-                        dependents = get_dependents(owner, repo_name)
+                        # dependents = get_dependents(owner, repo_name)
+                        # contributors = get_api('contributors', owner, repo_name)
+                        # contributors.sort()
 
                         DATA[pretty_name] = {}
                         DATA[pretty_name]['category'] = category
@@ -250,7 +252,8 @@ def thread_data(pages: list, category: str) -> None:
                         DATA[pretty_name]['repository'] = repo_name
                         # DATA[pretty_name]['versions'] = versions
                         # DATA[pretty_name]['stars'] = stars
-                        DATA[pretty_name]['dependents'] = dependents
+                        # DATA[pretty_name]['dependents'] = dependents
+                        # DATA[pretty_name]['contributors'] = contributors
 
 
 def format_action_name(ugly_name: str) -> str:
@@ -352,10 +355,12 @@ def get_api(key: str, owner: str, repo_name: str) -> int | list:
     urls = {
         'versions': f"https://api.github.com/repos/{owner}/{repo_name}/releases?per_page=100&page=1",
         'stars': f"https://api.github.com/repos/{owner}/{repo_name}/stargazers?per_page=100&page=1",
+        'contributors': f"https://api.github.com/repos/{owner}/{repo_name}/contributors?per_page=100&page=1",
     }
     to_extract = {
         'versions': 'tag_name',
         'stars': 'login',
+        'contributors': 'login',
     }
     headers = {
         'Authorization': f'token {GITHUB_TOKEN}',
