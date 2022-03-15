@@ -409,7 +409,14 @@ def extract(api_call: requests.Response, to_extract: str) -> list:
     return extracted
 
 
-def get_dependents(owner, repo_name):
+def get_dependents(owner: str, repo_name: str) -> int:
+    """
+    Get the number of dependents for a repository.
+
+    :param owner: The owner of the repository.
+    :param repo_name: The name of the repository.
+    :return: The number of dependents.
+    """
     url = f"https://github.com/{owner}/{repo_name}/network/dependents"
     xpath = '//*[@id="dependents"]/div[3]/div[1]/div/div/a[1]/text()'
 
