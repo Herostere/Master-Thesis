@@ -380,13 +380,11 @@ def extract(api_call, to_extract):
             extracted.append(needed[to_extract])
     elif api_call.status_code == 403:
         if 'Retry-After' in api_call.headers.keys():
-            print(int(api_call.headers['Retry-After']))
             time.sleep(int(api_call.headers['Retry-After']))
         else:
             reset = int(api_call.headers['X-RateLimit-Reset'])
             current = int(time.time())
             time_for_reset = reset - current
-            print(time_for_reset)
             time.sleep(time_for_reset)
 
     return extracted
