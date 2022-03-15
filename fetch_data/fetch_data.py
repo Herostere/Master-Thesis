@@ -244,6 +244,7 @@ def thread_data(pages: list, category: str) -> None:
                         # dependents = get_dependents(owner, repo_name)
                         # contributors = get_api('contributors', owner, repo_name)
                         # contributors.sort()
+                        forks = get_api('forks', owner, repo_name)
 
                         DATA[pretty_name] = {}
                         DATA[pretty_name]['category'] = category
@@ -254,6 +255,7 @@ def thread_data(pages: list, category: str) -> None:
                         # DATA[pretty_name]['stars'] = stars
                         # DATA[pretty_name]['dependents'] = dependents
                         # DATA[pretty_name]['contributors'] = contributors
+                        DATA[pretty_name]['forks'] = forks
 
 
 def format_action_name(ugly_name: str) -> str:
@@ -356,11 +358,13 @@ def get_api(key: str, owner: str, repo_name: str) -> int | list:
         'versions': f"https://api.github.com/repos/{owner}/{repo_name}/releases?per_page=100&page=1",
         'stars': f"https://api.github.com/repos/{owner}/{repo_name}/stargazers?per_page=100&page=1",
         'contributors': f"https://api.github.com/repos/{owner}/{repo_name}/contributors?per_page=100&page=1",
+        'forks': f"https://api.github.com/repos/{owner}/{repo_name}/forks?per_page=100&page=1",
     }
     to_extract = {
         'versions': 'tag_name',
         'stars': 'login',
         'contributors': 'login',
+        'forks': 'id',
     }
     headers = {
         'Authorization': f'token {GITHUB_TOKEN}',
@@ -384,7 +388,7 @@ def get_api(key: str, owner: str, repo_name: str) -> int | list:
         for extracted in temp:
             final.append(extracted)
 
-    if key == 'stars':
+    if key in ['stars', 'forks']:
         return len(final)
 
     return final
