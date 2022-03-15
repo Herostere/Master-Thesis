@@ -57,14 +57,14 @@ def get_categories() -> None:
 
     save_categories = numpy.array(save_categories)
 
-    # """
-    # TO DELETE
-    # """
-    # save_categories = ["monitoring"]
-    # save_categories = numpy.array(save_categories)
-    # """
-    # -----
-    # """
+    """
+    TO DELETE
+    """
+    save_categories = ["monitoring"]
+    save_categories = numpy.array(save_categories)
+    """
+    -----
+    """
 
     numpy.save("categories.npy", save_categories)
 
@@ -237,14 +237,16 @@ def thread_data(pages: list, category: str) -> None:
                         official = get_official(url)
                         owner = get_owner(url)
                         repo_name = get_repo_name(url)
-                        versions = get_versions(owner, repo_name)
+                        # versions = get_versions(owner, repo_name)
+                        stars = get_api('stars', owner, repo_name)
 
                         DATA[pretty_name] = {}
                         DATA[pretty_name]['category'] = category
                         DATA[pretty_name]['official'] = official
                         DATA[pretty_name]['owner'] = owner
                         DATA[pretty_name]['repository'] = repo_name
-                        DATA[pretty_name]['versions'] = versions
+                        # DATA[pretty_name]['versions'] = versions
+                        DATA[pretty_name]['stars'] = stars
 
 
 def format_action_name(ugly_name: str) -> str:
@@ -334,47 +336,49 @@ def get_repo_name(url: str) -> str:
     return url.split('https://github.com/')[1].split('/')[1]
 
 
-def get_versions(owner: str, repo_name: str) -> list:
-    """
-    Retrieve the releases for an Action.
-
-    :param owner: The owner of the repository.
-    :param repo_name: The name of the repository.
-    :return: The list of releases versions.
-    """
-    url = f"https://api.github.com/repos/{owner}/{repo_name}/releases?per_page=100&page=1"
+def get_api(key, owner, repo_name):
+    urls = {
+        'versions': f"https://api.github.com/repos/{owner}/{repo_name}/releases?per_page=100&page=1",
+        'stars': f"https://api.github.com/repos/{owner}/{repo_name}/stargazers?per_page=100&page=1",
+    }
+    to_extract = {
+        'versions': 'tag_name',
+        'stars': 'login',
+    }
     headers = {
         'Authorization': f'token {GITHUB_TOKEN}',
-        'accept': 'application/vnd.github.v3+json'
+        'accept': 'application/vnd.github.v3+json',
     }
 
-    versions = []
-    api_call = requests.get(url, headers=headers)
-    if 'next' in api_call.links.keys():
+    final = []
+    api_call = requests.get(urls[key], headers=headers)
+
+    if 'next' not in api_call.links.keys():
+        temp = extract(api_call, to_extract[key])
+        for extracted in temp:
+            final.append(extracted)
+    elif 'next' in api_call.links.keys():
         while 'next' in api_call.links.keys():
-            temps_versions = extract_versions(api_call)
-            for version in temps_versions:
-                versions.append(version)
-            requests.get(api_call.links['next'], headers)
-    else:
-        temp_versions = extract_versions(api_call)
-        for version in temp_versions:
-            versions.append(version)
-    return versions
+            temp = extract(api_call, to_extract[key])
+            for extracted in temp:
+                final.append(extracted)
+            api_call = requests.get(api_call.links['next']['url'], headers)
+        temp = extract(api_call, to_extract[key])
+        for extracted in temp:
+            final.append(extracted)
+
+    if key == 'stars':
+        return len(final)
+
+    return final
 
 
-def extract_versions(api_call: requests.Response) -> list:
-    """
-    Extracts the versions from a response.
-
-    :param api_call: The response from which extract the versions.
-    :return: The list of versions on this response.
-    """
-    versions = []
+def extract(api_call, to_extract):
+    extracted = []
     if api_call.status_code == 200:
-        for version in api_call.json():
-            versions.append(version['tag_name'])
-    if api_call.status_code == 403:
+        for needed in api_call.json():
+            extracted.append(needed[to_extract])
+    elif api_call.status_code == 403:
         if 'Retry-After' in api_call.headers.keys():
             time.sleep(int(api_call.headers['Retry-After']))
         else:
@@ -383,7 +387,7 @@ def extract_versions(api_call: requests.Response) -> list:
             time_for_reset = reset - current
             time.sleep(time_for_reset)
 
-    return versions
+    return extracted
 
 
 if __name__ == "__main__":
