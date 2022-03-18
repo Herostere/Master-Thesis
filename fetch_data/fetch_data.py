@@ -59,14 +59,14 @@ def get_categories() -> None:
 
     save_categories = numpy.array(save_categories)
 
-    """
-    TO DELETE
-    """
-    save_categories = ["monitoring"]
-    save_categories = numpy.array(save_categories)
-    """
-    -----
-    """
+    # """
+    # TO DELETE
+    # """
+    # save_categories = ["monitoring"]
+    # save_categories = numpy.array(save_categories)
+    # """
+    # -----
+    # """
 
     numpy.save("categories.npy", save_categories)
 
@@ -236,12 +236,12 @@ def thread_data(pages: list, category: str) -> None:
                 if mp_page:
                     data = test_link(url)
                     if data:
-                        # official = get_official(url)
+                        official = get_official(url)
                         owner = get_owner(url)
                         repo_name = get_repo_name(url)
-                        # versions = get_versions(owner, repo_name)
+                        # versions = get_api('versions', owner, repo_name)
                         # stars = get_api('stars', owner, repo_name)
-                        # dependents = get_dependents(owner, repo_name)
+                        dependents = get_dependents(owner, repo_name)
                         # contributors = get_api('contributors', owner, repo_name)
                         # contributors.sort()
                         # forks = get_api('forks', owner, repo_name)
@@ -249,12 +249,12 @@ def thread_data(pages: list, category: str) -> None:
 
                         DATA[pretty_name] = {}
                         DATA[pretty_name]['category'] = category
-                        # DATA[pretty_name]['official'] = official
+                        DATA[pretty_name]['official'] = official
                         DATA[pretty_name]['owner'] = owner
                         DATA[pretty_name]['repository'] = repo_name
                         # DATA[pretty_name]['versions'] = versions
                         # DATA[pretty_name]['stars'] = stars
-                        # DATA[pretty_name]['dependents'] = dependents
+                        DATA[pretty_name]['dependents'] = dependents
                         # DATA[pretty_name]['contributors'] = contributors
                         # DATA[pretty_name]['forks'] = forks
                         # DATA[pretty_name]['watching'] = watching
@@ -411,14 +411,16 @@ def extract(api_call: requests.Response, to_extract: str) -> list:
     if api_call.status_code == 200:
         for needed in api_call.json():
             extracted.append(needed[to_extract])
-    elif api_call.status_code == 403:
+    while api_call.status_code == 403:
         if 'Retry-After' in api_call.headers.keys():
             time.sleep(int(api_call.headers['Retry-After']))
         else:
             reset = int(api_call.headers['X-RateLimit-Reset'])
             current = int(time.time())
             time_for_reset = reset - current
-            time.sleep(time_for_reset)
+            if time_for_reset > 0:
+                time.sleep(time_for_reset)
+        return extract(api_call, to_extract)
 
     return extracted
 
@@ -437,10 +439,16 @@ def get_dependents(owner: str, repo_name: str) -> int:
     request = get_request("get_dependents", url)
 
     root = beautiful_html(request.text)
-    ugly_dependents = root.xpath(xpath)[1]
-    dependents = int(re.findall(re.compile(r'\d+'), ugly_dependents)[0])
 
-    return dependents
+    try:
+        ugly_dependents = root.xpath(xpath)[1]
+    except IndexError:
+        return get_dependents(owner, repo_name)
+    dependents_temp = re.findall(re.compile(r'\d+'), ugly_dependents)
+    if dependents_temp:
+        dependents = int(re.findall(re.compile(r'\d+'), ugly_dependents)[0])
+        return dependents
+    return -1
 
 
 if __name__ == "__main__":
