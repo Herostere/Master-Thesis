@@ -239,9 +239,9 @@ def thread_data(pages: list, category: str) -> None:
                         official = get_official(url)
                         owner = get_owner(url)
                         repo_name = get_repo_name(url)
-                        # versions = get_api('versions', owner, repo_name)
+                        versions = get_api('versions', owner, repo_name)
                         # stars = get_api('stars', owner, repo_name)
-                        dependents = get_dependents(owner, repo_name)
+                        # dependents = get_dependents(owner, repo_name)
                         # contributors = get_api('contributors', owner, repo_name)
                         # contributors.sort()
                         # forks = get_api('forks', owner, repo_name)
@@ -252,9 +252,9 @@ def thread_data(pages: list, category: str) -> None:
                         DATA[pretty_name]['official'] = official
                         DATA[pretty_name]['owner'] = owner
                         DATA[pretty_name]['repository'] = repo_name
-                        # DATA[pretty_name]['versions'] = versions
+                        DATA[pretty_name]['versions'] = versions
                         # DATA[pretty_name]['stars'] = stars
-                        DATA[pretty_name]['dependents'] = dependents
+                        # DATA[pretty_name]['dependents'] = dependents
                         # DATA[pretty_name]['contributors'] = contributors
                         # DATA[pretty_name]['forks'] = forks
                         # DATA[pretty_name]['watching'] = watching
@@ -411,7 +411,9 @@ def extract(api_call: requests.Response, to_extract: str) -> list:
     if api_call.status_code == 200:
         for needed in api_call.json():
             extracted.append(needed[to_extract])
-    while api_call.status_code == 403:
+    elif api_call.status_code == 403:
+        print(api_call.headers.keys())
+        print(api_call.json())
         if 'Retry-After' in api_call.headers.keys():
             time.sleep(int(api_call.headers['Retry-After']))
         else:
