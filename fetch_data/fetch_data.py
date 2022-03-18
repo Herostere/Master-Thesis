@@ -240,8 +240,8 @@ def thread_data(pages: list, category: str) -> None:
                         owner = get_owner(url)
                         repo_name = get_repo_name(url)
                         # versions = get_api('versions', owner, repo_name)
-                        stars = get_api('stars', owner, repo_name)
-                        # dependents = get_dependents(owner, repo_name)
+                        # stars = get_api('stars', owner, repo_name)
+                        dependents = get_dependents(owner, repo_name)
                         # contributors = get_api('contributors', owner, repo_name)
                         # contributors.sort()
                         # forks = get_api('forks', owner, repo_name)
@@ -253,8 +253,8 @@ def thread_data(pages: list, category: str) -> None:
                         DATA[pretty_name]['owner'] = owner
                         DATA[pretty_name]['repository'] = repo_name
                         # DATA[pretty_name]['versions'] = versions
-                        DATA[pretty_name]['stars'] = stars
-                        # DATA[pretty_name]['dependents'] = dependents
+                        # DATA[pretty_name]['stars'] = stars
+                        DATA[pretty_name]['dependents'] = dependents
                         # DATA[pretty_name]['contributors'] = contributors
                         # DATA[pretty_name]['forks'] = forks
                         # DATA[pretty_name]['watching'] = watching
