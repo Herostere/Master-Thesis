@@ -5,7 +5,7 @@ You will need to use Python3.10.
 """
 from bs4 import BeautifulSoup
 from html import unescape
-from lxml import html
+from lxml import html, etree
 from ratelimit import limits, sleep_and_retry
 
 import fetch_data_config as config
@@ -236,28 +236,28 @@ def thread_data(pages: list, category: str) -> None:
                 if mp_page:
                     data = test_link(url)
                     if data:
-                        # official = get_official(url)
+                        official = get_official(url)
                         owner = get_owner(url)
                         repo_name = get_repo_name(url)
-                        # versions = get_api('versions', owner, repo_name)
-                        # stars = get_api('stars', owner, repo_name)
-                        # dependents = get_dependents(owner, repo_name)
-                        # contributors = get_api('contributors', owner, repo_name)
-                        # contributors.sort()
+                        versions = get_api('versions', owner, repo_name)
+                        stars = get_api('stars', owner, repo_name)
+                        dependents = get_dependents(owner, repo_name)
+                        contributors = get_api('contributors', owner, repo_name)
+                        contributors.sort()
                         forks = get_api('forks', owner, repo_name)
-                        # watching = get_api('watching', owner, repo_name)
+                        watching = get_api('watching', owner, repo_name)
 
                         DATA[pretty_name] = {}
                         DATA[pretty_name]['category'] = category
-                        # DATA[pretty_name]['official'] = official
+                        DATA[pretty_name]['official'] = official
                         DATA[pretty_name]['owner'] = owner
                         DATA[pretty_name]['repository'] = repo_name
-                        # DATA[pretty_name]['versions'] = versions
-                        # DATA[pretty_name]['stars'] = stars
-                        # DATA[pretty_name]['dependents'] = dependents
-                        # DATA[pretty_name]['contributors'] = contributors
+                        DATA[pretty_name]['versions'] = versions
+                        DATA[pretty_name]['stars'] = stars
+                        DATA[pretty_name]['dependents'] = dependents
+                        DATA[pretty_name]['contributors'] = contributors
                         DATA[pretty_name]['forks'] = forks
-                        # DATA[pretty_name]['watching'] = watching
+                        DATA[pretty_name]['watching'] = watching
 
 
 def format_action_name(ugly_name: str) -> str:
@@ -453,9 +453,15 @@ def get_dependents(owner: str, repo_name: str) -> int:
     url = f"https://github.com/{owner}/{repo_name}/network/dependents"
     xpath = '//*[@id="dependents"]/div[3]/div[1]/div/div/a[1]/text()'
 
-    request = get_request("get_dependents", url)
+    root = None
 
-    root = beautiful_html(request.text)
+    while True:
+        try:
+            request = get_request("get_dependents", url)
+            root = beautiful_html(request.text)
+            break
+        except etree.ParserError:
+            continue
 
     try:
         ugly_dependents = root.xpath(xpath)[1]
