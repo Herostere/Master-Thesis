@@ -236,26 +236,26 @@ def thread_data(pages: list, category: str) -> None:
                 if mp_page:
                     data = test_link(url)
                     if data:
-                        # official = get_official(url)
+                        official = get_official(url)
                         owner = get_owner(url)
                         repo_name = get_repo_name(url)
-                        # versions = get_api('versions', owner, repo_name)
-                        # stars = get_api('stars', owner, repo_name)
-                        # dependents = get_dependents(owner, repo_name)
-                        # contributors = get_api('contributors', owner, repo_name)
-                        # contributors.sort()
+                        versions = get_api('versions', owner, repo_name)
+                        stars = get_api('stars', owner, repo_name)
+                        dependents = get_dependents(owner, repo_name)
+                        contributors = get_api('contributors', owner, repo_name)
+                        contributors.sort()
                         forks = get_api('forks', owner, repo_name)
                         watching = get_api('watching', owner, repo_name)
 
                         DATA[pretty_name] = {}
                         DATA[pretty_name]['category'] = category
-                        # DATA[pretty_name]['official'] = official
+                        DATA[pretty_name]['official'] = official
                         DATA[pretty_name]['owner'] = owner
                         DATA[pretty_name]['repository'] = repo_name
-                        # DATA[pretty_name]['versions'] = versions
-                        # DATA[pretty_name]['stars'] = stars
-                        # DATA[pretty_name]['dependents'] = dependents
-                        # DATA[pretty_name]['contributors'] = contributors
+                        DATA[pretty_name]['versions'] = versions
+                        DATA[pretty_name]['stars'] = stars
+                        DATA[pretty_name]['dependents'] = dependents
+                        DATA[pretty_name]['contributors'] = contributors
                         DATA[pretty_name]['forks'] = forks
                         DATA[pretty_name]['watching'] = watching
 
@@ -393,7 +393,13 @@ def get_api(key: str, owner: str, repo_name: str) -> int | list:
             temp = extract(api_call, to_extract[key], urls[key], headers)
             for extracted in temp:
                 final.append(extracted)
-            api_call = requests.get(api_call.links['next']['url'], headers)
+            while True:
+                try:
+                    api_call = requests.get(api_call.links['next']['url'], headers)
+                    break
+                except requests.exceptions.ConnectionError:
+                    time.sleep(60)
+                    continue
         temp = extract(api_call, to_extract[key], urls[key], headers)
         for extracted in temp:
             final.append(extracted)
