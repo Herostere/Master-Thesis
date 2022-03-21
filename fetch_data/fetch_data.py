@@ -5,7 +5,7 @@ You will need to use Python3.10.
 """
 from bs4 import BeautifulSoup
 from html import unescape
-from lxml import html
+from lxml import html, etree
 from ratelimit import limits, sleep_and_retry
 
 import fetch_data_config as config
@@ -240,12 +240,12 @@ def thread_data(pages: list, category: str) -> None:
                         owner = get_owner(url)
                         repo_name = get_repo_name(url)
                         versions = get_api('versions', owner, repo_name)
-                        # stars = get_api('stars', owner, repo_name)
-                        # dependents = get_dependents(owner, repo_name)
-                        # contributors = get_api('contributors', owner, repo_name)
-                        # contributors.sort()
-                        # forks = get_api('forks', owner, repo_name)
-                        # watching = get_api('watching', owner, repo_name)
+                        stars = get_api('stars', owner, repo_name)
+                        dependents = get_dependents(owner, repo_name)
+                        contributors = get_api('contributors', owner, repo_name)
+                        contributors.sort()
+                        forks = get_api('forks', owner, repo_name)
+                        watching = get_api('watching', owner, repo_name)
 
                         DATA[pretty_name] = {}
                         DATA[pretty_name]['category'] = category
@@ -253,11 +253,11 @@ def thread_data(pages: list, category: str) -> None:
                         DATA[pretty_name]['owner'] = owner
                         DATA[pretty_name]['repository'] = repo_name
                         DATA[pretty_name]['versions'] = versions
-                        # DATA[pretty_name]['stars'] = stars
-                        # DATA[pretty_name]['dependents'] = dependents
-                        # DATA[pretty_name]['contributors'] = contributors
-                        # DATA[pretty_name]['forks'] = forks
-                        # DATA[pretty_name]['watching'] = watching
+                        DATA[pretty_name]['stars'] = stars
+                        DATA[pretty_name]['dependents'] = dependents
+                        DATA[pretty_name]['contributors'] = contributors
+                        DATA[pretty_name]['forks'] = forks
+                        DATA[pretty_name]['watching'] = watching
 
 
 def format_action_name(ugly_name: str) -> str:
@@ -377,19 +377,30 @@ def get_api(key: str, owner: str, repo_name: str) -> int | list:
     }
 
     final = []
-    api_call = requests.get(urls[key], headers=headers)
+    while True:
+        try:
+            api_call = requests.get(urls[key], headers=headers)
+            break
+        except requests.ConnectionError:
+            time.sleep(60)
 
     if 'next' not in api_call.links.keys():
-        temp = extract(api_call, to_extract[key])
+        temp = extract(api_call, to_extract[key], urls[key], headers)
         for extracted in temp:
             final.append(extracted)
     elif 'next' in api_call.links.keys():
         while 'next' in api_call.links.keys():
-            temp = extract(api_call, to_extract[key])
+            temp = extract(api_call, to_extract[key], urls[key], headers)
             for extracted in temp:
                 final.append(extracted)
-            api_call = requests.get(api_call.links['next']['url'], headers)
-        temp = extract(api_call, to_extract[key])
+            while True:
+                try:
+                    api_call = requests.get(api_call.links['next']['url'], headers)
+                    break
+                except requests.exceptions.ConnectionError:
+                    time.sleep(60)
+                    continue
+        temp = extract(api_call, to_extract[key], urls[key], headers)
         for extracted in temp:
             final.append(extracted)
 
@@ -399,12 +410,14 @@ def get_api(key: str, owner: str, repo_name: str) -> int | list:
     return final
 
 
-def extract(api_call: requests.Response, to_extract: str) -> list:
+def extract(api_call: requests.Response, to_extract: str, url, headers) -> list:
     """
     Extract the information from the API.
 
     :param api_call: The call to the API.
     :param to_extract: The information we need to extract.
+    :param url: The URL of the API.
+    :param headers: The headers for the request to the API.
     :return: The extracted information in a list.
     """
     extracted = []
@@ -412,17 +425,19 @@ def extract(api_call: requests.Response, to_extract: str) -> list:
         for needed in api_call.json():
             extracted.append(needed[to_extract])
     elif api_call.status_code == 403:
-        print(api_call.headers.keys())
-        print(api_call.json())
+        message = 'message' in api_call.json().keys()
         if 'Retry-After' in api_call.headers.keys():
             time.sleep(int(api_call.headers['Retry-After']))
+        elif message and "Authenticated requests get a higher rate limit." in api_call.json()['message']:
+            pass
         else:
             reset = int(api_call.headers['X-RateLimit-Reset'])
             current = int(time.time())
             time_for_reset = reset - current
             if time_for_reset > 0:
                 time.sleep(time_for_reset)
-        return extract(api_call, to_extract)
+        api_call = requests.get(url, headers=headers)
+        return extract(api_call, to_extract, url, headers)
 
     return extracted
 
@@ -438,9 +453,15 @@ def get_dependents(owner: str, repo_name: str) -> int:
     url = f"https://github.com/{owner}/{repo_name}/network/dependents"
     xpath = '//*[@id="dependents"]/div[3]/div[1]/div/div/a[1]/text()'
 
-    request = get_request("get_dependents", url)
+    root = None
 
-    root = beautiful_html(request.text)
+    while True:
+        try:
+            request = get_request("get_dependents", url)
+            root = beautiful_html(request.text)
+            break
+        except etree.ParserError:
+            continue
 
     try:
         ugly_dependents = root.xpath(xpath)[1]
