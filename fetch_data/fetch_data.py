@@ -4,6 +4,7 @@ This script identify the actions with a valid marketplace page.
 You will need to use Python3.10.
 """
 from bs4 import BeautifulSoup
+from datetime import datetime
 from html import unescape
 from lxml import html, etree
 from ratelimit import limits, sleep_and_retry
@@ -59,14 +60,14 @@ def get_categories() -> None:
 
     save_categories = numpy.array(save_categories)
 
-    # """
-    # TO DELETE
-    # """
-    # save_categories = ["monitoring"]
-    # save_categories = numpy.array(save_categories)
-    # """
-    # -----
-    # """
+    """
+    TO DELETE
+    """
+    save_categories = ["monitoring"]
+    save_categories = numpy.array(save_categories)
+    """
+    -----
+    """
 
     numpy.save("categories.npy", save_categories)
 
@@ -365,7 +366,7 @@ def get_api(key: str, owner: str, repo_name: str) -> int | list:
         'watching': f"{url}/subscribers?per_page=100&page=1",
     }
     to_extract = {
-        'versions': 'tag_name',
+        'versions': ('tag_name', 'published_at'),
         'stars': 'login',
         'contributors': 'login',
         'forks': 'id',
@@ -410,7 +411,7 @@ def get_api(key: str, owner: str, repo_name: str) -> int | list:
     return final
 
 
-def extract(api_call: requests.Response, to_extract: str, url, headers) -> list:
+def extract(api_call: requests.Response, to_extract: str | tuple, url, headers) -> list:
     """
     Extract the information from the API.
 
@@ -423,7 +424,14 @@ def extract(api_call: requests.Response, to_extract: str, url, headers) -> list:
     extracted = []
     if api_call.status_code == 200:
         for needed in api_call.json():
-            extracted.append(needed[to_extract])
+            if type(to_extract) is tuple:
+                if type(extracted) is list:
+                    extracted = {}
+                key = needed[to_extract[0]]
+                value = datetime.strptime(needed[to_extract[1]], '%Y-%m-%dT%H:%M:%SZ').strftime('%d/%m/%Y')
+                extracted[key] = value
+            else:
+                extracted.append(needed[to_extract])
     elif api_call.status_code == 403:
         message = 'message' in api_call.json().keys()
         if 'Retry-After' in api_call.headers.keys():
