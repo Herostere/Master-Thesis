@@ -60,14 +60,14 @@ def get_categories() -> None:
 
     save_categories = numpy.array(save_categories)
 
-    # """
-    # TO DELETE
-    # """
-    # save_categories = ["monitoring"]
-    # save_categories = numpy.array(save_categories)
-    # """
-    # -----
-    # """
+    """
+    TO DELETE
+    """
+    save_categories = ["dependency-management"]
+    save_categories = numpy.array(save_categories)
+    """
+    -----
+    """
 
     numpy.save("categories.npy", save_categories)
 
@@ -237,15 +237,15 @@ def thread_data(pages: list, category: str) -> None:
                 if mp_page:
                     data = test_link(url)
                     if data:
-                        get_from_repo_api = ['stargazers_count', 'subscribers_count', 'forks_count']
-                        official = get_official(url)
-                        owner = get_owner(url)
-                        repo_name = get_repo_name(url)
-                        versions = get_api('versions', owner, repo_name)
-                        dependents = get_dependents(owner, repo_name)
-                        contributors = get_api('contributors', owner, repo_name)
-                        contributors.sort()
-                        stars_watching_forks = get_api(get_from_repo_api, owner, repo_name)
+                        verified = get_verified(mp_page)
+                        # owner = get_owner(url)
+                        # repo_name = get_repo_name(url)
+                        # versions = get_api('versions', owner, repo_name)
+                        # dependents = get_dependents(owner, repo_name)
+                        # contributors = get_api('contributors', owner, repo_name)
+                        # contributors.sort()
+                        # get_from_repo_api = ['stargazers_count', 'subscribers_count', 'forks_count']
+                        # stars_watching_forks = get_api(get_from_repo_api, owner, repo_name)
                         """
                         This versions get the people, not the number (more api call)
                         """
@@ -255,21 +255,21 @@ def thread_data(pages: list, category: str) -> None:
                         """
                         ============================================================
                         """
-                        stars = int(stars_watching_forks['stargazers_count'])
-                        watching = int(stars_watching_forks['subscribers_count'])
-                        forks = int(stars_watching_forks['forks_count'])
+                        # stars = int(stars_watching_forks['stargazers_count'])
+                        # watching = int(stars_watching_forks['subscribers_count'])
+                        # forks = int(stars_watching_forks['forks_count'])
 
                         DATA[pretty_name] = {}
                         DATA[pretty_name]['category'] = category
-                        DATA[pretty_name]['official'] = official
-                        DATA[pretty_name]['owner'] = owner
-                        DATA[pretty_name]['repository'] = repo_name
-                        DATA[pretty_name]['versions'] = versions
-                        DATA[pretty_name]['dependents'] = dependents
-                        DATA[pretty_name]['contributors'] = contributors
-                        DATA[pretty_name]['stars'] = stars
-                        DATA[pretty_name]['watching'] = watching
-                        DATA[pretty_name]['forks'] = forks
+                        DATA[pretty_name]['verified'] = verified
+                        # DATA[pretty_name]['owner'] = owner
+                        # DATA[pretty_name]['repository'] = repo_name
+                        # DATA[pretty_name]['versions'] = versions
+                        # DATA[pretty_name]['dependents'] = dependents
+                        # DATA[pretty_name]['contributors'] = contributors
+                        # DATA[pretty_name]['stars'] = stars
+                        # DATA[pretty_name]['watching'] = watching
+                        # DATA[pretty_name]['forks'] = forks
 
 
 def format_action_name(ugly_name: str) -> str:
@@ -295,12 +295,13 @@ def format_action_name(ugly_name: str) -> str:
     return ugly_name
 
 
-def test_mp_page(name: str) -> tuple[bool, str | None]:
+def test_mp_page(name: str) -> tuple[requests.Response, str] | tuple[None, None]:
     """
     Test if the marketplace page of an Action is accessible and returns the URL for the data if so.
 
     :param name: The name of the Action to check.
-    :return: True and the URL of the GitHub page if the marketplace page is accessible. Otherwise returns False, None.
+    :return: The response and the URL of the GitHub page if the marketplace page is accessible.
+             Otherwise returns None, None.
     """
     url = f"https://github.com/marketplace/actions/{name}"
 
@@ -310,9 +311,9 @@ def test_mp_page(name: str) -> tuple[bool, str | None]:
         root = beautiful_html(request.text)
         url = root.xpath('//h5[text()="\n          Links\n         "]/following-sibling::a[1]/@href')
         if url:
-            return True, url[0]
-        return False, None
-    return False, None
+            return request, url[0]
+        return None, None
+    return None, None
 
 
 def test_link(url: str) -> str | None:
@@ -329,14 +330,19 @@ def test_link(url: str) -> str | None:
     return None
 
 
-def get_official(url: str) -> bool:
+def get_verified(mp_page: requests.Response) -> bool:
     """
-    Determine if it is an "official" GitHub action.
+    Determine if it is a GitHub action developed by a verified user.
 
-    :param url: The URL used to determine if it is an Action developed by GitHub or not.
-    :return: True if it is a GitHub Action and False otherwise.
+    :param mp_page: The Response used to determine if it is an Action developed by a verified user or not.
+    :return: True if it is a verified Action and False otherwise.
     """
-    return "/actions/" in url
+    xpath = '//*[text()[contains(., "Verified creator")]]'
+    root = beautiful_html(mp_page.text)
+
+    verified = root.xpath(xpath)
+
+    return True if verified else False
 
 
 def get_owner(url: str) -> str:

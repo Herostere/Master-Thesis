@@ -1,2369 +1,2238 @@
 {
-    "a11ywatch-the-accessibility-suite": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "A11yWatch",
-        "repository": "github-action",
-        "stars": 0,
-        "watching": 1
-    },
-    "accum-board-stats": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "andry81-devops",
-        "repository": "gh-action--accum-board-stats",
-        "stars": 0,
-        "watching": 1
-    },
-    "accum-gh-rate-limits": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "andry81-devops",
-        "repository": "gh-action--accum-gh-rate-limits",
-        "stars": 0,
-        "watching": 1
-    },
-    "accum-gh-stats": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "andry81-devops",
-        "repository": "gh-action--accum-gh-stats",
-        "stars": 2,
-        "watching": 1
-    },
-    "accum-inpage-downloads": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "andry81-devops",
-        "repository": "gh-action--accum-inpage-downloads",
-        "stars": 0,
-        "watching": 1
-    },
-    "ackee-analytics-action": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "jackdbd",
-        "repository": "ackee-action",
-        "stars": 0,
-        "watching": 2
-    },
-    "action-for-dynamic-badges": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "loicdiridollou",
-        "repository": "dyn-badge-action",
-        "stars": 1,
-        "watching": 1
-    },
-    "action-join": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "ShaunLWM",
-        "repository": "action-join",
-        "stars": 5,
-        "watching": 1
-    },
-    "action-newrelic-segment-lint": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "budougumi0617",
-        "repository": "action-newrelic-segment-lint",
-        "stars": 2,
-        "watching": 1
-    },
-    "action-steammessage": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "ShaunLWM",
-        "repository": "action-steammessage",
-        "stars": 1,
-        "watching": 1
-    },
-    "add-grafana-annotation": {
-        "category": "monitoring",
-        "forks": 4,
-        "official": false,
-        "owner": "frankie567",
-        "repository": "grafana-annotation-action",
-        "stars": 12,
-        "watching": 1
-    },
-    "aggregit": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "MichaelJolley",
-        "repository": "aggregit",
-        "stars": 12,
-        "watching": 0
-    },
-    "amtoolcm-github-actions": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "peimanja",
-        "repository": "amtoolcm-github-actions",
-        "stars": 4,
-        "watching": 1
-    },
-    "annotate-akamai-mpulse": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "jdmevo123",
-        "repository": "akamai-mpulse-annotation-action",
-        "stars": 5,
-        "watching": 2
-    },
-    "app-insights-event": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "syedhassaanahmed",
-        "repository": "app-insights-event-action",
-        "stars": 0,
-        "watching": 2
-    },
-    "aws-cloudwatch-canary-monitor": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "janerikcarlsen",
-        "repository": "aws-canary-monitoring",
-        "stars": 0,
-        "watching": 1
-    },
-    "azure-monitor-action": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "hoisjp",
-        "repository": "azure-monitor-action",
-        "stars": 5,
-        "watching": 1
-    },
-    "badge-action": {
-        "category": "monitoring",
-        "forks": 8,
-        "official": false,
-        "owner": "emibcn",
-        "repository": "badge-action",
-        "stars": 23,
-        "watching": 2
-    },
-    "barechek-newrelic-metric-reporter": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "barecheck",
-        "repository": "newrelic-metric-action",
-        "stars": 1,
-        "watching": 1
-    },
-    "bark-notification": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "lxzxl",
-        "repository": "bark-action",
-        "stars": 0,
-        "watching": 1
-    },
-    "bigquery-service-action": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "pal-paul",
-        "repository": "bigquery-service-action",
-        "stars": 0,
-        "watching": 0
-    },
-    "bigquery-sql-execution-with-slack-notification-for-results": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "data-i-consulting",
-        "repository": "bq2slack-github-action",
-        "stars": 2,
-        "watching": 0
-    },
-    "bot-status": {
-        "category": "monitoring",
-        "forks": 20,
-        "official": false,
-        "owner": "jainamoswal",
-        "repository": "BotStatus",
-        "stars": 45,
-        "watching": 1
-    },
-    "broken-links-crawler": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "ScholliYT",
-        "repository": "Broken-Links-Crawler-Action",
-        "stars": 8,
-        "watching": 1
-    },
-    "bugsnag-release": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "psprings",
-        "repository": "bugsnag-release-action",
-        "stars": 2,
-        "watching": 1
-    },
-    "buildpulse-discord": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "Rabatta-ApS",
-        "repository": "BuildPulse-Discord",
-        "stars": 1,
-        "watching": 2
-    },
-    "bundle-size-diff": {
-        "category": "monitoring",
-        "forks": 2,
-        "official": false,
-        "owner": "NejcZdovc",
-        "repository": "bundle-size-diff",
-        "stars": 6,
-        "watching": 1
-    },
-    "bundlewatch-github-action": {
-        "category": "monitoring",
-        "forks": 4,
-        "official": false,
-        "owner": "jackyef",
-        "repository": "bundlewatch-gh-action",
-        "stars": 26,
-        "watching": 4
-    },
-    "check-http-status": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "trunkcode",
-        "repository": "check-http-status-action",
-        "stars": 0,
-        "watching": 1
-    },
-    "check-urls": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "bythepixel",
-        "repository": "urlchecker",
-        "stars": 1,
-        "watching": 1
-    },
-    "cinotify-email": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "cinotify",
-        "repository": "github-action",
-        "stars": 1,
-        "watching": 1
-    },
-    "close-opsgenie-alert": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "rockem",
-        "repository": "close-opsgenie-alert-action",
-        "stars": 4,
-        "watching": 1
-    },
-    "cloud-foundry-cli-github-action": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "elliottpope",
-        "repository": "cloudfoundry-cli-action",
-        "stars": 0,
-        "watching": 1
-    },
-    "cloud-notify-send-push-notifications-to-your-devices": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "Nathan1258",
-        "repository": "cloudNotify-action",
-        "stars": 2,
-        "watching": 1
-    },
-    "cloudflare-pages-await": {
-        "category": "monitoring",
-        "forks": 2,
-        "official": false,
-        "owner": "WalshyDev",
-        "repository": "cf-pages-await",
-        "stars": 27,
-        "watching": 1
-    },
-    "comment-gas-report-from-eth-gas-report": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "santiac89",
-        "repository": "gas-report-action",
-        "stars": 4,
-        "watching": 1
-    },
-    "comment-with-pytest-benchmark-result": {
-        "category": "monitoring",
-        "forks": 2,
-        "official": false,
-        "owner": "nils-braun",
-        "repository": "pytest-benchmark-commenter",
-        "stars": 1,
-        "watching": 1
-    },
-    "commit-issue-action": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "wescran",
-        "repository": "commit-issue-action",
-        "stars": 5,
-        "watching": 1
-    },
-    "commithawk": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "jesalg",
-        "repository": "commit-hawk-action",
-        "stars": 3,
-        "watching": 2
-    },
-    "container-action-using-github-stats-pages": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "astrochun",
-        "repository": "github-stats-pages",
-        "stars": 1,
-        "watching": 1
-    },
-    "continuous-benchmarking-for-go": {
-        "category": "monitoring",
-        "forks": 10,
-        "official": false,
-        "owner": "bobheadxi",
-        "repository": "gobenchdata",
-        "stars": 88,
-        "watching": 2
-    },
-    "count-action-users": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "cicirello",
-        "repository": "count-action-users",
-        "stars": 1,
-        "watching": 1
-    },
-    "covid-19-box": {
-        "category": "monitoring",
-        "forks": 2,
-        "official": false,
-        "owner": "casperdcl",
-        "repository": "covid-19-box",
-        "stars": 4,
-        "watching": 0
-    },
-    "create-an-event-using-microsoft-graph": {
-        "category": "monitoring",
-        "forks": 3,
-        "official": false,
-        "owner": "anoopt",
-        "repository": "ms-graph-create-event",
-        "stars": 10,
-        "watching": 4
-    },
-    "create-opsgenie-alert": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "rockem",
-        "repository": "create-opsgenie-alert-action",
-        "stars": 6,
-        "watching": 1
-    },
-    "crypto-box": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "austenstone",
-        "repository": "crypto-box",
-        "stars": 1,
-        "watching": 1
-    },
-    "dashpanel": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "haveyoudebuggedit",
-        "repository": "dashpanel",
-        "stars": 0,
-        "watching": 1
-    },
-    "datadog-action": {
-        "category": "monitoring",
-        "forks": 8,
-        "official": false,
-        "owner": "masci",
-        "repository": "datadog",
-        "stars": 32,
-        "watching": 2
-    },
-    "datadog-actions-release-metrics": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "lukascaska",
-        "repository": "datadog-actions-metrics",
-        "stars": 0,
-        "watching": 0
-    },
-    "datadog-agent": {
-        "category": "monitoring",
-        "forks": 2,
-        "official": false,
-        "owner": "DataDog",
-        "repository": "agent-github-action",
-        "stars": 4,
-        "watching": 6
-    },
-    "datadog-event-action": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "Glennmen",
-        "repository": "datadog-event-action",
-        "stars": 0,
-        "watching": 1
-    },
-    "datadog-event-trigger": {
-        "category": "monitoring",
-        "forks": 5,
-        "official": false,
-        "owner": "jordan-simonovski",
-        "repository": "datadog-event-action",
-        "stars": 13,
-        "watching": 3
-    },
-    "datadog-synthetic": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "ugurtemiz",
-        "repository": "datadog-synthetic-action",
-        "stars": 2,
-        "watching": 1
-    },
-    "debugging-with-ssh": {
-        "category": "monitoring",
-        "forks": 8,
-        "official": false,
-        "owner": "lhotari",
-        "repository": "action-upterm",
-        "stars": 69,
-        "watching": 1
-    },
-    "define-service": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "steadybit",
-        "repository": "define-service",
-        "stars": 1,
-        "watching": 4
-    },
-    "detect-env-file-changes": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "jovanblazek",
-        "repository": "env-changes-detector",
-        "stars": 1,
-        "watching": 1
-    },
-    "dingtalk-robot-message": {
-        "category": "monitoring",
-        "forks": 5,
-        "official": false,
-        "owner": "fifsky",
-        "repository": "dingtalk-action",
-        "stars": 8,
-        "watching": 3
-    },
-    "discord-activity-badge": {
-        "category": "monitoring",
-        "forks": 3,
-        "official": false,
-        "owner": "CodexLink",
-        "repository": "discord-activity-badge",
-        "stars": 6,
-        "watching": 0
-    },
-    "discord-hook-action": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "Poss111",
-        "repository": "discord-hook-action",
-        "stars": 1,
-        "watching": 2
-    },
-    "discord-webhook-notify": {
-        "category": "monitoring",
-        "forks": 6,
-        "official": false,
-        "owner": "rjstone",
-        "repository": "discord-webhook-notify",
-        "stars": 40,
-        "watching": 5
-    },
-    "discord-workflow-status-notifier": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "nobrayner",
-        "repository": "discord-webhook",
-        "stars": 3,
-        "watching": 1
-    },
-    "docker-action-send-skype": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "Eloco",
-        "repository": "docker-action-send-skype",
-        "stars": 2,
-        "watching": 2
-    },
-    "docker-status": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "crazy-max",
-        "repository": "ghaction-docker-status",
-        "stars": 4,
-        "watching": 1
-    },
-    "domain-and-ssl-cert-watcher": {
-        "category": "monitoring",
-        "forks": 3,
-        "official": false,
-        "owner": "codex-team",
-        "repository": "action-check-domain",
-        "stars": 19,
-        "watching": 3
-    },
-    "dupicate-line-remover-action": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "maharishi-coder",
-        "repository": "Duplicate-Line-Remover-Action",
-        "stars": 2,
-        "watching": 1
-    },
-    "dynatraceaction": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "dynatrace-oss",
-        "repository": "dynatrace-github-action",
-        "stars": 14,
-        "watching": 3
-    },
-    "effx-event": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "cjs226",
-        "repository": "effx-event-action",
-        "stars": 1,
-        "watching": 2
-    },
-    "effx-lint": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "effxhq",
-        "repository": "effx-lint-action",
-        "stars": 0,
-        "watching": 2
-    },
-    "effx-sync": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "effxhq",
-        "repository": "effx-sync-action",
-        "stars": 2,
-        "watching": 6
-    },
-    "elastic-logs": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "masci",
-        "repository": "elastic-logs",
-        "stars": 4,
-        "watching": 1
-    },
-    "elasticapm-sourcemap-action": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "strikelabs",
-        "repository": "elastic-apm-sourcemap-action",
-        "stars": 3,
-        "watching": 1
-    },
-    "elmah-io-create-deployment-action": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "elmahio",
-        "repository": "github-create-deployment-action",
-        "stars": 0,
-        "watching": 2
-    },
-    "elmah-io-upload-source-map-action": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "elmahio",
-        "repository": "github-upload-source-map-action",
-        "stars": 0,
-        "watching": 2
-    },
-    "email-addresses-in-comments-monitor": {
-        "category": "monitoring",
-        "forks": 2,
-        "official": false,
-        "owner": "seisvelas",
-        "repository": "comment-email-address-alerts",
-        "stars": 2,
-        "watching": 1
-    },
-    "ember-asset-size": {
-        "category": "monitoring",
-        "forks": 19,
-        "official": false,
-        "owner": "simplabs",
-        "repository": "ember-asset-size-action",
-        "stars": 18,
-        "watching": 9
-    },
-    "ember-performance-monitoring-tracerbench-compare-action": {
-        "category": "monitoring",
-        "forks": 3,
-        "official": false,
-        "owner": "TracerBench",
-        "repository": "tracerbench-compare-action",
-        "stars": 35,
-        "watching": 3
-    },
-    "endid-action": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "endid-app",
-        "repository": "endid-github-action",
-        "stars": 1,
-        "watching": 2
-    },
-    "enterprise-members-report-action": {
-        "category": "monitoring",
-        "forks": 3,
-        "official": false,
-        "owner": "ActionsDesk",
-        "repository": "enterprise-members-report-action",
-        "stars": 1,
-        "watching": 1
-    },
-    "eonx-com-actions-opsgenie": {
-        "category": "monitoring",
-        "forks": 7,
-        "official": false,
-        "owner": "eonx-com",
-        "repository": "actions-opsgenie",
-        "stars": 1,
-        "watching": 3
-    },
-    "fetch-data-to-file": {
-        "category": "monitoring",
-        "forks": 3,
-        "official": false,
-        "owner": "gautemo",
-        "repository": "fetch-api-data-action",
-        "stars": 2,
-        "watching": 3
-    },
-    "fetch-updown-io-checks": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "MTES-MCT",
-        "repository": "updownio-action",
-        "stars": 2,
-        "watching": 2
-    },
-    "fixed-issues-labeler": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "gh-bot",
-        "repository": "fix-labeler",
-        "stars": 1,
-        "watching": 2
+    "abc-install": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "action-cache-http": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "action-ebuild-maintain": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "action-get-ninja": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "action-renovate-checkbox": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "action-xcodeproj-spm-update": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "actions-drawio": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "actions-setup-bazel": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "actions-setup-cmake": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "actions-template-sync": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "actionshub-chef-install": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "add-an-attention-label-to-an-open-pull-request": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "add-debian-repository": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "add-pacman-repository": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "always-cache": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "always-post-cache": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "always-upload-cache": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "anaconda-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "antq-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "apache-maven-build-automation-for-java-project": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "apt-multiarch-helper-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "arch-linux-mingw-builder": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "architect-npmrc-management": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "atomicloud-ci-environment": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "authenticate-npm-with-the-gpr": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "auto-approve-merge-dependabot-native-pr": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "auto-bump-version": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "auto-cross-pull-requester": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "auto-deploy-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "auto-issue-bot": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "auto-merge-dependency-updates": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "autobashed-semantic-version": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "automatic-requirements-txt-for-python-projects": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "automatic-requirements-txt-generation-for-python-projects": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "automatic-versioning": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "aws-cdk-update": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "aws-cli-v1-20-55-docker": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "aws-lambda-layer-builder": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "aws-lambda-layer-publish-with-compatible-runtime": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "aws-ssm-parameters": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "aws-ssm-to-env": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "ballerina-dependabot": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "beat-saber-dlls": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "bindep": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "binoc-bot": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "build-and-publish-conda-packages-to-anaconda-org": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "build-boost": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "build-conda": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "build-using-qpm-and-ndk": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "builder-for-swift-projects-that-support-webassembly": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "bump-cdk": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "bump-git-submodules": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "bundler-audit-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "bundler-leak-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "bvm": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "cabal-cache-s3": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "cache": {
+        "category": "dependency-management",
+        "verified": true
+    },
+    "cache-always-no-key-check": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "cache-apt-packages": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "cache-install-nix-packages": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "cache-restore": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "cache-validation": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "cargo-bloat": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "cargo-deny": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "carthage-bootstrap": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "carthage-update-checker": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "carthage-workaround": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "ccache-for-gh-actions": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "cdxgen": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "cernvm-file-system-cvmfs": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "cf-buildpack-update-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "check-compatibility": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "check-conda-for-release-candidates": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "check-cve": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "check-deprecated-dependencies": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "check-for-portals": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "check-github-repo-latest-version": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "check-node-dependencies-and-comment": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "check-version": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "ci-notice": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "clearlynoticed-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "clojure-dependency-update-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "cloudsmith-push": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "cocoapods-outdated-check-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "cocoapods-update-checker": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "codesee-detect-languages": {
+        "category": "dependency-management",
+        "verified": true
+    },
+    "codesee-map": {
+        "category": "dependency-management",
+        "verified": true
+    },
+    "combine-dependabot-prs": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "compare-binary-against-pypi": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "compare-package-json-version-with-latest": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "compile-minecraft-spigot-or-paper-buildtools": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "composer-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "composer-diff": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "composer-installer-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "composer-php": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "composer-php-actions": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "composer-php-gd-zip": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "composer-php-scoper": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "composer-root-version-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "composer-update-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "composerrequirechecker": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "conan-cache": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "copy-gem-to-github-packages": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "coursier-cache-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "coursier-cache-action-test": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "coursier-setup-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "crawl-tailwind-ui": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "create-gh-issue-when-upstream-releases-new-version": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "create-npmrc": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "creating-a-maven-build": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "cross-scala-versions": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "cuda-toolkit": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "cyclonedx-net-generate-sbom": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "cyclonedx-node-js-generate-sbom": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "cyclonedx-php-composer-generate-sbom": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "cyclonedx-python-generate-sbom": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "cynalytica-container-image-scan": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "d-compiler-installation": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "delete-a-package": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "delete-gem": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "depcheck-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "depcheck-action-with-pr": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "depcheck-checker": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "dependa-bolt": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "dependaboja": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "dependabot-auto-merge": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "dependabot-bump-together-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "dependabot-cron-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "dependabot-issue-for-prs": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "dependabot-lein-runner": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "dependabot-notify": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "dependabot-sha-comment-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "dependabump": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "dependacop": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "dependencies-autoupdate": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "dependencies-license-compliance-checker": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "dependency-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "dependency-check": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "dependency-tree-diff-for-gradle": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "dependency-update-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "dependent-jobs-result-check": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "dependent-pr-check": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "dephell": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "deployment-bumper": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "deps-bot": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "detect-newer-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "dispatch-on-event": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "dobby-bot": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "docker-hub-readme-description-sync": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "docker-image-update-checker": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "dockerfile-updater": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "dotenv-concat": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "dotnet-dependency-update": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "dotnet-outdated-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "dotnet-outdated-install-and-update": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "dotnet-sdk-updater": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "download-extract": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "download-file-to-workspace": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "download-multiple-workflow-artifacts": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "download-release-asset": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "download-sdl2": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "download-sdl2_image": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "download-sdl2_mixer": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "download-sdl2_ttf": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "dub-upgrade": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "eessi": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "enable-automerge-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "enforce-package-dependency-version": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "ensure-latest-go": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "ensure-nuget-source": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "esy-github-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "extract-comment-command-arguments": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "ezcache-caching-made-easy": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "fabric-update": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "file-sync": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "find-latest-tag": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "find-unverified-github-actions": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "flatpak-action": {
+        "category": "dependency-management",
+        "verified": false
     },
     "flutter-package-updater": {
-        "category": "monitoring",
-        "forks": 4,
-        "official": false,
-        "owner": "tianhaoz95",
-        "repository": "update-flutter-packages",
-        "stars": 19,
-        "watching": 0
-    },
-    "generate-azure-resource-topology-diagrams-with-azviz-azure-visualizer": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "JosiahSiegel",
-        "repository": "AzViz-action",
-        "stars": 2,
-        "watching": 1
-    },
-    "get-all-contributors": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "codinasion",
-        "repository": "get-all-contributors",
-        "stars": 0,
-        "watching": 1
-    },
-    "get-pr-info-action": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "Brymastr",
-        "repository": "pr-info-action",
-        "stars": 2,
-        "watching": 1
-    },
-    "get-the-default-branch": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "scottmmjackson",
-        "repository": "get-the-default-branch-action",
-        "stars": 0,
-        "watching": 1
-    },
-    "getnighthawk-layer5": {
-        "category": "monitoring",
-        "forks": 68,
-        "official": false,
-        "owner": "layer5io",
-        "repository": "getnighthawk",
-        "stars": 75,
-        "watching": 10
-    },
-    "ghstat": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "casperdcl",
-        "repository": "ghstat",
-        "stars": 3,
-        "watching": 1
-    },
-    "git-status-threads-on-slack": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "watson-w",
-        "repository": "slack-threaded-git-notifications",
-        "stars": 0,
-        "watching": 1
-    },
-    "githits-action": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "kausko",
-        "repository": "GitHits",
-        "stars": 1,
-        "watching": 1
-    },
-    "github-action-for-mackerel-api": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "yutailang0119",
-        "repository": "action-mackerel-api",
-        "stars": 4,
-        "watching": 1
-    },
-    "github-action-for-slack-notification": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "svikramjeet",
-        "repository": "git-actions",
-        "stars": 2,
-        "watching": 1
-    },
-    "github-action-to-otlp": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "codeboten",
-        "repository": "github-action-to-otlp",
-        "stars": 4,
-        "watching": 3
-    },
-    "github-actions-alerts": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "github-suraj",
-        "repository": "git-action-alerts",
-        "stars": 0,
-        "watching": 1
-    },
-    "github-actions-metrics-to-datadog": {
-        "category": "monitoring",
-        "forks": 3,
-        "official": false,
-        "owner": "yuya-takeyama",
-        "repository": "github-actions-metrics-to-datadog-action",
-        "stars": 6,
-        "watching": 1
-    },
-    "github-logs-to-elastic": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "KnutFr",
-        "repository": "github-actions-to-elk",
-        "stars": 1,
-        "watching": 0
-    },
-    "github-rank-action": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "filiptronicek",
-        "repository": "github-rank-action",
-        "stars": 1,
-        "watching": 1
-    },
-    "github-readme-generator": {
-        "category": "monitoring",
-        "forks": 12,
-        "official": false,
-        "owner": "th3c0d3br34ker",
-        "repository": "github-readme-info",
-        "stars": 43,
-        "watching": 1
-    },
-    "github-repo-stats": {
-        "category": "monitoring",
-        "forks": 17,
-        "official": false,
-        "owner": "jgehrcke",
-        "repository": "github-repo-stats",
-        "stars": 98,
-        "watching": 2
-    },
-    "github-repos-status": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "pacoxu",
-        "repository": "github-repos-stats",
-        "stars": 7,
-        "watching": 1
-    },
-    "github-status": {
-        "category": "monitoring",
-        "forks": 6,
-        "official": false,
-        "owner": "crazy-max",
-        "repository": "ghaction-github-status",
-        "stars": 18,
-        "watching": 1
-    },
-    "github-user-contribution": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "AlexRogalskiy",
-        "repository": "github-action-user-contribution",
-        "stars": 1,
-        "watching": 1
-    },
-    "githubactions-com-result-reporter": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "dkershner6",
-        "repository": "githubactions-result-reporter",
-        "stars": 0,
-        "watching": 1
-    },
-    "google-spreadsheet-synchronizer": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "noelmace",
-        "repository": "spreadsheet-sync",
-        "stars": 1,
-        "watching": 0
-    },
-    "gotify-notification": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "eikendev",
-        "repository": "gotify-action",
-        "stars": 2,
-        "watching": 1
-    },
-    "grafana-annotation-actions": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "danieloneilldazn",
-        "repository": "grafana-annotation-action",
-        "stars": 1,
-        "watching": 1
-    },
-    "graphql-inspector": {
-        "category": "monitoring",
-        "forks": 134,
-        "official": false,
-        "owner": "kamilkisiela",
-        "repository": "graphql-inspector",
-        "stars": 1307,
-        "watching": 13
-    },
-    "gravatar-to-twitter": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "myl7",
-        "repository": "gravatar2twitter",
-        "stars": 0,
-        "watching": 1
-    },
-    "groupme-action-notifier": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "nhomble",
-        "repository": "groupme-notify-action",
-        "stars": 1,
-        "watching": 2
-    },
-    "harden-runner": {
-        "category": "monitoring",
-        "forks": 9,
-        "official": false,
-        "owner": "step-security",
-        "repository": "harden-runner",
-        "stars": 39,
-        "watching": 1
-    },
-    "heads-up-uptime-monitoring-alerting": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "matchai",
-        "repository": "heads-up",
-        "stars": 16,
-        "watching": 3
-    },
-    "healthy-checkup": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "APina03",
-        "repository": "wait_for_response",
-        "stars": 0,
-        "watching": 0
-    },
-    "hl-weather-box": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "casperdcl",
-        "repository": "hl-weather-box",
-        "stars": 0,
-        "watching": 1
-    },
-    "honeybadger-deploy-action": {
-        "category": "monitoring",
-        "forks": 7,
-        "official": false,
-        "owner": "honeybadger-io",
-        "repository": "github-notify-deploy-action",
-        "stars": 4,
-        "watching": 3
-    },
-    "honeybadger-upload-sourcemap-action": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "honeybadger-io",
-        "repository": "github-upload-sourcemap-action",
-        "stars": 4,
-        "watching": 3
-    },
-    "honeycomb-buildevents": {
-        "category": "monitoring",
-        "forks": 7,
-        "official": false,
-        "owner": "kvrhdn",
-        "repository": "gha-buildevents",
-        "stars": 11,
-        "watching": 4
-    },
-    "http-s-url-health-check-and-tls-ssl-certification-expiry-check": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "padurean",
-        "repository": "https-certificate-expiry-health-check-action",
-        "stars": 4,
-        "watching": 0
-    },
-    "http-status": {
-        "category": "monitoring",
-        "forks": 5,
-        "official": false,
-        "owner": "lakuapik",
-        "repository": "gh-actions-http-status",
-        "stars": 7,
-        "watching": 2
-    },
-    "hue-action": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "manekinekko",
-        "repository": "hue-action",
-        "stars": 18,
-        "watching": 1
-    },
-    "instana-gitops-trigger-host-agent-configuration-updates": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "instana",
-        "repository": "github-action-update-agent-configurations",
-        "stars": 0,
-        "watching": 57
-    },
-    "instana-release": {
-        "category": "monitoring",
-        "forks": 4,
-        "official": false,
-        "owner": "taimos",
-        "repository": "github-action-instana-release",
-        "stars": 2,
-        "watching": 2
-    },
-    "issuetron-3000": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "mxarc",
-        "repository": "issuetron-3000",
-        "stars": 6,
-        "watching": 1
-    },
-    "jaimin-patel30-notedown": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "Jaimin-Patel30",
-        "repository": "actions-tracker",
-        "stars": 1,
-        "watching": 1
-    },
-    "jekyll-diff": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "David-Byrne",
-        "repository": "jekyll-diff-action",
-        "stars": 6,
-        "watching": 1
-    },
-    "jest-coverage-report": {
-        "category": "monitoring",
-        "forks": 67,
-        "official": false,
-        "owner": "ArtiomTr",
-        "repository": "jest-coverage-report-action",
-        "stars": 146,
-        "watching": 1
-    },
-    "jira-issue-creation": {
-        "category": "monitoring",
-        "forks": 3,
-        "official": false,
-        "owner": "bryannice",
-        "repository": "gitactions-jira-issue-creation",
-        "stars": 1,
-        "watching": 2
-    },
-    "keybase-build-notifications": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "marvinpinto",
-        "repository": "action-keybase-notifications",
-        "stars": 6,
-        "watching": 0
-    },
-    "label-pr-on-merge-bot": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "abhijithvijayan",
-        "repository": "label-pr-on-merge-bot",
-        "stars": 2,
-        "watching": 2
-    },
-    "label-slow-prs": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "coblox",
-        "repository": "label-slow-prs",
-        "stars": 1,
-        "watching": 9
-    },
-    "lifx-build-light": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "LIFX",
-        "repository": "buildlight-action",
-        "stars": 12,
-        "watching": 8
-    },
-    "lighthouse-badger": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "MyActionWay",
-        "repository": "lighthouse-badger-action",
-        "stars": 6,
-        "watching": 2
-    },
-    "lighthouse-check": {
-        "category": "monitoring",
-        "forks": 13,
-        "official": false,
-        "owner": "foo-software",
-        "repository": "lighthouse-check-action",
-        "stars": 308,
-        "watching": 6
-    },
-    "lighthouse-ci-action": {
-        "category": "monitoring",
-        "forks": 59,
-        "official": false,
-        "owner": "treosh",
-        "repository": "lighthouse-ci-action",
-        "stars": 841,
-        "watching": 10
-    },
-    "lighthouse-ci-on-shopify-theme": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "tuktukvlad",
-        "repository": "lighthouse-ci-action",
-        "stars": 0,
-        "watching": 0
-    },
-    "lightstep-pre-deploy-check": {
-        "category": "monitoring",
-        "forks": 4,
-        "official": false,
-        "owner": "lightstep",
-        "repository": "lightstep-action-predeploy",
-        "stars": 10,
-        "watching": 4
-    },
-    "lightstep-services-change-report": {
-        "category": "monitoring",
-        "forks": 2,
-        "official": false,
-        "owner": "lightstep",
-        "repository": "lightstep-action-snapshot",
-        "stars": 6,
-        "watching": 4
-    },
-    "line-notify-actions": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "louis70109",
-        "repository": "line-notify-action",
-        "stars": 8,
-        "watching": 1
-    },
-    "link-snitch": {
-        "category": "monitoring",
-        "forks": 4,
-        "official": false,
-        "owner": "victoriadrake",
-        "repository": "link-snitch",
-        "stars": 49,
-        "watching": 0
-    },
-    "load-runner-information": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "devops-actions",
-        "repository": "load-runner-info",
-        "stars": 1,
-        "watching": 0
-    },
-    "log-build-context": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "danubetech",
-        "repository": "github-action-log-build-context",
-        "stars": 0,
-        "watching": 3
-    },
-    "log-to-logsnag": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "jsmrcaga",
-        "repository": "action-logsnag",
-        "stars": 5,
-        "watching": 1
-    },
-    "logflare-log": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "Logflare",
-        "repository": "action",
-        "stars": 18,
-        "watching": 1
-    },
-    "make-tcp-connection": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "BGarber42",
-        "repository": "action-tcp-connection",
-        "stars": 0,
-        "watching": 1
-    },
-    "mention-to-slack-actions": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "Laurenfrost",
-        "repository": "mention-to-slack",
-        "stars": 7,
-        "watching": 1
-    },
-    "milestones-managment": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "zattoo",
-        "repository": "milestones",
-        "stars": 1,
-        "watching": 5
-    },
-    "modified-cves-checker": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "doshyt",
-        "repository": "cve-monitor",
-        "stars": 1,
-        "watching": 2
-    },
-    "monitor-document": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "shinhwagk",
-        "repository": "monitoring_document",
-        "stars": 0,
-        "watching": 2
-    },
-    "mudlet-map-diff": {
-        "category": "monitoring",
-        "forks": 2,
-        "official": false,
-        "owner": "Delwing",
-        "repository": "mudlet-map-diff-action",
-        "stars": 0,
-        "watching": 1
-    },
-    "netlify-analytics-collector": {
-        "category": "monitoring",
-        "forks": 2,
-        "official": false,
-        "owner": "NiklasMerz",
-        "repository": "netlify-analytics-collector",
-        "stars": 4,
-        "watching": 2
+        "category": "dependency-management",
+        "verified": false
+    },
+    "flutter-package-updater-fvm-version": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "flutter-pubspec-updater": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "font-typekit-generator-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "frogo-build-src": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "frogo-sdk": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "fvtt-release-packager": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "generate-dependency-data-file": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "generate-sbom-for-elixir-project": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "generate-settings-xml-for-maven-builds": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "generate-toolchains-xml-for-maven-builds": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "generate-vulnerability-alerts-csv-file": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "get-apt-package-version": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "get-conan": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "get-container-image-tag": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "get-current-lerna-version": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "get-current-lerna-version-with-path": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "get-docker-hub-tag": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "get-github-release-json": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "get-latest-github-release": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "get-latest-release": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "get-latest-release-tag": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "get-node-version-from-volta": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "get-package": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "get-playdate-sdk": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "get-snyk": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "get-spdx-license-overview": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "get-tags-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "getpackagepp": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "gha-auto-dependabot-rebase": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "ghcr-io-container-cleanup": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "github-action-for-composer": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "github-action-for-homebrew": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "github-action-for-js-bundle-size": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "github-action-for-maven": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "github-action-for-npm-in-alpine-linux": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "github-action-for-npx": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "github-action-for-renovate": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "github-action-for-yarn": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "github-action-for-yarn-pkg": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "github-action-merge-dependabot": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "github-actions-version-updater": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "github-shared-repo-upload-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "go-get-check": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "go-license-checker": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "go-mod-tidy-pr": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "go-mod-tidy-pr-go-1-13-4": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "go-sum-fix": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "golang-with-cache": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "gradle-update-checker": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "guilledf-s-buckaroo-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "helloworldactiongabrielgn": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "highlight-new-npm-dependencies": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "homebrew-releaser": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "hublo-pr-labeler": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "include-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "include-what-you-use-github-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "increment-project-version": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "infrabits-pipup": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "install-a-binary-from-github-releases": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "install-and-cache-composer-dependencies": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "install-atlassian-sdk": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "install-eb-cli": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "install-gnu-guix": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "install-kubepug": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "install-libraries-to-databrick-clusters": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "install-nim": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "install-nix": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "install-package": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "install-phar-files": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "install-phive": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "install-phive-tools": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "install-php-dependencies-with-composer": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "install-poetry-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "install-qt": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "install-qt5-qt6-yaqti": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "install-rebol": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "install-redis": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "install-rust-for-substrate": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "install-siskin": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "install-swift-tool": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "install-terraform": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "install-vulkan-sdk": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "install-z3": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "intelligo-actions": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "invoke-psdepend": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "isolate-yarn-workspaces": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "javascript-lockfile-check": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "jfrog-cli-for-github-actions": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "js-actions-dependency-updater": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "js-package-info": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "kubectl-apply": {
+        "category": "dependency-management",
+        "verified": true
+    },
+    "laravel-nova-composer-login": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "leiningen-dependency-update-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "lennybot-gha": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "lerna-graph": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "loxcan": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "match-angular-versions": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "maven-cli-for-github-actions": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "maven-version-bump-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "mbu_requirements2png": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "melos-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "merge-dependabot-prs-automatically": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "merge-me": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "meterian-scanner": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "minimum-dependency-generator": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "minisign-cli": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "mobydick-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "mod-tidy-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "monorepo-cache-key": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "monorepo-pr-repo-labeler": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "monorepolyser": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "mssql-suite": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "msxml4": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "namse": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "net-core-version-detector": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "net-nanoframework-dependencies-updater": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "new-dependencies-advisor": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "nexus-repository-publisher-for-github-actions": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "nim-lang-alpine": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "niv-updater-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "nix-quick-install": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "nix-shell": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "nix-shell-1": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "no-broken-dependency": {
+        "category": "dependency-management",
+        "verified": false
     },
     "node-js-dependency-freshness-via-libyear": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "s0",
-        "repository": "libyear-node-action",
-        "stars": 1,
-        "watching": 1
-    },
-    "notfoundbot": {
-        "category": "monitoring",
-        "forks": 8,
-        "official": false,
-        "owner": "tmcw",
-        "repository": "notfoundbot",
-        "stars": 105,
-        "watching": 3
-    },
-    "notify-lark-slack-telegram": {
-        "category": "monitoring",
-        "forks": 2,
-        "official": false,
-        "owner": "echoings",
-        "repository": "actions.notify",
-        "stars": 7,
-        "watching": 1
-    },
-    "notify-slack": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "drilonrecica",
-        "repository": "action-slack-notify",
-        "stars": 3,
-        "watching": 0
-    },
-    "notify-via-slack": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "luchihoratiu",
-        "repository": "notify-via-slack",
-        "stars": 0,
-        "watching": 1
-    },
-    "notionhook": {
-        "category": "monitoring",
-        "forks": 4,
-        "official": false,
-        "owner": "alessandrobelli",
-        "repository": "NotionHook",
-        "stars": 10,
-        "watching": 2
-    },
-    "opentelemetry-export-trace": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "inception-health",
-        "repository": "otel-export-trace-action",
-        "stars": 14,
-        "watching": 2
-    },
-    "opentelemetry-upload-trace-artifact": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "inception-health",
-        "repository": "otel-upload-test-artifact-action",
-        "stars": 2,
-        "watching": 1
-    },
-    "organization-repository-audit": {
-        "category": "monitoring",
-        "forks": 2,
-        "official": false,
-        "owner": "gr2m",
-        "repository": "github-organization-repository-auditing-action",
-        "stars": 2,
-        "watching": 1
-    },
-    "outedated-version": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "ycjcl868",
-        "repository": "outdated-version-action",
-        "stars": 3,
-        "watching": 0
-    },
-    "page2pdf": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "gniquyij",
-        "repository": "page2pdf",
-        "stars": 1,
-        "watching": 1
-    },
-    "pagerduty-alert": {
-        "category": "monitoring",
-        "forks": 9,
-        "official": false,
-        "owner": "Entle",
-        "repository": "action-pagerduty-alert",
-        "stars": 3,
-        "watching": 3
-    },
-    "pagerduty-downtime-trigger": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "keylightberlin",
-        "repository": "pagerduty-downtime-incident",
-        "stars": 2,
-        "watching": 3
-    },
-    "ping-my-site": {
-        "category": "monitoring",
-        "forks": 3,
-        "official": false,
-        "owner": "Leocardoso94",
-        "repository": "is-my-site-up",
-        "stars": 6,
-        "watching": 1
-    },
-    "pixela-pi-action": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "peaceiris",
-        "repository": "actions-pixela",
-        "stars": 12,
-        "watching": 2
-    },
-    "pkg-size-action": {
-        "category": "monitoring",
-        "forks": 4,
-        "official": false,
-        "owner": "pkg-size",
-        "repository": "action",
-        "stars": 51,
-        "watching": 3
-    },
-    "points-bar": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "markpatterson27",
-        "repository": "points-bar",
-        "stars": 2,
-        "watching": 1
-    },
-    "pr-label-by-files-changed": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "TDAK1509",
-        "repository": "label-pr-based-on-files-changed",
-        "stars": 0,
-        "watching": 1
-    },
-    "pr-merge-bot": {
-        "category": "monitoring",
-        "forks": 9,
-        "official": false,
-        "owner": "squalrus",
-        "repository": "merge-bot",
-        "stars": 48,
-        "watching": 3
-    },
-    "profile-readme-stats": {
-        "category": "monitoring",
-        "forks": 68,
-        "official": false,
-        "owner": "teoxoy",
-        "repository": "profile-readme-stats",
-        "stars": 139,
-        "watching": 4
-    },
-    "provider-status-checker": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "gardarik",
-        "repository": "provider-status-action",
-        "stars": 0,
-        "watching": 1
-    },
-    "psi-gh-action": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "mazipan",
-        "repository": "psi-gh-action",
-        "stars": 62,
-        "watching": 2
-    },
-    "publish-release-assets-to-asset-transparency-log": {
-        "category": "monitoring",
-        "forks": 3,
-        "official": false,
-        "owner": "transparencylog",
-        "repository": "publish-releases-asset-transparency-action",
-        "stars": 4,
-        "watching": 1
-    },
-    "pull-request-slack-notifier": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "daint2git",
-        "repository": "pull-request-slack-notifier",
-        "stars": 1,
-        "watching": 1
-    },
-    "pushbullet-notification": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "ShaunLWM",
-        "repository": "action-pushbullet",
-        "stars": 5,
-        "watching": 1
-    },
-    "pushnotifier-send-action": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "bluefirex",
-        "repository": "pushnotifier-send-action",
-        "stars": 1,
-        "watching": 1
-    },
-    "qmsg-action": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "Y2Nk4",
-        "repository": "qmsg-action",
-        "stars": 2,
-        "watching": 2
-    },
-    "quarkus-health-check": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "SkyCell-AG",
-        "repository": "quarkus-healthcheck-action",
-        "stars": 0,
-        "watching": 1
-    },
-    "quickmetrics-action": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "screendriver",
-        "repository": "quickmetrics-action",
-        "stars": 0,
-        "watching": 1
-    },
-    "real-time-log-action": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "cn007b",
-        "repository": "log-action",
-        "stars": 0,
-        "watching": 1
-    },
-    "record-newrelic-deployment": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "aabed",
-        "repository": "newrelic-record-deployment",
-        "stars": 6,
-        "watching": 1
-    },
-    "relativeci-agent": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "relative-ci",
-        "repository": "agent-action",
-        "stars": 0,
-        "watching": 1
-    },
-    "relativeci-agent-upload-artifact": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "relative-ci",
-        "repository": "agent-upload-artifact-action",
-        "stars": 0,
-        "watching": 1
-    },
-    "remote-bash": {
-        "category": "monitoring",
-        "forks": 10,
-        "official": false,
-        "owner": "shinhwagk",
-        "repository": "remote-bash",
-        "stars": 18,
-        "watching": 5
-    },
-    "remote-time": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "Plabick",
-        "repository": "Remote-Time-Action",
-        "stars": 5,
-        "watching": 1
-    },
-    "report-link-action": {
-        "category": "monitoring",
-        "forks": 3,
-        "official": false,
-        "owner": "ad-m",
-        "repository": "report-link-action",
-        "stars": 8,
-        "watching": 2
-    },
-    "repository-notifications": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "olabiniV2",
-        "repository": "repo-notifications-action",
-        "stars": 0,
-        "watching": 1
-    },
-    "required-labels-action": {
-        "category": "monitoring",
-        "forks": 2,
-        "official": false,
-        "owner": "foretheta",
-        "repository": "required-labels",
-        "stars": 3,
-        "watching": 0
-    },
-    "rollbar-deploy": {
-        "category": "monitoring",
-        "forks": 9,
-        "official": false,
-        "owner": "rollbar",
-        "repository": "github-deploy-action",
-        "stars": 43,
-        "watching": 19
-    },
-    "rootly-pulse": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "rootlyhq",
-        "repository": "pulse-action",
-        "stars": 1,
-        "watching": 3
-    },
-    "send-email": {
-        "category": "monitoring",
-        "forks": 94,
-        "official": false,
-        "owner": "dawidd6",
-        "repository": "action-send-mail",
-        "stars": 209,
-        "watching": 7
-    },
-    "send-email-with-oauth2": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "cougargrades",
-        "repository": "action-send-mail",
-        "stars": 0,
-        "watching": 0
-    },
-    "send-job-status-to-azure-queue": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "amongil",
-        "repository": "gh-action-push-workflow-last-job-status-to-azure-queue",
-        "stars": 1,
-        "watching": 2
-    },
-    "send-mailer": {
-        "category": "monitoring",
-        "forks": 4,
-        "official": false,
-        "owner": "devellany",
-        "repository": "send-mail",
-        "stars": 10,
-        "watching": 3
-    },
-    "send-push-notification": {
-        "category": "monitoring",
-        "forks": 14,
-        "official": false,
-        "owner": "techulus",
-        "repository": "push-github-action",
-        "stars": 51,
-        "watching": 5
-    },
-    "send-rcon-commands-to-minecraft-server": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "Plagiatus",
-        "repository": "RCON-Action",
-        "stars": 1,
-        "watching": 1
-    },
-    "send-sms-notification-with-free-mobile": {
-        "category": "monitoring",
-        "forks": 2,
-        "official": false,
-        "owner": "aslafy-z",
-        "repository": "freemobile-sms-action",
-        "stars": 5,
-        "watching": 1
-    },
-    "sensuctl": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "jspaleta",
-        "repository": "sensuctl-action",
-        "stars": 1,
-        "watching": 1
-    },
-    "sensuflow": {
-        "category": "monitoring",
-        "forks": 3,
-        "official": false,
-        "owner": "sensu",
-        "repository": "sensu-flow",
-        "stars": 6,
-        "watching": 2
-    },
-    "sentry-actions": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "urcomputeringpal",
-        "repository": "sentry-actions",
-        "stars": 3,
-        "watching": 2
-    },
-    "sentry-cli-action": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "bjacobel",
-        "repository": "sentry-cli-action",
-        "stars": 2,
-        "watching": 2
-    },
-    "sentry-io-cli-action": {
-        "category": "monitoring",
-        "forks": 3,
-        "official": false,
-        "owner": "NSCoder",
-        "repository": "sentry",
-        "stars": 14,
-        "watching": 0
-    },
-    "sentry-release": {
-        "category": "monitoring",
-        "forks": 35,
-        "official": false,
-        "owner": "getsentry",
-        "repository": "action-release",
-        "stars": 249,
-        "watching": 18
-    },
-    "sentry-release-with-custom-url": {
-        "category": "monitoring",
-        "forks": 2,
-        "official": false,
-        "owner": "LasaleFamine",
-        "repository": "action-release",
-        "stars": 3,
-        "watching": 0
-    },
-    "serato-lhci-notification": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "serato",
-        "repository": "serato-lhci-notification",
-        "stars": 0,
-        "watching": 5
-    },
-    "server-alert-in-telegram": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "fengkx",
-        "repository": "server-tg-alert",
-        "stars": 1,
-        "watching": 2
-    },
-    "settings-check": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "ghr-actions",
-        "repository": "settings-check",
-        "stars": 2,
-        "watching": 0
-    },
-    "setup-mkr": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "susisu",
-        "repository": "setup-mkr",
-        "stars": 1,
-        "watching": 1
-    },
-    "setup-statusfy": {
-        "category": "monitoring",
-        "forks": 2,
-        "official": false,
-        "owner": "devkanro",
-        "repository": "setup-statusfy",
-        "stars": 2,
-        "watching": 1
-    },
-    "should-i-notify-slack": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "Jimdo",
-        "repository": "should-i-notify-action",
-        "stars": 5,
-        "watching": 7
-    },
-    "signalfx-action": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "RentTheRunway",
-        "repository": "signalfx-reporting-action",
-        "stars": 0,
-        "watching": 0
-    },
-    "size-limit-action": {
-        "category": "monitoring",
-        "forks": 38,
-        "official": false,
-        "owner": "andresz1",
-        "repository": "size-limit-action",
-        "stars": 187,
-        "watching": 1
-    },
-    "slack-action-status": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "navilan",
-        "repository": "slack-action-status",
-        "stars": 1,
-        "watching": 2
-    },
-    "slack-build-notifier": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "hennejg",
-        "repository": "slack-build-notifier",
-        "stars": 2,
-        "watching": 0
-    },
-    "slack-message": {
-        "category": "monitoring",
-        "forks": 4,
-        "official": false,
-        "owner": "someimportantcompany",
-        "repository": "github-actions-slack-message",
-        "stars": 12,
-        "watching": 3
-    },
-    "slack-messaging": {
-        "category": "monitoring",
-        "forks": 6,
-        "official": false,
-        "owner": "wearerequired",
-        "repository": "slack-messaging-action",
-        "stars": 13,
-        "watching": 1
-    },
-    "slack-notifier": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "gymshark",
-        "repository": "slack-notifier-action",
-        "stars": 2,
-        "watching": 11
-    },
-    "slack-release-notifier": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "fedecalendino",
-        "repository": "slack-release-notifier",
-        "stars": 0,
-        "watching": 1
-    },
-    "slack-webhook-channel-notifications": {
-        "category": "monitoring",
-        "forks": 3,
-        "official": false,
-        "owner": "tiloio",
-        "repository": "slack-webhook-action",
-        "stars": 1,
-        "watching": 2
-    },
-    "slack-workflow-notifier": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "Jiro-Digital",
-        "repository": "slack-workflow-action",
-        "stars": 1,
-        "watching": 2
+        "category": "dependency-management",
+        "verified": false
+    },
+    "node-npm-workspace-detector-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "nodenv-node-version": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "nodenv-setup-nodenv": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "notion-azure-catalog": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "npm-audit": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "npm-audit-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "npm-audit-fix": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "npm-audit-pr": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "npm-bump": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "npm-dependency-manager-for-your-github-organization": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "npm-install-cache": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "npm-or-yarn-install-with-caching": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "npm-package-scope-syncer": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "npm-package-sync-and-update": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "npm-package-sync-and-update-to-latest": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "npm-package-update": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "npm-publish-latest-tag": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "npm-setup": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "npm-update-checker": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "npm-worker": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "nuget-update": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "nuget-update-checker": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "nx-affected-matrix": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "nx-distributed-task": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "nxtlvlsoftware-git-subtree": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "okteto-login": {
+        "category": "dependency-management",
+        "verified": true
+    },
+    "okteto-push": {
+        "category": "dependency-management",
+        "verified": true
+    },
+    "owasp-dependency-track-check": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "package-latest-version": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "package-policy": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "package-version-updated": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "phalcon-composer-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "php-ga-composer-require-checker": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "php-prefixer": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "pip-compile-diff-checker": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "pip-secure-install": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "pipenv-for-github-actions": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "pipfile-diff": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "pnpm-tasks": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "poetry-install": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "poetry-setup": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "powershell-module-cache": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "pr-auto-label": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "pr-package-version-checker": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "pr-submodule-dependencies": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "pre-commit-autoupdate": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "private-composer-registry": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "private-submodule-checkout": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "provision-with-micromamba": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "publish-composer-package": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "publish-conda": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "publish-conda-package-to-anaconda-org": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "publish-nuget-gtt": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "pull-request-dependency-checkout": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "pull-submodule-dependencies": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "purge-packages": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "push-directory-to-another-repository-target-directory": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "push-then-pr": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "push-to-mirrors": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "pyenv-build": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "pypoetry": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "python-container-action-template": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "python-dependency-installation": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "python-pip-install": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "python-poetry-setup": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "qt-python-compat": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "quack-scan": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "quarkus-pom-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "r-dependency-license-report": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "ragedb-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "read-package-json-node-and-npm-engines-version": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "read-package-json-node-version": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "redis-cluster-with-master-slave": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "redpanda-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "registry-image-update-checker": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "release-check": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "release-scheduler": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "release-tag-tracker": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "release-tag-updater": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "remove-package-versions-from-github-packages": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "renovate-approve-and-merge": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "renovate-helm-releases": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "renovate-merge": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "replace-deps": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "requirements2png": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "restore-or-create-a-python-virtualenv": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "restore-pip-download-cache": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "run-cmake": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "run-depcheck": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "run-edgetest": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "run-pascal-script": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "run-vcpkg": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "rust-audit-check": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "rust-cache": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "rust-cargo": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "rust-musl-static-binary-builder-for-alpine": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "rust-toolchain": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "scala-steward-github-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "schemaregistry": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "scoop-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "secret-manage": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "self-hosted-renovate": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "set-action-secret": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "set-npm-token-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "set-npmrc-token-registry-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "set-up-a-purescript-toolchain": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "set-up-nix-cache": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-brainfuck": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-cobol": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-commandbox": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-commandbox-cli": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-conda": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-crate": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-cue": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-dhall": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-eigen3": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-emscripten-toolchain": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-ffmpeg": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-ffmpeg-using-versions": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-firebase-cli": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-git-credentials": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-grpc": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-gyro": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-hdt": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-imagemagick": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-jfrog-cli": {
+        "category": "dependency-management",
+        "verified": true
+    },
+    "setup-just": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-kinesis": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-kitten": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-leiningen": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-lua-with-luver": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-miniconda": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-mint": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-mint-swift-package-manager": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-nanoflann": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-netrc": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-nuget-exe-for-use-with-actions": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-opam-and-ocaml": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-opencv": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-operator-sdk": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-pdm": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-pierrot-cli": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-poetry": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-poetry-bin": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-python-and-poetry": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-qtifw": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-riscv-gnu-toolchain": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-sampctl": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-shakespeare": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-shfmt": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-singularity": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-spack": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-stack": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-swift-environment": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-terraform-credentials": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-terraform-environment": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-umka": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-v-environment": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-vmaf": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-wasmer": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-win32-go-environment": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-wren-cli": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-xcode-environment": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "setup-yq-environment": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "sf-package-version-update-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "snakemake": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "snapcraft-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "soos-core-sca": {
+        "category": "dependency-management",
+        "verified": true
+    },
+    "spack-install-action": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "speedup-package-installation": {
+        "category": "dependency-management",
+        "verified": false
     },
     "spm-dependencies-checker": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "sbertix",
-        "repository": "spm-dependencies-checker",
-        "stars": 4,
-        "watching": 1
+        "category": "dependency-management",
+        "verified": false
     },
-    "ssl-tls-monitor": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "bluenovaio",
-        "repository": "action-tls-monitor",
-        "stars": 2,
-        "watching": 2
+    "stacc-publish": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "statusoli": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "athul",
-        "repository": "statusoli",
-        "stars": 15,
-        "watching": 1
+    "staged-dependencies-action": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "subdomain-finding-using-subfinder": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "v1dhun",
-        "repository": "subfinder-action",
-        "stars": 5,
-        "watching": 3
+    "steamfetch": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "sync-branch-action": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "LucasRuy",
-        "repository": "sync-branch-action",
-        "stars": 3,
-        "watching": 1
+    "submodule-branch-check": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "telegram-ci-notify": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "KaMeHb-UA",
-        "repository": "telegram-ci-notify-action",
-        "stars": 0,
-        "watching": 1
+    "submodule-sync": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "test-autograde": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "masaditya",
-        "repository": "test-autograde",
-        "stars": 1,
-        "watching": 1
+    "submodules-init": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "tg-message-sender": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "sputnik-systems",
-        "repository": "tg-message-sender",
-        "stars": 0,
-        "watching": 1
+    "sver-semantic-version-calculator": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "thundra-foresight-js-action": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "thundra-io",
-        "repository": "thundra-foresight-js-action",
-        "stars": 15,
-        "watching": 2
+    "sw-build-system-and-package-manager": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "thundra-foresight-python-action": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "thundra-io",
-        "repository": "thundra-foresight-python-action",
-        "stars": 7,
-        "watching": 2
+    "swift-api-diff": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "thundra-gradle-test-instrumentation": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "thundra-io",
-        "repository": "thundra-gradle-test-action",
-        "stars": 18,
-        "watching": 3
+    "swift-for-windows-action": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "thundra-maven-test-instrumentation": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "thundra-io",
-        "repository": "thundra-maven-test-action",
-        "stars": 16,
-        "watching": 3
+    "swift-package-dependencies-check": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "thundra-test-initializer": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "thundra-io",
-        "repository": "thundra-test-init-action",
-        "stars": 16,
-        "watching": 2
+    "swiftpm-update-checker": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "toast-ui-detect-runtime-error-actions": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "nhn",
-        "repository": "toast-ui.detect-runtime-error-actions",
-        "stars": 6,
-        "watching": 4
+    "sync-files": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "todoist-readme": {
-        "category": "monitoring",
-        "forks": 34,
-        "official": false,
-        "owner": "abhisheknaiidu",
-        "repository": "todoist-readme",
-        "stars": 69,
-        "watching": 2
+    "tag-on-npm-package-version-change": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "todoist-readme-tasks-list": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "rxcod9",
-        "repository": "todoist-readme",
-        "stars": 2,
-        "watching": 0
+    "teeps-composer": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "track-commits-to-issue": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "AlexxNB",
-        "repository": "track-commits-to-issue",
-        "stars": 3,
-        "watching": 2
+    "tern-action": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "traffic-to-badge": {
-        "category": "monitoring",
-        "forks": 2,
-        "official": false,
-        "owner": "yi-Xu-0100",
-        "repository": "traffic-to-badge",
-        "stars": 12,
-        "watching": 1
+    "terraform-cloud-workspace-auto-update": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "trains-get-task-stats": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "allegroai",
-        "repository": "trains-actions-get-stats",
-        "stars": 2,
-        "watching": 3
+    "terraform-dependabot": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "trains-train-model": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "allegroai",
-        "repository": "trains-actions-train-model",
-        "stars": 1,
-        "watching": 3
+    "terraform-module-versions": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "transfer-github-project-issues-into-google-sheets": {
-        "category": "monitoring",
-        "forks": 8,
-        "official": false,
-        "owner": "ViRGiL175",
-        "repository": "github-project-issue-to-sheets",
-        "stars": 7,
-        "watching": 1
+    "tfupdate-github-actions": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "trigger-aws-lamba": {
-        "category": "monitoring",
-        "forks": 1,
-        "official": false,
-        "owner": "KhannaAbhinav",
-        "repository": "trigger-aws-lambda-action",
-        "stars": 1,
-        "watching": 0
+    "thanos-snap": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "upload-github-action-workflows-logs-to-elastic": {
-        "category": "monitoring",
-        "forks": 9,
-        "official": false,
-        "owner": "shahargl",
-        "repository": "upload-github-workflow-logs-to-elastic",
-        "stars": 1,
-        "watching": 1
+    "the-php-security-checker": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "url-health-check": {
-        "category": "monitoring",
-        "forks": 9,
-        "official": false,
-        "owner": "Jtalk",
-        "repository": "url-health-check-action",
-        "stars": 24,
-        "watching": 3
+    "tidy-cache": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "urlchecker-action": {
-        "category": "monitoring",
-        "forks": 10,
-        "official": false,
-        "owner": "urlstechie",
-        "repository": "urlchecker-action",
-        "stars": 19,
-        "watching": 5
+    "tool-versions": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "user-statistician": {
-        "category": "monitoring",
-        "forks": 11,
-        "official": false,
-        "owner": "cicirello",
-        "repository": "user-statistician",
-        "stars": 6,
-        "watching": 1
+    "track-and-record-changes-in-other-repos": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "verify-service": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "steadybit",
-        "repository": "verify-service",
-        "stars": 0,
-        "watching": 4
+    "track-pypi-version": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "virustotal-github-action": {
-        "category": "monitoring",
-        "forks": 15,
-        "official": false,
-        "owner": "crazy-max",
-        "repository": "ghaction-virustotal",
-        "stars": 71,
-        "watching": 5
+    "trivy-github-issues": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "vk-actions-notify": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "cteamdev",
-        "repository": "vk-actions-notify",
-        "stars": 0,
-        "watching": 0
+    "update-deno": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "voorhees-for-github-actions": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "Nivl",
-        "repository": "voorhees-github-action",
-        "stars": 0,
-        "watching": 2
+    "update-docker-dependencies": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "wait-for-http-responses": {
-        "category": "monitoring",
-        "forks": 3,
-        "official": false,
-        "owner": "cygnetdigital",
-        "repository": "wait_for_response",
-        "stars": 6,
-        "watching": 1
+    "update-flake-lock": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "wakatime-coding-statistics": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "tariksahni",
-        "repository": "coding-stats-wakatime",
-        "stars": 12,
-        "watching": 0
+    "update-gradle-dependencies-and-plugins": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "webflow-get": {
-        "category": "monitoring",
-        "forks": 4,
-        "official": false,
-        "owner": "loomchild",
-        "repository": "webflow-get",
-        "stars": 4,
-        "watching": 2
+    "update-gradle-wrapper": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "webhook-action": {
-        "category": "monitoring",
-        "forks": 30,
-        "official": false,
-        "owner": "joelwmale",
-        "repository": "webhook-action",
-        "stars": 97,
-        "watching": 3
+    "update-gradle-wrapper-action": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "webpack-stats-difference": {
-        "category": "monitoring",
-        "forks": 10,
-        "official": false,
-        "owner": "chronotruck",
-        "repository": "webpack-stats-diff-action",
-        "stars": 31,
-        "watching": 3
+    "update-hugo-modules": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "update-net-sdk": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "update-node-dependencies": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "update-nodejs-dependencies": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "update-python-poetry-packages": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "update-the-node-modules": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "update-xcode-version": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "update-yarn-dependencies": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "updatecli": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "upload-bom-to-dependency-track": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "upload-to-barbarian": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "uptodate-keep-your-repository-up-to-date": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "us-districts-geojson-update": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "use-npm-token": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "use-npmrc": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "validate-dependabot": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "variantdev-mod": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "vcn-authenticate-bom-for-go-projects": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "vcn-authenticate-bom-for-net-c-and-visual-basic-projects": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "vcn-authenticate-bom-for-node-js-projects": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "vcn-authenticate-bom-for-python-projects": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "vcn-authenticate-the-bom-for-java-maven-projects": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "vcn-generate-and-notarize-bom-for-go-projects": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "vcn-generate-and-notarize-bom-for-java-maven-projects": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "vcn-generate-and-notarize-bom-for-net-c-and-visual-basic-projects": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "vcn-generate-and-notarize-bom-for-node-js-projects": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "vcn-generate-and-notarize-bom-for-python-projects": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "vcn-unsupport-bom-for-go-projects": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "vcn-unsupport-bom-for-java-maven-projects": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "vcn-unsupport-bom-for-net-c-and-visual-basic-projects": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "vcn-unsupport-bom-for-node-js-projects": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "vcn-unsupport-bom-for-python-projects": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "vcn-untrust-bom-for-go-projects": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "vcn-untrust-bom-for-java-maven-projects": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "vcn-untrust-bom-for-net-c-and-visual-basic-projects": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "vcn-untrust-bom-for-node-js-projects": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "vcn-untrust-bom-for-python-projects": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "vsdevenv-shell": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "wapm-publish": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "with-opencv": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "wordpress-version-checker": {
+        "category": "dependency-management",
+        "verified": false
     },
     "workflow-status": {
-        "category": "monitoring",
-        "forks": 2,
-        "official": false,
-        "owner": "LASER-Yi",
-        "repository": "workflow-status",
-        "stars": 4,
-        "watching": 1
+        "category": "dependency-management",
+        "verified": false
     },
-    "workflow-status-action": {
-        "category": "monitoring",
-        "forks": 6,
-        "official": false,
-        "owner": "martialonline",
-        "repository": "workflow-status",
-        "stars": 4,
-        "watching": 1
+    "yarn-2-bump-action": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "wpt-unofficial-action": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "jackdbd",
-        "repository": "wpt-action",
-        "stars": 0,
-        "watching": 2
+    "yarn-actions-yaml": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "x-developer-analysis-action": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "FieldTech",
-        "repository": "x-developer-analysis-action",
-        "stars": 0,
-        "watching": 2
+    "yarn-audit": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "xunit-slack-reporter": {
-        "category": "monitoring",
-        "forks": 4,
-        "official": false,
-        "owner": "ivanklee86",
-        "repository": "xunit-slack-reporter",
-        "stars": 10,
-        "watching": 0
+    "yarn-install-cache": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "yor-github-action": {
-        "category": "monitoring",
-        "forks": 11,
-        "official": false,
-        "owner": "bridgecrewio",
-        "repository": "yor-action",
-        "stars": 7,
-        "watching": 8
+    "yarn-lock-changes": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "youtube-checker": {
-        "category": "monitoring",
-        "forks": 0,
-        "official": false,
-        "owner": "heeenkie",
-        "repository": "youtube-link-checker-action",
-        "stars": 1,
-        "watching": 1
+    "yarn-node-install-cache": {
+        "category": "dependency-management",
+        "verified": false
     },
-    "zju-ncov-hitcarder-action": {
-        "category": "monitoring",
-        "forks": 73,
-        "official": false,
-        "owner": "Long0x0",
-        "repository": "ZJU-nCov-Hitcarder",
-        "stars": 13,
-        "watching": 3
+    "yarn-setup": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "yarn-target-determinator": {
+        "category": "dependency-management",
+        "verified": false
+    },
+    "yarn-upgrader": {
+        "category": "dependency-management",
+        "verified": false
     }
 }
