@@ -237,16 +237,27 @@ def thread_data(pages: list, category: str) -> None:
                 if mp_page:
                     data = test_link(url)
                     if data:
+                        get_from_repo_api = ['stargazers_count', 'subscribers_count', 'forks_count']
                         official = get_official(url)
                         owner = get_owner(url)
                         repo_name = get_repo_name(url)
                         versions = get_api('versions', owner, repo_name)
-                        stars = get_api('stars', owner, repo_name)
                         dependents = get_dependents(owner, repo_name)
                         contributors = get_api('contributors', owner, repo_name)
                         contributors.sort()
-                        forks = get_api('forks', owner, repo_name)
-                        watching = get_api('watching', owner, repo_name)
+                        stars_watching_forks = get_api(get_from_repo_api, owner, repo_name)
+                        """
+                        This versions get the people, not the number (more api call)
+                        """
+                        # stars = get_api('stars', owner, repo_name)
+                        # watching = get_api('watching', owner, repo_name)
+                        # forks = get_api('forks', owner, repo_name)
+                        """
+                        ============================================================
+                        """
+                        stars = int(stars_watching_forks['stargazers_count'])
+                        watching = int(stars_watching_forks['subscribers_count'])
+                        forks = int(stars_watching_forks['forks_count'])
 
                         DATA[pretty_name] = {}
                         DATA[pretty_name]['category'] = category
@@ -254,11 +265,11 @@ def thread_data(pages: list, category: str) -> None:
                         DATA[pretty_name]['owner'] = owner
                         DATA[pretty_name]['repository'] = repo_name
                         DATA[pretty_name]['versions'] = versions
-                        DATA[pretty_name]['stars'] = stars
                         DATA[pretty_name]['dependents'] = dependents
                         DATA[pretty_name]['contributors'] = contributors
-                        DATA[pretty_name]['forks'] = forks
+                        DATA[pretty_name]['stars'] = stars
                         DATA[pretty_name]['watching'] = watching
+                        DATA[pretty_name]['forks'] = forks
 
 
 def format_action_name(ugly_name: str) -> str:
@@ -348,14 +359,14 @@ def get_repo_name(url: str) -> str:
     return url.split('https://github.com/')[1].split('/')[1]
 
 
-def get_api(key: str, owner: str, repo_name: str) -> int | list:
+def get_api(key: str | list, owner: str, repo_name: str) -> int | list | dict:
     """
     Contact the API to fetch information.
 
     :param key: The kind of data to retrieve.
     :param owner: The owner of the repository.
     :param repo_name: The name of the repository.
-    :return: An integer or a list, depending of the nature of the needed information.
+    :return: An integer, a list or a dictionary, depending of the nature of the needed information.
     """
     url = f"https://api.github.com/repos/{owner}/{repo_name}"
     urls = {
@@ -377,7 +388,11 @@ def get_api(key: str, owner: str, repo_name: str) -> int | list:
         'accept': 'application/vnd.github.v3+json',
     }
 
-    is_tuple = type(to_extract[key]) is tuple
+    try:
+        is_tuple = type(to_extract[key]) is tuple
+    except TypeError:
+        is_tuple = False
+
     if is_tuple:
         final = {}
     else:
@@ -385,10 +400,16 @@ def get_api(key: str, owner: str, repo_name: str) -> int | list:
 
     while True:
         try:
-            api_call = requests.get(urls[key], headers=headers)
+            if type(key) is list:
+                api_call = requests.get(url, headers=headers)
+            else:
+                api_call = requests.get(urls[key], headers=headers)
             break
         except requests.ConnectionError:
             time.sleep(60)
+
+    if type(key) is list:
+        return extract(api_call, key, url, headers).json()
 
     if 'next' not in api_call.links.keys():
         temp = extract(api_call, to_extract[key], urls[key], headers)
@@ -419,7 +440,7 @@ def get_api(key: str, owner: str, repo_name: str) -> int | list:
     return final
 
 
-def extract(api_call: requests.Response, to_extract: str | tuple, url, headers) -> list | dict:
+def extract(api_call: requests.Response, to_extract: str | tuple | list, url, headers):
     """
     Extract the information from the API.
 
@@ -428,6 +449,7 @@ def extract(api_call: requests.Response, to_extract: str | tuple, url, headers) 
     :param url: The URL of the API.
     :param headers: The headers for the request to the API.
     :return: The extracted information in a list or dictionary.
+    :rtype: list | dict | requests.Response
     """
     is_tuple = type(to_extract) is tuple
     if is_tuple:
@@ -437,6 +459,8 @@ def extract(api_call: requests.Response, to_extract: str | tuple, url, headers) 
 
     if api_call.status_code == 200:
         for needed in api_call.json():
+            if type(to_extract) is list:
+                return api_call
             if is_tuple:
                 key = datetime.strptime(needed[to_extract[1]], '%Y-%m-%dT%H:%M:%SZ').strftime('%d/%m/%Y')
                 value = needed[to_extract[0]]

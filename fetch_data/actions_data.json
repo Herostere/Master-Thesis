@@ -1,0 +1,2369 @@
+{
+    "a11ywatch-the-accessibility-suite": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "A11yWatch",
+        "repository": "github-action",
+        "stars": 0,
+        "watching": 1
+    },
+    "accum-board-stats": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "andry81-devops",
+        "repository": "gh-action--accum-board-stats",
+        "stars": 0,
+        "watching": 1
+    },
+    "accum-gh-rate-limits": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "andry81-devops",
+        "repository": "gh-action--accum-gh-rate-limits",
+        "stars": 0,
+        "watching": 1
+    },
+    "accum-gh-stats": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "andry81-devops",
+        "repository": "gh-action--accum-gh-stats",
+        "stars": 2,
+        "watching": 1
+    },
+    "accum-inpage-downloads": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "andry81-devops",
+        "repository": "gh-action--accum-inpage-downloads",
+        "stars": 0,
+        "watching": 1
+    },
+    "ackee-analytics-action": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "jackdbd",
+        "repository": "ackee-action",
+        "stars": 0,
+        "watching": 2
+    },
+    "action-for-dynamic-badges": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "loicdiridollou",
+        "repository": "dyn-badge-action",
+        "stars": 1,
+        "watching": 1
+    },
+    "action-join": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "ShaunLWM",
+        "repository": "action-join",
+        "stars": 5,
+        "watching": 1
+    },
+    "action-newrelic-segment-lint": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "budougumi0617",
+        "repository": "action-newrelic-segment-lint",
+        "stars": 2,
+        "watching": 1
+    },
+    "action-steammessage": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "ShaunLWM",
+        "repository": "action-steammessage",
+        "stars": 1,
+        "watching": 1
+    },
+    "add-grafana-annotation": {
+        "category": "monitoring",
+        "forks": 4,
+        "official": false,
+        "owner": "frankie567",
+        "repository": "grafana-annotation-action",
+        "stars": 12,
+        "watching": 1
+    },
+    "aggregit": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "MichaelJolley",
+        "repository": "aggregit",
+        "stars": 12,
+        "watching": 0
+    },
+    "amtoolcm-github-actions": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "peimanja",
+        "repository": "amtoolcm-github-actions",
+        "stars": 4,
+        "watching": 1
+    },
+    "annotate-akamai-mpulse": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "jdmevo123",
+        "repository": "akamai-mpulse-annotation-action",
+        "stars": 5,
+        "watching": 2
+    },
+    "app-insights-event": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "syedhassaanahmed",
+        "repository": "app-insights-event-action",
+        "stars": 0,
+        "watching": 2
+    },
+    "aws-cloudwatch-canary-monitor": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "janerikcarlsen",
+        "repository": "aws-canary-monitoring",
+        "stars": 0,
+        "watching": 1
+    },
+    "azure-monitor-action": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "hoisjp",
+        "repository": "azure-monitor-action",
+        "stars": 5,
+        "watching": 1
+    },
+    "badge-action": {
+        "category": "monitoring",
+        "forks": 8,
+        "official": false,
+        "owner": "emibcn",
+        "repository": "badge-action",
+        "stars": 23,
+        "watching": 2
+    },
+    "barechek-newrelic-metric-reporter": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "barecheck",
+        "repository": "newrelic-metric-action",
+        "stars": 1,
+        "watching": 1
+    },
+    "bark-notification": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "lxzxl",
+        "repository": "bark-action",
+        "stars": 0,
+        "watching": 1
+    },
+    "bigquery-service-action": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "pal-paul",
+        "repository": "bigquery-service-action",
+        "stars": 0,
+        "watching": 0
+    },
+    "bigquery-sql-execution-with-slack-notification-for-results": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "data-i-consulting",
+        "repository": "bq2slack-github-action",
+        "stars": 2,
+        "watching": 0
+    },
+    "bot-status": {
+        "category": "monitoring",
+        "forks": 20,
+        "official": false,
+        "owner": "jainamoswal",
+        "repository": "BotStatus",
+        "stars": 45,
+        "watching": 1
+    },
+    "broken-links-crawler": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "ScholliYT",
+        "repository": "Broken-Links-Crawler-Action",
+        "stars": 8,
+        "watching": 1
+    },
+    "bugsnag-release": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "psprings",
+        "repository": "bugsnag-release-action",
+        "stars": 2,
+        "watching": 1
+    },
+    "buildpulse-discord": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "Rabatta-ApS",
+        "repository": "BuildPulse-Discord",
+        "stars": 1,
+        "watching": 2
+    },
+    "bundle-size-diff": {
+        "category": "monitoring",
+        "forks": 2,
+        "official": false,
+        "owner": "NejcZdovc",
+        "repository": "bundle-size-diff",
+        "stars": 6,
+        "watching": 1
+    },
+    "bundlewatch-github-action": {
+        "category": "monitoring",
+        "forks": 4,
+        "official": false,
+        "owner": "jackyef",
+        "repository": "bundlewatch-gh-action",
+        "stars": 26,
+        "watching": 4
+    },
+    "check-http-status": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "trunkcode",
+        "repository": "check-http-status-action",
+        "stars": 0,
+        "watching": 1
+    },
+    "check-urls": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "bythepixel",
+        "repository": "urlchecker",
+        "stars": 1,
+        "watching": 1
+    },
+    "cinotify-email": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "cinotify",
+        "repository": "github-action",
+        "stars": 1,
+        "watching": 1
+    },
+    "close-opsgenie-alert": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "rockem",
+        "repository": "close-opsgenie-alert-action",
+        "stars": 4,
+        "watching": 1
+    },
+    "cloud-foundry-cli-github-action": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "elliottpope",
+        "repository": "cloudfoundry-cli-action",
+        "stars": 0,
+        "watching": 1
+    },
+    "cloud-notify-send-push-notifications-to-your-devices": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "Nathan1258",
+        "repository": "cloudNotify-action",
+        "stars": 2,
+        "watching": 1
+    },
+    "cloudflare-pages-await": {
+        "category": "monitoring",
+        "forks": 2,
+        "official": false,
+        "owner": "WalshyDev",
+        "repository": "cf-pages-await",
+        "stars": 27,
+        "watching": 1
+    },
+    "comment-gas-report-from-eth-gas-report": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "santiac89",
+        "repository": "gas-report-action",
+        "stars": 4,
+        "watching": 1
+    },
+    "comment-with-pytest-benchmark-result": {
+        "category": "monitoring",
+        "forks": 2,
+        "official": false,
+        "owner": "nils-braun",
+        "repository": "pytest-benchmark-commenter",
+        "stars": 1,
+        "watching": 1
+    },
+    "commit-issue-action": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "wescran",
+        "repository": "commit-issue-action",
+        "stars": 5,
+        "watching": 1
+    },
+    "commithawk": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "jesalg",
+        "repository": "commit-hawk-action",
+        "stars": 3,
+        "watching": 2
+    },
+    "container-action-using-github-stats-pages": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "astrochun",
+        "repository": "github-stats-pages",
+        "stars": 1,
+        "watching": 1
+    },
+    "continuous-benchmarking-for-go": {
+        "category": "monitoring",
+        "forks": 10,
+        "official": false,
+        "owner": "bobheadxi",
+        "repository": "gobenchdata",
+        "stars": 88,
+        "watching": 2
+    },
+    "count-action-users": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "cicirello",
+        "repository": "count-action-users",
+        "stars": 1,
+        "watching": 1
+    },
+    "covid-19-box": {
+        "category": "monitoring",
+        "forks": 2,
+        "official": false,
+        "owner": "casperdcl",
+        "repository": "covid-19-box",
+        "stars": 4,
+        "watching": 0
+    },
+    "create-an-event-using-microsoft-graph": {
+        "category": "monitoring",
+        "forks": 3,
+        "official": false,
+        "owner": "anoopt",
+        "repository": "ms-graph-create-event",
+        "stars": 10,
+        "watching": 4
+    },
+    "create-opsgenie-alert": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "rockem",
+        "repository": "create-opsgenie-alert-action",
+        "stars": 6,
+        "watching": 1
+    },
+    "crypto-box": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "austenstone",
+        "repository": "crypto-box",
+        "stars": 1,
+        "watching": 1
+    },
+    "dashpanel": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "haveyoudebuggedit",
+        "repository": "dashpanel",
+        "stars": 0,
+        "watching": 1
+    },
+    "datadog-action": {
+        "category": "monitoring",
+        "forks": 8,
+        "official": false,
+        "owner": "masci",
+        "repository": "datadog",
+        "stars": 32,
+        "watching": 2
+    },
+    "datadog-actions-release-metrics": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "lukascaska",
+        "repository": "datadog-actions-metrics",
+        "stars": 0,
+        "watching": 0
+    },
+    "datadog-agent": {
+        "category": "monitoring",
+        "forks": 2,
+        "official": false,
+        "owner": "DataDog",
+        "repository": "agent-github-action",
+        "stars": 4,
+        "watching": 6
+    },
+    "datadog-event-action": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "Glennmen",
+        "repository": "datadog-event-action",
+        "stars": 0,
+        "watching": 1
+    },
+    "datadog-event-trigger": {
+        "category": "monitoring",
+        "forks": 5,
+        "official": false,
+        "owner": "jordan-simonovski",
+        "repository": "datadog-event-action",
+        "stars": 13,
+        "watching": 3
+    },
+    "datadog-synthetic": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "ugurtemiz",
+        "repository": "datadog-synthetic-action",
+        "stars": 2,
+        "watching": 1
+    },
+    "debugging-with-ssh": {
+        "category": "monitoring",
+        "forks": 8,
+        "official": false,
+        "owner": "lhotari",
+        "repository": "action-upterm",
+        "stars": 69,
+        "watching": 1
+    },
+    "define-service": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "steadybit",
+        "repository": "define-service",
+        "stars": 1,
+        "watching": 4
+    },
+    "detect-env-file-changes": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "jovanblazek",
+        "repository": "env-changes-detector",
+        "stars": 1,
+        "watching": 1
+    },
+    "dingtalk-robot-message": {
+        "category": "monitoring",
+        "forks": 5,
+        "official": false,
+        "owner": "fifsky",
+        "repository": "dingtalk-action",
+        "stars": 8,
+        "watching": 3
+    },
+    "discord-activity-badge": {
+        "category": "monitoring",
+        "forks": 3,
+        "official": false,
+        "owner": "CodexLink",
+        "repository": "discord-activity-badge",
+        "stars": 6,
+        "watching": 0
+    },
+    "discord-hook-action": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "Poss111",
+        "repository": "discord-hook-action",
+        "stars": 1,
+        "watching": 2
+    },
+    "discord-webhook-notify": {
+        "category": "monitoring",
+        "forks": 6,
+        "official": false,
+        "owner": "rjstone",
+        "repository": "discord-webhook-notify",
+        "stars": 40,
+        "watching": 5
+    },
+    "discord-workflow-status-notifier": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "nobrayner",
+        "repository": "discord-webhook",
+        "stars": 3,
+        "watching": 1
+    },
+    "docker-action-send-skype": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "Eloco",
+        "repository": "docker-action-send-skype",
+        "stars": 2,
+        "watching": 2
+    },
+    "docker-status": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "crazy-max",
+        "repository": "ghaction-docker-status",
+        "stars": 4,
+        "watching": 1
+    },
+    "domain-and-ssl-cert-watcher": {
+        "category": "monitoring",
+        "forks": 3,
+        "official": false,
+        "owner": "codex-team",
+        "repository": "action-check-domain",
+        "stars": 19,
+        "watching": 3
+    },
+    "dupicate-line-remover-action": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "maharishi-coder",
+        "repository": "Duplicate-Line-Remover-Action",
+        "stars": 2,
+        "watching": 1
+    },
+    "dynatraceaction": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "dynatrace-oss",
+        "repository": "dynatrace-github-action",
+        "stars": 14,
+        "watching": 3
+    },
+    "effx-event": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "cjs226",
+        "repository": "effx-event-action",
+        "stars": 1,
+        "watching": 2
+    },
+    "effx-lint": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "effxhq",
+        "repository": "effx-lint-action",
+        "stars": 0,
+        "watching": 2
+    },
+    "effx-sync": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "effxhq",
+        "repository": "effx-sync-action",
+        "stars": 2,
+        "watching": 6
+    },
+    "elastic-logs": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "masci",
+        "repository": "elastic-logs",
+        "stars": 4,
+        "watching": 1
+    },
+    "elasticapm-sourcemap-action": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "strikelabs",
+        "repository": "elastic-apm-sourcemap-action",
+        "stars": 3,
+        "watching": 1
+    },
+    "elmah-io-create-deployment-action": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "elmahio",
+        "repository": "github-create-deployment-action",
+        "stars": 0,
+        "watching": 2
+    },
+    "elmah-io-upload-source-map-action": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "elmahio",
+        "repository": "github-upload-source-map-action",
+        "stars": 0,
+        "watching": 2
+    },
+    "email-addresses-in-comments-monitor": {
+        "category": "monitoring",
+        "forks": 2,
+        "official": false,
+        "owner": "seisvelas",
+        "repository": "comment-email-address-alerts",
+        "stars": 2,
+        "watching": 1
+    },
+    "ember-asset-size": {
+        "category": "monitoring",
+        "forks": 19,
+        "official": false,
+        "owner": "simplabs",
+        "repository": "ember-asset-size-action",
+        "stars": 18,
+        "watching": 9
+    },
+    "ember-performance-monitoring-tracerbench-compare-action": {
+        "category": "monitoring",
+        "forks": 3,
+        "official": false,
+        "owner": "TracerBench",
+        "repository": "tracerbench-compare-action",
+        "stars": 35,
+        "watching": 3
+    },
+    "endid-action": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "endid-app",
+        "repository": "endid-github-action",
+        "stars": 1,
+        "watching": 2
+    },
+    "enterprise-members-report-action": {
+        "category": "monitoring",
+        "forks": 3,
+        "official": false,
+        "owner": "ActionsDesk",
+        "repository": "enterprise-members-report-action",
+        "stars": 1,
+        "watching": 1
+    },
+    "eonx-com-actions-opsgenie": {
+        "category": "monitoring",
+        "forks": 7,
+        "official": false,
+        "owner": "eonx-com",
+        "repository": "actions-opsgenie",
+        "stars": 1,
+        "watching": 3
+    },
+    "fetch-data-to-file": {
+        "category": "monitoring",
+        "forks": 3,
+        "official": false,
+        "owner": "gautemo",
+        "repository": "fetch-api-data-action",
+        "stars": 2,
+        "watching": 3
+    },
+    "fetch-updown-io-checks": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "MTES-MCT",
+        "repository": "updownio-action",
+        "stars": 2,
+        "watching": 2
+    },
+    "fixed-issues-labeler": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "gh-bot",
+        "repository": "fix-labeler",
+        "stars": 1,
+        "watching": 2
+    },
+    "flutter-package-updater": {
+        "category": "monitoring",
+        "forks": 4,
+        "official": false,
+        "owner": "tianhaoz95",
+        "repository": "update-flutter-packages",
+        "stars": 19,
+        "watching": 0
+    },
+    "generate-azure-resource-topology-diagrams-with-azviz-azure-visualizer": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "JosiahSiegel",
+        "repository": "AzViz-action",
+        "stars": 2,
+        "watching": 1
+    },
+    "get-all-contributors": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "codinasion",
+        "repository": "get-all-contributors",
+        "stars": 0,
+        "watching": 1
+    },
+    "get-pr-info-action": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "Brymastr",
+        "repository": "pr-info-action",
+        "stars": 2,
+        "watching": 1
+    },
+    "get-the-default-branch": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "scottmmjackson",
+        "repository": "get-the-default-branch-action",
+        "stars": 0,
+        "watching": 1
+    },
+    "getnighthawk-layer5": {
+        "category": "monitoring",
+        "forks": 68,
+        "official": false,
+        "owner": "layer5io",
+        "repository": "getnighthawk",
+        "stars": 75,
+        "watching": 10
+    },
+    "ghstat": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "casperdcl",
+        "repository": "ghstat",
+        "stars": 3,
+        "watching": 1
+    },
+    "git-status-threads-on-slack": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "watson-w",
+        "repository": "slack-threaded-git-notifications",
+        "stars": 0,
+        "watching": 1
+    },
+    "githits-action": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "kausko",
+        "repository": "GitHits",
+        "stars": 1,
+        "watching": 1
+    },
+    "github-action-for-mackerel-api": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "yutailang0119",
+        "repository": "action-mackerel-api",
+        "stars": 4,
+        "watching": 1
+    },
+    "github-action-for-slack-notification": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "svikramjeet",
+        "repository": "git-actions",
+        "stars": 2,
+        "watching": 1
+    },
+    "github-action-to-otlp": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "codeboten",
+        "repository": "github-action-to-otlp",
+        "stars": 4,
+        "watching": 3
+    },
+    "github-actions-alerts": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "github-suraj",
+        "repository": "git-action-alerts",
+        "stars": 0,
+        "watching": 1
+    },
+    "github-actions-metrics-to-datadog": {
+        "category": "monitoring",
+        "forks": 3,
+        "official": false,
+        "owner": "yuya-takeyama",
+        "repository": "github-actions-metrics-to-datadog-action",
+        "stars": 6,
+        "watching": 1
+    },
+    "github-logs-to-elastic": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "KnutFr",
+        "repository": "github-actions-to-elk",
+        "stars": 1,
+        "watching": 0
+    },
+    "github-rank-action": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "filiptronicek",
+        "repository": "github-rank-action",
+        "stars": 1,
+        "watching": 1
+    },
+    "github-readme-generator": {
+        "category": "monitoring",
+        "forks": 12,
+        "official": false,
+        "owner": "th3c0d3br34ker",
+        "repository": "github-readme-info",
+        "stars": 43,
+        "watching": 1
+    },
+    "github-repo-stats": {
+        "category": "monitoring",
+        "forks": 17,
+        "official": false,
+        "owner": "jgehrcke",
+        "repository": "github-repo-stats",
+        "stars": 98,
+        "watching": 2
+    },
+    "github-repos-status": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "pacoxu",
+        "repository": "github-repos-stats",
+        "stars": 7,
+        "watching": 1
+    },
+    "github-status": {
+        "category": "monitoring",
+        "forks": 6,
+        "official": false,
+        "owner": "crazy-max",
+        "repository": "ghaction-github-status",
+        "stars": 18,
+        "watching": 1
+    },
+    "github-user-contribution": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "AlexRogalskiy",
+        "repository": "github-action-user-contribution",
+        "stars": 1,
+        "watching": 1
+    },
+    "githubactions-com-result-reporter": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "dkershner6",
+        "repository": "githubactions-result-reporter",
+        "stars": 0,
+        "watching": 1
+    },
+    "google-spreadsheet-synchronizer": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "noelmace",
+        "repository": "spreadsheet-sync",
+        "stars": 1,
+        "watching": 0
+    },
+    "gotify-notification": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "eikendev",
+        "repository": "gotify-action",
+        "stars": 2,
+        "watching": 1
+    },
+    "grafana-annotation-actions": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "danieloneilldazn",
+        "repository": "grafana-annotation-action",
+        "stars": 1,
+        "watching": 1
+    },
+    "graphql-inspector": {
+        "category": "monitoring",
+        "forks": 134,
+        "official": false,
+        "owner": "kamilkisiela",
+        "repository": "graphql-inspector",
+        "stars": 1307,
+        "watching": 13
+    },
+    "gravatar-to-twitter": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "myl7",
+        "repository": "gravatar2twitter",
+        "stars": 0,
+        "watching": 1
+    },
+    "groupme-action-notifier": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "nhomble",
+        "repository": "groupme-notify-action",
+        "stars": 1,
+        "watching": 2
+    },
+    "harden-runner": {
+        "category": "monitoring",
+        "forks": 9,
+        "official": false,
+        "owner": "step-security",
+        "repository": "harden-runner",
+        "stars": 39,
+        "watching": 1
+    },
+    "heads-up-uptime-monitoring-alerting": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "matchai",
+        "repository": "heads-up",
+        "stars": 16,
+        "watching": 3
+    },
+    "healthy-checkup": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "APina03",
+        "repository": "wait_for_response",
+        "stars": 0,
+        "watching": 0
+    },
+    "hl-weather-box": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "casperdcl",
+        "repository": "hl-weather-box",
+        "stars": 0,
+        "watching": 1
+    },
+    "honeybadger-deploy-action": {
+        "category": "monitoring",
+        "forks": 7,
+        "official": false,
+        "owner": "honeybadger-io",
+        "repository": "github-notify-deploy-action",
+        "stars": 4,
+        "watching": 3
+    },
+    "honeybadger-upload-sourcemap-action": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "honeybadger-io",
+        "repository": "github-upload-sourcemap-action",
+        "stars": 4,
+        "watching": 3
+    },
+    "honeycomb-buildevents": {
+        "category": "monitoring",
+        "forks": 7,
+        "official": false,
+        "owner": "kvrhdn",
+        "repository": "gha-buildevents",
+        "stars": 11,
+        "watching": 4
+    },
+    "http-s-url-health-check-and-tls-ssl-certification-expiry-check": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "padurean",
+        "repository": "https-certificate-expiry-health-check-action",
+        "stars": 4,
+        "watching": 0
+    },
+    "http-status": {
+        "category": "monitoring",
+        "forks": 5,
+        "official": false,
+        "owner": "lakuapik",
+        "repository": "gh-actions-http-status",
+        "stars": 7,
+        "watching": 2
+    },
+    "hue-action": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "manekinekko",
+        "repository": "hue-action",
+        "stars": 18,
+        "watching": 1
+    },
+    "instana-gitops-trigger-host-agent-configuration-updates": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "instana",
+        "repository": "github-action-update-agent-configurations",
+        "stars": 0,
+        "watching": 57
+    },
+    "instana-release": {
+        "category": "monitoring",
+        "forks": 4,
+        "official": false,
+        "owner": "taimos",
+        "repository": "github-action-instana-release",
+        "stars": 2,
+        "watching": 2
+    },
+    "issuetron-3000": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "mxarc",
+        "repository": "issuetron-3000",
+        "stars": 6,
+        "watching": 1
+    },
+    "jaimin-patel30-notedown": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "Jaimin-Patel30",
+        "repository": "actions-tracker",
+        "stars": 1,
+        "watching": 1
+    },
+    "jekyll-diff": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "David-Byrne",
+        "repository": "jekyll-diff-action",
+        "stars": 6,
+        "watching": 1
+    },
+    "jest-coverage-report": {
+        "category": "monitoring",
+        "forks": 67,
+        "official": false,
+        "owner": "ArtiomTr",
+        "repository": "jest-coverage-report-action",
+        "stars": 146,
+        "watching": 1
+    },
+    "jira-issue-creation": {
+        "category": "monitoring",
+        "forks": 3,
+        "official": false,
+        "owner": "bryannice",
+        "repository": "gitactions-jira-issue-creation",
+        "stars": 1,
+        "watching": 2
+    },
+    "keybase-build-notifications": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "marvinpinto",
+        "repository": "action-keybase-notifications",
+        "stars": 6,
+        "watching": 0
+    },
+    "label-pr-on-merge-bot": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "abhijithvijayan",
+        "repository": "label-pr-on-merge-bot",
+        "stars": 2,
+        "watching": 2
+    },
+    "label-slow-prs": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "coblox",
+        "repository": "label-slow-prs",
+        "stars": 1,
+        "watching": 9
+    },
+    "lifx-build-light": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "LIFX",
+        "repository": "buildlight-action",
+        "stars": 12,
+        "watching": 8
+    },
+    "lighthouse-badger": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "MyActionWay",
+        "repository": "lighthouse-badger-action",
+        "stars": 6,
+        "watching": 2
+    },
+    "lighthouse-check": {
+        "category": "monitoring",
+        "forks": 13,
+        "official": false,
+        "owner": "foo-software",
+        "repository": "lighthouse-check-action",
+        "stars": 308,
+        "watching": 6
+    },
+    "lighthouse-ci-action": {
+        "category": "monitoring",
+        "forks": 59,
+        "official": false,
+        "owner": "treosh",
+        "repository": "lighthouse-ci-action",
+        "stars": 841,
+        "watching": 10
+    },
+    "lighthouse-ci-on-shopify-theme": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "tuktukvlad",
+        "repository": "lighthouse-ci-action",
+        "stars": 0,
+        "watching": 0
+    },
+    "lightstep-pre-deploy-check": {
+        "category": "monitoring",
+        "forks": 4,
+        "official": false,
+        "owner": "lightstep",
+        "repository": "lightstep-action-predeploy",
+        "stars": 10,
+        "watching": 4
+    },
+    "lightstep-services-change-report": {
+        "category": "monitoring",
+        "forks": 2,
+        "official": false,
+        "owner": "lightstep",
+        "repository": "lightstep-action-snapshot",
+        "stars": 6,
+        "watching": 4
+    },
+    "line-notify-actions": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "louis70109",
+        "repository": "line-notify-action",
+        "stars": 8,
+        "watching": 1
+    },
+    "link-snitch": {
+        "category": "monitoring",
+        "forks": 4,
+        "official": false,
+        "owner": "victoriadrake",
+        "repository": "link-snitch",
+        "stars": 49,
+        "watching": 0
+    },
+    "load-runner-information": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "devops-actions",
+        "repository": "load-runner-info",
+        "stars": 1,
+        "watching": 0
+    },
+    "log-build-context": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "danubetech",
+        "repository": "github-action-log-build-context",
+        "stars": 0,
+        "watching": 3
+    },
+    "log-to-logsnag": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "jsmrcaga",
+        "repository": "action-logsnag",
+        "stars": 5,
+        "watching": 1
+    },
+    "logflare-log": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "Logflare",
+        "repository": "action",
+        "stars": 18,
+        "watching": 1
+    },
+    "make-tcp-connection": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "BGarber42",
+        "repository": "action-tcp-connection",
+        "stars": 0,
+        "watching": 1
+    },
+    "mention-to-slack-actions": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "Laurenfrost",
+        "repository": "mention-to-slack",
+        "stars": 7,
+        "watching": 1
+    },
+    "milestones-managment": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "zattoo",
+        "repository": "milestones",
+        "stars": 1,
+        "watching": 5
+    },
+    "modified-cves-checker": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "doshyt",
+        "repository": "cve-monitor",
+        "stars": 1,
+        "watching": 2
+    },
+    "monitor-document": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "shinhwagk",
+        "repository": "monitoring_document",
+        "stars": 0,
+        "watching": 2
+    },
+    "mudlet-map-diff": {
+        "category": "monitoring",
+        "forks": 2,
+        "official": false,
+        "owner": "Delwing",
+        "repository": "mudlet-map-diff-action",
+        "stars": 0,
+        "watching": 1
+    },
+    "netlify-analytics-collector": {
+        "category": "monitoring",
+        "forks": 2,
+        "official": false,
+        "owner": "NiklasMerz",
+        "repository": "netlify-analytics-collector",
+        "stars": 4,
+        "watching": 2
+    },
+    "node-js-dependency-freshness-via-libyear": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "s0",
+        "repository": "libyear-node-action",
+        "stars": 1,
+        "watching": 1
+    },
+    "notfoundbot": {
+        "category": "monitoring",
+        "forks": 8,
+        "official": false,
+        "owner": "tmcw",
+        "repository": "notfoundbot",
+        "stars": 105,
+        "watching": 3
+    },
+    "notify-lark-slack-telegram": {
+        "category": "monitoring",
+        "forks": 2,
+        "official": false,
+        "owner": "echoings",
+        "repository": "actions.notify",
+        "stars": 7,
+        "watching": 1
+    },
+    "notify-slack": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "drilonrecica",
+        "repository": "action-slack-notify",
+        "stars": 3,
+        "watching": 0
+    },
+    "notify-via-slack": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "luchihoratiu",
+        "repository": "notify-via-slack",
+        "stars": 0,
+        "watching": 1
+    },
+    "notionhook": {
+        "category": "monitoring",
+        "forks": 4,
+        "official": false,
+        "owner": "alessandrobelli",
+        "repository": "NotionHook",
+        "stars": 10,
+        "watching": 2
+    },
+    "opentelemetry-export-trace": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "inception-health",
+        "repository": "otel-export-trace-action",
+        "stars": 14,
+        "watching": 2
+    },
+    "opentelemetry-upload-trace-artifact": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "inception-health",
+        "repository": "otel-upload-test-artifact-action",
+        "stars": 2,
+        "watching": 1
+    },
+    "organization-repository-audit": {
+        "category": "monitoring",
+        "forks": 2,
+        "official": false,
+        "owner": "gr2m",
+        "repository": "github-organization-repository-auditing-action",
+        "stars": 2,
+        "watching": 1
+    },
+    "outedated-version": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "ycjcl868",
+        "repository": "outdated-version-action",
+        "stars": 3,
+        "watching": 0
+    },
+    "page2pdf": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "gniquyij",
+        "repository": "page2pdf",
+        "stars": 1,
+        "watching": 1
+    },
+    "pagerduty-alert": {
+        "category": "monitoring",
+        "forks": 9,
+        "official": false,
+        "owner": "Entle",
+        "repository": "action-pagerduty-alert",
+        "stars": 3,
+        "watching": 3
+    },
+    "pagerduty-downtime-trigger": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "keylightberlin",
+        "repository": "pagerduty-downtime-incident",
+        "stars": 2,
+        "watching": 3
+    },
+    "ping-my-site": {
+        "category": "monitoring",
+        "forks": 3,
+        "official": false,
+        "owner": "Leocardoso94",
+        "repository": "is-my-site-up",
+        "stars": 6,
+        "watching": 1
+    },
+    "pixela-pi-action": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "peaceiris",
+        "repository": "actions-pixela",
+        "stars": 12,
+        "watching": 2
+    },
+    "pkg-size-action": {
+        "category": "monitoring",
+        "forks": 4,
+        "official": false,
+        "owner": "pkg-size",
+        "repository": "action",
+        "stars": 51,
+        "watching": 3
+    },
+    "points-bar": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "markpatterson27",
+        "repository": "points-bar",
+        "stars": 2,
+        "watching": 1
+    },
+    "pr-label-by-files-changed": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "TDAK1509",
+        "repository": "label-pr-based-on-files-changed",
+        "stars": 0,
+        "watching": 1
+    },
+    "pr-merge-bot": {
+        "category": "monitoring",
+        "forks": 9,
+        "official": false,
+        "owner": "squalrus",
+        "repository": "merge-bot",
+        "stars": 48,
+        "watching": 3
+    },
+    "profile-readme-stats": {
+        "category": "monitoring",
+        "forks": 68,
+        "official": false,
+        "owner": "teoxoy",
+        "repository": "profile-readme-stats",
+        "stars": 139,
+        "watching": 4
+    },
+    "provider-status-checker": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "gardarik",
+        "repository": "provider-status-action",
+        "stars": 0,
+        "watching": 1
+    },
+    "psi-gh-action": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "mazipan",
+        "repository": "psi-gh-action",
+        "stars": 62,
+        "watching": 2
+    },
+    "publish-release-assets-to-asset-transparency-log": {
+        "category": "monitoring",
+        "forks": 3,
+        "official": false,
+        "owner": "transparencylog",
+        "repository": "publish-releases-asset-transparency-action",
+        "stars": 4,
+        "watching": 1
+    },
+    "pull-request-slack-notifier": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "daint2git",
+        "repository": "pull-request-slack-notifier",
+        "stars": 1,
+        "watching": 1
+    },
+    "pushbullet-notification": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "ShaunLWM",
+        "repository": "action-pushbullet",
+        "stars": 5,
+        "watching": 1
+    },
+    "pushnotifier-send-action": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "bluefirex",
+        "repository": "pushnotifier-send-action",
+        "stars": 1,
+        "watching": 1
+    },
+    "qmsg-action": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "Y2Nk4",
+        "repository": "qmsg-action",
+        "stars": 2,
+        "watching": 2
+    },
+    "quarkus-health-check": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "SkyCell-AG",
+        "repository": "quarkus-healthcheck-action",
+        "stars": 0,
+        "watching": 1
+    },
+    "quickmetrics-action": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "screendriver",
+        "repository": "quickmetrics-action",
+        "stars": 0,
+        "watching": 1
+    },
+    "real-time-log-action": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "cn007b",
+        "repository": "log-action",
+        "stars": 0,
+        "watching": 1
+    },
+    "record-newrelic-deployment": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "aabed",
+        "repository": "newrelic-record-deployment",
+        "stars": 6,
+        "watching": 1
+    },
+    "relativeci-agent": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "relative-ci",
+        "repository": "agent-action",
+        "stars": 0,
+        "watching": 1
+    },
+    "relativeci-agent-upload-artifact": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "relative-ci",
+        "repository": "agent-upload-artifact-action",
+        "stars": 0,
+        "watching": 1
+    },
+    "remote-bash": {
+        "category": "monitoring",
+        "forks": 10,
+        "official": false,
+        "owner": "shinhwagk",
+        "repository": "remote-bash",
+        "stars": 18,
+        "watching": 5
+    },
+    "remote-time": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "Plabick",
+        "repository": "Remote-Time-Action",
+        "stars": 5,
+        "watching": 1
+    },
+    "report-link-action": {
+        "category": "monitoring",
+        "forks": 3,
+        "official": false,
+        "owner": "ad-m",
+        "repository": "report-link-action",
+        "stars": 8,
+        "watching": 2
+    },
+    "repository-notifications": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "olabiniV2",
+        "repository": "repo-notifications-action",
+        "stars": 0,
+        "watching": 1
+    },
+    "required-labels-action": {
+        "category": "monitoring",
+        "forks": 2,
+        "official": false,
+        "owner": "foretheta",
+        "repository": "required-labels",
+        "stars": 3,
+        "watching": 0
+    },
+    "rollbar-deploy": {
+        "category": "monitoring",
+        "forks": 9,
+        "official": false,
+        "owner": "rollbar",
+        "repository": "github-deploy-action",
+        "stars": 43,
+        "watching": 19
+    },
+    "rootly-pulse": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "rootlyhq",
+        "repository": "pulse-action",
+        "stars": 1,
+        "watching": 3
+    },
+    "send-email": {
+        "category": "monitoring",
+        "forks": 94,
+        "official": false,
+        "owner": "dawidd6",
+        "repository": "action-send-mail",
+        "stars": 209,
+        "watching": 7
+    },
+    "send-email-with-oauth2": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "cougargrades",
+        "repository": "action-send-mail",
+        "stars": 0,
+        "watching": 0
+    },
+    "send-job-status-to-azure-queue": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "amongil",
+        "repository": "gh-action-push-workflow-last-job-status-to-azure-queue",
+        "stars": 1,
+        "watching": 2
+    },
+    "send-mailer": {
+        "category": "monitoring",
+        "forks": 4,
+        "official": false,
+        "owner": "devellany",
+        "repository": "send-mail",
+        "stars": 10,
+        "watching": 3
+    },
+    "send-push-notification": {
+        "category": "monitoring",
+        "forks": 14,
+        "official": false,
+        "owner": "techulus",
+        "repository": "push-github-action",
+        "stars": 51,
+        "watching": 5
+    },
+    "send-rcon-commands-to-minecraft-server": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "Plagiatus",
+        "repository": "RCON-Action",
+        "stars": 1,
+        "watching": 1
+    },
+    "send-sms-notification-with-free-mobile": {
+        "category": "monitoring",
+        "forks": 2,
+        "official": false,
+        "owner": "aslafy-z",
+        "repository": "freemobile-sms-action",
+        "stars": 5,
+        "watching": 1
+    },
+    "sensuctl": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "jspaleta",
+        "repository": "sensuctl-action",
+        "stars": 1,
+        "watching": 1
+    },
+    "sensuflow": {
+        "category": "monitoring",
+        "forks": 3,
+        "official": false,
+        "owner": "sensu",
+        "repository": "sensu-flow",
+        "stars": 6,
+        "watching": 2
+    },
+    "sentry-actions": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "urcomputeringpal",
+        "repository": "sentry-actions",
+        "stars": 3,
+        "watching": 2
+    },
+    "sentry-cli-action": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "bjacobel",
+        "repository": "sentry-cli-action",
+        "stars": 2,
+        "watching": 2
+    },
+    "sentry-io-cli-action": {
+        "category": "monitoring",
+        "forks": 3,
+        "official": false,
+        "owner": "NSCoder",
+        "repository": "sentry",
+        "stars": 14,
+        "watching": 0
+    },
+    "sentry-release": {
+        "category": "monitoring",
+        "forks": 35,
+        "official": false,
+        "owner": "getsentry",
+        "repository": "action-release",
+        "stars": 249,
+        "watching": 18
+    },
+    "sentry-release-with-custom-url": {
+        "category": "monitoring",
+        "forks": 2,
+        "official": false,
+        "owner": "LasaleFamine",
+        "repository": "action-release",
+        "stars": 3,
+        "watching": 0
+    },
+    "serato-lhci-notification": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "serato",
+        "repository": "serato-lhci-notification",
+        "stars": 0,
+        "watching": 5
+    },
+    "server-alert-in-telegram": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "fengkx",
+        "repository": "server-tg-alert",
+        "stars": 1,
+        "watching": 2
+    },
+    "settings-check": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "ghr-actions",
+        "repository": "settings-check",
+        "stars": 2,
+        "watching": 0
+    },
+    "setup-mkr": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "susisu",
+        "repository": "setup-mkr",
+        "stars": 1,
+        "watching": 1
+    },
+    "setup-statusfy": {
+        "category": "monitoring",
+        "forks": 2,
+        "official": false,
+        "owner": "devkanro",
+        "repository": "setup-statusfy",
+        "stars": 2,
+        "watching": 1
+    },
+    "should-i-notify-slack": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "Jimdo",
+        "repository": "should-i-notify-action",
+        "stars": 5,
+        "watching": 7
+    },
+    "signalfx-action": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "RentTheRunway",
+        "repository": "signalfx-reporting-action",
+        "stars": 0,
+        "watching": 0
+    },
+    "size-limit-action": {
+        "category": "monitoring",
+        "forks": 38,
+        "official": false,
+        "owner": "andresz1",
+        "repository": "size-limit-action",
+        "stars": 187,
+        "watching": 1
+    },
+    "slack-action-status": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "navilan",
+        "repository": "slack-action-status",
+        "stars": 1,
+        "watching": 2
+    },
+    "slack-build-notifier": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "hennejg",
+        "repository": "slack-build-notifier",
+        "stars": 2,
+        "watching": 0
+    },
+    "slack-message": {
+        "category": "monitoring",
+        "forks": 4,
+        "official": false,
+        "owner": "someimportantcompany",
+        "repository": "github-actions-slack-message",
+        "stars": 12,
+        "watching": 3
+    },
+    "slack-messaging": {
+        "category": "monitoring",
+        "forks": 6,
+        "official": false,
+        "owner": "wearerequired",
+        "repository": "slack-messaging-action",
+        "stars": 13,
+        "watching": 1
+    },
+    "slack-notifier": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "gymshark",
+        "repository": "slack-notifier-action",
+        "stars": 2,
+        "watching": 11
+    },
+    "slack-release-notifier": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "fedecalendino",
+        "repository": "slack-release-notifier",
+        "stars": 0,
+        "watching": 1
+    },
+    "slack-webhook-channel-notifications": {
+        "category": "monitoring",
+        "forks": 3,
+        "official": false,
+        "owner": "tiloio",
+        "repository": "slack-webhook-action",
+        "stars": 1,
+        "watching": 2
+    },
+    "slack-workflow-notifier": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "Jiro-Digital",
+        "repository": "slack-workflow-action",
+        "stars": 1,
+        "watching": 2
+    },
+    "spm-dependencies-checker": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "sbertix",
+        "repository": "spm-dependencies-checker",
+        "stars": 4,
+        "watching": 1
+    },
+    "ssl-tls-monitor": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "bluenovaio",
+        "repository": "action-tls-monitor",
+        "stars": 2,
+        "watching": 2
+    },
+    "statusoli": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "athul",
+        "repository": "statusoli",
+        "stars": 15,
+        "watching": 1
+    },
+    "subdomain-finding-using-subfinder": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "v1dhun",
+        "repository": "subfinder-action",
+        "stars": 5,
+        "watching": 3
+    },
+    "sync-branch-action": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "LucasRuy",
+        "repository": "sync-branch-action",
+        "stars": 3,
+        "watching": 1
+    },
+    "telegram-ci-notify": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "KaMeHb-UA",
+        "repository": "telegram-ci-notify-action",
+        "stars": 0,
+        "watching": 1
+    },
+    "test-autograde": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "masaditya",
+        "repository": "test-autograde",
+        "stars": 1,
+        "watching": 1
+    },
+    "tg-message-sender": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "sputnik-systems",
+        "repository": "tg-message-sender",
+        "stars": 0,
+        "watching": 1
+    },
+    "thundra-foresight-js-action": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "thundra-io",
+        "repository": "thundra-foresight-js-action",
+        "stars": 15,
+        "watching": 2
+    },
+    "thundra-foresight-python-action": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "thundra-io",
+        "repository": "thundra-foresight-python-action",
+        "stars": 7,
+        "watching": 2
+    },
+    "thundra-gradle-test-instrumentation": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "thundra-io",
+        "repository": "thundra-gradle-test-action",
+        "stars": 18,
+        "watching": 3
+    },
+    "thundra-maven-test-instrumentation": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "thundra-io",
+        "repository": "thundra-maven-test-action",
+        "stars": 16,
+        "watching": 3
+    },
+    "thundra-test-initializer": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "thundra-io",
+        "repository": "thundra-test-init-action",
+        "stars": 16,
+        "watching": 2
+    },
+    "toast-ui-detect-runtime-error-actions": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "nhn",
+        "repository": "toast-ui.detect-runtime-error-actions",
+        "stars": 6,
+        "watching": 4
+    },
+    "todoist-readme": {
+        "category": "monitoring",
+        "forks": 34,
+        "official": false,
+        "owner": "abhisheknaiidu",
+        "repository": "todoist-readme",
+        "stars": 69,
+        "watching": 2
+    },
+    "todoist-readme-tasks-list": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "rxcod9",
+        "repository": "todoist-readme",
+        "stars": 2,
+        "watching": 0
+    },
+    "track-commits-to-issue": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "AlexxNB",
+        "repository": "track-commits-to-issue",
+        "stars": 3,
+        "watching": 2
+    },
+    "traffic-to-badge": {
+        "category": "monitoring",
+        "forks": 2,
+        "official": false,
+        "owner": "yi-Xu-0100",
+        "repository": "traffic-to-badge",
+        "stars": 12,
+        "watching": 1
+    },
+    "trains-get-task-stats": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "allegroai",
+        "repository": "trains-actions-get-stats",
+        "stars": 2,
+        "watching": 3
+    },
+    "trains-train-model": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "allegroai",
+        "repository": "trains-actions-train-model",
+        "stars": 1,
+        "watching": 3
+    },
+    "transfer-github-project-issues-into-google-sheets": {
+        "category": "monitoring",
+        "forks": 8,
+        "official": false,
+        "owner": "ViRGiL175",
+        "repository": "github-project-issue-to-sheets",
+        "stars": 7,
+        "watching": 1
+    },
+    "trigger-aws-lamba": {
+        "category": "monitoring",
+        "forks": 1,
+        "official": false,
+        "owner": "KhannaAbhinav",
+        "repository": "trigger-aws-lambda-action",
+        "stars": 1,
+        "watching": 0
+    },
+    "upload-github-action-workflows-logs-to-elastic": {
+        "category": "monitoring",
+        "forks": 9,
+        "official": false,
+        "owner": "shahargl",
+        "repository": "upload-github-workflow-logs-to-elastic",
+        "stars": 1,
+        "watching": 1
+    },
+    "url-health-check": {
+        "category": "monitoring",
+        "forks": 9,
+        "official": false,
+        "owner": "Jtalk",
+        "repository": "url-health-check-action",
+        "stars": 24,
+        "watching": 3
+    },
+    "urlchecker-action": {
+        "category": "monitoring",
+        "forks": 10,
+        "official": false,
+        "owner": "urlstechie",
+        "repository": "urlchecker-action",
+        "stars": 19,
+        "watching": 5
+    },
+    "user-statistician": {
+        "category": "monitoring",
+        "forks": 11,
+        "official": false,
+        "owner": "cicirello",
+        "repository": "user-statistician",
+        "stars": 6,
+        "watching": 1
+    },
+    "verify-service": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "steadybit",
+        "repository": "verify-service",
+        "stars": 0,
+        "watching": 4
+    },
+    "virustotal-github-action": {
+        "category": "monitoring",
+        "forks": 15,
+        "official": false,
+        "owner": "crazy-max",
+        "repository": "ghaction-virustotal",
+        "stars": 71,
+        "watching": 5
+    },
+    "vk-actions-notify": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "cteamdev",
+        "repository": "vk-actions-notify",
+        "stars": 0,
+        "watching": 0
+    },
+    "voorhees-for-github-actions": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "Nivl",
+        "repository": "voorhees-github-action",
+        "stars": 0,
+        "watching": 2
+    },
+    "wait-for-http-responses": {
+        "category": "monitoring",
+        "forks": 3,
+        "official": false,
+        "owner": "cygnetdigital",
+        "repository": "wait_for_response",
+        "stars": 6,
+        "watching": 1
+    },
+    "wakatime-coding-statistics": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "tariksahni",
+        "repository": "coding-stats-wakatime",
+        "stars": 12,
+        "watching": 0
+    },
+    "webflow-get": {
+        "category": "monitoring",
+        "forks": 4,
+        "official": false,
+        "owner": "loomchild",
+        "repository": "webflow-get",
+        "stars": 4,
+        "watching": 2
+    },
+    "webhook-action": {
+        "category": "monitoring",
+        "forks": 30,
+        "official": false,
+        "owner": "joelwmale",
+        "repository": "webhook-action",
+        "stars": 97,
+        "watching": 3
+    },
+    "webpack-stats-difference": {
+        "category": "monitoring",
+        "forks": 10,
+        "official": false,
+        "owner": "chronotruck",
+        "repository": "webpack-stats-diff-action",
+        "stars": 31,
+        "watching": 3
+    },
+    "workflow-status": {
+        "category": "monitoring",
+        "forks": 2,
+        "official": false,
+        "owner": "LASER-Yi",
+        "repository": "workflow-status",
+        "stars": 4,
+        "watching": 1
+    },
+    "workflow-status-action": {
+        "category": "monitoring",
+        "forks": 6,
+        "official": false,
+        "owner": "martialonline",
+        "repository": "workflow-status",
+        "stars": 4,
+        "watching": 1
+    },
+    "wpt-unofficial-action": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "jackdbd",
+        "repository": "wpt-action",
+        "stars": 0,
+        "watching": 2
+    },
+    "x-developer-analysis-action": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "FieldTech",
+        "repository": "x-developer-analysis-action",
+        "stars": 0,
+        "watching": 2
+    },
+    "xunit-slack-reporter": {
+        "category": "monitoring",
+        "forks": 4,
+        "official": false,
+        "owner": "ivanklee86",
+        "repository": "xunit-slack-reporter",
+        "stars": 10,
+        "watching": 0
+    },
+    "yor-github-action": {
+        "category": "monitoring",
+        "forks": 11,
+        "official": false,
+        "owner": "bridgecrewio",
+        "repository": "yor-action",
+        "stars": 7,
+        "watching": 8
+    },
+    "youtube-checker": {
+        "category": "monitoring",
+        "forks": 0,
+        "official": false,
+        "owner": "heeenkie",
+        "repository": "youtube-link-checker-action",
+        "stars": 1,
+        "watching": 1
+    },
+    "zju-ncov-hitcarder-action": {
+        "category": "monitoring",
+        "forks": 73,
+        "official": false,
+        "owner": "Long0x0",
+        "repository": "ZJU-nCov-Hitcarder",
+        "stars": 13,
+        "watching": 3
+    }
+}
