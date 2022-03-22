@@ -60,14 +60,14 @@ def get_categories() -> None:
 
     save_categories = numpy.array(save_categories)
 
-    """
-    TO DELETE
-    """
-    save_categories = ["monitoring"]
-    save_categories = numpy.array(save_categories)
-    """
-    -----
-    """
+    # """
+    # TO DELETE
+    # """
+    # save_categories = ["monitoring"]
+    # save_categories = numpy.array(save_categories)
+    # """
+    # -----
+    # """
 
     numpy.save("categories.npy", save_categories)
 
@@ -377,7 +377,12 @@ def get_api(key: str, owner: str, repo_name: str) -> int | list:
         'accept': 'application/vnd.github.v3+json',
     }
 
-    final = []
+    is_tuple = type(to_extract[key]) is tuple
+    if is_tuple:
+        final = {}
+    else:
+        final = []
+
     while True:
         try:
             api_call = requests.get(urls[key], headers=headers)
@@ -387,8 +392,11 @@ def get_api(key: str, owner: str, repo_name: str) -> int | list:
 
     if 'next' not in api_call.links.keys():
         temp = extract(api_call, to_extract[key], urls[key], headers)
-        for extracted in temp:
-            final.append(extracted)
+        if is_tuple:
+            final = final | temp
+        else:
+            for extracted in temp:
+                final.append(extracted)
     elif 'next' in api_call.links.keys():
         while 'next' in api_call.links.keys():
             temp = extract(api_call, to_extract[key], urls[key], headers)
@@ -411,7 +419,7 @@ def get_api(key: str, owner: str, repo_name: str) -> int | list:
     return final
 
 
-def extract(api_call: requests.Response, to_extract: str | tuple, url, headers) -> list:
+def extract(api_call: requests.Response, to_extract: str | tuple, url, headers) -> list | dict:
     """
     Extract the information from the API.
 
@@ -419,16 +427,19 @@ def extract(api_call: requests.Response, to_extract: str | tuple, url, headers) 
     :param to_extract: The information we need to extract.
     :param url: The URL of the API.
     :param headers: The headers for the request to the API.
-    :return: The extracted information in a list.
+    :return: The extracted information in a list or dictionary.
     """
-    extracted = []
+    is_tuple = type(to_extract) is tuple
+    if is_tuple:
+        extracted = {}
+    else:
+        extracted = []
+
     if api_call.status_code == 200:
         for needed in api_call.json():
-            if type(to_extract) is tuple:
-                if type(extracted) is list:
-                    extracted = {}
-                key = needed[to_extract[0]]
-                value = datetime.strptime(needed[to_extract[1]], '%Y-%m-%dT%H:%M:%SZ').strftime('%d/%m/%Y')
+            if is_tuple:
+                key = datetime.strptime(needed[to_extract[1]], '%Y-%m-%dT%H:%M:%SZ').strftime('%d/%m/%Y')
+                value = needed[to_extract[0]]
                 extracted[key] = value
             else:
                 extracted.append(needed[to_extract])
