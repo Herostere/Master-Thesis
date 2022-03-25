@@ -60,14 +60,14 @@ def get_categories() -> None:
 
     save_categories = numpy.array(save_categories)
 
-    """
-    TO DELETE
-    """
-    save_categories = ["dependency-management"]
-    save_categories = numpy.array(save_categories)
-    """
-    -----
-    """
+    # """
+    # TO DELETE
+    # """
+    # save_categories = ["dependency-management"]
+    # save_categories = numpy.array(save_categories)
+    # """
+    # -----
+    # """
 
     numpy.save("categories.npy", save_categories)
 
@@ -238,14 +238,14 @@ def thread_data(pages: list, category: str) -> None:
                     data = test_link(url)
                     if data:
                         verified = get_verified(mp_page)
-                        # owner = get_owner(url)
-                        # repo_name = get_repo_name(url)
-                        # versions = get_api('versions', owner, repo_name)
-                        # dependents = get_dependents(owner, repo_name)
-                        # contributors = get_api('contributors', owner, repo_name)
-                        # contributors.sort()
-                        # get_from_repo_api = ['stargazers_count', 'subscribers_count', 'forks_count']
-                        # stars_watching_forks = get_api(get_from_repo_api, owner, repo_name)
+                        owner = get_owner(url)
+                        repo_name = get_repo_name(url)
+                        versions = get_api('versions', owner, repo_name)
+                        dependents = get_dependents(owner, repo_name)
+                        contributors = get_api('contributors', owner, repo_name)
+                        contributors.sort()
+                        get_from_repo_api = ['stargazers_count', 'subscribers_count', 'forks_count']
+                        stars_watching_forks = get_api(get_from_repo_api, owner, repo_name)
                         """
                         This versions get the people, not the number (more api call)
                         """
@@ -255,21 +255,21 @@ def thread_data(pages: list, category: str) -> None:
                         """
                         ============================================================
                         """
-                        # stars = int(stars_watching_forks['stargazers_count'])
-                        # watching = int(stars_watching_forks['subscribers_count'])
-                        # forks = int(stars_watching_forks['forks_count'])
+                        stars = int(stars_watching_forks['stargazers_count'])
+                        watching = int(stars_watching_forks['subscribers_count'])
+                        forks = int(stars_watching_forks['forks_count'])
 
                         DATA[pretty_name] = {}
                         DATA[pretty_name]['category'] = category
                         DATA[pretty_name]['verified'] = verified
-                        # DATA[pretty_name]['owner'] = owner
-                        # DATA[pretty_name]['repository'] = repo_name
-                        # DATA[pretty_name]['versions'] = versions
-                        # DATA[pretty_name]['dependents'] = dependents
-                        # DATA[pretty_name]['contributors'] = contributors
-                        # DATA[pretty_name]['stars'] = stars
-                        # DATA[pretty_name]['watching'] = watching
-                        # DATA[pretty_name]['forks'] = forks
+                        DATA[pretty_name]['owner'] = owner
+                        DATA[pretty_name]['repository'] = repo_name
+                        DATA[pretty_name]['versions'] = versions
+                        DATA[pretty_name]['dependents'] = dependents
+                        DATA[pretty_name]['contributors'] = contributors
+                        DATA[pretty_name]['stars'] = stars
+                        DATA[pretty_name]['watching'] = watching
+                        DATA[pretty_name]['forks'] = forks
 
 
 def format_action_name(ugly_name: str) -> str:
@@ -427,8 +427,11 @@ def get_api(key: str | list, owner: str, repo_name: str) -> int | list | dict:
     elif 'next' in api_call.links.keys():
         while 'next' in api_call.links.keys():
             temp = extract(api_call, to_extract[key], urls[key], headers)
-            for extracted in temp:
-                final.append(extracted)
+            if is_tuple:
+                final = final | temp
+            else:
+                for extracted in temp:
+                    final.append(extracted)
             while True:
                 try:
                     api_call = requests.get(api_call.links['next']['url'], headers)
@@ -437,8 +440,11 @@ def get_api(key: str | list, owner: str, repo_name: str) -> int | list | dict:
                     time.sleep(60)
                     continue
         temp = extract(api_call, to_extract[key], urls[key], headers)
-        for extracted in temp:
-            final.append(extracted)
+        if is_tuple:
+            final = final | temp
+        else:
+            for extracted in temp:
+                final.append(extracted)
 
     if key in ['stars', 'forks', 'watching']:
         return len(final)
