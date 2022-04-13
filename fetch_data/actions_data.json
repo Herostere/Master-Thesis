@@ -49,6 +49,16 @@
         "repository": "action-renovate-checkbox",
         "verified": false
     },
+    "action-xcodeproj-spm-update": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/getsidetrack/action-xcodeproj-spm-update/network/dependents"
+        },
+        "owner": "getsidetrack",
+        "repository": "action-xcodeproj-spm-update",
+        "verified": false
+    },
     "actions-drawio": {
         "category": "dependency-management",
         "dependents": {
@@ -77,6 +87,16 @@
         },
         "owner": "jwlawson",
         "repository": "actions-setup-cmake",
+        "verified": false
+    },
+    "actionshub-chef-install": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 487,
+            "package_url": "https://github.com/actionshub/chef-install/network/dependents"
+        },
+        "owner": "actionshub",
+        "repository": "chef-install",
         "verified": false
     },
     "add-an-attention-label-to-an-open-pull-request": {
@@ -339,6 +359,16 @@
         "repository": "aws-lambda-publishlayer",
         "verified": false
     },
+    "aws-ssm-parameters": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/stephenbawks/aws-ssm-parameter/network/dependents"
+        },
+        "owner": "stephenbawks",
+        "repository": "aws-ssm-parameter",
+        "verified": false
+    },
     "aws-ssm-to-env": {
         "category": "dependency-management",
         "dependents": {
@@ -383,7 +413,7 @@
         "category": "dependency-management",
         "dependents": {
             "number": 7,
-            "package_url": "/autamus/binoc/network/dependents?package_id=UGFja2FnZS0yMjg1NDMzNzYz"
+            "package_url": "https://github.com/autamus/binoc/network/dependents"
         },
         "owner": "autamus",
         "repository": "binoc",
@@ -492,8 +522,8 @@
     "cache": {
         "category": "dependency-management",
         "dependents": {
-            "number": 448099,
-            "package_url": "/actions/cache/network/dependents?package_id=UGFja2FnZS0yMjc3NjUyMzUz"
+            "number": 448134,
+            "package_url": "https://github.com/actions/cache/network/dependents"
         },
         "owner": "actions",
         "repository": "cache",
@@ -579,6 +609,16 @@
         "repository": "carthage-workaround",
         "verified": false
     },
+    "ccache-for-gh-actions": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1808,
+            "package_url": "https://github.com/hendrikmuhs/ccache-action/network/dependents"
+        },
+        "owner": "hendrikmuhs",
+        "repository": "ccache-action",
+        "verified": false
+    },
     "cdxgen": {
         "category": "dependency-management",
         "dependents": {
@@ -657,6 +697,16 @@
         },
         "owner": "snk7891",
         "repository": "github-action-yarn-forbid-portals",
+        "verified": false
+    },
+    "check-licenses": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 4,
+            "package_url": "https://github.com/YieldingExploiter/License-Action/network/dependents"
+        },
+        "owner": "YieldingExploiter",
+        "repository": "License-Action",
         "verified": false
     },
     "check-node-dependencies-and-comment": {
@@ -779,6 +829,16 @@
         "repository": "compare-package-json-version-with-latest",
         "verified": false
     },
+    "compile-minecraft-spigot-or-paper-buildtools": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 31,
+            "package_url": "https://github.com/SpraxDev/Action-SpigotMC/network/dependents"
+        },
+        "owner": "SpraxDev",
+        "repository": "Action-SpigotMC",
+        "verified": false
+    },
     "composer-action": {
         "category": "dependency-management",
         "dependents": {
@@ -822,7 +882,7 @@
     "composer-php": {
         "category": "dependency-management",
         "dependents": {
-            "number": 15,
+            "number": 16,
             "package_url": "https://github.com/nick-zh/composer/network/dependents"
         },
         "owner": "nick-zh",
@@ -922,7 +982,7 @@
     "coursier-cache-action": {
         "category": "dependency-management",
         "dependents": {
-            "number": 2783,
+            "number": 2784,
             "package_url": "https://github.com/coursier/cache-action/network/dependents"
         },
         "owner": "coursier",
@@ -1003,7 +1063,7 @@
         "category": "dependency-management",
         "dependents": {
             "number": 220,
-            "package_url": "/CycloneDX/gh-gomod-generate-sbom/network/dependents?package_id=UGFja2FnZS0yNzc4MzE1NTU5"
+            "package_url": "https://github.com/CycloneDX/gh-gomod-generate-sbom/network/dependents"
         },
         "owner": "CycloneDX",
         "repository": "gh-gomod-generate-sbom",
@@ -1133,7 +1193,7 @@
         "category": "dependency-management",
         "dependents": {
             "number": 3,
-            "package_url": "/evoja/dependaboja/network/dependents?package_id=UGFja2FnZS0yOTgyNzYyMDQ1"
+            "package_url": "https://github.com/evoja/dependaboja/network/dependents"
         },
         "owner": "evoja",
         "repository": "dependaboja",
@@ -1272,22 +1332,12 @@
     "dependency-review": {
         "category": "dependency-management",
         "dependents": {
-            "number": 366,
+            "number": 367,
             "package_url": "https://github.com/actions/dependency-review-action/network/dependents"
         },
         "owner": "actions",
         "repository": "dependency-review-action",
         "verified": true
-    },
-    "dependency-tree-diff-for-gradle": {
-        "category": "dependency-management",
-        "dependents": {
-            "number": 11,
-            "package_url": "https://github.com/usefulness/dependency-tree-diff-action/network/dependents"
-        },
-        "owner": "usefulness",
-        "repository": "dependency-tree-diff-action",
-        "verified": false
     },
     "dependency-update-action": {
         "category": "dependency-management",
@@ -2022,8 +2072,8 @@
     "github-action-for-yarn": {
         "category": "dependency-management",
         "dependents": {
-            "number": 10124,
-            "package_url": "/Borales/actions-yarn/network/dependents?package_id=UGFja2FnZS0yODk2NDQ2MDkx"
+            "number": 10125,
+            "package_url": "https://github.com/Borales/actions-yarn/network/dependents"
         },
         "owner": "Borales",
         "repository": "actions-yarn",
@@ -2037,6 +2087,16 @@
         },
         "owner": "funkyremi",
         "repository": "yarn-github-action",
+        "verified": false
+    },
+    "github-action-merge-dependabot": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1034,
+            "package_url": "https://github.com/fastify/github-action-merge-dependabot/network/dependents"
+        },
+        "owner": "fastify",
+        "repository": "github-action-merge-dependabot",
         "verified": false
     },
     "github-actions-version-updater": {
@@ -2379,6 +2439,16 @@
         "repository": "install-siskin",
         "verified": false
     },
+    "install-swift-tool": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 25,
+            "package_url": "https://github.com/Cyberbeni/install-swift-tool/network/dependents?package_id=UGFja2FnZS0yOTY2Mzk3OTgy"
+        },
+        "owner": "Cyberbeni",
+        "repository": "install-swift-tool",
+        "verified": false
+    },
     "install-terraform": {
         "category": "dependency-management",
         "dependents": {
@@ -2392,7 +2462,7 @@
     "install-vulkan-sdk": {
         "category": "dependency-management",
         "dependents": {
-            "number": 8,
+            "number": 9,
             "package_url": "https://github.com/humbletim/install-vulkan-sdk/network/dependents"
         },
         "owner": "humbletim",
@@ -2472,7 +2542,7 @@
     "kubectl-apply": {
         "category": "dependency-management",
         "dependents": {
-            "number": 74,
+            "number": 75,
             "package_url": "https://github.com/okteto/apply/network/dependents"
         },
         "owner": "okteto",
@@ -2523,7 +2593,7 @@
         "category": "dependency-management",
         "dependents": {
             "number": 3,
-            "package_url": "/siketyan/loxcan/network/dependents?package_id=UGFja2FnZS0xNjQ2OTEyOTE1"
+            "package_url": "https://github.com/siketyan/loxcan/network/dependents"
         },
         "owner": "siketyan",
         "repository": "loxcan",
@@ -2543,7 +2613,7 @@
         "category": "dependency-management",
         "dependents": {
             "number": 22,
-            "package_url": "/xlui/action-maven-cli/network/dependents?package_id=UGFja2FnZS0yOTQyNTYyNjQx"
+            "package_url": "https://github.com/xlui/action-maven-cli/network/dependents"
         },
         "owner": "xlui",
         "repository": "action-maven-cli",
@@ -2883,7 +2953,7 @@
         "category": "dependency-management",
         "dependents": {
             "number": 391,
-            "package_url": "/c-hive/gha-npm-cache/network/dependents?package_id=UGFja2FnZS0yOTE0MTQ5Nzk2"
+            "package_url": "https://github.com/c-hive/gha-npm-cache/network/dependents"
         },
         "owner": "c-hive",
         "repository": "gha-npm-cache",
@@ -2892,7 +2962,7 @@
     "npm-or-yarn-install-with-caching": {
         "category": "dependency-management",
         "dependents": {
-            "number": 11423,
+            "number": 11425,
             "package_url": "https://github.com/bahmutov/npm-install/network/dependents?package_id=UGFja2FnZS0yOTQyNTU2Nzc4"
         },
         "owner": "bahmutov",
@@ -3032,7 +3102,7 @@
     "okteto-login": {
         "category": "dependency-management",
         "dependents": {
-            "number": 271,
+            "number": 272,
             "package_url": "https://github.com/okteto/login/network/dependents"
         },
         "owner": "okteto",
@@ -3107,6 +3177,16 @@
         },
         "owner": "php-ga",
         "repository": "composer-require-checker-ga",
+        "verified": false
+    },
+    "php-prefixer": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 5,
+            "package_url": "https://github.com/PHP-Prefixer/php-prefixer-build-action/network/dependents"
+        },
+        "owner": "PHP-Prefixer",
+        "repository": "php-prefixer-build-action",
         "verified": false
     },
     "pip-compile-diff-checker": {
@@ -3207,6 +3287,16 @@
         },
         "owner": "browniebroke",
         "repository": "pre-commit-autoupdate-action",
+        "verified": false
+    },
+    "private-composer-registry": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/and-that/private-composer-registry-action/network/dependents"
+        },
+        "owner": "and-that",
+        "repository": "private-composer-registry-action",
         "verified": false
     },
     "private-submodule-checkout": {
@@ -3319,16 +3409,6 @@
         "repository": "push_then_pr",
         "verified": false
     },
-    "push-to-mirrors": {
-        "category": "dependency-management",
-        "dependents": {
-            "number": 36,
-            "package_url": "https://github.com/Automattic/action-push-to-mirrors/network/dependents"
-        },
-        "owner": "Automattic",
-        "repository": "action-push-to-mirrors",
-        "verified": false
-    },
     "pyenv-build": {
         "category": "dependency-management",
         "dependents": {
@@ -3409,6 +3489,16 @@
         "repository": "quarkus-pom-action",
         "verified": false
     },
+    "r-dependency-license-report": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 5,
+            "package_url": "https://github.com/insightsengineering/r-license-report/network/dependents"
+        },
+        "owner": "insightsengineering",
+        "repository": "r-license-report",
+        "verified": false
+    },
     "ragedb-action": {
         "category": "dependency-management",
         "dependents": {
@@ -3447,6 +3537,16 @@
         },
         "owner": "vishnudxb",
         "repository": "redis-cluster",
+        "verified": false
+    },
+    "registry-image-update-checker": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/giggio/docker-image-update-checker/network/dependents"
+        },
+        "owner": "giggio",
+        "repository": "docker-image-update-checker",
         "verified": false
     },
     "release-check": {
@@ -3632,7 +3732,7 @@
     "rust-cargo": {
         "category": "dependency-management",
         "dependents": {
-            "number": 25737,
+            "number": 25738,
             "package_url": "https://github.com/actions-rs/cargo/network/dependents"
         },
         "owner": "actions-rs",
@@ -3652,8 +3752,8 @@
     "rust-toolchain": {
         "category": "dependency-management",
         "dependents": {
-            "number": 40368,
-            "package_url": "/actions-rs/toolchain/network/dependents?package_id=UGFja2FnZS0zMDM4OTM3MzU1"
+            "number": 40369,
+            "package_url": "https://github.com/actions-rs/toolchain/network/dependents"
         },
         "owner": "actions-rs",
         "repository": "toolchain",
@@ -3789,14 +3889,14 @@
         "repository": "setup-commandbox",
         "verified": false
     },
-    "setup-commandbox-cli": {
+    "setup-conda": {
         "category": "dependency-management",
         "dependents": {
-            "number": 15,
-            "package_url": "https://github.com/Ortus-Solutions/setup-commandbox/network/dependents"
+            "number": 1454,
+            "package_url": "https://github.com/s-weigand/setup-conda/network/dependents"
         },
-        "owner": "Ortus-Solutions",
-        "repository": "setup-commandbox",
+        "owner": "s-weigand",
+        "repository": "setup-conda",
         "verified": false
     },
     "setup-crate": {
@@ -4262,7 +4362,7 @@
     "setup-vulkan-sdk": {
         "category": "dependency-management",
         "dependents": {
-            "number": 57,
+            "number": 58,
             "package_url": "https://github.com/humbletim/setup-vulkan-sdk/network/dependents"
         },
         "owner": "humbletim",
@@ -4462,7 +4562,7 @@
     "sver-semantic-version-calculator": {
         "category": "dependency-management",
         "dependents": {
-            "number": 846,
+            "number": 850,
             "package_url": "https://github.com/aserto-dev/sver-action/network/dependents"
         },
         "owner": "aserto-dev",
@@ -4503,7 +4603,7 @@
         "category": "dependency-management",
         "dependents": {
             "number": 14,
-            "package_url": "/MarcoEidinger/swift-package-dependencies-check/network/dependents?package_id=UGFja2FnZS0yOTg2Mzk5Njkx"
+            "package_url": "https://github.com/MarcoEidinger/swift-package-dependencies-check/network/dependents"
         },
         "owner": "MarcoEidinger",
         "repository": "swift-package-dependencies-check",
@@ -4563,7 +4663,7 @@
         "category": "dependency-management",
         "dependents": {
             "number": 1,
-            "package_url": "/chroju/terraform-cloud-updater/network/dependents?package_id=UGFja2FnZS0yMjczMDk5MzYx"
+            "package_url": "https://github.com/chroju/terraform-cloud-updater/network/dependents"
         },
         "owner": "chroju",
         "repository": "terraform-cloud-updater",
@@ -5163,7 +5263,7 @@
         "category": "dependency-management",
         "dependents": {
             "number": 1333,
-            "package_url": "/c-hive/gha-yarn-cache/network/dependents?package_id=UGFja2FnZS0yOTE0MTQ5ODE1"
+            "package_url": "https://github.com/c-hive/gha-yarn-cache/network/dependents"
         },
         "owner": "c-hive",
         "repository": "gha-yarn-cache",

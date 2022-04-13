@@ -525,19 +525,19 @@ def get_dependents(owner: str, repo_name: str) -> tuple[int, str]:
     packages = []
     if ugly_packages:
         packages = root.xpath(xpath_packages)
-        for i, url in enumerate(packages):
-            packages[i] = "https://github.com" + url
+        for i, urls in enumerate(packages):
+            packages[i] = "https://github.com" + urls
 
-    max_url = url
+    max_url = url if "https://github.com" in url else "https://github.com" + url
     max_dependents = get_dependents_number(root, owner, repo_name)
     if packages:
-        for url in packages:
-            root_package = get_dependents_html(url)
+        for urls in packages:
+            root_package = get_dependents_html(urls)
             dependents = get_dependents_number(root_package, owner, repo_name)
             if dependents > max_dependents:
-                max_url = url
+                max_url = urls
                 max_dependents = dependents
-
+                
     return max_dependents, max_url
 
 
