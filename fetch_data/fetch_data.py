@@ -514,8 +514,31 @@ def get_dependents(owner: str, repo_name: str) -> int:
     :return: The number of dependents.
     """
     url = f"https://github.com/{owner}/{repo_name}/network/dependents"
-    xpath = '//*[@id="dependents"]/div[3]/div[1]/div/div/a[1]/text()'
+    xpath_dependents_number = '//*[@id="dependents"]/div[3]/div[1]/div/div/a[1]/text()'
+    xpath_is_packages = '//*[@id="dependents"]/details/summary/i/text()'
+    xpath_packages = '//*[@id="dependents"]/details/details-menu/div[2]/a/@href'
 
+    root = get_dependents_html(url)
+
+    ugly_packages = root.xpath(xpath_is_packages)
+    packages = []
+    if ugly_packages:
+        packages = root.xpath(xpath_packages)
+        for i, url in enumerate(packages):
+            packages[i] = "https://github.com" + url
+
+    try:
+        ugly_dependents = root.xpath(xpath_dependents_number)[1]
+    except IndexError:
+        return get_dependents(owner, repo_name)
+    dependents_temp = re.findall(re.compile(r'\d+'), ugly_dependents)
+    if dependents_temp:
+        dependents = int(re.findall(re.compile(r'\d+'), ugly_dependents)[0])
+        return dependents
+    return -1
+
+
+def get_dependents_html(url):
     root = None
 
     while True:
@@ -526,15 +549,7 @@ def get_dependents(owner: str, repo_name: str) -> int:
         except etree.ParserError:
             continue
 
-    try:
-        ugly_dependents = root.xpath(xpath)[1]
-    except IndexError:
-        return get_dependents(owner, repo_name)
-    dependents_temp = re.findall(re.compile(r'\d+'), ugly_dependents)
-    if dependents_temp:
-        dependents = int(re.findall(re.compile(r'\d+'), ugly_dependents)[0])
-        return dependents
-    return -1
+    return root
 
 
 if __name__ == "__main__":
