@@ -247,7 +247,9 @@ def thread_data(pages: list, category: str) -> None:
 
                         if config.fetch_categories["dependents"]:
                             dependents = get_dependents(owner, repo_name)
-                            DATA[pretty_name]['dependents'] = dependents
+                            DATA[pretty_name]['dependents'] = {}
+                            DATA[pretty_name]['dependents']['number'] = dependents[0]
+                            DATA[pretty_name]['dependents']['package_url'] = dependents[1]
 
                         if config.fetch_categories["contributors"]:
                             contributors = get_api('contributors', owner, repo_name)

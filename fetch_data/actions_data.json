@@ -1,0 +1,5222 @@
+{
+    "abc-install": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 18,
+            "package_url": "https://github.com/lyricwulf/abc/network/dependents"
+        },
+        "owner": "lyricwulf",
+        "repository": "abc",
+        "verified": false
+    },
+    "action-cache-http": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/kevincobain2000/action-cache-http/network/dependents"
+        },
+        "owner": "kevincobain2000",
+        "repository": "action-cache-http",
+        "verified": false
+    },
+    "action-ebuild-maintain": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 43,
+            "package_url": "https://github.com/hacking-gentoo/action-ebuild-maintain/network/dependents"
+        },
+        "owner": "hacking-gentoo",
+        "repository": "action-ebuild-maintain",
+        "verified": false
+    },
+    "action-get-ninja": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 8,
+            "package_url": "https://github.com/urkle/action-get-ninja/network/dependents"
+        },
+        "owner": "urkle",
+        "repository": "action-get-ninja",
+        "verified": false
+    },
+    "action-renovate-checkbox": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/Jolg42/action-renovate-checkbox/network/dependents"
+        },
+        "owner": "Jolg42",
+        "repository": "action-renovate-checkbox",
+        "verified": false
+    },
+    "actions-drawio": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 7,
+            "package_url": "https://github.com/Burnett01/actions-drawio/network/dependents"
+        },
+        "owner": "Burnett01",
+        "repository": "actions-drawio",
+        "verified": false
+    },
+    "actions-setup-bazel": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 70,
+            "package_url": "https://github.com/jwlawson/actions-setup-bazel/network/dependents"
+        },
+        "owner": "jwlawson",
+        "repository": "actions-setup-bazel",
+        "verified": false
+    },
+    "actions-setup-cmake": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1383,
+            "package_url": "https://github.com/jwlawson/actions-setup-cmake/network/dependents"
+        },
+        "owner": "jwlawson",
+        "repository": "actions-setup-cmake",
+        "verified": false
+    },
+    "add-an-attention-label-to-an-open-pull-request": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/crazymanish/pullrequest-attention-label-action/network/dependents"
+        },
+        "owner": "crazymanish",
+        "repository": "pullrequest-attention-label-action",
+        "verified": false
+    },
+    "add-debian-repository": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 151,
+            "package_url": "https://github.com/myci-actions/add-deb-repo/network/dependents"
+        },
+        "owner": "myci-actions",
+        "repository": "add-deb-repo",
+        "verified": false
+    },
+    "add-pacman-repository": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 27,
+            "package_url": "https://github.com/myci-actions/add-pacman-repo/network/dependents"
+        },
+        "owner": "myci-actions",
+        "repository": "add-pacman-repo",
+        "verified": false
+    },
+    "always-cache": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 62,
+            "package_url": "https://github.com/gerbal/always-cache/network/dependents"
+        },
+        "owner": "gerbal",
+        "repository": "always-cache",
+        "verified": false
+    },
+    "always-post-cache": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/yassi-github/always-post-cache/network/dependents"
+        },
+        "owner": "yassi-github",
+        "repository": "always-post-cache",
+        "verified": false
+    },
+    "always-upload-cache": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1203,
+            "package_url": "https://github.com/pat-s/always-upload-cache/network/dependents"
+        },
+        "owner": "pat-s",
+        "repository": "always-upload-cache",
+        "verified": false
+    },
+    "anaconda-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/fdiblen/anaconda-action/network/dependents"
+        },
+        "owner": "fdiblen",
+        "repository": "anaconda-action",
+        "verified": false
+    },
+    "antq-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 13,
+            "package_url": "https://github.com/liquidz/antq-action/network/dependents"
+        },
+        "owner": "liquidz",
+        "repository": "antq-action",
+        "verified": false
+    },
+    "apache-maven-build-automation-for-java-project": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/NishkarshRaj/Maven_Actions/network/dependents"
+        },
+        "owner": "NishkarshRaj",
+        "repository": "Maven_Actions",
+        "verified": false
+    },
+    "apt-multiarch-helper-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 51,
+            "package_url": "https://github.com/ryankurte/action-apt/network/dependents"
+        },
+        "owner": "ryankurte",
+        "repository": "action-apt",
+        "verified": false
+    },
+    "architect-npmrc-management": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/w33ble/architect-npmrc-action/network/dependents"
+        },
+        "owner": "w33ble",
+        "repository": "architect-npmrc-action",
+        "verified": false
+    },
+    "atomicloud-ci-environment": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 6,
+            "package_url": "https://github.com/kirinnee/atomici-action/network/dependents"
+        },
+        "owner": "kirinnee",
+        "repository": "atomici-action",
+        "verified": false
+    },
+    "authenticate-npm-with-the-gpr": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 22,
+            "package_url": "https://github.com/jgierer12/npm-auth-gpr/network/dependents"
+        },
+        "owner": "jgierer12",
+        "repository": "npm-auth-gpr",
+        "verified": false
+    },
+    "auto-approve-merge-dependabot-native-pr": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/Yproximite/auto-approve-and-merge-dependabot-action/network/dependents"
+        },
+        "owner": "Yproximite",
+        "repository": "auto-approve-and-merge-dependabot-action",
+        "verified": false
+    },
+    "auto-cross-pull-requester": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/TickX/auto-cross-pr/network/dependents"
+        },
+        "owner": "TickX",
+        "repository": "auto-cross-pr",
+        "verified": false
+    },
+    "auto-deploy-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/lando/auto-deploy-action/network/dependents"
+        },
+        "owner": "lando",
+        "repository": "auto-deploy-action",
+        "verified": false
+    },
+    "auto-issue-bot": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/autoissue/autoissuebot/network/dependents?package_id=UGFja2FnZS0yOTc3ODkzMjg2"
+        },
+        "owner": "autoissue",
+        "repository": "autoissuebot",
+        "verified": false
+    },
+    "auto-merge-dependency-updates": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 4254,
+            "package_url": "https://github.com/tjenkinson/gh-action-auto-merge-dependency-updates/network/dependents"
+        },
+        "owner": "tjenkinson",
+        "repository": "gh-action-auto-merge-dependency-updates",
+        "verified": false
+    },
+    "autobashed-semantic-version": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/bendevcat/autobashed-semver/network/dependents"
+        },
+        "owner": "bendevcat",
+        "repository": "autobashed-semver",
+        "verified": false
+    },
+    "automatic-requirements-txt-for-python-projects": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 4,
+            "package_url": "https://github.com/ryan-rozario/pipreqs-action/network/dependents"
+        },
+        "owner": "ryan-rozario",
+        "repository": "pipreqs-action",
+        "verified": false
+    },
+    "automatic-requirements-txt-generation-for-python-projects": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/timmypidashev/auto-pipreqs/network/dependents"
+        },
+        "owner": "timmypidashev",
+        "repository": "auto-pipreqs",
+        "verified": false
+    },
+    "automatic-versioning": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 5,
+            "package_url": "https://github.com/nicupavel/action-files-version-increment/network/dependents"
+        },
+        "owner": "nicupavel",
+        "repository": "action-files-version-increment",
+        "verified": false
+    },
+    "aws-cdk-update": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/grandmasterdev/github-action-aws-cdk-update/network/dependents"
+        },
+        "owner": "grandmasterdev",
+        "repository": "github-action-aws-cdk-update",
+        "verified": false
+    },
+    "aws-cli-v1-20-55-docker": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/Benedict-Carling/aws-cli/network/dependents"
+        },
+        "owner": "Benedict-Carling",
+        "repository": "aws-cli",
+        "verified": false
+    },
+    "aws-lambda-layer-builder": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/stephenbawks/aws-lambda-layer/network/dependents"
+        },
+        "owner": "stephenbawks",
+        "repository": "aws-lambda-layer",
+        "verified": false
+    },
+    "aws-lambda-layer-publish-with-compatible-runtime": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/KillDozerX2/aws-lambda-publishlayer/network/dependents"
+        },
+        "owner": "KillDozerX2",
+        "repository": "aws-lambda-publishlayer",
+        "verified": false
+    },
+    "aws-ssm-to-env": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 16,
+            "package_url": "https://github.com/deptno/action-aws-ssm-to-dotenv/network/dependents"
+        },
+        "owner": "deptno",
+        "repository": "action-aws-ssm-to-dotenv",
+        "verified": false
+    },
+    "ballerina-dependabot": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/TharindaDilshan/ballerina-dependabot-action/network/dependents"
+        },
+        "owner": "TharindaDilshan",
+        "repository": "ballerina-dependabot-action",
+        "verified": false
+    },
+    "beat-saber-dlls": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/bsmg/action-beat-saber-dlls/network/dependents"
+        },
+        "owner": "bsmg",
+        "repository": "action-beat-saber-dlls",
+        "verified": false
+    },
+    "bindep": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/re-actors/bindep/network/dependents"
+        },
+        "owner": "re-actors",
+        "repository": "bindep",
+        "verified": false
+    },
+    "binoc-bot": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 7,
+            "package_url": "/autamus/binoc/network/dependents?package_id=UGFja2FnZS0yMjg1NDMzNzYz"
+        },
+        "owner": "autamus",
+        "repository": "binoc",
+        "verified": false
+    },
+    "build-and-publish-conda-packages-to-anaconda-org": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 4,
+            "package_url": "https://github.com/MichaelsJP/conda-package-publish-action/network/dependents"
+        },
+        "owner": "MichaelsJP",
+        "repository": "conda-package-publish-action",
+        "verified": false
+    },
+    "build-boost": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 16,
+            "package_url": "https://github.com/egor-tensin/build-boost/network/dependents"
+        },
+        "owner": "egor-tensin",
+        "repository": "build-boost",
+        "verified": false
+    },
+    "build-conda": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/cascode-labs/build-conda-action/network/dependents"
+        },
+        "owner": "cascode-labs",
+        "repository": "build-conda-action",
+        "verified": false
+    },
+    "build-using-qpm-and-ndk": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/sc2ad/QuestNDKBuildAction/network/dependents"
+        },
+        "owner": "sc2ad",
+        "repository": "QuestNDKBuildAction",
+        "verified": false
+    },
+    "builder-for-swift-projects-that-support-webassembly": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 44,
+            "package_url": "https://github.com/swiftwasm/swiftwasm-action/network/dependents"
+        },
+        "owner": "swiftwasm",
+        "repository": "swiftwasm-action",
+        "verified": false
+    },
+    "bump-cdk": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/cdk-dev/bump-cdk-action/network/dependents"
+        },
+        "owner": "cdk-dev",
+        "repository": "bump-cdk-action",
+        "verified": false
+    },
+    "bump-git-submodules": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 10,
+            "package_url": "https://github.com/domdere/git-submodule-action/network/dependents"
+        },
+        "owner": "domdere",
+        "repository": "git-submodule-action",
+        "verified": false
+    },
+    "bundler-audit-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 20,
+            "package_url": "https://github.com/andrewmcodes/bundler-audit-action/network/dependents"
+        },
+        "owner": "andrewmcodes",
+        "repository": "bundler-audit-action",
+        "verified": false
+    },
+    "bundler-leak-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/andrewmcodes/bundler-leak-action/network/dependents"
+        },
+        "owner": "andrewmcodes",
+        "repository": "bundler-leak-action",
+        "verified": false
+    },
+    "bvm": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 8,
+            "package_url": "https://github.com/bvm/gh-action/network/dependents"
+        },
+        "owner": "bvm",
+        "repository": "gh-action",
+        "verified": false
+    },
+    "cache": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 448099,
+            "package_url": "/actions/cache/network/dependents?package_id=UGFja2FnZS0yMjc3NjUyMzUz"
+        },
+        "owner": "actions",
+        "repository": "cache",
+        "verified": true
+    },
+    "cache-always-no-key-check": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/TerrenceHo/cache-always/network/dependents"
+        },
+        "owner": "TerrenceHo",
+        "repository": "cache-always",
+        "verified": false
+    },
+    "cache-restore": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 16,
+            "package_url": "https://github.com/ylemkimon/cache-restore/network/dependents"
+        },
+        "owner": "ylemkimon",
+        "repository": "cache-restore",
+        "verified": false
+    },
+    "cache-validation": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/techservicesillinois/cache-validation/network/dependents"
+        },
+        "owner": "techservicesillinois",
+        "repository": "cache-validation",
+        "verified": false
+    },
+    "cargo-bloat": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 48,
+            "package_url": "https://github.com/orf/cargo-bloat-action/network/dependents"
+        },
+        "owner": "orf",
+        "repository": "cargo-bloat-action",
+        "verified": false
+    },
+    "cargo-deny": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1193,
+            "package_url": "https://github.com/EmbarkStudios/cargo-deny-action/network/dependents"
+        },
+        "owner": "EmbarkStudios",
+        "repository": "cargo-deny-action",
+        "verified": false
+    },
+    "carthage-bootstrap": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/devbotsxyz/carthage-bootstrap/network/dependents"
+        },
+        "owner": "devbotsxyz",
+        "repository": "carthage-bootstrap",
+        "verified": false
+    },
+    "carthage-update-checker": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/MeilCli/carthage-update-check-action/network/dependents"
+        },
+        "owner": "MeilCli",
+        "repository": "carthage-update-check-action",
+        "verified": false
+    },
+    "carthage-workaround": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 5,
+            "package_url": "https://github.com/olejnjak/carthage-workaround/network/dependents"
+        },
+        "owner": "olejnjak",
+        "repository": "carthage-workaround",
+        "verified": false
+    },
+    "cdxgen": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 7,
+            "package_url": "https://github.com/AppThreat/cdxgen-action/network/dependents"
+        },
+        "owner": "AppThreat",
+        "repository": "cdxgen-action",
+        "verified": false
+    },
+    "cernvm-file-system-cvmfs": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 125,
+            "package_url": "https://github.com/cvmfs-contrib/github-action-cvmfs/network/dependents"
+        },
+        "owner": "cvmfs-contrib",
+        "repository": "github-action-cvmfs",
+        "verified": false
+    },
+    "cf-buildpack-update-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/springernature/cf-buildpack-update-action/network/dependents"
+        },
+        "owner": "springernature",
+        "repository": "cf-buildpack-update-action",
+        "verified": false
+    },
+    "check-compatibility": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/wistefan/check-compatibility/network/dependents"
+        },
+        "owner": "wistefan",
+        "repository": "check-compatibility",
+        "verified": false
+    },
+    "check-conda-for-release-candidates": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 9,
+            "package_url": "https://github.com/dwhswenson/conda-rc-check/network/dependents"
+        },
+        "owner": "dwhswenson",
+        "repository": "conda-rc-check",
+        "verified": false
+    },
+    "check-cve": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/kunalnagarco/action-cve/network/dependents"
+        },
+        "owner": "kunalnagarco",
+        "repository": "action-cve",
+        "verified": false
+    },
+    "check-deprecated-dependencies": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 147,
+            "package_url": "https://github.com/tinovyatkin/action-check-deprecated-js-deps/network/dependents"
+        },
+        "owner": "tinovyatkin",
+        "repository": "action-check-deprecated-js-deps",
+        "verified": false
+    },
+    "check-for-portals": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/snk7891/github-action-yarn-forbid-portals/network/dependents"
+        },
+        "owner": "snk7891",
+        "repository": "github-action-yarn-forbid-portals",
+        "verified": false
+    },
+    "check-node-dependencies-and-comment": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 7,
+            "package_url": "https://github.com/hjfitz/depcheck-comment/network/dependents"
+        },
+        "owner": "hjfitz",
+        "repository": "depcheck-comment",
+        "verified": false
+    },
+    "ci-notice": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 21,
+            "package_url": "https://github.com/actions-cool/ci-notice/network/dependents"
+        },
+        "owner": "actions-cool",
+        "repository": "ci-notice",
+        "verified": false
+    },
+    "clearlynoticed-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 13,
+            "package_url": "https://github.com/dabutvin/chive-action/network/dependents"
+        },
+        "owner": "dabutvin",
+        "repository": "chive-action",
+        "verified": false
+    },
+    "clojure-dependency-update-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 37,
+            "package_url": "https://github.com/nnichols/clojure-dependency-update-action/network/dependents"
+        },
+        "owner": "nnichols",
+        "repository": "clojure-dependency-update-action",
+        "verified": false
+    },
+    "cloudsmith-push": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 197,
+            "package_url": "https://github.com/cloudsmith-io/action/network/dependents"
+        },
+        "owner": "cloudsmith-io",
+        "repository": "action",
+        "verified": false
+    },
+    "cocoapods-outdated-check-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/yatatsu/pod-outdated-check-action/network/dependents"
+        },
+        "owner": "yatatsu",
+        "repository": "pod-outdated-check-action",
+        "verified": false
+    },
+    "cocoapods-update-checker": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/MeilCli/cocoapods-update-check-action/network/dependents"
+        },
+        "owner": "MeilCli",
+        "repository": "cocoapods-update-check-action",
+        "verified": false
+    },
+    "codesee-detect-languages": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2140,
+            "package_url": "https://github.com/Codesee-io/codesee-detect-languages-action/network/dependents"
+        },
+        "owner": "Codesee-io",
+        "repository": "codesee-detect-languages-action",
+        "verified": true
+    },
+    "codesee-map": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2182,
+            "package_url": "https://github.com/Codesee-io/codesee-map-action/network/dependents"
+        },
+        "owner": "Codesee-io",
+        "repository": "codesee-map-action",
+        "verified": true
+    },
+    "combine-dependabot-prs": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 25,
+            "package_url": "https://github.com/mAAdhaTTah/combine-dependabot-prs/network/dependents?package_id=UGFja2FnZS0yOTUwNDgzMDMw"
+        },
+        "owner": "mAAdhaTTah",
+        "repository": "combine-dependabot-prs",
+        "verified": false
+    },
+    "compare-binary-against-pypi": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/shadowmoose/GHA-Compare-PyPi/network/dependents"
+        },
+        "owner": "shadowmoose",
+        "repository": "GHA-Compare-PyPi",
+        "verified": false
+    },
+    "compare-package-json-version-with-latest": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/kylorhall/compare-package-json-version-with-latest/network/dependents"
+        },
+        "owner": "kylorhall",
+        "repository": "compare-package-json-version-with-latest",
+        "verified": false
+    },
+    "composer-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 80,
+            "package_url": "https://github.com/MilesChou/composer-action/network/dependents?package_id=UGFja2FnZS0yOTQ2OTUwNTcy"
+        },
+        "owner": "MilesChou",
+        "repository": "composer-action",
+        "verified": false
+    },
+    "composer-diff": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 7,
+            "package_url": "https://github.com/IonBazan/composer-diff-action/network/dependents"
+        },
+        "owner": "IonBazan",
+        "repository": "composer-diff-action",
+        "verified": false
+    },
+    "composer-install-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/luminsports/github-action-composer-install/network/dependents"
+        },
+        "owner": "luminsports",
+        "repository": "github-action-composer-install",
+        "verified": false
+    },
+    "composer-installer-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 21,
+            "package_url": "https://github.com/nanasess/composer-installer-action/network/dependents"
+        },
+        "owner": "nanasess",
+        "repository": "composer-installer-action",
+        "verified": false
+    },
+    "composer-php": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 15,
+            "package_url": "https://github.com/nick-zh/composer/network/dependents"
+        },
+        "owner": "nick-zh",
+        "repository": "composer",
+        "verified": false
+    },
+    "composer-php-actions": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1653,
+            "package_url": "https://github.com/php-actions/composer/network/dependents"
+        },
+        "owner": "php-actions",
+        "repository": "composer",
+        "verified": false
+    },
+    "composer-php-gd-zip": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/ErickGomez98/composer/network/dependents"
+        },
+        "owner": "ErickGomez98",
+        "repository": "composer",
+        "verified": false
+    },
+    "composer-php-scoper": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/pxlrbt/action-composer-php-scoper/network/dependents"
+        },
+        "owner": "pxlrbt",
+        "repository": "action-composer-php-scoper",
+        "verified": false
+    },
+    "composer-root-version-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/ergebnis/composer-root-version-action/network/dependents"
+        },
+        "owner": "ergebnis",
+        "repository": "composer-root-version-action",
+        "verified": false
+    },
+    "composer-update-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 33,
+            "package_url": "https://github.com/kawax/composer-update-action/network/dependents"
+        },
+        "owner": "kawax",
+        "repository": "composer-update-action",
+        "verified": false
+    },
+    "composerrequirechecker": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/webfactory/docker-composer-require-checker/network/dependents"
+        },
+        "owner": "webfactory",
+        "repository": "docker-composer-require-checker",
+        "verified": false
+    },
+    "conan-cache": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/turtlebrowser/conan-cache/network/dependents"
+        },
+        "owner": "turtlebrowser",
+        "repository": "conan-cache",
+        "verified": false
+    },
+    "conditionally-approve-the-pr-if-all-commits-are-made-by-trusted-committers": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/handy-common-utils/conditionally-approve-pr-from-trusted-committers/network/dependents"
+        },
+        "owner": "handy-common-utils",
+        "repository": "conditionally-approve-pr-from-trusted-committers",
+        "verified": false
+    },
+    "copy-gem-to-github-packages": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/alessio-signorini/copy-gem-to-github-packages/network/dependents"
+        },
+        "owner": "alessio-signorini",
+        "repository": "copy-gem-to-github-packages",
+        "verified": false
+    },
+    "coursier-cache-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2783,
+            "package_url": "https://github.com/coursier/cache-action/network/dependents"
+        },
+        "owner": "coursier",
+        "repository": "cache-action",
+        "verified": false
+    },
+    "coursier-cache-action-test": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/alexarchambault/cache-action-test/network/dependents"
+        },
+        "owner": "alexarchambault",
+        "repository": "cache-action-test",
+        "verified": false
+    },
+    "crawl-tailwind-ui": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/GregBrimble/tailwindui-crawler-action/network/dependents"
+        },
+        "owner": "GregBrimble",
+        "repository": "tailwindui-crawler-action",
+        "verified": false
+    },
+    "create-gh-issue-when-upstream-releases-new-version": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/maheshrayas/action-release-notifier/network/dependents"
+        },
+        "owner": "maheshrayas",
+        "repository": "action-release-notifier",
+        "verified": false
+    },
+    "create-npmrc": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/BikutaDesu/create-npmrc/network/dependents"
+        },
+        "owner": "BikutaDesu",
+        "repository": "create-npmrc",
+        "verified": false
+    },
+    "creating-a-maven-build": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/PrajjawalBanati/Java_Programs/network/dependents"
+        },
+        "owner": "PrajjawalBanati",
+        "repository": "Java_Programs",
+        "verified": false
+    },
+    "cross-scala-versions": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/exoego/cross-scala-versions/network/dependents"
+        },
+        "owner": "exoego",
+        "repository": "cross-scala-versions",
+        "verified": false
+    },
+    "cuda-toolkit": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 177,
+            "package_url": "https://github.com/Jimver/cuda-toolkit/network/dependents"
+        },
+        "owner": "Jimver",
+        "repository": "cuda-toolkit",
+        "verified": false
+    },
+    "cyclonedx-gomod-generate-sbom": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 220,
+            "package_url": "/CycloneDX/gh-gomod-generate-sbom/network/dependents?package_id=UGFja2FnZS0yNzc4MzE1NTU5"
+        },
+        "owner": "CycloneDX",
+        "repository": "gh-gomod-generate-sbom",
+        "verified": false
+    },
+    "cyclonedx-net-generate-sbom": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 12,
+            "package_url": "https://github.com/CycloneDX/gh-dotnet-generate-sbom/network/dependents"
+        },
+        "owner": "CycloneDX",
+        "repository": "gh-dotnet-generate-sbom",
+        "verified": false
+    },
+    "cyclonedx-node-js-generate-sbom": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 15,
+            "package_url": "https://github.com/CycloneDX/gh-node-module-generatebom/network/dependents"
+        },
+        "owner": "CycloneDX",
+        "repository": "gh-node-module-generatebom",
+        "verified": false
+    },
+    "cyclonedx-php-composer-generate-sbom": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/CycloneDX/gh-php-composer-generate-sbom/network/dependents"
+        },
+        "owner": "CycloneDX",
+        "repository": "gh-php-composer-generate-sbom",
+        "verified": false
+    },
+    "cyclonedx-python-generate-sbom": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 4,
+            "package_url": "https://github.com/CycloneDX/gh-python-generate-sbom/network/dependents"
+        },
+        "owner": "CycloneDX",
+        "repository": "gh-python-generate-sbom",
+        "verified": false
+    },
+    "cynalytica-container-image-scan": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/cynalytica/container-scan/network/dependents"
+        },
+        "owner": "cynalytica",
+        "repository": "container-scan",
+        "verified": false
+    },
+    "d-compiler-installation": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 798,
+            "package_url": "https://github.com/dlang-community/setup-dlang/network/dependents"
+        },
+        "owner": "dlang-community",
+        "repository": "setup-dlang",
+        "verified": false
+    },
+    "delete-a-package": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 5,
+            "package_url": "https://github.com/WyriHaximus/github-action-delete-package/network/dependents"
+        },
+        "owner": "WyriHaximus",
+        "repository": "github-action-delete-package",
+        "verified": false
+    },
+    "delete-gem": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/guptalakshya92/delete_gem/network/dependents"
+        },
+        "owner": "guptalakshya92",
+        "repository": "delete_gem",
+        "verified": false
+    },
+    "depcheck-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 6,
+            "package_url": "https://github.com/prymitive/depcheck-action/network/dependents"
+        },
+        "owner": "prymitive",
+        "repository": "depcheck-action",
+        "verified": false
+    },
+    "depcheck-action-with-pr": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 8,
+            "package_url": "https://github.com/tubone24/depcheck_action/network/dependents"
+        },
+        "owner": "tubone24",
+        "repository": "depcheck_action",
+        "verified": false
+    },
+    "depcheck-checker": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/theahura/depcheck-action/network/dependents"
+        },
+        "owner": "theahura",
+        "repository": "depcheck-action",
+        "verified": false
+    },
+    "dependa-bolt": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 10,
+            "package_url": "https://github.com/malept/github-action-dependabolt/network/dependents"
+        },
+        "owner": "malept",
+        "repository": "github-action-dependabolt",
+        "verified": false
+    },
+    "dependaboja": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 3,
+            "package_url": "/evoja/dependaboja/network/dependents?package_id=UGFja2FnZS0yOTgyNzYyMDQ1"
+        },
+        "owner": "evoja",
+        "repository": "dependaboja",
+        "verified": false
+    },
+    "dependabot-auto-merge": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 3829,
+            "package_url": "https://github.com/ahmadnassri/action-dependabot-auto-merge/network/dependents"
+        },
+        "owner": "ahmadnassri",
+        "repository": "action-dependabot-auto-merge",
+        "verified": false
+    },
+    "dependabot-bump-together-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 9,
+            "package_url": "https://github.com/marcoroth/dependabot-bump-together-action/network/dependents"
+        },
+        "owner": "marcoroth",
+        "repository": "dependabot-bump-together-action",
+        "verified": false
+    },
+    "dependabot-cron-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 178,
+            "package_url": "https://github.com/akheron/dependabot-cron-action/network/dependents"
+        },
+        "owner": "akheron",
+        "repository": "dependabot-cron-action",
+        "verified": false
+    },
+    "dependabot-issue-for-prs": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/goatandsheep/dependabot-issue-action/network/dependents"
+        },
+        "owner": "goatandsheep",
+        "repository": "dependabot-issue-action",
+        "verified": false
+    },
+    "dependabot-lein-runner": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 4,
+            "package_url": "https://github.com/CGA1123/dependabot-lein-runner/network/dependents"
+        },
+        "owner": "CGA1123",
+        "repository": "dependabot-lein-runner",
+        "verified": false
+    },
+    "dependabot-notify": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/alexanderj1988/dependabot-notify/network/dependents"
+        },
+        "owner": "alexanderj1988",
+        "repository": "dependabot-notify",
+        "verified": false
+    },
+    "dependabot-sha-comment-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/timmeinerzhagen/dependabot-sha-comment-action/network/dependents"
+        },
+        "owner": "timmeinerzhagen",
+        "repository": "dependabot-sha-comment-action",
+        "verified": false
+    },
+    "dependabump": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/atlantis-devs/dependabump/network/dependents"
+        },
+        "owner": "atlantis-devs",
+        "repository": "dependabump",
+        "verified": false
+    },
+    "dependacop": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 5,
+            "package_url": "https://github.com/elestu/actions-dependacop/network/dependents?package_id=UGFja2FnZS0yOTc3NzM3Njg0"
+        },
+        "owner": "elestu",
+        "repository": "actions-dependacop",
+        "verified": false
+    },
+    "dependencies-autoupdate": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 26,
+            "package_url": "https://github.com/romoh/dependencies-autoupdate/network/dependents"
+        },
+        "owner": "romoh",
+        "repository": "dependencies-autoupdate",
+        "verified": false
+    },
+    "dependencies-license-compliance-checker": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 8,
+            "package_url": "https://github.com/pilosus/action-pip-license-checker/network/dependents"
+        },
+        "owner": "pilosus",
+        "repository": "action-pip-license-checker",
+        "verified": false
+    },
+    "dependency-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/teddyking/dependency-action/network/dependents?package_id=UGFja2FnZS0yOTQ1ODI1Mzg1"
+        },
+        "owner": "teddyking",
+        "repository": "dependency-action",
+        "verified": false
+    },
+    "dependency-check": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 181,
+            "package_url": "https://github.com/dependency-check/Dependency-Check_Action/network/dependents"
+        },
+        "owner": "dependency-check",
+        "repository": "Dependency-Check_Action",
+        "verified": false
+    },
+    "dependency-review": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 366,
+            "package_url": "https://github.com/actions/dependency-review-action/network/dependents"
+        },
+        "owner": "actions",
+        "repository": "dependency-review-action",
+        "verified": true
+    },
+    "dependency-tree-diff-for-gradle": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 11,
+            "package_url": "https://github.com/usefulness/dependency-tree-diff-action/network/dependents"
+        },
+        "owner": "usefulness",
+        "repository": "dependency-tree-diff-action",
+        "verified": false
+    },
+    "dependency-update-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/boozallen/dependency-update-action/network/dependents"
+        },
+        "owner": "boozallen",
+        "repository": "dependency-update-action",
+        "verified": false
+    },
+    "dependent-jobs-result-check": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/lwhiteley/dependent-jobs-result-check/network/dependents"
+        },
+        "owner": "lwhiteley",
+        "repository": "dependent-jobs-result-check",
+        "verified": false
+    },
+    "dependent-pr-check": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/EduardSergeev/dependent-pr-action/network/dependents"
+        },
+        "owner": "EduardSergeev",
+        "repository": "dependent-pr-action",
+        "verified": false
+    },
+    "dephell": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 5,
+            "package_url": "https://github.com/dephell/dephell_action/network/dependents"
+        },
+        "owner": "dephell",
+        "repository": "dephell_action",
+        "verified": false
+    },
+    "deployment-bumper": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/dragonraid/deployment-bumper/network/dependents"
+        },
+        "owner": "dragonraid",
+        "repository": "deployment-bumper",
+        "verified": false
+    },
+    "deps-bot": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 31,
+            "package_url": "https://github.com/denosaurs/depsbot/network/dependents?package_id=UGFja2FnZS0yOTQyNTY0MjA4"
+        },
+        "owner": "denosaurs",
+        "repository": "depsbot",
+        "verified": false
+    },
+    "detect-newer-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/mike-neck/detect-newer-action/network/dependents"
+        },
+        "owner": "mike-neck",
+        "repository": "detect-newer-action",
+        "verified": false
+    },
+    "dispatch-on-event": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/sugarandmagic/dispatch-action/network/dependents"
+        },
+        "owner": "sugarandmagic",
+        "repository": "dispatch-action",
+        "verified": false
+    },
+    "docker-hub-readme-description-sync": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 290,
+            "package_url": "https://github.com/meeDamian/sync-readme/network/dependents"
+        },
+        "owner": "meeDamian",
+        "repository": "sync-readme",
+        "verified": false
+    },
+    "docker-image-update-checker": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 71,
+            "package_url": "https://github.com/lucacome/docker-image-update-checker/network/dependents"
+        },
+        "owner": "lucacome",
+        "repository": "docker-image-update-checker",
+        "verified": false
+    },
+    "dockerfile-updater": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 21,
+            "package_url": "https://github.com/ludeeus/dockerfile-updater/network/dependents"
+        },
+        "owner": "ludeeus",
+        "repository": "dockerfile-updater",
+        "verified": false
+    },
+    "dotenv-concat": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 14,
+            "package_url": "https://github.com/romanlamsal/dotenv-concat/network/dependents"
+        },
+        "owner": "romanlamsal",
+        "repository": "dotenv-concat",
+        "verified": false
+    },
+    "dotnet-dependency-update": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 14,
+            "package_url": "https://github.com/tjololo/nuget-dependencies-update/network/dependents"
+        },
+        "owner": "tjololo",
+        "repository": "nuget-dependencies-update",
+        "verified": false
+    },
+    "dotnet-outdated-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 6,
+            "package_url": "https://github.com/MCLD/dotnet-outdated-action/network/dependents"
+        },
+        "owner": "MCLD",
+        "repository": "dotnet-outdated-action",
+        "verified": false
+    },
+    "dotnet-outdated-install-and-update": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 5,
+            "package_url": "https://github.com/stphnwlsh/dotnet-outdated-action/network/dependents"
+        },
+        "owner": "stphnwlsh",
+        "repository": "dotnet-outdated-action",
+        "verified": false
+    },
+    "download-file-to-workspace": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1134,
+            "package_url": "https://github.com/carlosperate/download-file-action/network/dependents"
+        },
+        "owner": "carlosperate",
+        "repository": "download-file-action",
+        "verified": false
+    },
+    "download-multiple-workflow-artifacts": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 13,
+            "package_url": "https://github.com/marcofaggian/action-download-multiple-artifacts/network/dependents"
+        },
+        "owner": "marcofaggian",
+        "repository": "action-download-multiple-artifacts",
+        "verified": false
+    },
+    "download-release-asset": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 111,
+            "package_url": "https://github.com/fabriciobastian/download-release-asset-action/network/dependents"
+        },
+        "owner": "fabriciobastian",
+        "repository": "download-release-asset-action",
+        "verified": false
+    },
+    "download-sdl2": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 8,
+            "package_url": "https://github.com/albin-johansson/download-sdl2/network/dependents"
+        },
+        "owner": "albin-johansson",
+        "repository": "download-sdl2",
+        "verified": false
+    },
+    "download-sdl2_image": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 4,
+            "package_url": "https://github.com/albin-johansson/download-sdl2-image/network/dependents"
+        },
+        "owner": "albin-johansson",
+        "repository": "download-sdl2-image",
+        "verified": false
+    },
+    "download-sdl2_mixer": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/albin-johansson/download-sdl2-mixer/network/dependents"
+        },
+        "owner": "albin-johansson",
+        "repository": "download-sdl2-mixer",
+        "verified": false
+    },
+    "download-sdl2_ttf": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/albin-johansson/download-sdl2-ttf/network/dependents"
+        },
+        "owner": "albin-johansson",
+        "repository": "download-sdl2-ttf",
+        "verified": false
+    },
+    "dub-upgrade": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 7,
+            "package_url": "https://github.com/WebFreak001/dub-upgrade/network/dependents?package_id=UGFja2FnZS0yOTY2Mzk4MzQ5"
+        },
+        "owner": "WebFreak001",
+        "repository": "dub-upgrade",
+        "verified": false
+    },
+    "eessi": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 4,
+            "package_url": "https://github.com/EESSI/github-action-eessi/network/dependents"
+        },
+        "owner": "EESSI",
+        "repository": "github-action-eessi",
+        "verified": false
+    },
+    "enable-automerge-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 28,
+            "package_url": "https://github.com/daneden/enable-automerge-action/network/dependents"
+        },
+        "owner": "daneden",
+        "repository": "enable-automerge-action",
+        "verified": false
+    },
+    "enforce-package-dependency-version": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/kylorhall/enforce-package-dependency-version/network/dependents"
+        },
+        "owner": "kylorhall",
+        "repository": "enforce-package-dependency-version",
+        "verified": false
+    },
+    "ensure-latest-go": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/jmhodges/ensure-latest-go/network/dependents?package_id=UGFja2FnZS0yOTc3ODQwMTM2"
+        },
+        "owner": "jmhodges",
+        "repository": "ensure-latest-go",
+        "verified": false
+    },
+    "ensure-nuget-source": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 116,
+            "package_url": "https://github.com/fabriciomurta/ensure-nuget-source/network/dependents"
+        },
+        "owner": "fabriciomurta",
+        "repository": "ensure-nuget-source",
+        "verified": false
+    },
+    "esy-github-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 74,
+            "package_url": "https://github.com/esy/github-action/network/dependents"
+        },
+        "owner": "esy",
+        "repository": "github-action",
+        "verified": false
+    },
+    "extract-comment-command-arguments": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 134,
+            "package_url": "https://github.com/skjnldsv/parse-command-comment/network/dependents"
+        },
+        "owner": "skjnldsv",
+        "repository": "parse-command-comment",
+        "verified": false
+    },
+    "ezcache-caching-made-easy": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 37,
+            "package_url": "https://github.com/dhadka/ezcache/network/dependents"
+        },
+        "owner": "dhadka",
+        "repository": "ezcache",
+        "verified": false
+    },
+    "fabric-update": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 17,
+            "package_url": "https://github.com/JamCoreModding/FabricUpdateAction/network/dependents"
+        },
+        "owner": "JamCoreModding",
+        "repository": "FabricUpdateAction",
+        "verified": false
+    },
+    "file-sync": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 24,
+            "package_url": "https://github.com/kbrashears5/github-action-file-sync/network/dependents"
+        },
+        "owner": "kbrashears5",
+        "repository": "github-action-file-sync",
+        "verified": false
+    },
+    "find-latest-tag": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 550,
+            "package_url": "https://github.com/oprypin/find-latest-tag/network/dependents"
+        },
+        "owner": "oprypin",
+        "repository": "find-latest-tag",
+        "verified": false
+    },
+    "find-unverified-github-actions": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/gioragutt/scan-unverified-actions/network/dependents"
+        },
+        "owner": "gioragutt",
+        "repository": "scan-unverified-actions",
+        "verified": false
+    },
+    "flatpak-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/louib/flatpak-action/network/dependents"
+        },
+        "owner": "louib",
+        "repository": "flatpak-action",
+        "verified": false
+    },
+    "flutter-package-updater": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 4,
+            "package_url": "https://github.com/tianhaoz95/update-flutter-packages/network/dependents"
+        },
+        "owner": "tianhaoz95",
+        "repository": "update-flutter-packages",
+        "verified": false
+    },
+    "flutter-package-updater-fvm-version": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/netsells/update-flutter-packages/network/dependents"
+        },
+        "owner": "netsells",
+        "repository": "update-flutter-packages",
+        "verified": false
+    },
+    "flutter-pubspec-updater": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/kuanyi-ng/update-flutter-packages/network/dependents"
+        },
+        "owner": "kuanyi-ng",
+        "repository": "update-flutter-packages",
+        "verified": false
+    },
+    "font-typekit-generator-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/sharadcodes/font-typekit-generator-action/network/dependents"
+        },
+        "owner": "sharadcodes",
+        "repository": "font-typekit-generator-action",
+        "verified": false
+    },
+    "frogo-build-src": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/frogobox/frogo-build-src/network/dependents"
+        },
+        "owner": "frogobox",
+        "repository": "frogo-build-src",
+        "verified": false
+    },
+    "frogo-sdk": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/frogobox/frogo-sdk/network/dependents"
+        },
+        "owner": "frogobox",
+        "repository": "frogo-sdk",
+        "verified": false
+    },
+    "fvtt-release-packager": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 5,
+            "package_url": "https://github.com/VTTAssets/fvtt-release-packager/network/dependents"
+        },
+        "owner": "VTTAssets",
+        "repository": "fvtt-release-packager",
+        "verified": false
+    },
+    "generate-dependency-data-file": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 9,
+            "package_url": "https://github.com/thedave42/generate-dependencies-csv-action/network/dependents"
+        },
+        "owner": "thedave42",
+        "repository": "generate-dependencies-csv-action",
+        "verified": false
+    },
+    "generate-sbom-for-elixir-project": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/red-shirts/action-mix-sbom/network/dependents"
+        },
+        "owner": "red-shirts",
+        "repository": "action-mix-sbom",
+        "verified": false
+    },
+    "generate-settings-xml-for-maven-builds": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1036,
+            "package_url": "https://github.com/whelk-io/maven-settings-xml-action/network/dependents"
+        },
+        "owner": "whelk-io",
+        "repository": "maven-settings-xml-action",
+        "verified": false
+    },
+    "generate-toolchains-xml-for-maven-builds": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/cactuslab/maven-toolchains-xml-action/network/dependents"
+        },
+        "owner": "cactuslab",
+        "repository": "maven-toolchains-xml-action",
+        "verified": false
+    },
+    "generate-vulnerability-alerts-csv-file": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/thedave42/generate-dependency-alerts-csv-action/network/dependents"
+        },
+        "owner": "thedave42",
+        "repository": "generate-dependency-alerts-csv-action",
+        "verified": false
+    },
+    "get-apt-package-version": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/dangmai/get-apt-package-version/network/dependents"
+        },
+        "owner": "dangmai",
+        "repository": "get-apt-package-version",
+        "verified": false
+    },
+    "get-conan": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 216,
+            "package_url": "https://github.com/turtlebrowser/get-conan/network/dependents"
+        },
+        "owner": "turtlebrowser",
+        "repository": "get-conan",
+        "verified": false
+    },
+    "get-container-image-tag": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 8,
+            "package_url": "https://github.com/DavidSpek/gha-get-docker-hub-tags/network/dependents"
+        },
+        "owner": "DavidSpek",
+        "repository": "gha-get-docker-hub-tags",
+        "verified": false
+    },
+    "get-current-lerna-version": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/saulonunesdev/lerna-get-version-action/network/dependents"
+        },
+        "owner": "saulonunesdev",
+        "repository": "lerna-get-version-action",
+        "verified": false
+    },
+    "get-current-lerna-version-with-path": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/JoeCMorgan/lerna-get-version-action/network/dependents"
+        },
+        "owner": "JoeCMorgan",
+        "repository": "lerna-get-version-action",
+        "verified": false
+    },
+    "get-docker-hub-tag": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 16,
+            "package_url": "https://github.com/jacobtomlinson/gha-get-docker-hub-tags/network/dependents"
+        },
+        "owner": "jacobtomlinson",
+        "repository": "gha-get-docker-hub-tags",
+        "verified": false
+    },
+    "get-github-release-json": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/ctrlaltdev/get-releases-action/network/dependents"
+        },
+        "owner": "ctrlaltdev",
+        "repository": "get-releases-action",
+        "verified": false
+    },
+    "get-latest-github-release": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 57,
+            "package_url": "https://github.com/rez0n/actions-github-release/network/dependents"
+        },
+        "owner": "rez0n",
+        "repository": "actions-github-release",
+        "verified": false
+    },
+    "get-latest-release": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 776,
+            "package_url": "https://github.com/pozetroninc/github-action-get-latest-release/network/dependents"
+        },
+        "owner": "pozetroninc",
+        "repository": "github-action-get-latest-release",
+        "verified": false
+    },
+    "get-latest-release-tag": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/ctrlaltdev/latest-release-json-action/network/dependents"
+        },
+        "owner": "ctrlaltdev",
+        "repository": "latest-release-json-action",
+        "verified": false
+    },
+    "get-node-version-from-volta": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/keita-hino/get-node-version-from-volta/network/dependents"
+        },
+        "owner": "keita-hino",
+        "repository": "get-node-version-from-volta",
+        "verified": false
+    },
+    "get-package": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 308,
+            "package_url": "https://github.com/mstksg/get-package/network/dependents"
+        },
+        "owner": "mstksg",
+        "repository": "get-package",
+        "verified": false
+    },
+    "get-snyk": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/turtlebrowser/get-snyk/network/dependents"
+        },
+        "owner": "turtlebrowser",
+        "repository": "get-snyk",
+        "verified": false
+    },
+    "get-spdx-license-overview": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 10,
+            "package_url": "https://github.com/philips-software/spdx-action/network/dependents"
+        },
+        "owner": "philips-software",
+        "repository": "spdx-action",
+        "verified": false
+    },
+    "get-tags-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/oraad/get-tags-action/network/dependents"
+        },
+        "owner": "oraad",
+        "repository": "get-tags-action",
+        "verified": false
+    },
+    "getpackagepp": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/DiscordPP/getpackagepp/network/dependents"
+        },
+        "owner": "DiscordPP",
+        "repository": "getpackagepp",
+        "verified": false
+    },
+    "gha-auto-dependabot-rebase": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 18,
+            "package_url": "https://github.com/bbeesley/gha-auto-dependabot-rebase/network/dependents"
+        },
+        "owner": "bbeesley",
+        "repository": "gha-auto-dependabot-rebase",
+        "verified": false
+    },
+    "ghcr-io-container-cleanup": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 4,
+            "package_url": "https://github.com/davahome/ghcr-cleanup/network/dependents"
+        },
+        "owner": "davahome",
+        "repository": "ghcr-cleanup",
+        "verified": false
+    },
+    "github-action-for-composer": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/owenvoke/composer-action/network/dependents"
+        },
+        "owner": "owenvoke",
+        "repository": "composer-action",
+        "verified": false
+    },
+    "github-action-for-homebrew": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/artemnovichkov/action-homebrew/network/dependents"
+        },
+        "owner": "artemnovichkov",
+        "repository": "action-homebrew",
+        "verified": false
+    },
+    "github-action-for-js-bundle-size": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/mikeal/bundle-size-action/network/dependents?package_id=UGFja2FnZS0yOTc1NjMxMjg4"
+        },
+        "owner": "mikeal",
+        "repository": "bundle-size-action",
+        "verified": false
+    },
+    "github-action-for-maven": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 17,
+            "package_url": "https://github.com/LucaFeger/action-maven-cli/network/dependents"
+        },
+        "owner": "LucaFeger",
+        "repository": "action-maven-cli",
+        "verified": false
+    },
+    "github-action-for-npm-in-alpine-linux": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/shinnn/actions-npm-alpine/network/dependents"
+        },
+        "owner": "shinnn",
+        "repository": "actions-npm-alpine",
+        "verified": false
+    },
+    "github-action-for-npx": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 21,
+            "package_url": "https://github.com/mikeal/npx/network/dependents"
+        },
+        "owner": "mikeal",
+        "repository": "npx",
+        "verified": false
+    },
+    "github-action-for-renovate": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 10,
+            "package_url": "https://github.com/Djiit/action-renovate/network/dependents"
+        },
+        "owner": "Djiit",
+        "repository": "action-renovate",
+        "verified": false
+    },
+    "github-action-for-yarn": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 10124,
+            "package_url": "/Borales/actions-yarn/network/dependents?package_id=UGFja2FnZS0yODk2NDQ2MDkx"
+        },
+        "owner": "Borales",
+        "repository": "actions-yarn",
+        "verified": false
+    },
+    "github-action-for-yarn-pkg": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/funkyremi/yarn-github-action/network/dependents"
+        },
+        "owner": "funkyremi",
+        "repository": "yarn-github-action",
+        "verified": false
+    },
+    "github-actions-version-updater": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 30,
+            "package_url": "https://github.com/saadmk11/github-actions-version-updater/network/dependents"
+        },
+        "owner": "saadmk11",
+        "repository": "github-actions-version-updater",
+        "verified": false
+    },
+    "github-shared-repo-upload-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/geirem/packages-helper/network/dependents"
+        },
+        "owner": "geirem",
+        "repository": "packages-helper",
+        "verified": false
+    },
+    "go-get-check": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/joshcarp/gogetcheck/network/dependents"
+        },
+        "owner": "joshcarp",
+        "repository": "gogetcheck",
+        "verified": false
+    },
+    "go-mod-tidy-pr": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 55,
+            "package_url": "https://github.com/sue445/go-mod-tidy-pr/network/dependents"
+        },
+        "owner": "sue445",
+        "repository": "go-mod-tidy-pr",
+        "verified": false
+    },
+    "go-mod-tidy-pr-go-1-13-4": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/superliuwr/go-mod-tidy-pr/network/dependents"
+        },
+        "owner": "superliuwr",
+        "repository": "go-mod-tidy-pr",
+        "verified": false
+    },
+    "gradle-update-checker": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 5,
+            "package_url": "https://github.com/MeilCli/gradle-update-check-action/network/dependents?package_id=UGFja2FnZS0yOTc3ODM5MjQz"
+        },
+        "owner": "MeilCli",
+        "repository": "gradle-update-check-action",
+        "verified": false
+    },
+    "grasp-issue-dependencies": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/k-nasa/gid/network/dependents"
+        },
+        "owner": "k-nasa",
+        "repository": "gid",
+        "verified": false
+    },
+    "guilledf-s-buckaroo-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/GuilleDF/buckaroo-action/network/dependents"
+        },
+        "owner": "GuilleDF",
+        "repository": "buckaroo-action",
+        "verified": false
+    },
+    "helloworldactiongabrielgn": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/gabriel-gn/hello-world-github-action/network/dependents"
+        },
+        "owner": "gabriel-gn",
+        "repository": "hello-world-github-action",
+        "verified": false
+    },
+    "highlight-new-npm-dependencies": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 17,
+            "package_url": "https://github.com/hiwelo/new-dependencies-action/network/dependents"
+        },
+        "owner": "hiwelo",
+        "repository": "new-dependencies-action",
+        "verified": false
+    },
+    "homebrew-releaser": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 8,
+            "package_url": "https://github.com/Justintime50/homebrew-releaser/network/dependents"
+        },
+        "owner": "Justintime50",
+        "repository": "homebrew-releaser",
+        "verified": false
+    },
+    "hublo-pr-labeler": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/JJayet/pr-labeler-action/network/dependents"
+        },
+        "owner": "JJayet",
+        "repository": "pr-labeler-action",
+        "verified": false
+    },
+    "include-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/zolex/include-action/network/dependents"
+        },
+        "owner": "zolex",
+        "repository": "include-action",
+        "verified": false
+    },
+    "include-what-you-use-github-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/EmilGedda/include-what-you-use-action/network/dependents"
+        },
+        "owner": "EmilGedda",
+        "repository": "include-what-you-use-action",
+        "verified": false
+    },
+    "increment-project-version": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/Piszmog/next-version/network/dependents"
+        },
+        "owner": "Piszmog",
+        "repository": "next-version",
+        "verified": false
+    },
+    "install-and-cache-composer-dependencies": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/lukekortunov/php-composer-install-and-cache/network/dependents"
+        },
+        "owner": "lukekortunov",
+        "repository": "php-composer-install-and-cache",
+        "verified": false
+    },
+    "install-atlassian-sdk": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 16,
+            "package_url": "https://github.com/rodrigo-nogues/github-action-install-atlassian-sdk/network/dependents"
+        },
+        "owner": "rodrigo-nogues",
+        "repository": "github-action-install-atlassian-sdk",
+        "verified": false
+    },
+    "install-gnu-guix": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 52,
+            "package_url": "https://github.com/PromyLOPh/guix-install-action/network/dependents"
+        },
+        "owner": "PromyLOPh",
+        "repository": "guix-install-action",
+        "verified": false
+    },
+    "install-kubepug": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/cpanato/kubepug-installer/network/dependents"
+        },
+        "owner": "cpanato",
+        "repository": "kubepug-installer",
+        "verified": false
+    },
+    "install-libraries-to-databrick-clusters": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/Herman-Wu/databrick-install-lib-action/network/dependents"
+        },
+        "owner": "Herman-Wu",
+        "repository": "databrick-install-lib-action",
+        "verified": false
+    },
+    "install-llvm-and-clang": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 699,
+            "package_url": "https://github.com/KyleMayes/install-llvm-action/network/dependents"
+        },
+        "owner": "KyleMayes",
+        "repository": "install-llvm-action",
+        "verified": false
+    },
+    "install-nim": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 146,
+            "package_url": "https://github.com/iffy/install-nim/network/dependents"
+        },
+        "owner": "iffy",
+        "repository": "install-nim",
+        "verified": false
+    },
+    "install-nix": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 7709,
+            "package_url": "https://github.com/cachix/install-nix-action/network/dependents"
+        },
+        "owner": "cachix",
+        "repository": "install-nix-action",
+        "verified": false
+    },
+    "install-phar-files": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 6,
+            "package_url": "https://github.com/szepeviktor/phive-install/network/dependents"
+        },
+        "owner": "szepeviktor",
+        "repository": "phive-install",
+        "verified": false
+    },
+    "install-phive": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 9,
+            "package_url": "https://github.com/szepeviktor/phive/network/dependents"
+        },
+        "owner": "szepeviktor",
+        "repository": "phive",
+        "verified": false
+    },
+    "install-phive-tools": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 5,
+            "package_url": "https://github.com/ngmy/phive-install-action/network/dependents"
+        },
+        "owner": "ngmy",
+        "repository": "phive-install-action",
+        "verified": false
+    },
+    "install-php-dependencies-with-composer": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 4005,
+            "package_url": "https://github.com/ramsey/composer-install/network/dependents"
+        },
+        "owner": "ramsey",
+        "repository": "composer-install",
+        "verified": false
+    },
+    "install-poetry-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 3502,
+            "package_url": "https://github.com/snok/install-poetry/network/dependents"
+        },
+        "owner": "snok",
+        "repository": "install-poetry",
+        "verified": false
+    },
+    "install-qt": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 3742,
+            "package_url": "https://github.com/jurplel/install-qt-action/network/dependents"
+        },
+        "owner": "jurplel",
+        "repository": "install-qt-action",
+        "verified": false
+    },
+    "install-qt5-qt6-yaqti": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 7,
+            "package_url": "https://github.com/WillBrennan/yaqti/network/dependents"
+        },
+        "owner": "WillBrennan",
+        "repository": "yaqti",
+        "verified": false
+    },
+    "install-rebol": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/Oldes/install-rebol/network/dependents"
+        },
+        "owner": "Oldes",
+        "repository": "install-rebol",
+        "verified": false
+    },
+    "install-redis": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/pustovitDmytro/redis-github-action/network/dependents"
+        },
+        "owner": "pustovitDmytro",
+        "repository": "redis-github-action",
+        "verified": false
+    },
+    "install-rust-for-substrate": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/digitalnativeinc/install-rust-substrate-action/network/dependents"
+        },
+        "owner": "digitalnativeinc",
+        "repository": "install-rust-substrate-action",
+        "verified": false
+    },
+    "install-siskin": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 7,
+            "package_url": "https://github.com/Oldes/install-siskin/network/dependents"
+        },
+        "owner": "Oldes",
+        "repository": "install-siskin",
+        "verified": false
+    },
+    "install-terraform": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 77,
+            "package_url": "https://github.com/little-core-labs/install-terraform/network/dependents"
+        },
+        "owner": "little-core-labs",
+        "repository": "install-terraform",
+        "verified": false
+    },
+    "install-vulkan-sdk": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 8,
+            "package_url": "https://github.com/humbletim/install-vulkan-sdk/network/dependents"
+        },
+        "owner": "humbletim",
+        "repository": "install-vulkan-sdk",
+        "verified": false
+    },
+    "install-z3": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 28,
+            "package_url": "https://github.com/pavpanchekha/setup-z3/network/dependents"
+        },
+        "owner": "pavpanchekha",
+        "repository": "setup-z3",
+        "verified": false
+    },
+    "intelligo-actions": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/intelligo-mn/intelligo-actions/network/dependents"
+        },
+        "owner": "intelligo-mn",
+        "repository": "intelligo-actions",
+        "verified": false
+    },
+    "isolate-yarn-workspaces": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/SimonRosenau/yarn-workspace-isolator/network/dependents"
+        },
+        "owner": "SimonRosenau",
+        "repository": "yarn-workspace-isolator",
+        "verified": false
+    },
+    "javascript-lockfile-check": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 7,
+            "package_url": "https://github.com/ChromaticHQ/javascript-lockfile-check-action/network/dependents"
+        },
+        "owner": "ChromaticHQ",
+        "repository": "javascript-lockfile-check-action",
+        "verified": false
+    },
+    "jfrog-cli-for-github-actions": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/katcosgrove/jfrogcli-action/network/dependents"
+        },
+        "owner": "katcosgrove",
+        "repository": "jfrogcli-action",
+        "verified": false
+    },
+    "js-actions-dependency-updater": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/tianhaoz95/js-actions-dependency-updater/network/dependents"
+        },
+        "owner": "tianhaoz95",
+        "repository": "js-actions-dependency-updater",
+        "verified": false
+    },
+    "js-package-info": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/DesignrKnight/js-package-info/network/dependents"
+        },
+        "owner": "DesignrKnight",
+        "repository": "js-package-info",
+        "verified": false
+    },
+    "kubectl-apply": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 74,
+            "package_url": "https://github.com/okteto/apply/network/dependents"
+        },
+        "owner": "okteto",
+        "repository": "apply",
+        "verified": true
+    },
+    "laravel-nova-composer-login": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/judge2020/actions-laravel-nova-composer-login/network/dependents"
+        },
+        "owner": "judge2020",
+        "repository": "actions-laravel-nova-composer-login",
+        "verified": false
+    },
+    "leiningen-dependency-update-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 12,
+            "package_url": "https://github.com/nnichols/leiningen-dependency-update-action/network/dependents"
+        },
+        "owner": "nnichols",
+        "repository": "leiningen-dependency-update-action",
+        "verified": false
+    },
+    "lennybot-gha": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/raynigon/lennybot/network/dependents"
+        },
+        "owner": "raynigon",
+        "repository": "lennybot",
+        "verified": false
+    },
+    "lerna-graph": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/Tallyb/lerna-graph-action/network/dependents"
+        },
+        "owner": "Tallyb",
+        "repository": "lerna-graph-action",
+        "verified": false
+    },
+    "loxcan": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 3,
+            "package_url": "/siketyan/loxcan/network/dependents?package_id=UGFja2FnZS0xNjQ2OTEyOTE1"
+        },
+        "owner": "siketyan",
+        "repository": "loxcan",
+        "verified": false
+    },
+    "match-angular-versions": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 9,
+            "package_url": "https://github.com/ngworker/angular-versions-action/network/dependents"
+        },
+        "owner": "ngworker",
+        "repository": "angular-versions-action",
+        "verified": false
+    },
+    "maven-cli-for-github-actions": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 22,
+            "package_url": "/xlui/action-maven-cli/network/dependents?package_id=UGFja2FnZS0yOTQyNTYyNjQx"
+        },
+        "owner": "xlui",
+        "repository": "action-maven-cli",
+        "verified": false
+    },
+    "maven-version-bump-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 12,
+            "package_url": "https://github.com/nnichols/maven-version-bump-action/network/dependents"
+        },
+        "owner": "nnichols",
+        "repository": "maven-version-bump-action",
+        "verified": false
+    },
+    "mbu_requirements2png": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 146,
+            "package_url": "https://github.com/buluma/graphviz-action/network/dependents"
+        },
+        "owner": "buluma",
+        "repository": "graphviz-action",
+        "verified": false
+    },
+    "melos-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 7,
+            "package_url": "https://github.com/bluefireteam/melos-action/network/dependents"
+        },
+        "owner": "bluefireteam",
+        "repository": "melos-action",
+        "verified": false
+    },
+    "merge-dependabot-prs-automatically": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/jo-sm/at-dependabot-merge/network/dependents"
+        },
+        "owner": "jo-sm",
+        "repository": "at-dependabot-merge",
+        "verified": false
+    },
+    "merge-me": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1557,
+            "package_url": "https://github.com/ridedott/merge-me-action/network/dependents"
+        },
+        "owner": "ridedott",
+        "repository": "merge-me-action",
+        "verified": false
+    },
+    "meterian-scanner": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 47,
+            "package_url": "https://github.com/MeterianHQ/meterian-github-action/network/dependents"
+        },
+        "owner": "MeterianHQ",
+        "repository": "meterian-github-action",
+        "verified": false
+    },
+    "minisign-cli": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/thomasdesr/minisign-action/network/dependents"
+        },
+        "owner": "thomasdesr",
+        "repository": "minisign-action",
+        "verified": false
+    },
+    "mobydick-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/jace-ys/mobydick-action/network/dependents?package_id=UGFja2FnZS0yOTUwNDgyMTM0"
+        },
+        "owner": "jace-ys",
+        "repository": "mobydick-action",
+        "verified": false
+    },
+    "mod-tidy-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 305,
+            "package_url": "https://github.com/evantorrie/mott-the-tidier/network/dependents"
+        },
+        "owner": "evantorrie",
+        "repository": "mott-the-tidier",
+        "verified": false
+    },
+    "monorepo-cache-key": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/flaviouk/monorepo-cache-key/network/dependents"
+        },
+        "owner": "flaviouk",
+        "repository": "monorepo-cache-key",
+        "verified": false
+    },
+    "monorepo-pr-repo-labeler": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 10,
+            "package_url": "https://github.com/TinkurLab/monorepo-pr-labeler-action/network/dependents"
+        },
+        "owner": "TinkurLab",
+        "repository": "monorepo-pr-labeler-action",
+        "verified": false
+    },
+    "monorepolyser": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/juanigalan91/monorepolyser/network/dependents"
+        },
+        "owner": "juanigalan91",
+        "repository": "monorepolyser",
+        "verified": false
+    },
+    "msxml4": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/atwayne/msxml4-github-action/network/dependents"
+        },
+        "owner": "atwayne",
+        "repository": "msxml4-github-action",
+        "verified": false
+    },
+    "namse": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/namse/aws-cloudformation-outputs-action/network/dependents"
+        },
+        "owner": "namse",
+        "repository": "aws-cloudformation-outputs-action",
+        "verified": false
+    },
+    "net-nanoframework-dependencies-updater": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 72,
+            "package_url": "https://github.com/nanoframework/nanodu/network/dependents"
+        },
+        "owner": "nanoframework",
+        "repository": "nanodu",
+        "verified": false
+    },
+    "new-dependencies-advisor": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 4,
+            "package_url": "https://github.com/lirantal/github-action-new-dependencies-advisor/network/dependents"
+        },
+        "owner": "lirantal",
+        "repository": "github-action-new-dependencies-advisor",
+        "verified": false
+    },
+    "nexus-repository-publisher-for-github-actions": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 86,
+            "package_url": "https://github.com/sonatype-nexus-community/nexus-repo-github-action/network/dependents"
+        },
+        "owner": "sonatype-nexus-community",
+        "repository": "nexus-repo-github-action",
+        "verified": false
+    },
+    "nim-lang-alpine": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/skynet-core/nim/network/dependents"
+        },
+        "owner": "skynet-core",
+        "repository": "nim",
+        "verified": false
+    },
+    "niv-updater-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 48,
+            "package_url": "https://github.com/knl/niv-updater-action/network/dependents"
+        },
+        "owner": "knl",
+        "repository": "niv-updater-action",
+        "verified": false
+    },
+    "nix-shell": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 42,
+            "package_url": "https://github.com/workflow/nix-shell-action/network/dependents"
+        },
+        "owner": "workflow",
+        "repository": "nix-shell-action",
+        "verified": false
+    },
+    "nix-shell-1": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 6,
+            "package_url": "https://github.com/ZenithalHourlyRate/nix-shell-action/network/dependents"
+        },
+        "owner": "ZenithalHourlyRate",
+        "repository": "nix-shell-action",
+        "verified": false
+    },
+    "no-broken-dependency": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 4,
+            "package_url": "https://github.com/hata6502/no-broken-dependency-action/network/dependents"
+        },
+        "owner": "hata6502",
+        "repository": "no-broken-dependency-action",
+        "verified": false
+    },
+    "node-js-dependency-freshness-via-libyear": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/s0/libyear-node-action/network/dependents"
+        },
+        "owner": "s0",
+        "repository": "libyear-node-action",
+        "verified": false
+    },
+    "node-npm-workspace-detector-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/dkershner6/node-workspace-detector-action/network/dependents"
+        },
+        "owner": "dkershner6",
+        "repository": "node-workspace-detector-action",
+        "verified": false
+    },
+    "nodenv-node-version": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 4,
+            "package_url": "https://github.com/nodenv/actions-node-version/network/dependents"
+        },
+        "owner": "nodenv",
+        "repository": "actions-node-version",
+        "verified": false
+    },
+    "nodenv-setup-nodenv": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/nodenv/actions-setup-nodenv/network/dependents"
+        },
+        "owner": "nodenv",
+        "repository": "actions-setup-nodenv",
+        "verified": false
+    },
+    "notion-azure-catalog": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/infinitaslearning/notion-azure-catalog/network/dependents"
+        },
+        "owner": "infinitaslearning",
+        "repository": "notion-azure-catalog",
+        "verified": false
+    },
+    "npm-audit": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 7,
+            "package_url": "https://github.com/luisfontes19/npm-audit-action/network/dependents"
+        },
+        "owner": "luisfontes19",
+        "repository": "npm-audit-action",
+        "verified": false
+    },
+    "npm-audit-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 549,
+            "package_url": "https://github.com/oke-py/npm-audit-action/network/dependents"
+        },
+        "owner": "oke-py",
+        "repository": "npm-audit-action",
+        "verified": false
+    },
+    "npm-audit-fix": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/grandmasterdev/github-action-npm-audit-fix/network/dependents"
+        },
+        "owner": "grandmasterdev",
+        "repository": "github-action-npm-audit-fix",
+        "verified": false
+    },
+    "npm-audit-pr": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/miyajan/npm-audit-pr/network/dependents"
+        },
+        "owner": "miyajan",
+        "repository": "npm-audit-pr",
+        "verified": false
+    },
+    "npm-bump": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 43,
+            "package_url": "https://github.com/bcomnes/npm-bump/network/dependents"
+        },
+        "owner": "bcomnes",
+        "repository": "npm-bump",
+        "verified": false
+    },
+    "npm-dependency-manager-for-your-github-organization": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 197,
+            "package_url": "https://github.com/derberg/npm-dependency-manager-for-your-github-org/network/dependents"
+        },
+        "owner": "derberg",
+        "repository": "npm-dependency-manager-for-your-github-org",
+        "verified": false
+    },
+    "npm-install-cache": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 391,
+            "package_url": "/c-hive/gha-npm-cache/network/dependents?package_id=UGFja2FnZS0yOTE0MTQ5Nzk2"
+        },
+        "owner": "c-hive",
+        "repository": "gha-npm-cache",
+        "verified": false
+    },
+    "npm-or-yarn-install-with-caching": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 11423,
+            "package_url": "https://github.com/bahmutov/npm-install/network/dependents?package_id=UGFja2FnZS0yOTQyNTU2Nzc4"
+        },
+        "owner": "bahmutov",
+        "repository": "npm-install",
+        "verified": false
+    },
+    "npm-package-scope-syncer": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/ukautz/github-action-npm-scope-syncer/network/dependents"
+        },
+        "owner": "ukautz",
+        "repository": "github-action-npm-scope-syncer",
+        "verified": false
+    },
+    "npm-package-sync-and-update": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 12,
+            "package_url": "https://github.com/tjololo/npm-package-update-sync/network/dependents"
+        },
+        "owner": "tjololo",
+        "repository": "npm-package-update-sync",
+        "verified": false
+    },
+    "npm-package-sync-and-update-to-latest": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/khurrumqureshi/npm-package-update-sync-latest/network/dependents"
+        },
+        "owner": "khurrumqureshi",
+        "repository": "npm-package-update-sync-latest",
+        "verified": false
+    },
+    "npm-package-update": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/sotszk/npm-package-update-action/network/dependents"
+        },
+        "owner": "sotszk",
+        "repository": "npm-package-update-action",
+        "verified": false
+    },
+    "npm-publish-latest-tag": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 5,
+            "package_url": "https://github.com/tobysmith568/npm-publish-latest-tag/network/dependents?package_id=UGFja2FnZS0yOTY3Njk4Mjc0"
+        },
+        "owner": "tobysmith568",
+        "repository": "npm-publish-latest-tag",
+        "verified": false
+    },
+    "npm-setup": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 12,
+            "package_url": "https://github.com/ng-easy/npm-setup/network/dependents?package_id=UGFja2FnZS0yOTQ2MjU3NTQ5"
+        },
+        "owner": "ng-easy",
+        "repository": "npm-setup",
+        "verified": false
+    },
+    "npm-update-checker": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 18,
+            "package_url": "https://github.com/MeilCli/npm-update-check-action/network/dependents?package_id=UGFja2FnZS0yOTY2NTEzMzg5"
+        },
+        "owner": "MeilCli",
+        "repository": "npm-update-check-action",
+        "verified": false
+    },
+    "npm-worker": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 4,
+            "package_url": "https://github.com/mudlabs/npm-worker/network/dependents"
+        },
+        "owner": "mudlabs",
+        "repository": "npm-worker",
+        "verified": false
+    },
+    "nuget-update": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/Bchir/update-nuget/network/dependents"
+        },
+        "owner": "Bchir",
+        "repository": "update-nuget",
+        "verified": false
+    },
+    "nuget-update-checker": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 7,
+            "package_url": "https://github.com/MeilCli/nuget-update-check-action/network/dependents?package_id=UGFja2FnZS0yOTY2Mzk4ODA3"
+        },
+        "owner": "MeilCli",
+        "repository": "nuget-update-check-action",
+        "verified": false
+    },
+    "nx-affected-matrix": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 6,
+            "package_url": "https://github.com/e-square-io/nx-affected-matrix/network/dependents"
+        },
+        "owner": "e-square-io",
+        "repository": "nx-affected-matrix",
+        "verified": false
+    },
+    "nx-distributed-task": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 6,
+            "package_url": "https://github.com/e-square-io/nx-distributed-task/network/dependents"
+        },
+        "owner": "e-square-io",
+        "repository": "nx-distributed-task",
+        "verified": false
+    },
+    "nxtlvlsoftware-git-subtree": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 15,
+            "package_url": "https://github.com/NxtLvLSoftware/git-subtree-action/network/dependents"
+        },
+        "owner": "NxtLvLSoftware",
+        "repository": "git-subtree-action",
+        "verified": false
+    },
+    "okteto-login": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 271,
+            "package_url": "https://github.com/okteto/login/network/dependents"
+        },
+        "owner": "okteto",
+        "repository": "login",
+        "verified": true
+    },
+    "okteto-push": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 49,
+            "package_url": "https://github.com/okteto/push/network/dependents"
+        },
+        "owner": "okteto",
+        "repository": "push",
+        "verified": true
+    },
+    "owasp-dependency-track-check": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/Quobis/action-owasp-dependecy-track-check/network/dependents"
+        },
+        "owner": "Quobis",
+        "repository": "action-owasp-dependecy-track-check",
+        "verified": false
+    },
+    "package-latest-version": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/Bruce17/ghaction-package-latest-version/network/dependents"
+        },
+        "owner": "Bruce17",
+        "repository": "ghaction-package-latest-version",
+        "verified": false
+    },
+    "package-policy": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/rob-derosa/package-policy/network/dependents"
+        },
+        "owner": "rob-derosa",
+        "repository": "package-policy",
+        "verified": false
+    },
+    "package-version-updated": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 46,
+            "package_url": "https://github.com/MontyD/package-json-updated-action/network/dependents"
+        },
+        "owner": "MontyD",
+        "repository": "package-json-updated-action",
+        "verified": false
+    },
+    "phalcon-composer-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/bvelastegui/phalcon-composer-action/network/dependents"
+        },
+        "owner": "bvelastegui",
+        "repository": "phalcon-composer-action",
+        "verified": false
+    },
+    "php-ga-composer-require-checker": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/php-ga/composer-require-checker-ga/network/dependents"
+        },
+        "owner": "php-ga",
+        "repository": "composer-require-checker-ga",
+        "verified": false
+    },
+    "pip-compile-diff-checker": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/theahura/pip-compile-diff-action/network/dependents"
+        },
+        "owner": "theahura",
+        "repository": "pip-compile-diff-action",
+        "verified": false
+    },
+    "pip-secure-install": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 11,
+            "package_url": "https://github.com/brettcannon/pip-secure-install/network/dependents"
+        },
+        "owner": "brettcannon",
+        "repository": "pip-secure-install",
+        "verified": false
+    },
+    "pipenv-for-github-actions": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 167,
+            "package_url": "https://github.com/VaultVulp/action-pipenv/network/dependents"
+        },
+        "owner": "VaultVulp",
+        "repository": "action-pipenv",
+        "verified": false
+    },
+    "pipfile-diff": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/atwalsh/pipfile-diff/network/dependents"
+        },
+        "owner": "atwalsh",
+        "repository": "pipfile-diff",
+        "verified": false
+    },
+    "pnpm-tasks": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 9,
+            "package_url": "https://github.com/theoparis/pnpm-action/network/dependents"
+        },
+        "owner": "theoparis",
+        "repository": "pnpm-action",
+        "verified": false
+    },
+    "poetry-install": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 47,
+            "package_url": "https://github.com/knowsuchagency/poetry-install/network/dependents"
+        },
+        "owner": "knowsuchagency",
+        "repository": "poetry-install",
+        "verified": false
+    },
+    "poetry-setup": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/ClementWalter/poetry-action/network/dependents"
+        },
+        "owner": "ClementWalter",
+        "repository": "poetry-action",
+        "verified": false
+    },
+    "pr-auto-label": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 9,
+            "package_url": "https://github.com/actions-cool/pr-auto-label/network/dependents"
+        },
+        "owner": "actions-cool",
+        "repository": "pr-auto-label",
+        "verified": false
+    },
+    "pr-submodule-dependencies": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 145,
+            "package_url": "https://github.com/space-wizards/submodule-dependency/network/dependents"
+        },
+        "owner": "space-wizards",
+        "repository": "submodule-dependency",
+        "verified": false
+    },
+    "pre-commit-autoupdate": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 19,
+            "package_url": "https://github.com/browniebroke/pre-commit-autoupdate-action/network/dependents"
+        },
+        "owner": "browniebroke",
+        "repository": "pre-commit-autoupdate-action",
+        "verified": false
+    },
+    "private-submodule-checkout": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/erpheus/private-submodule-checkout/network/dependents"
+        },
+        "owner": "erpheus",
+        "repository": "private-submodule-checkout",
+        "verified": false
+    },
+    "provision-with-micromamba": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 452,
+            "package_url": "https://github.com/mamba-org/provision-with-micromamba/network/dependents"
+        },
+        "owner": "mamba-org",
+        "repository": "provision-with-micromamba",
+        "verified": false
+    },
+    "publish-composer-package": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/TUDOCK/action-composer-nexus-upload/network/dependents"
+        },
+        "owner": "TUDOCK",
+        "repository": "action-composer-nexus-upload",
+        "verified": false
+    },
+    "publish-conda": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 61,
+            "package_url": "https://github.com/fcakyon/conda-publish-action/network/dependents"
+        },
+        "owner": "fcakyon",
+        "repository": "conda-publish-action",
+        "verified": false
+    },
+    "publish-conda-package-to-anaconda-org": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 30,
+            "package_url": "https://github.com/maxibor/conda-package-publish-action/network/dependents"
+        },
+        "owner": "maxibor",
+        "repository": "conda-package-publish-action",
+        "verified": false
+    },
+    "publish-nuget-gtt": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/mgattuso/publish-nuget/network/dependents"
+        },
+        "owner": "mgattuso",
+        "repository": "publish-nuget",
+        "verified": false
+    },
+    "pull-request-dependency-checkout": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 36,
+            "package_url": "https://github.com/sreimers/pr-dependency-action/network/dependents"
+        },
+        "owner": "sreimers",
+        "repository": "pr-dependency-action",
+        "verified": false
+    },
+    "pull-submodule-dependencies": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 39,
+            "package_url": "https://github.com/ivanbakel/submodule-dependency/network/dependents"
+        },
+        "owner": "ivanbakel",
+        "repository": "submodule-dependency",
+        "verified": false
+    },
+    "purge-packages": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 6,
+            "package_url": "https://github.com/MobileheadHolding/github-action-purge-packages/network/dependents"
+        },
+        "owner": "MobileheadHolding",
+        "repository": "github-action-purge-packages",
+        "verified": false
+    },
+    "push-directory-to-another-repository-target-directory": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 5,
+            "package_url": "https://github.com/darkquasar/github-action-push-to-another-repository/network/dependents"
+        },
+        "owner": "darkquasar",
+        "repository": "github-action-push-to-another-repository",
+        "verified": false
+    },
+    "push-then-pr": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 10,
+            "package_url": "https://github.com/sepulsa/push_then_pr/network/dependents"
+        },
+        "owner": "sepulsa",
+        "repository": "push_then_pr",
+        "verified": false
+    },
+    "push-to-mirrors": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 36,
+            "package_url": "https://github.com/Automattic/action-push-to-mirrors/network/dependents"
+        },
+        "owner": "Automattic",
+        "repository": "action-push-to-mirrors",
+        "verified": false
+    },
+    "pyenv-build": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 250,
+            "package_url": "https://github.com/gabrielfalcao/pyenv-action/network/dependents"
+        },
+        "owner": "gabrielfalcao",
+        "repository": "pyenv-action",
+        "verified": false
+    },
+    "pypoetry": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/hericlesme/PyPoetry/network/dependents"
+        },
+        "owner": "hericlesme",
+        "repository": "PyPoetry",
+        "verified": false
+    },
+    "python-container-action-template": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/geirem/bom-tracker/network/dependents"
+        },
+        "owner": "geirem",
+        "repository": "bom-tracker",
+        "verified": false
+    },
+    "python-dependency-installation": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 848,
+            "package_url": "https://github.com/py-actions/py-dependency-install/network/dependents"
+        },
+        "owner": "py-actions",
+        "repository": "py-dependency-install",
+        "verified": false
+    },
+    "python-pip-install": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 15,
+            "package_url": "https://github.com/logikal-code/pip-install/network/dependents"
+        },
+        "owner": "logikal-code",
+        "repository": "pip-install",
+        "verified": false
+    },
+    "python-poetry-setup": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/SG60/setup-poetry/network/dependents"
+        },
+        "owner": "SG60",
+        "repository": "setup-poetry",
+        "verified": false
+    },
+    "quack-scan": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/ncino/quack-scan/network/dependents"
+        },
+        "owner": "ncino",
+        "repository": "quack-scan",
+        "verified": false
+    },
+    "quarkus-pom-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/jthambly/quarkus-pom-action/network/dependents"
+        },
+        "owner": "jthambly",
+        "repository": "quarkus-pom-action",
+        "verified": false
+    },
+    "ragedb-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/ragedb/github-action/network/dependents"
+        },
+        "owner": "ragedb",
+        "repository": "github-action",
+        "verified": false
+    },
+    "read-package-json-node-and-npm-engines-version": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 273,
+            "package_url": "https://github.com/skjnldsv/read-package-engines-version-actions/network/dependents"
+        },
+        "owner": "skjnldsv",
+        "repository": "read-package-engines-version-actions",
+        "verified": false
+    },
+    "read-package-json-node-version": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 153,
+            "package_url": "https://github.com/culshaw/read-package-node-version-actions/network/dependents"
+        },
+        "owner": "culshaw",
+        "repository": "read-package-node-version-actions",
+        "verified": false
+    },
+    "redis-cluster-with-master-slave": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 74,
+            "package_url": "https://github.com/vishnudxb/redis-cluster/network/dependents"
+        },
+        "owner": "vishnudxb",
+        "repository": "redis-cluster",
+        "verified": false
+    },
+    "release-check": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 4,
+            "package_url": "https://github.com/phish108/release-check/network/dependents"
+        },
+        "owner": "phish108",
+        "repository": "release-check",
+        "verified": false
+    },
+    "release-scheduler": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/pabio/release-scheduler/network/dependents"
+        },
+        "owner": "pabio",
+        "repository": "release-scheduler",
+        "verified": false
+    },
+    "release-tag-tracker": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 13,
+            "package_url": "https://github.com/bewuethr/release-tracker-action/network/dependents"
+        },
+        "owner": "bewuethr",
+        "repository": "release-tracker-action",
+        "verified": false
+    },
+    "release-tag-updater": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 20,
+            "package_url": "https://github.com/sersoft-gmbh/running-release-tags-action/network/dependents"
+        },
+        "owner": "sersoft-gmbh",
+        "repository": "running-release-tags-action",
+        "verified": false
+    },
+    "remove-package-versions-from-github-packages": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/EpitomeGlobal/remove-package-versions/network/dependents"
+        },
+        "owner": "EpitomeGlobal",
+        "repository": "remove-package-versions",
+        "verified": false
+    },
+    "renovate-approve-and-merge": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/cypher7682/renovate-approve-and-merge/network/dependents"
+        },
+        "owner": "cypher7682",
+        "repository": "renovate-approve-and-merge",
+        "verified": false
+    },
+    "renovate-helm-releases": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 350,
+            "package_url": "https://github.com/k8s-at-home/renovate-helm-releases/network/dependents"
+        },
+        "owner": "k8s-at-home",
+        "repository": "renovate-helm-releases",
+        "verified": false
+    },
+    "renovate-merge": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/MansaGroup/renovate-merge-action/network/dependents"
+        },
+        "owner": "MansaGroup",
+        "repository": "renovate-merge-action",
+        "verified": false
+    },
+    "replace-deps": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/sensuikan1973/replace-deps/network/dependents"
+        },
+        "owner": "sensuikan1973",
+        "repository": "replace-deps",
+        "verified": false
+    },
+    "requirements2png": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 237,
+            "package_url": "https://github.com/robertdebock/graphviz-action/network/dependents"
+        },
+        "owner": "robertdebock",
+        "repository": "graphviz-action",
+        "verified": false
+    },
+    "restore-nuget-packages": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/IT-Service/restore-nuget-packages/network/dependents"
+        },
+        "owner": "IT-Service",
+        "repository": "restore-nuget-packages",
+        "verified": false
+    },
+    "restore-or-create-a-python-virtualenv": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 231,
+            "package_url": "https://github.com/syphar/restore-virtualenv/network/dependents"
+        },
+        "owner": "syphar",
+        "repository": "restore-virtualenv",
+        "verified": false
+    },
+    "restore-pip-download-cache": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 187,
+            "package_url": "https://github.com/syphar/restore-pip-download-cache/network/dependents"
+        },
+        "owner": "syphar",
+        "repository": "restore-pip-download-cache",
+        "verified": false
+    },
+    "run-cmake": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1740,
+            "package_url": "https://github.com/lukka/run-cmake/network/dependents"
+        },
+        "owner": "lukka",
+        "repository": "run-cmake",
+        "verified": false
+    },
+    "run-depcheck": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/tj-actions/depcheck/network/dependents"
+        },
+        "owner": "tj-actions",
+        "repository": "depcheck",
+        "verified": false
+    },
+    "run-pascal-script": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 6,
+            "package_url": "https://github.com/fabasoad/pascal-action/network/dependents"
+        },
+        "owner": "fabasoad",
+        "repository": "pascal-action",
+        "verified": false
+    },
+    "rust-audit-check": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 4421,
+            "package_url": "https://github.com/actions-rs/audit-check/network/dependents"
+        },
+        "owner": "actions-rs",
+        "repository": "audit-check",
+        "verified": false
+    },
+    "rust-cache": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 5230,
+            "package_url": "https://github.com/Swatinem/rust-cache/network/dependents"
+        },
+        "owner": "Swatinem",
+        "repository": "rust-cache",
+        "verified": false
+    },
+    "rust-cargo": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 25737,
+            "package_url": "https://github.com/actions-rs/cargo/network/dependents"
+        },
+        "owner": "actions-rs",
+        "repository": "cargo",
+        "verified": false
+    },
+    "rust-musl-static-binary-builder-for-alpine": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 12,
+            "package_url": "https://github.com/stevenleadbeater/rust-musl-builder/network/dependents"
+        },
+        "owner": "stevenleadbeater",
+        "repository": "rust-musl-builder",
+        "verified": false
+    },
+    "rust-toolchain": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 40368,
+            "package_url": "/actions-rs/toolchain/network/dependents?package_id=UGFja2FnZS0zMDM4OTM3MzU1"
+        },
+        "owner": "actions-rs",
+        "repository": "toolchain",
+        "verified": false
+    },
+    "scala-steward-github-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 430,
+            "package_url": "https://github.com/scala-steward-org/scala-steward-action/network/dependents"
+        },
+        "owner": "scala-steward-org",
+        "repository": "scala-steward-action",
+        "verified": false
+    },
+    "schemaregistry": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/nnanto/schemacodeman/network/dependents"
+        },
+        "owner": "nnanto",
+        "repository": "schemacodeman",
+        "verified": false
+    },
+    "scoop-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/frostming/scoop-action/network/dependents"
+        },
+        "owner": "frostming",
+        "repository": "scoop-action",
+        "verified": false
+    },
+    "secret-manage": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/virgil246/secret-manage-action/network/dependents"
+        },
+        "owner": "virgil246",
+        "repository": "secret-manage-action",
+        "verified": false
+    },
+    "self-hosted-renovate": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/vidavidorra/github-action-renovate/network/dependents"
+        },
+        "owner": "vidavidorra",
+        "repository": "github-action-renovate",
+        "verified": false
+    },
+    "set-action-secret": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 135,
+            "package_url": "https://github.com/hmanzur/actions-set-secret/network/dependents"
+        },
+        "owner": "hmanzur",
+        "repository": "actions-set-secret",
+        "verified": false
+    },
+    "set-npm-token-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 62,
+            "package_url": "https://github.com/filipstefansson/set-npm-token-action/network/dependents"
+        },
+        "owner": "filipstefansson",
+        "repository": "set-npm-token-action",
+        "verified": false
+    },
+    "set-npmrc-token-registry-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/raver119/set-npm-token-action/network/dependents"
+        },
+        "owner": "raver119",
+        "repository": "set-npm-token-action",
+        "verified": false
+    },
+    "set-up-a-purescript-toolchain": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 425,
+            "package_url": "https://github.com/purescript-contrib/setup-purescript/network/dependents"
+        },
+        "owner": "purescript-contrib",
+        "repository": "setup-purescript",
+        "verified": false
+    },
+    "set-up-nix-cache": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/zombiezen/setup-nix-cache-action/network/dependents"
+        },
+        "owner": "zombiezen",
+        "repository": "setup-nix-cache-action",
+        "verified": false
+    },
+    "setup-brainfuck": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/fabasoad/setup-brainfuck-action/network/dependents"
+        },
+        "owner": "fabasoad",
+        "repository": "setup-brainfuck-action",
+        "verified": false
+    },
+    "setup-cobol": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/fabasoad/setup-cobol-action/network/dependents"
+        },
+        "owner": "fabasoad",
+        "repository": "setup-cobol-action",
+        "verified": false
+    },
+    "setup-commandbox": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 75,
+            "package_url": "https://github.com/elpete/setup-commandbox/network/dependents"
+        },
+        "owner": "elpete",
+        "repository": "setup-commandbox",
+        "verified": false
+    },
+    "setup-commandbox-cli": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 15,
+            "package_url": "https://github.com/Ortus-Solutions/setup-commandbox/network/dependents"
+        },
+        "owner": "Ortus-Solutions",
+        "repository": "setup-commandbox",
+        "verified": false
+    },
+    "setup-crate": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 9,
+            "package_url": "https://github.com/extractions/setup-crate/network/dependents?package_id=UGFja2FnZS0yOTc3ODMwMzc3"
+        },
+        "owner": "extractions",
+        "repository": "setup-crate",
+        "verified": false
+    },
+    "setup-cue": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/sajari/setup-cue/network/dependents"
+        },
+        "owner": "sajari",
+        "repository": "setup-cue",
+        "verified": false
+    },
+    "setup-dhall": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 45,
+            "package_url": "https://github.com/dhall-lang/setup-dhall/network/dependents"
+        },
+        "owner": "dhall-lang",
+        "repository": "setup-dhall",
+        "verified": false
+    },
+    "setup-eat-package-manager": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/EatInstall/GitHub-Setup/network/dependents"
+        },
+        "owner": "EatInstall",
+        "repository": "GitHub-Setup",
+        "verified": false
+    },
+    "setup-eigen3": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/kupns-aka-kupa/setup-eigen3/network/dependents"
+        },
+        "owner": "kupns-aka-kupa",
+        "repository": "setup-eigen3",
+        "verified": false
+    },
+    "setup-emscripten-toolchain": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1917,
+            "package_url": "https://github.com/mymindstorm/setup-emsdk/network/dependents"
+        },
+        "owner": "mymindstorm",
+        "repository": "setup-emsdk",
+        "verified": false
+    },
+    "setup-ffmpeg": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 593,
+            "package_url": "https://github.com/FedericoCarboni/setup-ffmpeg/network/dependents"
+        },
+        "owner": "FedericoCarboni",
+        "repository": "setup-ffmpeg",
+        "verified": false
+    },
+    "setup-ffmpeg-using-versions": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 37,
+            "package_url": "https://github.com/Iamshankhadeep/setup-ffmpeg/network/dependents"
+        },
+        "owner": "Iamshankhadeep",
+        "repository": "setup-ffmpeg",
+        "verified": false
+    },
+    "setup-firebase-cli": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 11,
+            "package_url": "https://github.com/pocket-apps/action-setup-firebase/network/dependents"
+        },
+        "owner": "pocket-apps",
+        "repository": "action-setup-firebase",
+        "verified": false
+    },
+    "setup-grpc": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 4,
+            "package_url": "https://github.com/eWaterCycle/setup-grpc/network/dependents"
+        },
+        "owner": "eWaterCycle",
+        "repository": "setup-grpc",
+        "verified": false
+    },
+    "setup-gyro": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 23,
+            "package_url": "https://github.com/mattnite/setup-gyro/network/dependents"
+        },
+        "owner": "mattnite",
+        "repository": "setup-gyro",
+        "verified": false
+    },
+    "setup-hdt": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/Callidon/setup-hdt-action/network/dependents"
+        },
+        "owner": "Callidon",
+        "repository": "setup-hdt-action",
+        "verified": false
+    },
+    "setup-imagemagick": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 17,
+            "package_url": "https://github.com/mfinelli/setup-imagemagick/network/dependents"
+        },
+        "owner": "mfinelli",
+        "repository": "setup-imagemagick",
+        "verified": false
+    },
+    "setup-jfrog-cli": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1572,
+            "package_url": "https://github.com/jfrog/setup-jfrog-cli/network/dependents?package_id=UGFja2FnZS0yOTQyNTU2ODUz"
+        },
+        "owner": "jfrog",
+        "repository": "setup-jfrog-cli",
+        "verified": true
+    },
+    "setup-just": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 179,
+            "package_url": "https://github.com/extractions/setup-just/network/dependents"
+        },
+        "owner": "extractions",
+        "repository": "setup-just",
+        "verified": false
+    },
+    "setup-kinesis": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/zhulik/setup-kinesis/network/dependents"
+        },
+        "owner": "zhulik",
+        "repository": "setup-kinesis",
+        "verified": false
+    },
+    "setup-kitten": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/fabasoad/setup-kitten-action/network/dependents"
+        },
+        "owner": "fabasoad",
+        "repository": "setup-kitten-action",
+        "verified": false
+    },
+    "setup-leiningen": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 5,
+            "package_url": "https://github.com/oxr463/setup-leiningen/network/dependents"
+        },
+        "owner": "oxr463",
+        "repository": "setup-leiningen",
+        "verified": false
+    },
+    "setup-lua": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/ljmf00/setup-lua/network/dependents"
+        },
+        "owner": "ljmf00",
+        "repository": "setup-lua",
+        "verified": false
+    },
+    "setup-lua-with-luver": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 6,
+            "package_url": "https://github.com/MunifTanjim/luver-action/network/dependents"
+        },
+        "owner": "MunifTanjim",
+        "repository": "luver-action",
+        "verified": false
+    },
+    "setup-miniconda": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 13106,
+            "package_url": "https://github.com/conda-incubator/setup-miniconda/network/dependents?package_id=UGFja2FnZS0yOTQyNTU2OTE4"
+        },
+        "owner": "conda-incubator",
+        "repository": "setup-miniconda",
+        "verified": false
+    },
+    "setup-mint": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 14,
+            "package_url": "https://github.com/fabasoad/setup-mint-action/network/dependents"
+        },
+        "owner": "fabasoad",
+        "repository": "setup-mint-action",
+        "verified": false
+    },
+    "setup-nanoflann": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/kupns-aka-kupa/setup-nanoflann/network/dependents"
+        },
+        "owner": "kupns-aka-kupa",
+        "repository": "setup-nanoflann",
+        "verified": false
+    },
+    "setup-netrc": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 37,
+            "package_url": "https://github.com/extractions/netrc/network/dependents"
+        },
+        "owner": "extractions",
+        "repository": "netrc",
+        "verified": false
+    },
+    "setup-nuget-exe-for-use-with-actions": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 9090,
+            "package_url": "https://github.com/NuGet/setup-nuget/network/dependents"
+        },
+        "owner": "NuGet",
+        "repository": "setup-nuget",
+        "verified": false
+    },
+    "setup-opam-and-ocaml": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/tapthaker/actions-ocaml/network/dependents"
+        },
+        "owner": "tapthaker",
+        "repository": "actions-ocaml",
+        "verified": false
+    },
+    "setup-opencv": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 33,
+            "package_url": "https://github.com/Dovyski/setup-opencv-action/network/dependents"
+        },
+        "owner": "Dovyski",
+        "repository": "setup-opencv-action",
+        "verified": false
+    },
+    "setup-operator-sdk": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/hfuss/setup-operator-sdk/network/dependents"
+        },
+        "owner": "hfuss",
+        "repository": "setup-operator-sdk",
+        "verified": false
+    },
+    "setup-pdm": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 100,
+            "package_url": "https://github.com/pdm-project/setup-pdm/network/dependents"
+        },
+        "owner": "pdm-project",
+        "repository": "setup-pdm",
+        "verified": false
+    },
+    "setup-pierrot-cli": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/agorapulse/pierrot-setup/network/dependents"
+        },
+        "owner": "agorapulse",
+        "repository": "pierrot-setup",
+        "verified": false
+    },
+    "setup-poetry": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 979,
+            "package_url": "https://github.com/Gr1N/setup-poetry/network/dependents"
+        },
+        "owner": "Gr1N",
+        "repository": "setup-poetry",
+        "verified": false
+    },
+    "setup-poetry-bin": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 4,
+            "package_url": "https://github.com/gi0baro/setup-poetry-bin/network/dependents"
+        },
+        "owner": "gi0baro",
+        "repository": "setup-poetry-bin",
+        "verified": false
+    },
+    "setup-python-and-poetry": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 7,
+            "package_url": "https://github.com/ITProKyle/action-setup-python/network/dependents"
+        },
+        "owner": "ITProKyle",
+        "repository": "action-setup-python",
+        "verified": false
+    },
+    "setup-riscv-gnu-toolchain": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/colinaaa/setup-riscv-gnu-toolchain/network/dependents"
+        },
+        "owner": "colinaaa",
+        "repository": "setup-riscv-gnu-toolchain",
+        "verified": false
+    },
+    "setup-sampctl": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/AGraber/sampctl-action/network/dependents"
+        },
+        "owner": "AGraber",
+        "repository": "sampctl-action",
+        "verified": false
+    },
+    "setup-shakespeare": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/fabasoad/setup-shakespeare-action/network/dependents"
+        },
+        "owner": "fabasoad",
+        "repository": "setup-shakespeare-action",
+        "verified": false
+    },
+    "setup-shfmt": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 7,
+            "package_url": "https://github.com/mfinelli/setup-shfmt/network/dependents"
+        },
+        "owner": "mfinelli",
+        "repository": "setup-shfmt",
+        "verified": false
+    },
+    "setup-singularity": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 220,
+            "package_url": "https://github.com/eWaterCycle/setup-singularity/network/dependents"
+        },
+        "owner": "eWaterCycle",
+        "repository": "setup-singularity",
+        "verified": false
+    },
+    "setup-spack": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 4,
+            "package_url": "https://github.com/haampie-spack/setup-spack/network/dependents"
+        },
+        "owner": "haampie-spack",
+        "repository": "setup-spack",
+        "verified": false
+    },
+    "setup-stack": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 315,
+            "package_url": "https://github.com/mstksg/setup-stack/network/dependents"
+        },
+        "owner": "mstksg",
+        "repository": "setup-stack",
+        "verified": false
+    },
+    "setup-swift-environment": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 6,
+            "package_url": "https://github.com/sinoru/actions-setup-swift/network/dependents"
+        },
+        "owner": "sinoru",
+        "repository": "actions-setup-swift",
+        "verified": false
+    },
+    "setup-terraform-credentials": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/hfuss/setup-terraform-credentials/network/dependents"
+        },
+        "owner": "hfuss",
+        "repository": "setup-terraform-credentials",
+        "verified": false
+    },
+    "setup-terraform-environment": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 48,
+            "package_url": "https://github.com/marocchino/setup-terraform/network/dependents"
+        },
+        "owner": "marocchino",
+        "repository": "setup-terraform",
+        "verified": false
+    },
+    "setup-umka": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/fabasoad/setup-umka-action/network/dependents"
+        },
+        "owner": "fabasoad",
+        "repository": "setup-umka-action",
+        "verified": false
+    },
+    "setup-v-environment": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 37,
+            "package_url": "https://github.com/nocturlab/setup-vlang-action/network/dependents"
+        },
+        "owner": "nocturlab",
+        "repository": "setup-vlang-action",
+        "verified": false
+    },
+    "setup-vmaf": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/wangwei1237/setup-vmaf/network/dependents"
+        },
+        "owner": "wangwei1237",
+        "repository": "setup-vmaf",
+        "verified": false
+    },
+    "setup-vulkan-sdk": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 57,
+            "package_url": "https://github.com/humbletim/setup-vulkan-sdk/network/dependents"
+        },
+        "owner": "humbletim",
+        "repository": "setup-vulkan-sdk",
+        "verified": false
+    },
+    "setup-wasmer": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 6,
+            "package_url": "https://github.com/wasmerio/setup-wasmer/network/dependents"
+        },
+        "owner": "wasmerio",
+        "repository": "setup-wasmer",
+        "verified": false
+    },
+    "setup-win32-go-environment": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/DuckSoft/setup-go-win32/network/dependents"
+        },
+        "owner": "DuckSoft",
+        "repository": "setup-go-win32",
+        "verified": false
+    },
+    "setup-wren-cli": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/fabasoad/setup-wren-action/network/dependents"
+        },
+        "owner": "fabasoad",
+        "repository": "setup-wren-action",
+        "verified": false
+    },
+    "setup-xcode-environment": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 34,
+            "package_url": "https://github.com/sinoru/actions-setup-xcode/network/dependents"
+        },
+        "owner": "sinoru",
+        "repository": "actions-setup-xcode",
+        "verified": false
+    },
+    "setup-yq-environment": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 9,
+            "package_url": "https://github.com/shiipou/setup-yq-action/network/dependents"
+        },
+        "owner": "shiipou",
+        "repository": "setup-yq-action",
+        "verified": false
+    },
+    "sf-package-version-update-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/rimonhanna/sf-package-version-update-action/network/dependents"
+        },
+        "owner": "rimonhanna",
+        "repository": "sf-package-version-update-action",
+        "verified": false
+    },
+    "snakemake": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 215,
+            "package_url": "https://github.com/snakemake/snakemake-github-action/network/dependents"
+        },
+        "owner": "snakemake",
+        "repository": "snakemake-github-action",
+        "verified": false
+    },
+    "snapcraft-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1024,
+            "package_url": "https://github.com/samuelmeuli/action-snapcraft/network/dependents"
+        },
+        "owner": "samuelmeuli",
+        "repository": "action-snapcraft",
+        "verified": false
+    },
+    "soos-core-sca": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 4,
+            "package_url": "https://github.com/soos-io/soos-sca-github-action/network/dependents"
+        },
+        "owner": "soos-io",
+        "repository": "soos-sca-github-action",
+        "verified": true
+    },
+    "spack-install-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/kzscisoft/install-spack/network/dependents"
+        },
+        "owner": "kzscisoft",
+        "repository": "install-spack",
+        "verified": false
+    },
+    "speedup-package-installation": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 27,
+            "package_url": "https://github.com/abbbi/github-actions-tune/network/dependents"
+        },
+        "owner": "abbbi",
+        "repository": "github-actions-tune",
+        "verified": false
+    },
+    "spm-dependencies-checker": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/sbertix/spm-dependencies-checker/network/dependents"
+        },
+        "owner": "sbertix",
+        "repository": "spm-dependencies-checker",
+        "verified": false
+    },
+    "stacc-publish": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/stacc/publish-action/network/dependents"
+        },
+        "owner": "stacc",
+        "repository": "publish-action",
+        "verified": false
+    },
+    "staged-dependencies-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/insightsengineering/staged-dependencies-action/network/dependents"
+        },
+        "owner": "insightsengineering",
+        "repository": "staged-dependencies-action",
+        "verified": false
+    },
+    "steamfetch": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/Skippeh/steamfetch-action/network/dependents"
+        },
+        "owner": "Skippeh",
+        "repository": "steamfetch-action",
+        "verified": false
+    },
+    "submodule-branch-check": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 8,
+            "package_url": "https://github.com/jtmullen/submodule-branch-check-action/network/dependents"
+        },
+        "owner": "jtmullen",
+        "repository": "submodule-branch-check-action",
+        "verified": false
+    },
+    "submodule-sync": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 17,
+            "package_url": "https://github.com/mheap/submodule-sync-action/network/dependents"
+        },
+        "owner": "mheap",
+        "repository": "submodule-sync-action",
+        "verified": false
+    },
+    "submodules-init": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 558,
+            "package_url": "https://github.com/snickerbockers/submodules-init/network/dependents"
+        },
+        "owner": "snickerbockers",
+        "repository": "submodules-init",
+        "verified": false
+    },
+    "supersnyk": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/mishabruml/supersnyk/network/dependents"
+        },
+        "owner": "mishabruml",
+        "repository": "supersnyk",
+        "verified": false
+    },
+    "sver-semantic-version-calculator": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 846,
+            "package_url": "https://github.com/aserto-dev/sver-action/network/dependents"
+        },
+        "owner": "aserto-dev",
+        "repository": "sver-action",
+        "verified": false
+    },
+    "sw-build-system-and-package-manager": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 140,
+            "package_url": "https://github.com/egorpugin/sw-action/network/dependents"
+        },
+        "owner": "egorpugin",
+        "repository": "sw-action",
+        "verified": false
+    },
+    "swift-api-diff": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/ltetzlaff/swift-api-diff/network/dependents"
+        },
+        "owner": "ltetzlaff",
+        "repository": "swift-api-diff",
+        "verified": false
+    },
+    "swift-for-windows-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 41,
+            "package_url": "https://github.com/MaxDesiatov/swift-windows-action/network/dependents"
+        },
+        "owner": "MaxDesiatov",
+        "repository": "swift-windows-action",
+        "verified": false
+    },
+    "swift-package-dependencies-check": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 14,
+            "package_url": "/MarcoEidinger/swift-package-dependencies-check/network/dependents?package_id=UGFja2FnZS0yOTg2Mzk5Njkx"
+        },
+        "owner": "MarcoEidinger",
+        "repository": "swift-package-dependencies-check",
+        "verified": false
+    },
+    "swiftpm-update-checker": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/MeilCli/swiftpm-update-check-action/network/dependents"
+        },
+        "owner": "MeilCli",
+        "repository": "swiftpm-update-check-action",
+        "verified": false
+    },
+    "sync-files": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/denis-tingaikin/sync-files/network/dependents"
+        },
+        "owner": "denis-tingaikin",
+        "repository": "sync-files",
+        "verified": false
+    },
+    "tag-on-npm-package-version-change": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 12,
+            "package_url": "https://github.com/neverendingqs/gh-action-tag-on-npm-version/network/dependents"
+        },
+        "owner": "neverendingqs",
+        "repository": "gh-action-tag-on-npm-version",
+        "verified": false
+    },
+    "teeps-composer": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/teeps-co/composer-action/network/dependents"
+        },
+        "owner": "teeps-co",
+        "repository": "composer-action",
+        "verified": false
+    },
+    "tern-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 13,
+            "package_url": "https://github.com/philips-labs/tern-action/network/dependents"
+        },
+        "owner": "philips-labs",
+        "repository": "tern-action",
+        "verified": false
+    },
+    "terraform-cloud-workspace-auto-update": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "/chroju/terraform-cloud-updater/network/dependents?package_id=UGFja2FnZS0yMjczMDk5MzYx"
+        },
+        "owner": "chroju",
+        "repository": "terraform-cloud-updater",
+        "verified": false
+    },
+    "terraform-dependabot": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 11,
+            "package_url": "https://github.com/patrickjahns/dependabot-terraform-action/network/dependents"
+        },
+        "owner": "patrickjahns",
+        "repository": "dependabot-terraform-action",
+        "verified": false
+    },
+    "terraform-dependency-miner": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/cypher7682/terraform-dependency-miner/network/dependents"
+        },
+        "owner": "cypher7682",
+        "repository": "terraform-dependency-miner",
+        "verified": false
+    },
+    "terraform-module-versions": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/trumant/terraform-module-versions-action/network/dependents"
+        },
+        "owner": "trumant",
+        "repository": "terraform-module-versions-action",
+        "verified": false
+    },
+    "tfupdate-github-actions": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/daisaru11/tfupdate-github-actions/network/dependents"
+        },
+        "owner": "daisaru11",
+        "repository": "tfupdate-github-actions",
+        "verified": false
+    },
+    "thanos-snap": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/stanleynguyen/thanos/network/dependents"
+        },
+        "owner": "stanleynguyen",
+        "repository": "thanos",
+        "verified": false
+    },
+    "the-php-security-checker": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 521,
+            "package_url": "https://github.com/symfonycorp/security-checker-action/network/dependents"
+        },
+        "owner": "symfonycorp",
+        "repository": "security-checker-action",
+        "verified": false
+    },
+    "tidy-cache": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 5,
+            "package_url": "https://github.com/skjolber/tidy-cache-github-action/network/dependents"
+        },
+        "owner": "skjolber",
+        "repository": "tidy-cache-github-action",
+        "verified": false
+    },
+    "tool-versions": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 69,
+            "package_url": "https://github.com/marocchino/tool-versions-action/network/dependents"
+        },
+        "owner": "marocchino",
+        "repository": "tool-versions-action",
+        "verified": false
+    },
+    "update-deno": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/jeroenptrs/gh-action-update-deno/network/dependents"
+        },
+        "owner": "jeroenptrs",
+        "repository": "gh-action-update-deno",
+        "verified": false
+    },
+    "update-docker-dependencies": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 5,
+            "package_url": "https://github.com/donatorsky/update-docker-dependencies/network/dependents"
+        },
+        "owner": "donatorsky",
+        "repository": "update-docker-dependencies",
+        "verified": false
+    },
+    "update-flake-lock": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 85,
+            "package_url": "https://github.com/DeterminateSystems/update-flake-lock/network/dependents"
+        },
+        "owner": "DeterminateSystems",
+        "repository": "update-flake-lock",
+        "verified": false
+    },
+    "update-gradle-dependencies-and-plugins": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 6,
+            "package_url": "https://github.com/markelliot/update-gradle-deps/network/dependents"
+        },
+        "owner": "markelliot",
+        "repository": "update-gradle-deps",
+        "verified": false
+    },
+    "update-gradle-wrapper": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/rahulsom/gradle-up/network/dependents"
+        },
+        "owner": "rahulsom",
+        "repository": "gradle-up",
+        "verified": false
+    },
+    "update-gradle-wrapper-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 709,
+            "package_url": "https://github.com/gradle-update/update-gradle-wrapper-action/network/dependents"
+        },
+        "owner": "gradle-update",
+        "repository": "update-gradle-wrapper-action",
+        "verified": false
+    },
+    "update-hugo-modules": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 6,
+            "package_url": "https://github.com/platenio/action-hugo-module-update/network/dependents"
+        },
+        "owner": "platenio",
+        "repository": "action-hugo-module-update",
+        "verified": false
+    },
+    "update-hugo-version-pin-in-netlify-config": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 5,
+            "package_url": "https://github.com/platenio/action-netlify-toml-update-hugo/network/dependents"
+        },
+        "owner": "platenio",
+        "repository": "action-netlify-toml-update-hugo",
+        "verified": false
+    },
+    "update-net-sdk": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 40,
+            "package_url": "https://github.com/martincostello/update-dotnet-sdk/network/dependents"
+        },
+        "owner": "martincostello",
+        "repository": "update-dotnet-sdk",
+        "verified": false
+    },
+    "update-node-dependencies": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 17,
+            "package_url": "https://github.com/neverendingqs/gh-action-node-update-deps/network/dependents"
+        },
+        "owner": "neverendingqs",
+        "repository": "gh-action-node-update-deps",
+        "verified": false
+    },
+    "update-nodejs-dependencies": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/stephankaag/gh-action-node-update-deps/network/dependents"
+        },
+        "owner": "stephankaag",
+        "repository": "gh-action-node-update-deps",
+        "verified": false
+    },
+    "update-python-poetry-packages": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/Apakottur/action-poetry-package-update/network/dependents"
+        },
+        "owner": "Apakottur",
+        "repository": "action-poetry-package-update",
+        "verified": false
+    },
+    "update-the-node-modules": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 13,
+            "package_url": "https://github.com/poad/update-node-modules/network/dependents"
+        },
+        "owner": "poad",
+        "repository": "update-node-modules",
+        "verified": false
+    },
+    "update-xcode-version": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 5,
+            "package_url": "https://github.com/JosephDuffy/update-xcode-version-action/network/dependents"
+        },
+        "owner": "JosephDuffy",
+        "repository": "update-xcode-version-action",
+        "verified": false
+    },
+    "update-yarn-dependencies": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/markelliot/update-yarn-deps/network/dependents"
+        },
+        "owner": "markelliot",
+        "repository": "update-yarn-deps",
+        "verified": false
+    },
+    "updatecli": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 37,
+            "package_url": "https://github.com/updatecli/updatecli-action/network/dependents"
+        },
+        "owner": "updatecli",
+        "repository": "updatecli-action",
+        "verified": false
+    },
+    "upload-bom-to-dependency-track": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/DependencyTrack/gh-upload-sbom/network/dependents"
+        },
+        "owner": "DependencyTrack",
+        "repository": "gh-upload-sbom",
+        "verified": false
+    },
+    "upload-to-barbarian": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/ericLemanissier/barbarian-upload/network/dependents"
+        },
+        "owner": "ericLemanissier",
+        "repository": "barbarian-upload",
+        "verified": false
+    },
+    "uptodate-keep-your-repository-up-to-date": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/fischerscode/uptodate/network/dependents"
+        },
+        "owner": "fischerscode",
+        "repository": "uptodate",
+        "verified": false
+    },
+    "us-districts-geojson-update": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/Andrew-Chen-Wang/district-autoupdate/network/dependents"
+        },
+        "owner": "Andrew-Chen-Wang",
+        "repository": "district-autoupdate",
+        "verified": false
+    },
+    "use-npm-token": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 9,
+            "package_url": "https://github.com/dkershner6/use-npm-token-action/network/dependents"
+        },
+        "owner": "dkershner6",
+        "repository": "use-npm-token-action",
+        "verified": false
+    },
+    "use-npmrc": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 16,
+            "package_url": "https://github.com/bduff9/use-npmrc/network/dependents"
+        },
+        "owner": "bduff9",
+        "repository": "use-npmrc",
+        "verified": false
+    },
+    "validate-dependabot": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 25,
+            "package_url": "https://github.com/marocchino/validate-dependabot/network/dependents"
+        },
+        "owner": "marocchino",
+        "repository": "validate-dependabot",
+        "verified": false
+    },
+    "variantdev-mod": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/variantdev/mod-action/network/dependents"
+        },
+        "owner": "variantdev",
+        "repository": "mod-action",
+        "verified": false
+    },
+    "vcn-authenticate-bom-for-go-projects": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/codenotary/vcn-authenticate-bom-go-github-action/network/dependents"
+        },
+        "owner": "codenotary",
+        "repository": "vcn-authenticate-bom-go-github-action",
+        "verified": false
+    },
+    "vcn-authenticate-bom-for-net-c-and-visual-basic-projects": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/codenotary/vcn-authenticate-bom-dotNET-github-action/network/dependents"
+        },
+        "owner": "codenotary",
+        "repository": "vcn-authenticate-bom-dotNET-github-action",
+        "verified": false
+    },
+    "vcn-authenticate-bom-for-node-js-projects": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/codenotary/vcn-authenticate-bom-nodejs-github-action/network/dependents"
+        },
+        "owner": "codenotary",
+        "repository": "vcn-authenticate-bom-nodejs-github-action",
+        "verified": false
+    },
+    "vcn-authenticate-bom-for-python-projects": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/codenotary/vcn-authenticate-bom-python-github-action/network/dependents"
+        },
+        "owner": "codenotary",
+        "repository": "vcn-authenticate-bom-python-github-action",
+        "verified": false
+    },
+    "vcn-authenticate-the-bom-for-java-maven-projects": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/codenotary/vcn-authenticate-bom-java-github-action/network/dependents"
+        },
+        "owner": "codenotary",
+        "repository": "vcn-authenticate-bom-java-github-action",
+        "verified": false
+    },
+    "vcn-generate-and-notarize-bom-for-go-projects": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/codenotary/vcn-notarize-bom-go-github-action/network/dependents"
+        },
+        "owner": "codenotary",
+        "repository": "vcn-notarize-bom-go-github-action",
+        "verified": false
+    },
+    "vcn-generate-and-notarize-bom-for-java-maven-projects": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/codenotary/vcn-notarize-bom-java-github-action/network/dependents"
+        },
+        "owner": "codenotary",
+        "repository": "vcn-notarize-bom-java-github-action",
+        "verified": false
+    },
+    "vcn-generate-and-notarize-bom-for-net-c-and-visual-basic-projects": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/codenotary/vcn-notarize-bom-dotNET-github-action/network/dependents"
+        },
+        "owner": "codenotary",
+        "repository": "vcn-notarize-bom-dotNET-github-action",
+        "verified": false
+    },
+    "vcn-generate-and-notarize-bom-for-node-js-projects": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/codenotary/vcn-notarize-bom-nodejs-github-action/network/dependents"
+        },
+        "owner": "codenotary",
+        "repository": "vcn-notarize-bom-nodejs-github-action",
+        "verified": false
+    },
+    "vcn-generate-and-notarize-bom-for-python-projects": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/codenotary/vcn-notarize-bom-python-github-action/network/dependents"
+        },
+        "owner": "codenotary",
+        "repository": "vcn-notarize-bom-python-github-action",
+        "verified": false
+    },
+    "vcn-unsupport-bom-for-go-projects": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/codenotary/vcn-unsupport-bom-go-github-action/network/dependents"
+        },
+        "owner": "codenotary",
+        "repository": "vcn-unsupport-bom-go-github-action",
+        "verified": false
+    },
+    "vcn-unsupport-bom-for-java-maven-projects": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/codenotary/vcn-unsupport-bom-java-github-action/network/dependents"
+        },
+        "owner": "codenotary",
+        "repository": "vcn-unsupport-bom-java-github-action",
+        "verified": false
+    },
+    "vcn-unsupport-bom-for-net-c-and-visual-basic-projects": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/codenotary/vcn-unsupport-bom-dotNET-github-action/network/dependents"
+        },
+        "owner": "codenotary",
+        "repository": "vcn-unsupport-bom-dotNET-github-action",
+        "verified": false
+    },
+    "vcn-unsupport-bom-for-node-js-projects": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/codenotary/vcn-unsupport-bom-nodejs-github-action/network/dependents"
+        },
+        "owner": "codenotary",
+        "repository": "vcn-unsupport-bom-nodejs-github-action",
+        "verified": false
+    },
+    "vcn-unsupport-bom-for-python-projects": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/codenotary/vcn-unsupport-bom-python-github-action/network/dependents"
+        },
+        "owner": "codenotary",
+        "repository": "vcn-unsupport-bom-python-github-action",
+        "verified": false
+    },
+    "vcn-untrust-bom-for-go-projects": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/codenotary/vcn-untrust-bom-go-github-action/network/dependents"
+        },
+        "owner": "codenotary",
+        "repository": "vcn-untrust-bom-go-github-action",
+        "verified": false
+    },
+    "vcn-untrust-bom-for-java-maven-projects": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/codenotary/vcn-untrust-bom-java-github-action/network/dependents"
+        },
+        "owner": "codenotary",
+        "repository": "vcn-untrust-bom-java-github-action",
+        "verified": false
+    },
+    "vcn-untrust-bom-for-net-c-and-visual-basic-projects": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/codenotary/vcn-untrust-bom-dotNET-github-action/network/dependents"
+        },
+        "owner": "codenotary",
+        "repository": "vcn-untrust-bom-dotNET-github-action",
+        "verified": false
+    },
+    "vcn-untrust-bom-for-node-js-projects": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/codenotary/vcn-untrust-bom-nodejs-github-action/network/dependents"
+        },
+        "owner": "codenotary",
+        "repository": "vcn-untrust-bom-nodejs-github-action",
+        "verified": false
+    },
+    "vcn-untrust-bom-for-python-projects": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/codenotary/vcn-untrust-bom-python-github-action/network/dependents"
+        },
+        "owner": "codenotary",
+        "repository": "vcn-untrust-bom-python-github-action",
+        "verified": false
+    },
+    "wapm-publish": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/wasmerio/wapm-publish/network/dependents"
+        },
+        "owner": "wasmerio",
+        "repository": "wapm-publish",
+        "verified": false
+    },
+    "with-opencv": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 9,
+            "package_url": "https://github.com/rayandrews/with-opencv-action/network/dependents"
+        },
+        "owner": "rayandrews",
+        "repository": "with-opencv-action",
+        "verified": false
+    },
+    "wordpress-version-checker": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 22,
+            "package_url": "https://github.com/skaut/wordpress-version-checker/network/dependents"
+        },
+        "owner": "skaut",
+        "repository": "wordpress-version-checker",
+        "verified": false
+    },
+    "workflow-status": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 14,
+            "package_url": "https://github.com/LASER-Yi/workflow-status/network/dependents"
+        },
+        "owner": "LASER-Yi",
+        "repository": "workflow-status",
+        "verified": false
+    },
+    "yarn-2-bump-action": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/cometkim/yarn-plugin-bump/network/dependents"
+        },
+        "owner": "cometkim",
+        "repository": "yarn-plugin-bump",
+        "verified": false
+    },
+    "yarn-actions-yaml": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 262,
+            "package_url": "https://github.com/sergioramos/yarn-actions/network/dependents?package_id=UGFja2FnZS0yOTQyNTU5NjIz"
+        },
+        "owner": "sergioramos",
+        "repository": "yarn-actions",
+        "verified": false
+    },
+    "yarn-audit": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 6,
+            "package_url": "https://github.com/pragatheeswarans/yarn-audit-action/network/dependents"
+        },
+        "owner": "pragatheeswarans",
+        "repository": "yarn-audit-action",
+        "verified": false
+    },
+    "yarn-install-cache": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 1333,
+            "package_url": "/c-hive/gha-yarn-cache/network/dependents?package_id=UGFja2FnZS0yOTE0MTQ5ODE1"
+        },
+        "owner": "c-hive",
+        "repository": "gha-yarn-cache",
+        "verified": false
+    },
+    "yarn-lock-changes": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 147,
+            "package_url": "https://github.com/Simek/yarn-lock-changes/network/dependents"
+        },
+        "owner": "Simek",
+        "repository": "yarn-lock-changes",
+        "verified": false
+    },
+    "yarn-node-install-cache": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 73,
+            "package_url": "https://github.com/EgorDm/gha-yarn-node-cache/network/dependents"
+        },
+        "owner": "EgorDm",
+        "repository": "gha-yarn-node-cache",
+        "verified": false
+    },
+    "yarn-setup": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 77,
+            "package_url": "https://github.com/DerYeger/yarn-setup-action/network/dependents"
+        },
+        "owner": "DerYeger",
+        "repository": "yarn-setup-action",
+        "verified": false
+    },
+    "yarn-target-determinator": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/sargunv/yarn-target-determinator/network/dependents"
+        },
+        "owner": "sargunv",
+        "repository": "yarn-target-determinator",
+        "verified": false
+    },
+    "yarn-upgrader": {
+        "category": "dependency-management",
+        "dependents": {
+            "number": 19,
+            "package_url": "https://github.com/browniebroke/yarn-upgrade-action/network/dependents"
+        },
+        "owner": "browniebroke",
+        "repository": "yarn-upgrade-action",
+        "verified": false
+    }
+}
