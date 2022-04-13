@@ -61,7 +61,7 @@ def get_categories() -> None:
     save_categories = numpy.array(save_categories)
 
     if config.override_save_categories["run"]:
-        save_categories = ["dependency-management"]
+        save_categories = config.override_save_categories["categories"]
         save_categories = numpy.array(save_categories)
 
     numpy.save("categories.npy", save_categories)
