@@ -538,7 +538,13 @@ def get_dependents(owner: str, repo_name: str) -> int:
     return -1
 
 
-def get_dependents_html(url):
+def get_dependents_html(url: str) -> html.document_fromstring:
+    """
+    Get the html for a dependents page.
+
+    :param url: The url for the dependents.
+    :return: The response as an html.document_fromstring object.
+    """
     root = None
 
     while True:
