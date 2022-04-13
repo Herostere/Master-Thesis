@@ -527,28 +527,17 @@ def get_dependents(owner: str, repo_name: str) -> int:
         for i, url in enumerate(packages):
             packages[i] = "https://github.com" + url
 
+    max_url = url
+    max_dependents = get_dependents_number(root, owner, repo_name)
     if packages:
-        max_url = ""
-        max_dependents = 0
         for url in packages:
             root_package = get_dependents_html(url)
             dependents = get_dependents_number(root_package, owner, repo_name)
             if dependents > max_dependents:
                 max_url = url
                 max_dependents = dependents
-        print(max_url)
-        print(max_dependents)
-        print('-----')
 
-    try:
-        ugly_dependents = root.xpath(xpath_dependents_number)[1]
-    except IndexError:
-        return get_dependents(owner, repo_name)
-    dependents_temp = re.findall(re.compile(r'\d+'), ugly_dependents)
-    if dependents_temp:
-        dependents = int(re.findall(re.compile(r'\d+'), ugly_dependents)[0])
-        return dependents
-    return 0
+
 
 
 def get_dependents_html(url: str) -> html.document_fromstring:
