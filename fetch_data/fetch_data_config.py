@@ -12,6 +12,11 @@ fetch_categories = {
     "forks": False,
 }
 
+override_save_categories = {
+    "run": True,
+    "categories": ["dependency-management"],
+}
+
 get_categories = {
     "run": True,
 }
