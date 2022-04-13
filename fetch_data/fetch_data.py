@@ -527,6 +527,19 @@ def get_dependents(owner: str, repo_name: str) -> int:
         for i, url in enumerate(packages):
             packages[i] = "https://github.com" + url
 
+    if packages:
+        max_url = ""
+        max_dependents = 0
+        for url in packages:
+            root_package = get_dependents_html(url)
+            dependents = get_dependents_number(root_package, owner, repo_name)
+            if dependents > max_dependents:
+                max_url = url
+                max_dependents = dependents
+        print(max_url)
+        print(max_dependents)
+        print('-----')
+
     try:
         ugly_dependents = root.xpath(xpath_dependents_number)[1]
     except IndexError:
@@ -535,7 +548,7 @@ def get_dependents(owner: str, repo_name: str) -> int:
     if dependents_temp:
         dependents = int(re.findall(re.compile(r'\d+'), ugly_dependents)[0])
         return dependents
-    return -1
+    return 0
 
 
 def get_dependents_html(url: str) -> html.document_fromstring:
@@ -556,6 +569,28 @@ def get_dependents_html(url: str) -> html.document_fromstring:
             continue
 
     return root
+
+
+def get_dependents_number(root: html.document_fromstring, owner: str, repo_name: str) -> int:
+    """
+    Get the number of dependents on a page.
+
+    :param root: The html where the dependents are located.
+    :param owner: The owner of the repo.
+    :param repo_name: The name of the repo.
+    :return: The number of dependents.
+    """
+    xpath_dependents_number = '//*[@id="dependents"]/div[3]/div[1]/div/div/a[1]/text()'
+
+    try:
+        ugly_dependents = root.xpath(xpath_dependents_number)[1]
+    except IndexError:
+        return get_dependents(owner, repo_name)
+    dependents_temp = re.findall(re.compile(r'\d+'), ugly_dependents)
+    if dependents_temp:
+        dependents = int(''.join(dependents_temp))
+        return dependents
+    return 0
 
 
 if __name__ == "__main__":
