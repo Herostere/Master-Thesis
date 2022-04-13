@@ -237,39 +237,52 @@ def thread_data(pages: list, category: str) -> None:
                 if mp_page:
                     data = test_link(url)
                     if data:
-                        verified = get_verified(mp_page)
-                        owner = get_owner(url)
-                        repo_name = get_repo_name(url)
-                        versions = get_api('versions', owner, repo_name)
-                        dependents = get_dependents(owner, repo_name)
-                        contributors = get_api('contributors', owner, repo_name)
-                        contributors.sort()
-                        get_from_repo_api = ['stargazers_count', 'subscribers_count', 'forks_count']
-                        stars_watching_forks = get_api(get_from_repo_api, owner, repo_name)
-                        """
-                        This versions get the people, not the number (more api call)
-                        """
-                        # stars = get_api('stars', owner, repo_name)
-                        # watching = get_api('watching', owner, repo_name)
-                        # forks = get_api('forks', owner, repo_name)
-                        """
-                        ============================================================
-                        """
-                        stars = int(stars_watching_forks['stargazers_count'])
-                        watching = int(stars_watching_forks['subscribers_count'])
-                        forks = int(stars_watching_forks['forks_count'])
-
                         DATA[pretty_name] = {}
                         DATA[pretty_name]['category'] = category
+                        verified = get_verified(mp_page)
                         DATA[pretty_name]['verified'] = verified
+                        owner = get_owner(url)
                         DATA[pretty_name]['owner'] = owner
+                        repo_name = get_repo_name(url)
                         DATA[pretty_name]['repository'] = repo_name
-                        DATA[pretty_name]['versions'] = versions
-                        DATA[pretty_name]['dependents'] = dependents
-                        DATA[pretty_name]['contributors'] = contributors
-                        DATA[pretty_name]['stars'] = stars
-                        DATA[pretty_name]['watching'] = watching
-                        DATA[pretty_name]['forks'] = forks
+
+                        if config.fetch_categories["versions"]:
+                            versions = get_api('versions', owner, repo_name)
+                            DATA[pretty_name]['versions'] = versions
+
+                        if config.fetch_categories["dependents"]:
+                            dependents = get_dependents(owner, repo_name)
+                            DATA[pretty_name]['dependents'] = dependents
+
+                        if config.fetch_categories["contributors"]:
+                            contributors = get_api('contributors', owner, repo_name)
+                            contributors.sort()
+                            DATA[pretty_name]['contributors'] = contributors
+
+                        stars = config.fetch_categories["stars"]
+                        watchers = config.fetch_categories["watchers"]
+                        forks = config.fetch_categories["forks"]
+                        if stars or watchers or forks:
+                            get_from_repo_api = ['stargazers_count', 'subscribers_count', 'forks_count']
+                            stars_watching_forks = get_api(get_from_repo_api, owner, repo_name)
+                            if stars:
+                                stars = int(stars_watching_forks['stargazers_count'])
+                                DATA[pretty_name]['stars'] = stars
+                            if watchers:
+                                watching = int(stars_watching_forks['subscribers_count'])
+                                DATA[pretty_name]['watching'] = watching
+                            if forks:
+                                forks = int(stars_watching_forks['forks_count'])
+                                DATA[pretty_name]['forks'] = forks
+                            """
+                            This versions get the people, not the number (more api call)
+                            """
+                            # stars = get_api('stars', owner, repo_name)
+                            # watching = get_api('watching', owner, repo_name)
+                            # forks = get_api('forks', owner, repo_name)
+                            """
+                            ============================================================
+                            """
 
 
 def format_action_name(ugly_name: str) -> str:
