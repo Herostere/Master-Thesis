@@ -570,10 +570,7 @@ def get_dependents_number(root: html.document_fromstring, owner: str, repo_name:
     """
     xpath_dependents_number = '//*[@id="dependents"]/div[3]/div[1]/div/div/a[1]/text()'
 
-    try:
-        ugly_dependents = root.xpath(xpath_dependents_number)[1]
-    except IndexError:
-        return get_dependents(owner, repo_name)
+    ugly_dependents = root.xpath(xpath_dependents_number)[1]
     dependents_temp = re.findall(re.compile(r'\d+'), ugly_dependents)
     if dependents_temp:
         dependents = int(''.join(dependents_temp))
@@ -626,3 +623,14 @@ if __name__ == "__main__":
         session.close()
 
     logging.info(f"--- {time.time() - start_time} seconds ---")
+
+"""
+To compute the sample size:
+    1) compute the sample size for an infinite population
+    2) adjust the sample size for the finite population
+    
+    1) s = (z**2) * p * (1 - p) / (m**2) with z = 1.96, p = 0.5 and m = 0.05
+    2) s2 = s / (1 + ((s - 1) / population_size))
+    
+    return math.ceil(s2)
+"""
