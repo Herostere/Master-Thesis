@@ -273,11 +273,11 @@ def thread_data(pages: list, category: str) -> None:
                                 DATA[pretty_name]['forks'] = forks
                             """
                             This versions get the people, not the number (more api call)
-                            """
+
                             # stars = get_api('stars', owner, repo_name)
                             # watching = get_api('watching', owner, repo_name)
                             # forks = get_api('forks', owner, repo_name)
-                            """
+
                             ============================================================
                             """
 
@@ -561,13 +561,11 @@ def get_dependents_html(url: str) -> html.document_fromstring:
     return root
 
 
-def get_dependents_number(root: html.document_fromstring, owner: str, repo_name: str) -> int:
+def get_dependents_number(root: html.document_fromstring) -> int:
     """
     Get the number of dependents on a page.
 
     :param root: The html where the dependents are located.
-    :param owner: The owner of the repo.
-    :param repo_name: The name of the repo.
     :return: The number of dependents.
     """
     xpath_dependents_number = '//*[@id="dependents"]/div[3]/div[1]/div/div/a[1]/text()'

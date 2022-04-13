@@ -26,4 +26,4 @@ fetch_data = {
     "max_threads": 50,
 }
 
-limit_requests = 350
+limit_requests = 300
