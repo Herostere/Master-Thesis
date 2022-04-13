@@ -537,7 +537,7 @@ def get_dependents(owner: str, repo_name: str) -> tuple[int, str]:
             if dependents > max_dependents:
                 max_url = urls
                 max_dependents = dependents
-                
+
     return max_dependents, max_url
 
 

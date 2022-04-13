@@ -4,16 +4,16 @@ Configuration file for "fetch_data.py".
 run = True
 
 fetch_categories = {
-    "versions": False,
+    "versions": True,
     "dependents": True,
-    "contributors": False,
-    "stars": False,
-    "watchers": False,
-    "forks": False,
+    "contributors": True,
+    "stars": True,
+    "watchers": True,
+    "forks": True,
 }
 
 override_save_categories = {
-    "run": True,
+    "run": False,
     "categories": ["dependency-management"],
 }
 
