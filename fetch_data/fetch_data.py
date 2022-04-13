@@ -505,16 +505,15 @@ def extract(api_call: requests.Response, to_extract: str | tuple | list, url, he
     return extracted
 
 
-def get_dependents(owner: str, repo_name: str) -> int:
+def get_dependents(owner: str, repo_name: str) -> tuple[int, str]:
     """
-    Get the number of dependents for a repository.
+    Get the number of dependents and the corresponding package url for a repository.
 
     :param owner: The owner of the repository.
     :param repo_name: The name of the repository.
-    :return: The number of dependents.
+    :return: The number of dependents and the url to get the dependents sample.
     """
     url = f"https://github.com/{owner}/{repo_name}/network/dependents"
-    xpath_dependents_number = '//*[@id="dependents"]/div[3]/div[1]/div/div/a[1]/text()'
     xpath_is_packages = '//*[@id="dependents"]/details/summary/i/text()'
     xpath_packages = '//*[@id="dependents"]/details/details-menu/div[2]/a/@href'
 
@@ -537,7 +536,7 @@ def get_dependents(owner: str, repo_name: str) -> int:
                 max_url = url
                 max_dependents = dependents
 
-
+    return max_dependents, max_url
 
 
 def get_dependents_html(url: str) -> html.document_fromstring:
