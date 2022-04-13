@@ -3,6 +3,20 @@ Configuration file for "fetch_data.py".
 """
 run = True
 
+fetch_categories = {
+    "versions": True,
+    "dependents": True,
+    "contributors": True,
+    "stars": True,
+    "watchers": True,
+    "forks": True,
+}
+
+override_save_categories = {
+    "run": False,
+    "categories": ["dependency-management"],
+}
+
 get_categories = {
     "run": True,
 }
@@ -12,4 +26,4 @@ fetch_data = {
     "max_threads": 50,
 }
 
-limit_requests = 350
+limit_requests = 300
