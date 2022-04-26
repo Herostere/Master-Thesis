@@ -4,7 +4,7 @@ This script identify the actions with a valid marketplace page.
 You will need to use Python3.10.
 """
 from bs4 import BeautifulSoup
-from datetime import datetime
+from datetime import datetime, timedelta
 from html import unescape
 from lxml import html, etree
 from ratelimit import limits, sleep_and_retry
@@ -20,12 +20,6 @@ import requests.adapters
 import threading
 import time
 
-
-try:
-    with open("actions_data.json", 'r') as f:
-        DATA = json.load(f)
-except FileNotFoundError:
-    DATA = json.loads('{}')
 
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 LIMIT = config.limit_requests
@@ -88,7 +82,12 @@ def get_request(function: str, url: str) -> requests.Response | None:
             session.close()
             session = requests.Session()
             session.cookies['user_session'] = os.getenv("CONNECTION_COOKIE")
-            return get_request(function, url)
+
+            threads = max(10, number_of_threads)
+            adapter = requests.adapters.HTTPAdapter(pool_connections=threads, pool_maxsize=threads)
+            session.mount("https://", adapter)
+            session.mount("http://", adapter)
+            # return get_request(function, url)
     T_R += 1
 
     logging.info(f"request {T_R}")
@@ -125,11 +124,18 @@ def fetch_data_multithread() -> None:
     """
     Retrieve information about each Action.
     """
+    global number_of_threads
     categories = numpy.load("categories.npy")
 
     logging.info("Fetching the data")
 
     for category in categories:
+        try:
+            with open("actions_data.json", 'r') as f1:
+                save_data = json.load(f1)
+        except FileNotFoundError:
+            save_data = json.loads('{}')
+
         logging.info(f"***** {category} *****")
 
         max_page_number = get_max_page(category)
@@ -138,18 +144,25 @@ def fetch_data_multithread() -> None:
 
         adapter = requests.adapters.HTTPAdapter(pool_connections=number_of_threads, pool_maxsize=number_of_threads)
         session.mount("https://", adapter)
+        session.mount("http://", adapter)
 
         threads = []
 
-        for i in range(0, number_of_threads):
-            list_of_pages = [x for x in range(1, max_page_number + 1) if x % number_of_threads == i]
-            threads.append(threading.Thread(target=thread_data, args=(list_of_pages, category,), name=f"thread_{i}"))
+        if number_of_threads > 0:
+            for i in range(0, number_of_threads):
+                list_of_pages = [x for x in range(1, max_page_number + 1) if x % number_of_threads == i]
+                threads.append(threading.Thread(target=thread_data,
+                                                args=(list_of_pages, category, save_data,),
+                                                name=f"thread_{i}"))
 
-        for thread in threads:
-            thread.start()
+            for thread in threads:
+                thread.start()
 
-        for thread in threads:
-            thread.join()
+            for thread in threads:
+                thread.join()
+
+        with open("actions_data.json", 'w') as f2:
+            json.dump(save_data, f2, sort_keys=True, indent=4)
 
 
 def get_max_page(category: str) -> int:
@@ -203,7 +216,7 @@ def get_number_of_threads(max_page_number: int) -> int:
     return num_of_threads
 
 
-def thread_data(pages: list, category: str) -> None:
+def thread_data(pages: list, category: str, save_data: dict) -> None:
     """
     For each Action on a category:
         - Check if it has a valid MP page.
@@ -212,6 +225,7 @@ def thread_data(pages: list, category: str) -> None:
 
     :param pages: The list of pages on which fetch the actions names.
     :param category: The category of GitHub Actions.
+    :param save_data: The JSON data.
     """
     actions_names_pattern = '<h3 class="h4">.*</h3>'
     actions_names_pattern_compiled = re.compile(actions_names_pattern)
@@ -226,35 +240,35 @@ def thread_data(pages: list, category: str) -> None:
         # Below is used to format the name as in the marketplace urls.
         for j in range(0, len(actions_names_ugly)):
             pretty_name = format_action_name(actions_names_ugly[j])
-            already_fetched = DATA.keys()
+            already_fetched = save_data.keys()
             if pretty_name not in already_fetched:
                 mp_page, url = test_mp_page(pretty_name)
                 if mp_page:
                     data = test_link(url)
                     if data:
-                        DATA[pretty_name] = {}
-                        DATA[pretty_name]['category'] = category
+                        save_data[pretty_name] = {}
+                        save_data[pretty_name]['category'] = category
                         verified = get_verified(mp_page)
-                        DATA[pretty_name]['verified'] = verified
+                        save_data[pretty_name]['verified'] = verified
                         owner = get_owner(url)
-                        DATA[pretty_name]['owner'] = owner
+                        save_data[pretty_name]['owner'] = owner
                         repo_name = get_repo_name(url)
-                        DATA[pretty_name]['repository'] = repo_name
+                        save_data[pretty_name]['repository'] = repo_name
 
                         if config.fetch_categories["versions"]:
                             versions = get_api('versions', owner, repo_name)
-                            DATA[pretty_name]['versions'] = versions
+                            save_data[pretty_name]['versions'] = versions
 
                         if config.fetch_categories["dependents"]:
                             dependents = get_dependents(owner, repo_name)
-                            DATA[pretty_name]['dependents'] = {}
-                            DATA[pretty_name]['dependents']['number'] = dependents[0]
-                            DATA[pretty_name]['dependents']['package_url'] = dependents[1]
+                            save_data[pretty_name]['dependents'] = {}
+                            save_data[pretty_name]['dependents']['number'] = dependents[0]
+                            save_data[pretty_name]['dependents']['package_url'] = dependents[1]
 
                         if config.fetch_categories["contributors"]:
                             contributors = get_api('contributors', owner, repo_name)
                             contributors.sort()
-                            DATA[pretty_name]['contributors'] = contributors
+                            save_data[pretty_name]['contributors'] = contributors
 
                         stars = config.fetch_categories["stars"]
                         watchers = config.fetch_categories["watchers"]
@@ -264,13 +278,13 @@ def thread_data(pages: list, category: str) -> None:
                             stars_watching_forks = get_api(get_from_repo_api, owner, repo_name)
                             if stars:
                                 stars = int(stars_watching_forks['stargazers_count'])
-                                DATA[pretty_name]['stars'] = stars
+                                save_data[pretty_name]['stars'] = stars
                             if watchers:
                                 watching = int(stars_watching_forks['subscribers_count'])
-                                DATA[pretty_name]['watching'] = watching
+                                save_data[pretty_name]['watching'] = watching
                             if forks:
                                 forks = int(stars_watching_forks['forks_count'])
-                                DATA[pretty_name]['forks'] = forks
+                                save_data[pretty_name]['forks'] = forks
                             """
                             This versions get the people, not the number (more api call)
 
@@ -448,7 +462,7 @@ def get_api(key: str | list, owner: str, repo_name: str) -> int | list | dict:
                     break
                 except requests.exceptions.ConnectionError:
                     time.sleep(60)
-                    continue
+
         temp = extract(api_call, to_extract[key], urls[key], headers)
         if is_tuple:
             final = final | temp
@@ -492,6 +506,11 @@ def extract(api_call: requests.Response, to_extract: str | tuple | list, url, he
     elif api_call.status_code == 403:
         message = 'message' in api_call.json().keys()
         if 'Retry-After' in api_call.headers.keys():
+            now = datetime.now()
+            finish = now + timedelta(seconds=int(api_call.headers['Retry-After']))
+            finish = finish.strftime('%H:%M:%S')
+
+            logging.info(f"API sleeping {str(int(api_call.headers['Retry-After']))} seconds (finish {finish})")
             time.sleep(int(api_call.headers['Retry-After']))
         elif message and "Authenticated requests get a higher rate limit." in api_call.json()['message']:
             pass
@@ -500,6 +519,11 @@ def extract(api_call: requests.Response, to_extract: str | tuple | list, url, he
             current = int(time.time())
             time_for_reset = reset - current
             if time_for_reset > 0:
+                now = datetime.now()
+                finish = now + timedelta(seconds=time_for_reset)
+                finish = finish.strftime('%H:%M:%S')
+
+                logging.info(f"API sleeping {str(time_for_reset)} seconds (finish {finish})")
                 time.sleep(time_for_reset)
         api_call = requests.get(url, headers=headers)
         return extract(api_call, to_extract, url, headers)
@@ -529,11 +553,11 @@ def get_dependents(owner: str, repo_name: str) -> tuple[int, str]:
             packages[i] = "https://github.com" + urls
 
     max_url = url if "https://github.com" in url else "https://github.com" + url
-    max_dependents = get_dependents_number(root, owner, repo_name)
+    max_dependents = get_dependents_number(root)
     if packages:
         for urls in packages:
             root_package = get_dependents_html(urls)
-            dependents = get_dependents_number(root_package, owner, repo_name)
+            dependents = get_dependents_number(root_package)
             if dependents > max_dependents:
                 max_url = urls
                 max_dependents = dependents
@@ -570,7 +594,11 @@ def get_dependents_number(root: html.document_fromstring) -> int:
     """
     xpath_dependents_number = '//*[@id="dependents"]/div[3]/div[1]/div/div/a[1]/text()'
 
-    ugly_dependents = root.xpath(xpath_dependents_number)[1]
+    try:
+        ugly_dependents = root.xpath(xpath_dependents_number)[1]
+    except IndexError:
+        return 0
+
     dependents_temp = re.findall(re.compile(r'\d+'), ugly_dependents)
     if dependents_temp:
         dependents = int(''.join(dependents_temp))
@@ -597,6 +625,7 @@ if __name__ == "__main__":
         """
         Fetch the categories.
         """
+        number_of_threads = 0
         session = requests.Session()
         session.cookies['user_session'] = os.getenv("CONNECTION_COOKIE")
 
@@ -611,10 +640,13 @@ if __name__ == "__main__":
         if run_fetch_data:
             fetch_data_multithread()
 
-            with open("actions_data.json", 'w') as f:
-                json.dump(DATA, f, sort_keys=True, indent=4)
+            try:
+                with open("actions_data.json", 'r') as f:
+                    load_data = json.load(f)
+            except FileNotFoundError:
+                load_data = json.loads('{}')
 
-            number_of_actions = len(DATA.keys())
+            number_of_actions = len(load_data.keys())
 
             logging.info(f"Number of fetched actions: {number_of_actions}")
         else:

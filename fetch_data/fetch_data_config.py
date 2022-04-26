@@ -14,7 +14,7 @@ fetch_categories = {
 
 override_save_categories = {
     "run": False,
-    "categories": ["dependency-management"],
+    "categories": ["recently-added", "security"],
 }
 
 get_categories = {
@@ -26,4 +26,4 @@ fetch_data = {
     "max_threads": 50,
 }
 
-limit_requests = 300
+limit_requests = 350
