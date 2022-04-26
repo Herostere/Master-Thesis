@@ -87,7 +87,6 @@ def get_request(function: str, url: str) -> requests.Response | None:
             adapter = requests.adapters.HTTPAdapter(pool_connections=threads, pool_maxsize=threads)
             session.mount("https://", adapter)
             session.mount("http://", adapter)
-            print('a')
             # return get_request(function, url)
     T_R += 1
 
@@ -437,7 +436,6 @@ def get_api(key: str | list, owner: str, repo_name: str) -> int | list | dict:
                 api_call = requests.get(urls[key], headers=headers)
             break
         except requests.ConnectionError:
-            print('b')
             time.sleep(60)
 
     if type(key) is list:
@@ -463,9 +461,8 @@ def get_api(key: str | list, owner: str, repo_name: str) -> int | list | dict:
                     api_call = requests.get(api_call.links['next']['url'], headers)
                     break
                 except requests.exceptions.ConnectionError:
-                    print('c')
                     time.sleep(60)
-                    continue
+
         temp = extract(api_call, to_extract[key], urls[key], headers)
         if is_tuple:
             final = final | temp
@@ -583,7 +580,6 @@ def get_dependents_html(url: str) -> html.document_fromstring:
             root = beautiful_html(request.text)
             break
         except etree.ParserError:
-            print('d')
             continue
 
     return root
