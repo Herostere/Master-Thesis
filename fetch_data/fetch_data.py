@@ -516,6 +516,7 @@ def extract(api_call: requests.Response, to_extract: str | tuple | list, url, in
             # logging.info(f"API sleeping {str(int(api_call.headers['Retry-After']))} seconds (finish {finish})")
             # time.sleep(int(api_call.headers['Retry-After']))
             i = (i + 1) % len(GITHUB_TOKENS)
+            logging.info(f"API switching to {i}")
         elif message and "Authenticated requests get a higher rate limit." in api_call.json()['message']:
             pass
         else:
@@ -530,6 +531,7 @@ def extract(api_call: requests.Response, to_extract: str | tuple | list, url, in
                 # logging.info(f"API sleeping {str(time_for_reset)} seconds (finish {finish})")
                 # time.sleep(time_for_reset)
                 i = (i + 1) % len(GITHUB_TOKENS)
+                logging.info(f"API switching to {i}")
         headers = {
             'Authorization': f'token {GITHUB_TOKENS[i]}',
             'accept': 'application/vnd.github.v3+json',
