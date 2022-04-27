@@ -4,7 +4,7 @@ This script identify the actions with a valid marketplace page.
 You will need to use Python3.10.
 """
 from bs4 import BeautifulSoup
-from datetime import datetime, timedelta
+from datetime import datetime
 from html import unescape
 from lxml import html, etree
 from ratelimit import limits, sleep_and_retry
@@ -21,7 +21,7 @@ import threading
 import time
 
 
-GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+GITHUB_TOKENS = config.tokens
 LIMIT = config.limit_requests
 T_R = 0
 
@@ -230,6 +230,8 @@ def thread_data(pages: list, category: str, save_data: dict) -> None:
     actions_names_pattern = '<h3 class="h4">.*</h3>'
     actions_names_pattern_compiled = re.compile(actions_names_pattern)
 
+    index = 0
+
     for page in pages:
         url = f"https://github.com/marketplace?category={category}&page={page}&query=&type=actions"
 
@@ -256,7 +258,7 @@ def thread_data(pages: list, category: str, save_data: dict) -> None:
                         save_data[pretty_name]['repository'] = repo_name
 
                         if config.fetch_categories["versions"]:
-                            versions = get_api('versions', owner, repo_name)
+                            versions, index = get_api('versions', owner, repo_name, index)
                             save_data[pretty_name]['versions'] = versions
 
                         if config.fetch_categories["dependents"]:
@@ -266,7 +268,7 @@ def thread_data(pages: list, category: str, save_data: dict) -> None:
                             save_data[pretty_name]['dependents']['package_url'] = dependents[1]
 
                         if config.fetch_categories["contributors"]:
-                            contributors = get_api('contributors', owner, repo_name)
+                            contributors, index = get_api('contributors', owner, repo_name, index)
                             contributors.sort()
                             save_data[pretty_name]['contributors'] = contributors
 
@@ -275,7 +277,7 @@ def thread_data(pages: list, category: str, save_data: dict) -> None:
                         forks = config.fetch_categories["forks"]
                         if stars or watchers or forks:
                             get_from_repo_api = ['stargazers_count', 'subscribers_count', 'forks_count']
-                            stars_watching_forks = get_api(get_from_repo_api, owner, repo_name)
+                            stars_watching_forks, index = get_api(get_from_repo_api, owner, repo_name, index)
                             if stars:
                                 stars = int(stars_watching_forks['stargazers_count'])
                                 save_data[pretty_name]['stars'] = stars
@@ -389,15 +391,18 @@ def get_repo_name(url: str) -> str:
     return url.split('https://github.com/')[1].split('/')[1]
 
 
-def get_api(key: str | list, owner: str, repo_name: str) -> int | list | dict:
+def get_api(key: str | list, owner: str, repo_name: str, index: int) -> tuple[int | list | dict, int]:
     """
     Contact the API to fetch information.
 
     :param key: The kind of data to retrieve.
     :param owner: The owner of the repository.
     :param repo_name: The name of the repository.
-    :return: An integer, a list or a dictionary, depending of the nature of the needed information.
+    :param index: The index for the list of Tokens.
+    :return: A tuple with an integer, a list or a dictionary, depending of the nature of the needed information and
+             the index for the next API call.
     """
+    i = index
     url = f"https://api.github.com/repos/{owner}/{repo_name}"
     urls = {
         'versions': f"{url}/releases?per_page=100&page=1",
@@ -414,7 +419,7 @@ def get_api(key: str | list, owner: str, repo_name: str) -> int | list | dict:
         'watching': 'login',
     }
     headers = {
-        'Authorization': f'token {GITHUB_TOKEN}',
+        'Authorization': f'token {GITHUB_TOKENS[i]}',
         'accept': 'application/vnd.github.v3+json',
     }
 
@@ -439,10 +444,11 @@ def get_api(key: str | list, owner: str, repo_name: str) -> int | list | dict:
             time.sleep(60)
 
     if type(key) is list:
-        return extract(api_call, key, url, headers).json()
+        to_return, i = extract(api_call, key, url, i)
+        return to_return.json(), i
 
     if 'next' not in api_call.links.keys():
-        temp = extract(api_call, to_extract[key], urls[key], headers)
+        temp, i = extract(api_call, to_extract[key], urls[key], i)
         if is_tuple:
             final = final | temp
         else:
@@ -450,7 +456,7 @@ def get_api(key: str | list, owner: str, repo_name: str) -> int | list | dict:
                 final.append(extracted)
     elif 'next' in api_call.links.keys():
         while 'next' in api_call.links.keys():
-            temp = extract(api_call, to_extract[key], urls[key], headers)
+            temp, i = extract(api_call, to_extract[key], urls[key], i)
             if is_tuple:
                 final = final | temp
             else:
@@ -463,7 +469,7 @@ def get_api(key: str | list, owner: str, repo_name: str) -> int | list | dict:
                 except requests.exceptions.ConnectionError:
                     time.sleep(60)
 
-        temp = extract(api_call, to_extract[key], urls[key], headers)
+        temp, i = extract(api_call, to_extract[key], urls[key], i)
         if is_tuple:
             final = final | temp
         else:
@@ -471,22 +477,24 @@ def get_api(key: str | list, owner: str, repo_name: str) -> int | list | dict:
                 final.append(extracted)
 
     if key in ['stars', 'forks', 'watching']:
-        return len(final)
+        return len(final), i
 
-    return final
+    return final, i
 
 
-def extract(api_call: requests.Response, to_extract: str | tuple | list, url, headers):
+def extract(api_call: requests.Response, to_extract: str | tuple | list, url, index):
     """
     Extract the information from the API.
 
     :param api_call: The call to the API.
     :param to_extract: The information we need to extract.
     :param url: The URL of the API.
-    :param headers: The headers for the request to the API.
-    :return: The extracted information in a list or dictionary.
-    :rtype: list | dict | requests.Response
+    :param index: The index in the list of Tokens.
+    :return: The extracted information in a list or dictionary and the index for the API.
+    :rtype: tuple[list | dict | requests.Response, int]
     """
+    i = index
+
     is_tuple = type(to_extract) is tuple
     if is_tuple:
         extracted = {}
@@ -496,7 +504,7 @@ def extract(api_call: requests.Response, to_extract: str | tuple | list, url, he
     if api_call.status_code == 200:
         for needed in api_call.json():
             if type(to_extract) is list:
-                return api_call
+                return api_call, i
             if is_tuple:
                 key = datetime.strptime(needed[to_extract[1]], '%Y-%m-%dT%H:%M:%SZ').strftime('%d/%m/%Y')
                 value = needed[to_extract[0]]
@@ -506,12 +514,8 @@ def extract(api_call: requests.Response, to_extract: str | tuple | list, url, he
     elif api_call.status_code == 403:
         message = 'message' in api_call.json().keys()
         if 'Retry-After' in api_call.headers.keys():
-            now = datetime.now()
-            finish = now + timedelta(seconds=int(api_call.headers['Retry-After']))
-            finish = finish.strftime('%H:%M:%S')
-
-            logging.info(f"API sleeping {str(int(api_call.headers['Retry-After']))} seconds (finish {finish})")
-            time.sleep(int(api_call.headers['Retry-After']))
+            i = (i + 1) % len(GITHUB_TOKENS)
+            logging.info(f"API switching to {i}")
         elif message and "Authenticated requests get a higher rate limit." in api_call.json()['message']:
             pass
         else:
@@ -519,16 +523,16 @@ def extract(api_call: requests.Response, to_extract: str | tuple | list, url, he
             current = int(time.time())
             time_for_reset = reset - current
             if time_for_reset > 0:
-                now = datetime.now()
-                finish = now + timedelta(seconds=time_for_reset)
-                finish = finish.strftime('%H:%M:%S')
-
-                logging.info(f"API sleeping {str(time_for_reset)} seconds (finish {finish})")
-                time.sleep(time_for_reset)
+                i = (i + 1) % len(GITHUB_TOKENS)
+                logging.info(f"API switching to {i}")
+        headers = {
+            'Authorization': f'token {GITHUB_TOKENS[i]}',
+            'accept': 'application/vnd.github.v3+json',
+        }
         api_call = requests.get(url, headers=headers)
-        return extract(api_call, to_extract, url, headers)
+        return extract(api_call, to_extract, url, i)
 
-    return extracted
+    return extracted, i
 
 
 def get_dependents(owner: str, repo_name: str) -> tuple[int, str]:
