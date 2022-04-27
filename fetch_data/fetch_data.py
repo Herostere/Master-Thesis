@@ -4,7 +4,7 @@ This script identify the actions with a valid marketplace page.
 You will need to use Python3.10.
 """
 from bs4 import BeautifulSoup
-from datetime import datetime, timedelta
+from datetime import datetime
 from html import unescape
 from lxml import html, etree
 from ratelimit import limits, sleep_and_retry
@@ -21,7 +21,8 @@ import threading
 import time
 
 
-GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+GITHUB_TOKENS = [os.getenv("GITHUB_TOKEN1"), os.getenv("GITHUB_TOKEN2"), os.getenv("GITHUB_TOKEN3"),
+                 os.getenv("GITHUB_TOKEN4")]
 LIMIT = config.limit_requests
 T_R = 0
 
@@ -414,7 +415,7 @@ def get_api(key: str | list, owner: str, repo_name: str) -> int | list | dict:
         'watching': 'login',
     }
     headers = {
-        'Authorization': f'token {GITHUB_TOKEN}',
+        'Authorization': f'token {GITHUB_TOKENS[0]}',
         'accept': 'application/vnd.github.v3+json',
     }
 
@@ -439,10 +440,10 @@ def get_api(key: str | list, owner: str, repo_name: str) -> int | list | dict:
             time.sleep(60)
 
     if type(key) is list:
-        return extract(api_call, key, url, headers).json()
+        return extract(api_call, key, url).json()
 
     if 'next' not in api_call.links.keys():
-        temp = extract(api_call, to_extract[key], urls[key], headers)
+        temp = extract(api_call, to_extract[key], urls[key])
         if is_tuple:
             final = final | temp
         else:
@@ -450,7 +451,7 @@ def get_api(key: str | list, owner: str, repo_name: str) -> int | list | dict:
                 final.append(extracted)
     elif 'next' in api_call.links.keys():
         while 'next' in api_call.links.keys():
-            temp = extract(api_call, to_extract[key], urls[key], headers)
+            temp = extract(api_call, to_extract[key], urls[key])
             if is_tuple:
                 final = final | temp
             else:
@@ -463,7 +464,7 @@ def get_api(key: str | list, owner: str, repo_name: str) -> int | list | dict:
                 except requests.exceptions.ConnectionError:
                     time.sleep(60)
 
-        temp = extract(api_call, to_extract[key], urls[key], headers)
+        temp = extract(api_call, to_extract[key], urls[key])
         if is_tuple:
             final = final | temp
         else:
@@ -476,17 +477,19 @@ def get_api(key: str | list, owner: str, repo_name: str) -> int | list | dict:
     return final
 
 
-def extract(api_call: requests.Response, to_extract: str | tuple | list, url, headers):
+def extract(api_call: requests.Response, to_extract: str | tuple | list, url, index: int = 0):
     """
     Extract the information from the API.
 
     :param api_call: The call to the API.
     :param to_extract: The information we need to extract.
     :param url: The URL of the API.
-    :param headers: The headers for the request to the API.
+    :param index: The index in the list of Tokens.
     :return: The extracted information in a list or dictionary.
     :rtype: list | dict | requests.Response
     """
+    i = index
+
     is_tuple = type(to_extract) is tuple
     if is_tuple:
         extracted = {}
@@ -506,12 +509,13 @@ def extract(api_call: requests.Response, to_extract: str | tuple | list, url, he
     elif api_call.status_code == 403:
         message = 'message' in api_call.json().keys()
         if 'Retry-After' in api_call.headers.keys():
-            now = datetime.now()
-            finish = now + timedelta(seconds=int(api_call.headers['Retry-After']))
-            finish = finish.strftime('%H:%M:%S')
-
-            logging.info(f"API sleeping {str(int(api_call.headers['Retry-After']))} seconds (finish {finish})")
-            time.sleep(int(api_call.headers['Retry-After']))
+            # now = datetime.now()
+            # finish = now + timedelta(seconds=int(api_call.headers['Retry-After']))
+            # finish = finish.strftime('%H:%M:%S')
+            #
+            # logging.info(f"API sleeping {str(int(api_call.headers['Retry-After']))} seconds (finish {finish})")
+            # time.sleep(int(api_call.headers['Retry-After']))
+            i = (i + 1) % len(GITHUB_TOKENS)
         elif message and "Authenticated requests get a higher rate limit." in api_call.json()['message']:
             pass
         else:
@@ -519,14 +523,19 @@ def extract(api_call: requests.Response, to_extract: str | tuple | list, url, he
             current = int(time.time())
             time_for_reset = reset - current
             if time_for_reset > 0:
-                now = datetime.now()
-                finish = now + timedelta(seconds=time_for_reset)
-                finish = finish.strftime('%H:%M:%S')
-
-                logging.info(f"API sleeping {str(time_for_reset)} seconds (finish {finish})")
-                time.sleep(time_for_reset)
+                # now = datetime.now()
+                # finish = now + timedelta(seconds=time_for_reset)
+                # finish = finish.strftime('%H:%M:%S')
+                #
+                # logging.info(f"API sleeping {str(time_for_reset)} seconds (finish {finish})")
+                # time.sleep(time_for_reset)
+                i = (i + 1) % len(GITHUB_TOKENS)
+        headers = {
+            'Authorization': f'token {GITHUB_TOKENS[i]}',
+            'accept': 'application/vnd.github.v3+json',
+        }
         api_call = requests.get(url, headers=headers)
-        return extract(api_call, to_extract, url, headers)
+        return extract(api_call, to_extract, url, i)
 
     return extracted
 
