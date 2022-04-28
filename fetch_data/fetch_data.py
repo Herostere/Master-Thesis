@@ -243,7 +243,10 @@ def thread_data(pages: list, category: str, save_data: dict) -> None:
         for j in range(0, len(actions_names_ugly)):
             pretty_name = format_action_name(actions_names_ugly[j])
             already_fetched = save_data.keys()
-            if pretty_name not in already_fetched:
+            if pretty_name in already_fetched and save_data[pretty_name]["category"] == "recently-added":
+                if category != "recently-added":
+                    save_data[pretty_name]["category"] = category
+            elif pretty_name not in already_fetched:
                 mp_page, url = test_mp_page(pretty_name)
                 if mp_page:
                     data = test_link(url)
