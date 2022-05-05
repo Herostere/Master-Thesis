@@ -538,6 +538,23 @@ def extract(api_call: requests.Response, to_extract: str | tuple | list, url, in
     return extracted, i
 
 
+def get_remaining_api_calls() -> bool:
+    """
+    Tells if API calls can be made or not.
+
+    :return: True if there can be API requests. Otherwise, False.
+    """
+    for token in GITHUB_TOKENS:
+        headers = {
+            'Authorization': f'token {token}',
+            'accept': 'application/vnd.github.v3+json',
+        }
+        api_call = requests.get("http://api.github.com/rate_limit", headers=headers)
+        if int(api_call.headers['X-RateLimit-Remaining']) > 0:
+            return True
+    return False
+
+
 def get_dependents(owner: str, repo_name: str) -> tuple[int, str]:
     """
     Get the number of dependents and the corresponding package url for a repository.
