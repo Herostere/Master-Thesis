@@ -4,7 +4,7 @@ This script identify the actions with a valid marketplace page.
 You will need to use Python3.10.
 """
 from bs4 import BeautifulSoup
-from datetime import datetime
+from datetime import datetime, timedelta
 from html import unescape
 from lxml import html, etree
 from ratelimit import limits, sleep_and_retry
@@ -517,8 +517,16 @@ def extract(api_call: requests.Response, to_extract: str | tuple | list, url, in
     elif api_call.status_code == 403:
         message = 'message' in api_call.json().keys()
         if 'Retry-After' in api_call.headers.keys():
-            i = (i + 1) % len(GITHUB_TOKENS)
-            logging.info(f"API switching to {i}")
+            if not get_remaining_api_calls():
+                now = datetime.now()
+                finish = now + timedelta(seconds=int(api_call.headers['Retry-After']))
+                finish = finish.strftime('%H:%M:%S')
+
+                logging.info(f"API sleeping {str(int(api_call.headers['Retry-After']))} seconds (finish {finish})")
+                time.sleep(int(api_call.headers['Retry-After']))
+            else:
+                i = (i + 1) % len(GITHUB_TOKENS)
+                logging.info(f"API switching to {i}")
         elif message and "Authenticated requests get a higher rate limit." in api_call.json()['message']:
             pass
         else:
@@ -526,8 +534,16 @@ def extract(api_call: requests.Response, to_extract: str | tuple | list, url, in
             current = int(time.time())
             time_for_reset = reset - current
             if time_for_reset > 0:
-                i = (i + 1) % len(GITHUB_TOKENS)
-                logging.info(f"API switching to {i}")
+                if not get_remaining_api_calls():
+                    now = datetime.now()
+                    finish = now + timedelta(seconds=int(api_call.headers['Retry-After']))
+                    finish = finish.strftime('%H:%M:%S')
+
+                    logging.info(f"API sleeping {str(int(api_call.headers['Retry-After']))} seconds (finish {finish})")
+                    time.sleep(time_for_reset)
+                else:
+                    i = (i + 1) % len(GITHUB_TOKENS)
+                    logging.info(f"API switching to {i}")
         headers = {
             'Authorization': f'token {GITHUB_TOKENS[i]}',
             'accept': 'application/vnd.github.v3+json',
