@@ -23,6 +23,8 @@ import time
 
 GITHUB_TOKENS = config.tokens
 LIMIT = config.limit_requests
+SESSION = requests.Session()
+SESSION.cookies['user_session'] = os.getenv("CONNECTION_COOKIE")
 T_R = 0
 
 
@@ -410,6 +412,7 @@ def get_api(key: str | list, owner: str, repo_name: str, index: int) -> tuple[in
         'forks': f"{url}/forks?per_page=100&page=1",
         'watching': f"{url}/subscribers?per_page=100&page=1",
         'issues': f"{url}/issues?state=all&per_page=100",
+        'files': f"{url}/commits?per_page=100&page=1",
     }
     to_extract = {
         'versions': ('tag_name', 'published_at'),
