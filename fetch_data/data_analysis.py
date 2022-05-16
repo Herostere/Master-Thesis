@@ -3,6 +3,7 @@ This script is used to generate plots in order to analyse the data previously re
 """
 from collections import Counter
 from datetime import datetime
+from fetch_data import get_api, get_request, beautiful_html
 from packaging import version as packaging_version
 
 import data_analysis_config as config
@@ -301,6 +302,43 @@ def determine_popularity() -> None:
         print(f"{key}: {value} --- {key_category}")
 
 
+def multiple_actions():
+    actions_in_repos = []
+
+    for action in loaded_data:
+        # get name of the main branch
+        # api request to get the sha of the branch
+        # api request to get the files
+        owner = loaded_data[action]["owner"]
+        repository = loaded_data[action]["repository"]
+        url = f"https://github.com/{owner}/{repository}"
+
+        request = get_request("multiple_actions", url)
+        xpath_workflow = '//a[text()[contains(., ".github")]]/@href'
+        xpath_yml = '//a[text()[contains(., "yml")]]/@href'
+        root = beautiful_html(request.text)
+
+        ymls = root.xpath(xpath_yml)
+        workflow = root.xpath(xpath_workflow)
+        for element in workflow:
+            if "#" in element:
+                workflow.remove(element)
+            else:
+                base = "https://github.com"
+                request = get_request("multiple_actions", f"{base}/{element}")
+                if request:
+                    root = beautiful_html(request.text)
+                    ymls += root.xpath(xpath_yml)
+        for element in ymls:
+            if "#" in element or "/commit/" in element:
+                ymls.remove(element)
+
+        actions_in_repos.append(len(ymls))
+
+    mean_actions_in_repos = statistics.mean(actions_in_repos)
+    print(mean_actions_in_repos)
+
+
 if __name__ == "__main__":
     file = config.file_name
     try:
@@ -332,3 +370,6 @@ if __name__ == "__main__":
 
     if config.popularity:
         determine_popularity()
+
+    if config.multiple_actions:
+        multiple_actions()
