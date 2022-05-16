@@ -1,6 +1,7 @@
 """
 This script is used to generate plots in order to analyse the data previously retrieved.
 """
+from collections import Counter
 from datetime import datetime
 from packaging import version as packaging_version
 
@@ -278,8 +279,26 @@ def days_between_dates(dates: list) -> list:
     return days
 
 
-def determine_popularity():
-    pass
+def determine_popularity() -> None:
+    """
+    Determine the popularity of an Action.
+    The popularity is computed as number of stars + number of dependents + number of forks + number of watching.
+    """
+    scores = {}
+    for action in loaded_data:
+        stars = loaded_data[action]["stars"]
+        dependents = loaded_data[action]["dependents"]["number"]
+        forks = loaded_data[action]["forks"]
+        watching = loaded_data[action]["watching"]
+        score = stars + dependents + forks + watching
+
+        scores[action] = score
+
+    scores_counter = Counter(scores)
+
+    for key, value in scores_counter.most_common(15):
+        key_category = loaded_data[key]["category"]
+        print(f"{key}: {value} --- {key_category}")
 
 
 if __name__ == "__main__":

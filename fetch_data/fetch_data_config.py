@@ -12,7 +12,7 @@ fetch_categories = {
     "stars": False,
     "watchers": False,
     "forks": False,
-    "issues": True,
+    "issues": False,
 }
 
 override_save_categories = {
