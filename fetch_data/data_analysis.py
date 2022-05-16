@@ -50,7 +50,7 @@ def market_growing_over_time(p_category: str = None) -> None:
     grow_keys = list(grow.keys())
 
     for i in range(len(actions_data)):
-        key = grow_keys.__getitem__(i)
+        key = grow_keys[i]
         data = actions_data[i]
         grow[key] = len(data)
 
@@ -140,7 +140,10 @@ def most_commonly_proposed() -> None:
                    "Number of Actions For Each Category")
 
 
-def actions_technical_lag():
+def actions_technical_lag() -> None:
+    """
+    Determine the mean for the technical lag of the Actions.
+    """
     # versions = get_sample("versions")
     versions = [loaded_data[key]["versions"] for key in loaded_data]
     versions = sort_dates_keys(versions)
@@ -156,9 +159,11 @@ def actions_technical_lag():
             last_micro = packaging_version.parse(item[first_key]).micro
         except AttributeError:
             continue
+
         major_updates = []
         minor_updates = []
         micro_updates = []
+
         if last_major > 0:
             major_updates.append(first_key)
         if last_minor > 0:
@@ -254,6 +259,12 @@ def sort_dates_keys(versions: list) -> list:
 
 
 def days_between_dates(dates: list) -> list:
+    """
+    Determine the days between dates placed in a list.
+
+    :param dates: A list with the dates.
+    :return: The list of days between the dates in the list.
+    """
     i = 0
     j = 1
 
