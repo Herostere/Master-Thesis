@@ -6,12 +6,12 @@ import os
 run = True
 
 fetch_categories = {
-    "versions": True,
-    "dependents": True,
-    "contributors": True,
-    "stars": True,
-    "watchers": True,
-    "forks": True,
+    "versions": False,
+    "dependents": False,
+    "contributors": False,
+    "stars": False,
+    "watchers": False,
+    "forks": False,
     "issues": True,
 }
 

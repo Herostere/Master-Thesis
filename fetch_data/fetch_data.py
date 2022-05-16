@@ -291,6 +291,10 @@ def thread_data(pages: list, category: str, save_data: dict) -> None:
                                 forks = int(stars_watching_forks['forks_count'])
                                 save_data[pretty_name]['forks'] = forks
 
+                        if config.fetch_categories["issues"]:
+                            issues, index = get_api("issues", owner, repo_name, index)
+                            save_data[pretty_name]["open_issues"] = issues["open"]
+                            save_data[pretty_name]["closed_issues"] = issues["closed"]
 
 
 def format_action_name(ugly_name: str) -> str:
@@ -405,6 +409,7 @@ def get_api(key: str | list, owner: str, repo_name: str, index: int) -> tuple[in
         'contributors': f"{url}/contributors?per_page=100&page=1",
         'forks': f"{url}/forks?per_page=100&page=1",
         'watching': f"{url}/subscribers?per_page=100&page=1",
+        'issues': f"{url}/issues?state=all&per_page=100",
     }
     to_extract = {
         'versions': ('tag_name', 'published_at'),
@@ -412,6 +417,7 @@ def get_api(key: str | list, owner: str, repo_name: str, index: int) -> tuple[in
         'contributors': 'login',
         'forks': 'id',
         'watching': 'login',
+        'issues': ('open', 'closed')
     }
     headers = {
         'Authorization': f'token {GITHUB_TOKENS[i]}',
@@ -497,13 +503,21 @@ def extract(api_call: requests.Response, to_extract: str | tuple | list, url, in
         extracted = []
 
     if api_call.status_code == 200:
+        extracted["open"] = 0
+        extracted["closed"] = 0
         for needed in api_call.json():
             if type(to_extract) is list:
                 return api_call, i
             if is_tuple:
-                key = datetime.strptime(needed[to_extract[1]], '%Y-%m-%dT%H:%M:%SZ').strftime('%d/%m/%Y')
-                value = needed[to_extract[0]]
-                extracted[key] = value
+                if ('open', 'closed') == to_extract:
+                    if needed['state'] == "closed":
+                        extracted["closed"] += 1
+                    else:
+                        extracted["open"] += 1
+                else:
+                    key = datetime.strptime(needed[to_extract[1]], '%Y-%m-%dT%H:%M:%SZ').strftime('%d/%m/%Y')
+                    value = needed[to_extract[0]]
+                    extracted[key] = value
             else:
                 extracted.append(needed[to_extract])
     elif api_call.status_code == 403:

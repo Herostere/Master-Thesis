@@ -267,6 +267,10 @@ def days_between_dates(dates: list) -> list:
     return days
 
 
+def determine_popularity():
+    pass
+
+
 if __name__ == "__main__":
     file = config.file_name
     try:
@@ -295,3 +299,6 @@ if __name__ == "__main__":
 
     if config.actions_technical_lag:
         actions_technical_lag()
+
+    if config.popularity:
+        determine_popularity()
