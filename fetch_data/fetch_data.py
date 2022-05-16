@@ -290,15 +290,7 @@ def thread_data(pages: list, category: str, save_data: dict) -> None:
                             if forks:
                                 forks = int(stars_watching_forks['forks_count'])
                                 save_data[pretty_name]['forks'] = forks
-                            """
-                            This versions get the people, not the number (more api call)
 
-                            # stars = get_api('stars', owner, repo_name)
-                            # watching = get_api('watching', owner, repo_name)
-                            # forks = get_api('forks', owner, repo_name)
-
-                            ============================================================
-                            """
 
 
 def format_action_name(ugly_name: str) -> str:

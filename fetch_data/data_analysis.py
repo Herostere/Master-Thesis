@@ -1,13 +1,16 @@
 """
 This script is used to generate plots in order to analyse the data previously retrieved.
 """
+from datetime import datetime
+from packaging import version as packaging_version
+
 import data_analysis_config as config
-import datetime
 import json
 import math
 import matplotlib.pyplot as plt
 import random
 import seaborn
+import statistics
 
 
 def market_growing_over_time(p_category: str = None) -> None:
@@ -60,7 +63,7 @@ def market_growing_over_time(p_category: str = None) -> None:
         show_bar_plots(grow_keys, values, "v", f"Growing of \"{p_category}\"")
 
 
-def show_bar_plots(x: list, y:list, orient: str, title: str) -> None:
+def show_bar_plots(x: list, y: list, orient: str, title: str) -> None:
     """
     Shows a bar plot.
 
@@ -138,13 +141,68 @@ def most_commonly_proposed() -> None:
 
 
 def actions_technical_lag():
-    versions = get_sample("versions")
+    # versions = get_sample("versions")
+    versions = [loaded_data[key]["versions"] for key in loaded_data]
     versions = sort_dates_keys(versions)
 
-    print(versions)
+    major_mean_days = []
+    minor_mean_days = []
+    micro_mean_days = []
+    for item in versions:
+        first_key = list(item.keys())[0]
+        try:
+            last_major = packaging_version.parse(item[first_key]).major
+            last_minor = packaging_version.parse(item[first_key]).minor
+            last_micro = packaging_version.parse(item[first_key]).micro
+        except AttributeError:
+            continue
+        major_updates = []
+        minor_updates = []
+        micro_updates = []
+        if last_major > 0:
+            major_updates.append(first_key)
+        if last_minor > 0:
+            minor_updates.append(first_key)
+        if last_micro > 0:
+            micro_updates.append(first_key)
+        for version_date in item:
+            try:
+                a = packaging_version.parse(item[version_date])
+                if a.micro != last_micro:
+                    micro_updates.append(version_date)
+                    last_micro = a.micro
+                if a.minor != last_minor:
+                    minor_updates.append(version_date)
+                    last_minor = a.minor
+                if a.major != last_major:
+                    major_updates.append(version_date)
+                    last_major = a.major
+            except AttributeError:
+                continue
+
+        major = days_between_dates(major_updates)
+        minor = days_between_dates(minor_updates)
+        micro = days_between_dates(micro_updates)
+
+        for element in major:
+            major_mean_days.append(element)
+        for element in minor:
+            minor_mean_days.append(element)
+        for element in micro:
+            micro_mean_days.append(element)
+
+    print(round(statistics.mean(major_mean_days), 2))
+    print(round(statistics.mean(minor_mean_days), 2))
+    print(round(statistics.mean(micro_mean_days), 2))
 
 
-def get_sample(key):
+def get_sample(key: str) -> list:
+    """
+    Returns a sample using a specific key.
+
+    :param key: The key to access the data. Must be a string.
+    :return: A list containing the data.
+    """
     sample_size = compute_sample_size(len(loaded_data))
     versions = []
 
@@ -173,13 +231,19 @@ def compute_sample_size(population_size: int) -> int:
     return sample_size
 
 
-def sort_dates_keys(versions):
+def sort_dates_keys(versions: list) -> list:
+    """
+    Sort the dates for each version.
+
+    :param versions: The list representing the sample of versions.
+    :return: The sorted list of versions.
+    """
     i = 0
     for dictionary in versions:
         dictionary_keys = list(dictionary.keys())
-        dates = [datetime.datetime.strptime(dk, "%d/%m/%Y") for dk in dictionary_keys]
+        dates = [datetime.strptime(dk, "%d/%m/%Y") for dk in dictionary_keys]
         dates.sort()
-        sorted_dates = [datetime.datetime.strftime(dk, "%d/%m/%Y") for dk in dates]
+        sorted_dates = [datetime.strftime(dk, "%d/%m/%Y") for dk in dates]
         temp = {}
         for date in sorted_dates:
             temp[date] = dictionary[date]
@@ -187,6 +251,20 @@ def sort_dates_keys(versions):
         i += 1
 
     return versions
+
+
+def days_between_dates(dates: list) -> list:
+    i = 0
+    j = 1
+
+    days = []
+    while j < len(dates):
+        difference = abs(datetime.strptime(dates[i], "%d/%m/%Y") - datetime.strptime(dates[j], "%d/%m/%Y"))
+        days.append(difference.days)
+        i += 1
+        j += 1
+
+    return days
 
 
 if __name__ == "__main__":
