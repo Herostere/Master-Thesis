@@ -15,6 +15,7 @@ fetch_categories = {
     "issues": False,
 }
 
+# used for debugging
 override_save_categories = {
     "run": False,
     "categories": ["recently-added", "security"],

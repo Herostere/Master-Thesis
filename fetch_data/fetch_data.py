@@ -74,21 +74,21 @@ def get_request(function: str, url: str) -> requests.Response | None:
     :return: The response. If error 404, returns None.
     """
     global T_R
-    global session
+    global SESSION
 
     while True:
         try:
-            request = session.get(url)
+            request = SESSION.get(url)
             break
         except requests.ConnectionError:
-            session.close()
-            session = requests.Session()
-            session.cookies['user_session'] = os.getenv("CONNECTION_COOKIE")
+            SESSION.close()
+            SESSION = requests.Session()
+            SESSION.cookies['user_session'] = os.getenv("CONNECTION_COOKIE")
 
             threads = max(10, number_of_threads)
             adapter = requests.adapters.HTTPAdapter(pool_connections=threads, pool_maxsize=threads)
-            session.mount("https://", adapter)
-            session.mount("http://", adapter)
+            SESSION.mount("https://", adapter)
+            SESSION.mount("http://", adapter)
             # return get_request(function, url)
     T_R += 1
 
@@ -145,8 +145,8 @@ def fetch_data_multithread() -> None:
         number_of_threads = get_number_of_threads(max_page_number)
 
         adapter = requests.adapters.HTTPAdapter(pool_connections=number_of_threads, pool_maxsize=number_of_threads)
-        session.mount("https://", adapter)
-        session.mount("http://", adapter)
+        SESSION.mount("https://", adapter)
+        SESSION.mount("http://", adapter)
 
         threads = []
 
@@ -675,8 +675,8 @@ if __name__ == "__main__":
         Fetch the categories.
         """
         number_of_threads = 0
-        session = requests.Session()
-        session.cookies['user_session'] = os.getenv("CONNECTION_COOKIE")
+        # SESSION = requests.Session()
+        # SESSION.cookies['user_session'] = os.getenv("CONNECTION_COOKIE")
 
         run_categories = config.get_categories['run']
         if run_categories:
@@ -701,7 +701,7 @@ if __name__ == "__main__":
         else:
             logging.info(f"Number of fetched actions: N/A")
 
-        session.close()
+        SESSION.close()
 
     logging.info(f"--- {time.time() - start_time} seconds ---")
 
