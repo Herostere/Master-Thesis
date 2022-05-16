@@ -295,8 +295,9 @@ def thread_data(pages: list, category: str, save_data: dict) -> None:
 
                         if config.fetch_categories["issues"]:
                             issues, index = get_api("issues", owner, repo_name, index)
-                            save_data[pretty_name]["open_issues"] = issues["open"]
-                            save_data[pretty_name]["closed_issues"] = issues["closed"]
+                            save_data[pretty_name]["issues"] = {}
+                            save_data[pretty_name]["issues"]["open"] = issues["open"]
+                            save_data[pretty_name]["issues"]["closed"] = issues["closed"]
 
 
 def format_action_name(ugly_name: str) -> str:
@@ -506,8 +507,9 @@ def extract(api_call: requests.Response, to_extract: str | tuple | list, url, in
         extracted = []
 
     if api_call.status_code == 200:
-        extracted["open"] = 0
-        extracted["closed"] = 0
+        if ('open', 'closed') == to_extract:
+            extracted["open"] = 0
+            extracted["closed"] = 0
         for needed in api_call.json():
             if type(to_extract) is list:
                 return api_call, i

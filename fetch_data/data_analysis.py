@@ -304,7 +304,9 @@ def determine_popularity() -> None:
 
 def multiple_actions():
     actions_in_repos = []
+    yml_files = []
 
+    i = 0
     for action in loaded_data:
         # get name of the main branch
         # api request to get the sha of the branch
@@ -316,15 +318,18 @@ def multiple_actions():
         request = get_request("multiple_actions", url)
         xpath_workflow = '//a[text()[contains(., ".github")]]/@href'
         xpath_yml = '//a[text()[contains(., "yml")]]/@href'
-        root = beautiful_html(request.text)
+        try:
+            root = beautiful_html(request.text)
+        except AttributeError:
+            continue
 
+        base = "https://github.com"
         ymls = root.xpath(xpath_yml)
         workflow = root.xpath(xpath_workflow)
         for element in workflow:
             if "#" in element:
                 workflow.remove(element)
             else:
-                base = "https://github.com"
                 request = get_request("multiple_actions", f"{base}/{element}")
                 if request:
                     root = beautiful_html(request.text)
@@ -332,10 +337,16 @@ def multiple_actions():
         for element in ymls:
             if "#" in element or "/commit/" in element:
                 ymls.remove(element)
+            yml_files.append(f"{base}/{element}")
 
         actions_in_repos.append(len(ymls))
 
+        i += 1
+
     mean_actions_in_repos = statistics.mean(actions_in_repos)
+    with open("yml_files.json", 'w') as write_file:
+        json.dump(yml_files, write_file, indent=2)
+
     print(mean_actions_in_repos)
 
 

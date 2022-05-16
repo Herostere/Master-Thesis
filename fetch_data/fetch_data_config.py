@@ -6,13 +6,13 @@ import os
 run = True
 
 fetch_categories = {
-    "versions": False,
-    "dependents": False,
-    "contributors": False,
-    "stars": False,
-    "watchers": False,
-    "forks": False,
-    "issues": False,
+    "versions": True,
+    "dependents": True,
+    "contributors": True,
+    "stars": True,
+    "watchers": True,
+    "forks": True,
+    "issues": True,
 }
 
 # used for debugging
