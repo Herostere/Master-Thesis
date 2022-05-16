@@ -13,4 +13,4 @@ market_growing_over_time = False
 actions_diversity = False
 most_commonly_proposed = False
 actions_technical_lag = False
-popularity = True
+popularity = False
