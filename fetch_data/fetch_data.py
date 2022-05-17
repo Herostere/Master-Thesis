@@ -487,6 +487,19 @@ def get_api(key: str | list, owner: str, repo_name: str, index: int) -> tuple[in
     return final, i
 
 
+def request_to_api(key):
+    
+    while True:
+        try:
+            if type(key) is list:
+                api_call = requests.get(url, headers=headers)
+            else:
+                api_call = requests.get(urls[key], headers=headers)
+            break
+        except requests.ConnectionError:
+            time.sleep(60)
+
+
 def extract(api_call: requests.Response, to_extract: str | tuple | list, url, index):
     """
     Extract the information from the API.

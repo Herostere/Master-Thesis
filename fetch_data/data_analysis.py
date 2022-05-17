@@ -11,6 +11,7 @@ import json
 import math
 import matplotlib.pyplot as plt
 import random
+import re
 import seaborn
 import statistics
 
@@ -317,40 +318,52 @@ def multiple_actions():
         url = f"https://github.com/{owner}/{repository}"
 
         request = get_request("multiple_actions", url)
-        
-        xpath_workflow = '//a[text()[contains(., ".github")]]/@href'
-        xpath_yml = '//a[text()[contains(., "yml")]]/@href'
+
+        xpath_branch = '//span[@class="css-truncate-target"]/text()'
+
         try:
             root = beautiful_html(request.text)
         except AttributeError:
             continue
 
-        base = "https://github.com"
-        ymls = root.xpath(xpath_yml)
-        workflow = root.xpath(xpath_workflow)
-        for element in workflow:
-            if "#" in element:
-                workflow.remove(element)
-            else:
-                request = get_request("multiple_actions", f"{base}/{element}")
-                if request:
-                    root = beautiful_html(request.text)
-                    ymls += root.xpath(xpath_yml)
-        for element in ymls:
-            if "#" in element or "/commit/" in element:
-                ymls.remove(element)
-            yml_files.append(f"{base}/{element}")
+        space_pattern = re.compile(r"\s+")
+        main_branch = re.sub(space_pattern, "", root.xpath(xpath_branch)[0])
 
-        actions_in_repos.append(len(ymls))
+        tree = get_api
 
-        i += 1
-
-    mean_actions_in_repos = statistics.mean(actions_in_repos)
-    print(actions_in_repos)
-    with open("yml_files.json", 'w') as write_file:
-        json.dump(yml_files, write_file, indent=2)
-
-    print(round(mean_actions_in_repos, 2))
+    #     xpath_workflow = '//a[text()[contains(., ".github")]]/@href'
+    #     xpath_yml = '//a[text()[contains(., "yml")]]/@href'
+    #     try:
+    #         root = beautiful_html(request.text)
+    #     except AttributeError:
+    #         continue
+    #
+    #     base = "https://github.com"
+    #     ymls = root.xpath(xpath_yml)
+    #     workflow = root.xpath(xpath_workflow)
+    #     for element in workflow:
+    #         if "#" in element:
+    #             workflow.remove(element)
+    #         else:
+    #             request = get_request("multiple_actions", f"{base}/{element}")
+    #             if request:
+    #                 root = beautiful_html(request.text)
+    #                 ymls += root.xpath(xpath_yml)
+    #     for element in ymls:
+    #         if "#" in element or "/commit/" in element:
+    #             ymls.remove(element)
+    #         yml_files.append(f"{base}/{element}")
+    #
+    #     actions_in_repos.append(len(ymls))
+    #
+    #     i += 1
+    #
+    # mean_actions_in_repos = statistics.mean(actions_in_repos)
+    # print(actions_in_repos)
+    # with open("yml_files.json", 'w') as write_file:
+    #     json.dump(yml_files, write_file, indent=2)
+    #
+    # print(round(mean_actions_in_repos, 2))
 
 
 if __name__ == "__main__":
