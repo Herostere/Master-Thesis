@@ -45,9 +45,10 @@ def market_growing_over_time(p_category: str = None) -> None:
     grow = {
         "10/03/2022": 0,
         "25/03/2022": 0,
-        "29/04/2022": 0,
         "13/04/2022": 0,
-        "10/05/2022": 0,
+        "29/04/2022": 0,
+        "16/05/2022": 0,
+        "17/05/2022": 0,
     }
     grow_keys = list(grow.keys())
 
@@ -316,6 +317,7 @@ def multiple_actions():
         url = f"https://github.com/{owner}/{repository}"
 
         request = get_request("multiple_actions", url)
+        
         xpath_workflow = '//a[text()[contains(., ".github")]]/@href'
         xpath_yml = '//a[text()[contains(., "yml")]]/@href'
         try:
@@ -344,10 +346,11 @@ def multiple_actions():
         i += 1
 
     mean_actions_in_repos = statistics.mean(actions_in_repos)
+    print(actions_in_repos)
     with open("yml_files.json", 'w') as write_file:
         json.dump(yml_files, write_file, indent=2)
 
-    print(mean_actions_in_repos)
+    print(round(mean_actions_in_repos, 2))
 
 
 if __name__ == "__main__":

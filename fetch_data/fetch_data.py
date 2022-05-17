@@ -547,10 +547,11 @@ def extract(api_call: requests.Response, to_extract: str | tuple | list, url, in
             if time_for_reset > 0:
                 if not get_remaining_api_calls():
                     now = datetime.now()
-                    finish = now + timedelta(seconds=int(api_call.headers['Retry-After']))
+                    # finish = now + timedelta(seconds=int(api_call.headers['Retry-After']))
+                    finish = now + timedelta(seconds=time_for_reset)
                     finish = finish.strftime('%H:%M:%S')
 
-                    logging.info(f"API sleeping {str(int(api_call.headers['Retry-After']))} seconds (finish {finish})")
+                    logging.info(f"API sleeping {str(time_for_reset)} seconds (finish {finish})")
                     time.sleep(time_for_reset)
                 else:
                     i = (i + 1) % len(GITHUB_TOKENS)
