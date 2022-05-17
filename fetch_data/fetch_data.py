@@ -23,6 +23,8 @@ import time
 
 GITHUB_TOKENS = config.tokens
 LIMIT = config.limit_requests
+SESSION = requests.Session()
+SESSION.cookies['user_session'] = os.getenv("CONNECTION_COOKIE")
 T_R = 0
 
 
@@ -72,21 +74,21 @@ def get_request(function: str, url: str) -> requests.Response | None:
     :return: The response. If error 404, returns None.
     """
     global T_R
-    global session
+    global SESSION
 
     while True:
         try:
-            request = session.get(url)
+            request = SESSION.get(url)
             break
         except requests.ConnectionError:
-            session.close()
-            session = requests.Session()
-            session.cookies['user_session'] = os.getenv("CONNECTION_COOKIE")
+            SESSION.close()
+            SESSION = requests.Session()
+            SESSION.cookies['user_session'] = os.getenv("CONNECTION_COOKIE")
 
             threads = max(10, number_of_threads)
             adapter = requests.adapters.HTTPAdapter(pool_connections=threads, pool_maxsize=threads)
-            session.mount("https://", adapter)
-            session.mount("http://", adapter)
+            SESSION.mount("https://", adapter)
+            SESSION.mount("http://", adapter)
             # return get_request(function, url)
     T_R += 1
 
@@ -143,8 +145,8 @@ def fetch_data_multithread() -> None:
         number_of_threads = get_number_of_threads(max_page_number)
 
         adapter = requests.adapters.HTTPAdapter(pool_connections=number_of_threads, pool_maxsize=number_of_threads)
-        session.mount("https://", adapter)
-        session.mount("http://", adapter)
+        SESSION.mount("https://", adapter)
+        SESSION.mount("http://", adapter)
 
         threads = []
 
@@ -290,15 +292,12 @@ def thread_data(pages: list, category: str, save_data: dict) -> None:
                             if forks:
                                 forks = int(stars_watching_forks['forks_count'])
                                 save_data[pretty_name]['forks'] = forks
-                            """
-                            This versions get the people, not the number (more api call)
 
-                            # stars = get_api('stars', owner, repo_name)
-                            # watching = get_api('watching', owner, repo_name)
-                            # forks = get_api('forks', owner, repo_name)
-
-                            ============================================================
-                            """
+                        if config.fetch_categories["issues"]:
+                            issues, index = get_api("issues", owner, repo_name, index)
+                            save_data[pretty_name]["issues"] = {}
+                            save_data[pretty_name]["issues"]["open"] = issues["open"]
+                            save_data[pretty_name]["issues"]["closed"] = issues["closed"]
 
 
 def format_action_name(ugly_name: str) -> str:
@@ -413,6 +412,8 @@ def get_api(key: str | list, owner: str, repo_name: str, index: int) -> tuple[in
         'contributors': f"{url}/contributors?per_page=100&page=1",
         'forks': f"{url}/forks?per_page=100&page=1",
         'watching': f"{url}/subscribers?per_page=100&page=1",
+        'issues': f"{url}/issues?state=all&per_page=100",
+        'files': f"{url}/commits?per_page=100&page=1",
     }
     to_extract = {
         'versions': ('tag_name', 'published_at'),
@@ -420,10 +421,7 @@ def get_api(key: str | list, owner: str, repo_name: str, index: int) -> tuple[in
         'contributors': 'login',
         'forks': 'id',
         'watching': 'login',
-    }
-    headers = {
-        'Authorization': f'token {GITHUB_TOKENS[i]}',
-        'accept': 'application/vnd.github.v3+json',
+        'issues': ('open', 'closed')
     }
 
     try:
@@ -436,15 +434,10 @@ def get_api(key: str | list, owner: str, repo_name: str, index: int) -> tuple[in
     else:
         final = []
 
-    while True:
-        try:
-            if type(key) is list:
-                api_call = requests.get(url, headers=headers)
-            else:
-                api_call = requests.get(urls[key], headers=headers)
-            break
-        except requests.ConnectionError:
-            time.sleep(60)
+    if type(key) is list:
+        api_call = request_to_api(url, i)
+    else:
+        api_call = request_to_api(urls[key], i)
 
     if type(key) is list:
         to_return, i = extract(api_call, key, url, i)
@@ -465,12 +458,8 @@ def get_api(key: str | list, owner: str, repo_name: str, index: int) -> tuple[in
             else:
                 for extracted in temp:
                     final.append(extracted)
-            while True:
-                try:
-                    api_call = requests.get(api_call.links['next']['url'], headers)
-                    break
-                except requests.exceptions.ConnectionError:
-                    time.sleep(60)
+
+            api_call = request_to_api(api_call.links['next']['url'], i)
 
         temp, i = extract(api_call, to_extract[key], urls[key], i)
         if is_tuple:
@@ -483,6 +472,29 @@ def get_api(key: str | list, owner: str, repo_name: str, index: int) -> tuple[in
         return len(final), i
 
     return final, i
+
+
+def request_to_api(url: str, i: int) -> requests.Response:
+    """
+    Make a request to the GitHub's API.
+
+    :param url: The URL where the information is located.
+    :param i: The index for the GitHub Tokens.
+    :return: The API response.
+    """
+    headers = {
+        'Authorization': f'token {GITHUB_TOKENS[i]}',
+        'accept': 'application/vnd.github.v3+json',
+    }
+
+    while True:
+        try:
+            api_call = requests.get(url, headers=headers)
+            break
+        except requests.exceptions.ConnectionError:
+            time.sleep(60)
+
+    return api_call
 
 
 def extract(api_call: requests.Response, to_extract: str | tuple | list, url, index):
@@ -505,13 +517,22 @@ def extract(api_call: requests.Response, to_extract: str | tuple | list, url, in
         extracted = []
 
     if api_call.status_code == 200:
+        if ('open', 'closed') == to_extract:
+            extracted["open"] = 0
+            extracted["closed"] = 0
         for needed in api_call.json():
             if type(to_extract) is list:
                 return api_call, i
             if is_tuple:
-                key = datetime.strptime(needed[to_extract[1]], '%Y-%m-%dT%H:%M:%SZ').strftime('%d/%m/%Y')
-                value = needed[to_extract[0]]
-                extracted[key] = value
+                if ('open', 'closed') == to_extract:
+                    if needed['state'] == "closed":
+                        extracted["closed"] += 1
+                    else:
+                        extracted["open"] += 1
+                else:
+                    key = datetime.strptime(needed[to_extract[1]], '%Y-%m-%dT%H:%M:%SZ').strftime('%d/%m/%Y')
+                    value = needed[to_extract[0]]
+                    extracted[key] = value
             else:
                 extracted.append(needed[to_extract])
     elif api_call.status_code == 403:
@@ -536,10 +557,11 @@ def extract(api_call: requests.Response, to_extract: str | tuple | list, url, in
             if time_for_reset > 0:
                 if not get_remaining_api_calls():
                     now = datetime.now()
-                    finish = now + timedelta(seconds=int(api_call.headers['Retry-After']))
+                    # finish = now + timedelta(seconds=int(api_call.headers['Retry-After']))
+                    finish = now + timedelta(seconds=time_for_reset)
                     finish = finish.strftime('%H:%M:%S')
 
-                    logging.info(f"API sleeping {str(int(api_call.headers['Retry-After']))} seconds (finish {finish})")
+                    logging.info(f"API sleeping {str(time_for_reset)} seconds (finish {finish})")
                     time.sleep(time_for_reset)
                 else:
                     i = (i + 1) % len(GITHUB_TOKENS)
@@ -666,8 +688,8 @@ if __name__ == "__main__":
         Fetch the categories.
         """
         number_of_threads = 0
-        session = requests.Session()
-        session.cookies['user_session'] = os.getenv("CONNECTION_COOKIE")
+        # SESSION = requests.Session()
+        # SESSION.cookies['user_session'] = os.getenv("CONNECTION_COOKIE")
 
         run_categories = config.get_categories['run']
         if run_categories:
@@ -692,7 +714,7 @@ if __name__ == "__main__":
         else:
             logging.info(f"Number of fetched actions: N/A")
 
-        session.close()
+        SESSION.close()
 
     logging.info(f"--- {time.time() - start_time} seconds ---")
 

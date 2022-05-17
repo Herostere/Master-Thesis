@@ -12,8 +12,10 @@ fetch_categories = {
     "stars": True,
     "watchers": True,
     "forks": True,
+    "issues": True,
 }
 
+# used for debugging
 override_save_categories = {
     "run": False,
     "categories": ["recently-added", "security"],

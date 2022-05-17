@@ -1,0 +1,6555 @@
+{
+    "action-aws-cli": {
+        "category": "api-management",
+        "contributors": [
+            "giboow"
+        ],
+        "dependents": {
+            "number": 4,
+            "package_url": "https://github.com/giboow/action-aws-cli/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "giboow",
+        "repository": "action-aws-cli",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "06/04/2021": "v1"
+        },
+        "watching": 2
+    },
+    "action-github-app-token": {
+        "category": "api-management",
+        "contributors": [
+            "JoergBastian",
+            "StyleShit",
+            "billyvg",
+            "davegaeddert",
+            "dependabot[bot]",
+            "whywaita"
+        ],
+        "dependents": {
+            "number": 590,
+            "package_url": "https://github.com/getsentry/action-github-app-token/network/dependents"
+        },
+        "forks": 55,
+        "issues": {
+            "closed": 17,
+            "open": 7
+        },
+        "owner": "getsentry",
+        "repository": "action-github-app-token",
+        "stars": 73,
+        "verified": true,
+        "versions": {
+            "30/08/2021": "v1.0.5"
+        },
+        "watching": 9
+    },
+    "action-github-app-token2": {
+        "category": "api-management",
+        "contributors": [
+            "JoergBastian",
+            "StyleShit",
+            "angie1148",
+            "billyvg",
+            "davegaeddert",
+            "dependabot[bot]",
+            "whywaita"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/angie1148/action-github-app-token/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 5,
+            "open": 0
+        },
+        "owner": "angie1148",
+        "repository": "action-github-app-token",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "09/09/2021": "activity"
+        },
+        "watching": 0
+    },
+    "action-organization-manager": {
+        "category": "api-management",
+        "contributors": [
+            "deepin-bot[bot]",
+            "myml"
+        ],
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/linuxdeepin/action-organization-manager/network/dependents?package_id=UGFja2FnZS0zMDI0MzY1NzM1"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 16,
+            "open": 0
+        },
+        "owner": "linuxdeepin",
+        "repository": "action-organization-manager",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "02/03/2022": "v0.0.4",
+            "09/03/2022": "v0.0.7",
+            "10/02/2022": "v0.0.1"
+        },
+        "watching": 2
+    },
+    "action-remote-github-app-token": {
+        "category": "api-management",
+        "contributors": [
+            "JoergBastian",
+            "StyleShit",
+            "billyvg",
+            "davegaeddert",
+            "dependabot[bot]",
+            "mohammad22",
+            "whywaita"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/mohammad22/action-remote-github-app-token/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "mohammad22",
+        "repository": "action-remote-github-app-token",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "25/02/2022": "v1.0.7"
+        },
+        "watching": 0
+    },
+    "action-sync": {
+        "category": "api-management",
+        "contributors": [
+            "deepin-bot[bot]",
+            "myml"
+        ],
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/linuxdeepin/action-sync/network/dependents?package_id=UGFja2FnZS0zMDMyNjQ1NzE4"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 8,
+            "open": 0
+        },
+        "owner": "linuxdeepin",
+        "repository": "action-sync",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "02/03/2022": "v0.0.3",
+            "09/03/2022": "v0.1.0",
+            "18/02/2022": "v0.0.1"
+        },
+        "watching": 2
+    },
+    "algorithmia-build-wait": {
+        "category": "api-management",
+        "contributors": [
+            "zeryx"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/algorithmiaio/build-wait-action/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "algorithmiaio",
+        "repository": "build-wait-action",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "18/03/2020": "v0.1.0-rc1",
+            "21/03/2020": "v0.1.0-rc6"
+        },
+        "watching": 3
+    },
+    "algorithmia-ci-cd": {
+        "category": "api-management",
+        "contributors": [
+            "peckjon",
+            "zeryx"
+        ],
+        "dependents": {
+            "number": 5,
+            "package_url": "https://github.com/algorithmiaio/algorithmia-ci-action/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 1,
+            "open": 0
+        },
+        "owner": "algorithmiaio",
+        "repository": "algorithmia-ci-action",
+        "stars": 7,
+        "verified": false,
+        "versions": {
+            "10/03/2021": "1.2.4",
+            "15/06/2020": "v1.1.0",
+            "19/06/2020": "v1.2.0",
+            "23/03/2020": "v0.1.0-rc2",
+            "24/06/2020": "v1.2.3-rc1",
+            "26/03/2020": "v0.1.0-rc7",
+            "27/03/2020": "v0.1.0-rc10"
+        },
+        "watching": 14
+    },
+    "algorithmia-publish-algo": {
+        "category": "api-management",
+        "contributors": [
+            "zeryx"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/algorithmiaio/publish-algo-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "algorithmiaio",
+        "repository": "publish-algo-action",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "21/03/2020": "v0.1.0-rc1"
+        },
+        "watching": 4
+    },
+    "algorithmia-test-algo": {
+        "category": "api-management",
+        "contributors": [
+            "zeryx"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/algorithmiaio/test-algo-action/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "algorithmiaio",
+        "repository": "test-algo-action",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "16/03/2020": "v0.1.0",
+            "18/03/2020": "v0.1.1-rc4",
+            "21/03/2020": "v0.1.1-rc6"
+        },
+        "watching": 3
+    },
+    "anilist-animes-action": {
+        "category": "api-management",
+        "contributors": [
+            "Glup3"
+        ],
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/Glup3/anilist-animes-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "Glup3",
+        "repository": "anilist-animes-action",
+        "stars": 2,
+        "verified": false,
+        "versions": {
+            "30/11/2020": "v1.0.4"
+        },
+        "watching": 2
+    },
+    "api-documentation-on-bump": {
+        "category": "api-management",
+        "contributors": [
+            "dependabot[bot]",
+            "dougsillars",
+            "moul",
+            "paulRbr",
+            "scharrier"
+        ],
+        "dependents": {
+            "number": 22,
+            "package_url": "https://github.com/bump-sh/github-action/network/dependents"
+        },
+        "forks": 6,
+        "issues": {
+            "closed": 45,
+            "open": 1
+        },
+        "owner": "bump-sh",
+        "repository": "github-action",
+        "stars": 34,
+        "verified": false,
+        "versions": {
+            "01/07/2021": "v1.0.0",
+            "03/02/2022": "v1.1.2",
+            "03/12/2021": "v1.0.7",
+            "05/03/2021": "0.2",
+            "05/10/2021": "v1.0.2",
+            "08/10/2021": "v1.0.3",
+            "12/02/2020": "0.1",
+            "12/10/2021": "v1.0.4",
+            "13/01/2022": "v1.1.0",
+            "15/10/2021": "v1.0.5",
+            "18/10/2021": "v1.0.6",
+            "25/01/2022": "v1.1.1",
+            "29/07/2021": "v1.0.1",
+            "31/05/2021": "0.3"
+        },
+        "watching": 2
+    },
+    "api-guidelines-linter-beta": {
+        "category": "api-management",
+        "contributors": [
+            "XVincentX",
+            "dependabot-preview[bot]",
+            "dependabot[bot]",
+            "ioggstream",
+            "nulltoken"
+        ],
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/ioggstream/api-oas-checker-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 8,
+            "open": 4
+        },
+        "owner": "ioggstream",
+        "repository": "api-oas-checker-action",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "10/07/2020": "v0.6.3-italia",
+            "23/07/2020": "v0.6.4-italia"
+        },
+        "watching": 1
+    },
+    "api-linter-setup": {
+        "category": "api-management",
+        "contributors": [
+            "juchaosong"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/coscene-io/api-linter-setup-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 2,
+            "open": 0
+        },
+        "owner": "coscene-io",
+        "repository": "api-linter-setup-action",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "17/04/2022": "v0.1.0",
+            "18/04/2022": "v0.2.0"
+        },
+        "watching": 0
+    },
+    "apimatic-transformer": {
+        "category": "api-management",
+        "contributors": [
+            "developer-apimatic",
+            "mujjazi"
+        ],
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/apimatic/apimatic-transformer-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "apimatic",
+        "repository": "apimatic-transformer-action",
+        "stars": 3,
+        "verified": false,
+        "versions": {
+            "02/12/2020": "v1.0",
+            "27/11/2020": "v0.1"
+        },
+        "watching": 2
+    },
+    "app-state-diagram": {
+        "category": "api-management",
+        "contributors": [
+            "NaokiTsuchiya",
+            "koriym"
+        ],
+        "dependents": {
+            "number": 6,
+            "package_url": "https://github.com/alps-asd/asd-action/network/dependents"
+        },
+        "forks": 4,
+        "issues": {
+            "closed": 14,
+            "open": 0
+        },
+        "owner": "alps-asd",
+        "repository": "asd-action",
+        "stars": 4,
+        "verified": false,
+        "versions": {
+            "17/11/2021": "1.1.0",
+            "19/11/2021": "1.2.0",
+            "21/11/2021": "1.2.3",
+            "23/11/2021": "1.2.4"
+        },
+        "watching": 4
+    },
+    "app-store-connect-api-token": {
+        "category": "api-management",
+        "contributors": [
+            "yuki0n0"
+        ],
+        "dependents": {
+            "number": 4,
+            "package_url": "https://github.com/yuki0n0/action-appstoreconnect-token/network/dependents"
+        },
+        "forks": 9,
+        "issues": {
+            "closed": 1,
+            "open": 3
+        },
+        "owner": "yuki0n0",
+        "repository": "action-appstoreconnect-token",
+        "stars": 17,
+        "verified": false,
+        "versions": {
+            "07/12/2019": "v1.0"
+        },
+        "watching": 1
+    },
+    "appreciation-engine-whitelist": {
+        "category": "api-management",
+        "contributors": [
+            "nattog"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/phantomstudios/appreciation-engine-whitelist/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 1,
+            "open": 0
+        },
+        "owner": "phantomstudios",
+        "repository": "appreciation-engine-whitelist",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "13/05/2021": "0.0.1"
+        },
+        "watching": 4
+    },
+    "approved-event-checker": {
+        "category": "api-management",
+        "contributors": [
+            "dependabot[bot]",
+            "luisrjaeger",
+            "taichi"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/luisrjaeger/approved-event-checker/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 3,
+            "open": 0
+        },
+        "owner": "luisrjaeger",
+        "repository": "approved-event-checker",
+        "stars": 5,
+        "verified": false,
+        "versions": {
+            "04/01/2021": "1.0.0"
+        },
+        "watching": 0
+    },
+    "awake-action": {
+        "category": "api-management",
+        "contributors": [
+            "devpolo"
+        ],
+        "dependents": {
+            "number": 10,
+            "package_url": "https://github.com/devpolo/awake-action/network/dependents"
+        },
+        "forks": 10,
+        "issues": {
+            "closed": 1,
+            "open": 0
+        },
+        "owner": "devpolo",
+        "repository": "awake-action",
+        "stars": 157,
+        "verified": false,
+        "versions": {
+            "07/08/2021": "v1-alpha",
+            "18/08/2021": "v1-alpha.2",
+            "21/09/2021": "v1",
+            "25/08/2021": "v1-alpha.4"
+        },
+        "watching": 2
+    },
+    "aws-elastic-beanstalk-cli": {
+        "category": "api-management",
+        "contributors": [
+            "bblanchon",
+            "hmanzur"
+        ],
+        "dependents": {
+            "number": 34,
+            "package_url": "https://github.com/hmanzur/actions-aws-eb/network/dependents"
+        },
+        "forks": 22,
+        "issues": {
+            "closed": 3,
+            "open": 5
+        },
+        "owner": "hmanzur",
+        "repository": "actions-aws-eb",
+        "stars": 36,
+        "verified": false,
+        "versions": {
+            "01/04/2020": "v1.0.0"
+        },
+        "watching": 2
+    },
+    "aws-ssm-send-command": {
+        "category": "api-management",
+        "contributors": [
+            "dependabot[bot]",
+            "handa-kenta",
+            "peterkimzz"
+        ],
+        "dependents": {
+            "number": 121,
+            "package_url": "https://github.com/peterkimzz/aws-ssm-send-command/network/dependents"
+        },
+        "forks": 20,
+        "issues": {
+            "closed": 12,
+            "open": 7
+        },
+        "owner": "peterkimzz",
+        "repository": "aws-ssm-send-command",
+        "stars": 37,
+        "verified": false,
+        "versions": {
+            "04/11/2020": "v1.1.0",
+            "12/08/2020": "1.0.2",
+            "14/08/2020": "1.0.3",
+            "23/04/2021": "v1.1.1",
+            "25/03/2020": "0.0.1",
+            "27/05/2020": "1.0.1",
+            "29/03/2020": "0.0.2",
+            "29/09/2020": "1.0.5"
+        },
+        "watching": 3
+    },
+    "axway-apim-cli-github-action": {
+        "category": "api-management",
+        "contributors": [
+            "cwiechmann"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/Axway-API-Management-Plus/apim-cli-github-action/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "Axway-API-Management-Plus",
+        "repository": "apim-cli-github-action",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "13/12/2021": "v1.5.1"
+        },
+        "watching": 6
+    },
+    "azure-active-directory-application": {
+        "category": "api-management",
+        "contributors": [
+            "urmade"
+        ],
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/urmade/AAD_Service-Principal_Action/network/dependents"
+        },
+        "forks": 2,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "urmade",
+        "repository": "AAD_Service-Principal_Action",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "24/08/2020": "EarlyProd"
+        },
+        "watching": 2
+    },
+    "backlog-github-integration-action": {
+        "category": "api-management",
+        "contributors": [
+            "t2y"
+        ],
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/kazamori/backlog-github-integration-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 3,
+            "open": 1
+        },
+        "owner": "kazamori",
+        "repository": "backlog-github-integration-action",
+        "stars": 3,
+        "verified": false,
+        "versions": {
+            "02/05/2022": "v1.0.0"
+        },
+        "watching": 1
+    },
+    "bal-tool-action": {
+        "category": "api-management",
+        "contributors": [
+            "Achala8Dias"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/choreo-templates/bal-tool/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "choreo-templates",
+        "repository": "bal-tool",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "08/10/2021": "v1"
+        },
+        "watching": 1
+    },
+    "batch-schema-publisher": {
+        "category": "api-management",
+        "contributors": [
+            "dselans"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/batchcorp/schema-publisher/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "batchcorp",
+        "repository": "schema-publisher",
+        "stars": 6,
+        "verified": false,
+        "versions": {
+            "28/06/2021": "v1"
+        },
+        "watching": 3
+    },
+    "buf-breaking": {
+        "category": "api-management",
+        "contributors": [
+            "WillAbides",
+            "amckinney",
+            "bufdev",
+            "doriable",
+            "lucperkins"
+        ],
+        "dependents": {
+            "number": 131,
+            "package_url": "https://github.com/bufbuild/buf-breaking-action/network/dependents"
+        },
+        "forks": 3,
+        "issues": {
+            "closed": 17,
+            "open": 3
+        },
+        "owner": "bufbuild",
+        "repository": "buf-breaking-action",
+        "stars": 8,
+        "verified": false,
+        "versions": {
+            "06/04/2021": "v0.2.0",
+            "15/09/2021": "v1.0.0",
+            "18/03/2021": "v0.1.0",
+            "22/07/2021": "v0.3.0"
+        },
+        "watching": 9
+    },
+    "buf-lint": {
+        "category": "api-management",
+        "contributors": [
+            "WillAbides",
+            "amckinney",
+            "bufdev",
+            "doriable",
+            "lucperkins"
+        ],
+        "dependents": {
+            "number": 254,
+            "package_url": "https://github.com/bufbuild/buf-lint-action/network/dependents"
+        },
+        "forks": 2,
+        "issues": {
+            "closed": 15,
+            "open": 1
+        },
+        "owner": "bufbuild",
+        "repository": "buf-lint-action",
+        "stars": 7,
+        "verified": false,
+        "versions": {
+            "06/04/2021": "v0.2.0",
+            "15/09/2021": "v1.0.0",
+            "18/03/2021": "v0.1.0",
+            "22/07/2021": "v0.3.0"
+        },
+        "watching": 9
+    },
+    "buf-push": {
+        "category": "api-management",
+        "contributors": [
+            "WillAbides",
+            "amckinney",
+            "doriable",
+            "lucperkins"
+        ],
+        "dependents": {
+            "number": 93,
+            "package_url": "https://github.com/bufbuild/buf-push-action/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 12,
+            "open": 5
+        },
+        "owner": "bufbuild",
+        "repository": "buf-push-action",
+        "stars": 5,
+        "verified": false,
+        "versions": {
+            "06/04/2021": "v0.2.0",
+            "15/09/2021": "v1.0.0",
+            "16/02/2022": "v1.0.1",
+            "18/03/2021": "v0.1.0",
+            "18/08/2021": "v0.3.0"
+        },
+        "watching": 9
+    },
+    "buf-setup": {
+        "category": "api-management",
+        "contributors": [
+            "WillAbides",
+            "amckinney",
+            "bufdev",
+            "bweston92",
+            "doriable",
+            "jleeh",
+            "jsok",
+            "lucperkins",
+            "robbertvanginkel"
+        ],
+        "dependents": {
+            "number": 336,
+            "package_url": "https://github.com/bufbuild/buf-setup-action/network/dependents"
+        },
+        "forks": 4,
+        "issues": {
+            "closed": 32,
+            "open": 1
+        },
+        "owner": "bufbuild",
+        "repository": "buf-setup-action",
+        "stars": 12,
+        "verified": false,
+        "versions": {
+            "01/03/2022": "v1.1.0",
+            "08/07/2021": "v0.2.0",
+            "08/09/2021": "v0.4.0",
+            "10/11/2021": "v0.7.0",
+            "15/09/2021": "v0.5.0",
+            "17/02/2022": "v1.0.0",
+            "18/03/2021": "v0.1.0",
+            "21/03/2022": "v1.1.1",
+            "21/04/2022": "v1.4.0",
+            "22/07/2021": "v0.3.0",
+            "23/07/2021": "v0.3.1",
+            "24/03/2022": "v1.2.0",
+            "25/03/2022": "v1.2.1",
+            "26/10/2021": "v0.6.0",
+            "31/03/2022": "v1.3.1"
+        },
+        "watching": 11
+    },
+    "cachepurger": {
+        "category": "api-management",
+        "contributors": [
+            "CyrusRoshan"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/CyrusRoshan/cachepurger/network/dependents"
+        },
+        "forks": 3,
+        "issues": {
+            "closed": 1,
+            "open": 10
+        },
+        "owner": "CyrusRoshan",
+        "repository": "cachepurger",
+        "stars": 3,
+        "verified": false,
+        "versions": {
+            "01/06/2020": "v1.0"
+        },
+        "watching": 1
+    },
+    "can-i-deploy-to-a-tagged-environment": {
+        "category": "api-management",
+        "contributors": [
+            "roycdiscovery"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/roycdiscovery/pact-canideployto-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "roycdiscovery",
+        "repository": "pact-canideployto-action",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "07/05/2021": "v1.0",
+            "29/04/2021": "v0.1"
+        },
+        "watching": 1
+    },
+    "can-i-deploy-with-other-applications": {
+        "category": "api-management",
+        "contributors": [
+            "roycdiscovery"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/roycdiscovery/pact-canideploywith-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "roycdiscovery",
+        "repository": "pact-canideploywith-action",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "13/05/2021": "v1.0"
+        },
+        "watching": 1
+    },
+    "cavatica-upload": {
+        "category": "api-management",
+        "contributors": [
+            "thomasyu888"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/include-dcc/cavatica-upload-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 1,
+            "open": 0
+        },
+        "owner": "include-dcc",
+        "repository": "cavatica-upload-action",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "01/07/2021": "v0.0.1",
+            "20/07/2021": "v0.0.2",
+            "27/07/2021": "v0.0.3"
+        },
+        "watching": 5
+    },
+    "cert-2-aws-creds": {
+        "category": "api-management",
+        "contributors": [
+            "dependabot-preview[bot]",
+            "dependabot[bot]",
+            "hencrice"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/YenlinChenMoments/cert-2-aws-creds/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 66,
+            "open": 0
+        },
+        "owner": "YenlinChenMoments",
+        "repository": "cert-2-aws-creds",
+        "stars": 2,
+        "verified": false,
+        "versions": {
+            "11/11/2019": "v0.1.0"
+        },
+        "watching": 2
+    },
+    "change-notion-page-status": {
+        "category": "api-management",
+        "contributors": [
+            "ryubb"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/ryubb/change-notion-page-status/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 3,
+            "open": 0
+        },
+        "owner": "ryubb",
+        "repository": "change-notion-page-status",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "15/03/2022": "v0.0.1",
+            "16/03/2022": "v0.0.3",
+            "18/04/2022": "v0.0.6"
+        },
+        "watching": 1
+    },
+    "change-the-version-of-your-project": {
+        "category": "api-management",
+        "contributors": [
+            "Swisyn"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/Swisyn/android-version-generator-actions/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "Swisyn",
+        "repository": "android-version-generator-actions",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "01/03/2022": "v1",
+            "02/03/2022": "v1.3",
+            "08/05/2022": "v1.5"
+        },
+        "watching": 1
+    },
+    "checkactionsbillinginfo": {
+        "category": "api-management",
+        "contributors": [
+            "dependabot[bot]",
+            "starfish719"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/starfish719/check-actions-billing-info/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 4,
+            "open": 0
+        },
+        "owner": "starfish719",
+        "repository": "check-actions-billing-info",
+        "stars": 2,
+        "verified": false,
+        "versions": {
+            "30/07/2020": "v1.0.0",
+            "31/07/2020": "v2.0.0"
+        },
+        "watching": 1
+    },
+    "choreo-deployer": {
+        "category": "api-management",
+        "contributors": [
+            "Achala8Dias",
+            "AchalaDias",
+            "choreoTemplates",
+            "dependabot[bot]",
+            "nilesh93"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/choreo-templates/build-deploy-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 3,
+            "open": 0
+        },
+        "owner": "choreo-templates",
+        "repository": "build-deploy-action",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "05/10/2021": "1.0.1",
+            "06/10/2021": "1.0.5",
+            "09/11/2021": "1.0.6",
+            "30/03/2022": "1.0.7"
+        },
+        "watching": 1
+    },
+    "clean-workflow-runs": {
+        "category": "api-management",
+        "contributors": [
+            "dmvict"
+        ],
+        "dependents": {
+            "number": 41,
+            "package_url": "https://github.com/dmvict/clean-workflow-runs/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 3,
+            "open": 0
+        },
+        "owner": "dmvict",
+        "repository": "clean-workflow-runs",
+        "stars": 2,
+        "verified": false,
+        "versions": {
+            "30/12/2021": "v1.0.0"
+        },
+        "watching": 1
+    },
+    "cli-for-microsoft-365-login": {
+        "category": "api-management",
+        "contributors": [
+            "anoopt",
+            "garrytrinder",
+            "waldekmastykarz"
+        ],
+        "dependents": {
+            "number": 43,
+            "package_url": "https://github.com/pnp/action-cli-login/network/dependents"
+        },
+        "forks": 6,
+        "issues": {
+            "closed": 14,
+            "open": 3
+        },
+        "owner": "pnp",
+        "repository": "action-cli-login",
+        "stars": 14,
+        "verified": false,
+        "versions": {
+            "07/11/2021": "v2.0.1",
+            "15/09/2020": "v2.0.0",
+            "17/01/2020": "v1.0.0"
+        },
+        "watching": 14
+    },
+    "cli-for-microsoft-365-run-script": {
+        "category": "api-management",
+        "contributors": [
+            "anoopt",
+            "garrytrinder",
+            "waldekmastykarz"
+        ],
+        "dependents": {
+            "number": 25,
+            "package_url": "https://github.com/pnp/action-cli-runscript/network/dependents"
+        },
+        "forks": 5,
+        "issues": {
+            "closed": 10,
+            "open": 0
+        },
+        "owner": "pnp",
+        "repository": "action-cli-runscript",
+        "stars": 12,
+        "verified": false,
+        "versions": {
+            "07/11/2021": "v2.0.1",
+            "15/09/2020": "v2.0.0",
+            "17/01/2020": "v1.0.0"
+        },
+        "watching": 14
+    },
+    "cloudflare-dns-create-or-update-record": {
+        "category": "api-management",
+        "contributors": [
+            "Bluesboy",
+            "koistya",
+            "maZahaca",
+            "mihma"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/Bluesboy/create-dns-record/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "Bluesboy",
+        "repository": "create-dns-record",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "20/05/2021": "v2.1"
+        },
+        "watching": 1
+    },
+    "cloudflare-dns-delete-record": {
+        "category": "api-management",
+        "contributors": [
+            "Bluesboy",
+            "koistya",
+            "maZahaca",
+            "mihma"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/Bluesboy/delete-dns-record/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "Bluesboy",
+        "repository": "delete-dns-record",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "21/05/2021": "v2.1"
+        },
+        "watching": 1
+    },
+    "cloudflare-dns-management": {
+        "category": "api-management",
+        "contributors": [
+            "brhigginsuk",
+            "koistya",
+            "maZahaca",
+            "rez0n"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/rez0n/actions-coudflare-dns/network/dependents"
+        },
+        "forks": 9,
+        "issues": {
+            "closed": 8,
+            "open": 0
+        },
+        "owner": "rez0n",
+        "repository": "actions-coudflare-dns",
+        "stars": 6,
+        "verified": false,
+        "versions": {
+            "14/08/2020": "v2",
+            "27/10/2020": "v2.1"
+        },
+        "watching": 1
+    },
+    "cloudflare-purge-cache-action": {
+        "category": "api-management",
+        "contributors": [
+            "3stacks"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/3stacks/cloudflare-purge-cache-action/network/dependents"
+        },
+        "forks": 8,
+        "issues": {
+            "closed": 0,
+            "open": 3
+        },
+        "owner": "3stacks",
+        "repository": "cloudflare-purge-cache-action",
+        "stars": 11,
+        "verified": false,
+        "versions": {
+            "14/08/2019": "v1.0.5"
+        },
+        "watching": 2
+    },
+    "compare-openapi-specifications-version": {
+        "category": "api-management",
+        "contributors": [
+            "swimmwatch"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/swimmwatch/openapi-compare-version/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "swimmwatch",
+        "repository": "openapi-compare-version",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "10/05/2022": "v1.0.0"
+        },
+        "watching": 1
+    },
+    "comparest": {
+        "category": "api-management",
+        "contributors": [
+            "ilyakooo0",
+            "mniip",
+            "s9gf4ult"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/typeable/compaREST/network/dependents"
+        },
+        "forks": 2,
+        "issues": {
+            "closed": 29,
+            "open": 7
+        },
+        "owner": "typeable",
+        "repository": "compaREST",
+        "stars": 17,
+        "verified": false,
+        "versions": {
+            "03/02/2022": "0.1.0.0",
+            "04/03/2022": "0.1.0.1",
+            "13/12/2021": "latest"
+        },
+        "watching": 2
+    },
+    "configure-npm-scope-action": {
+        "category": "api-management",
+        "contributors": [
+            "trejjam"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/trejjam/npm-scope-action/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "trejjam",
+        "repository": "npm-scope-action",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "30/07/2020": "v1.0.0"
+        },
+        "watching": 1
+    },
+    "consumable-code-movie-tmdb-api": {
+        "category": "api-management",
+        "contributors": [
+            "amirisback"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/amirisback/consumable-code-movie-tmdb-api/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "amirisback",
+        "repository": "consumable-code-movie-tmdb-api",
+        "stars": 14,
+        "verified": false,
+        "versions": {
+            "06/04/2020": "1.0.9",
+            "09/05/2021": "1.2.0",
+            "13/05/2020": "1.1.0",
+            "14/05/2020": "1.1.1",
+            "16/05/2020": "1.1.2",
+            "18/05/2020": "1.1.3",
+            "19/01/2021": "1.1.5",
+            "19/05/2020": "1.1.4",
+            "23/03/2020": "1.0.0",
+            "24/03/2020": "1.0.1",
+            "25/03/2020": "1.0.3",
+            "25/06/2021": "1.2.1",
+            "27/03/2020": "1.0.4",
+            "28/03/2020": "1.0.6",
+            "29/03/2020": "1.0.7"
+        },
+        "watching": 1
+    },
+    "consumable-code-news-api": {
+        "category": "api-management",
+        "contributors": [
+            "amirisback"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/amirisback/consumable-code-news-api/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "amirisback",
+        "repository": "consumable-code-news-api",
+        "stars": 7,
+        "verified": false,
+        "versions": {
+            "02/04/2020": "1.0.2",
+            "09/05/2021": "1.0.6",
+            "13/05/2020": "1.0.4",
+            "17/03/2020": "1.0.0",
+            "19/01/2021": "1.0.5",
+            "25/06/2021": "1.0.7",
+            "28/03/2020": "1.0.1"
+        },
+        "watching": 1
+    },
+    "continuous-reforestation": {
+        "category": "api-management",
+        "contributors": [
+            "Ly0n",
+            "cjscheller",
+            "dwsilk",
+            "jacobtomlinson",
+            "tjarkdoering"
+        ],
+        "dependents": {
+            "number": 13,
+            "package_url": "https://github.com/protontypes/continuous-reforestation/network/dependents"
+        },
+        "forks": 3,
+        "issues": {
+            "closed": 4,
+            "open": 4
+        },
+        "owner": "protontypes",
+        "repository": "continuous-reforestation",
+        "stars": 162,
+        "verified": false,
+        "versions": {
+            "06/03/2021": "0.0.2",
+            "21/03/2021": "0.0.3",
+            "27/02/2021": "0.0.1"
+        },
+        "watching": 7
+    },
+    "contributor-takes-actionp": {
+        "category": "api-management",
+        "contributors": [
+            "priyakewlani18"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/priyakewlani18/stackRepo2/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "priyakewlani18",
+        "repository": "stackRepo2",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "16/09/2021": "1.2"
+        },
+        "watching": 1
+    },
+    "contributorcoin": {
+        "category": "api-management",
+        "contributors": [
+            "morganmspencer"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/contributorcoin/contribute-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 1,
+            "open": 1
+        },
+        "owner": "contributorcoin",
+        "repository": "contribute-action",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "08/11/2021": "v0.1.0",
+            "19/02/2021": "v0.1.0-alpha"
+        },
+        "watching": 2
+    },
+    "convox-exec": {
+        "category": "api-management",
+        "contributors": [
+            "camerondgray",
+            "jasontclark",
+            "kaiomagalhaes"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/convox/action-exec/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "convox",
+        "repository": "action-exec",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "25/08/2021": "v1"
+        },
+        "watching": 6
+    },
+    "convox-run": {
+        "category": "api-management",
+        "contributors": [
+            "camerondgray",
+            "jasontclark",
+            "kaiomagalhaes"
+        ],
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/convox/action-run/network/dependents"
+        },
+        "forks": 2,
+        "issues": {
+            "closed": 1,
+            "open": 0
+        },
+        "owner": "convox",
+        "repository": "action-run",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "13/11/2019": "v1",
+            "25/08/2021": "v1.1.0"
+        },
+        "watching": 7
+    },
+    "covid-19-stats-timeseries": {
+        "category": "api-management",
+        "contributors": [
+            "actions-user",
+            "rameshrr"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/xpowery/covid-api/network/dependents"
+        },
+        "forks": 2,
+        "issues": {
+            "closed": 1,
+            "open": 1
+        },
+        "owner": "xpowery",
+        "repository": "covid-api",
+        "stars": 3,
+        "verified": false,
+        "versions": {
+            "19/07/2020": "v0.1"
+        },
+        "watching": 2
+    },
+    "create-azure-ml-workspace": {
+        "category": "api-management",
+        "contributors": [
+            "dciborow"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/dciborow/ml-workspace/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 1,
+            "open": 0
+        },
+        "owner": "dciborow",
+        "repository": "ml-workspace",
+        "stars": 2,
+        "verified": false,
+        "versions": {
+            "28/02/2020": "0.0.0"
+        },
+        "watching": 1
+    },
+    "create-github-deployment-status": {
+        "category": "api-management",
+        "contributors": [
+            "jarlefosen",
+            "judoole",
+            "torbjornvatn"
+        ],
+        "dependents": {
+            "number": 35,
+            "package_url": "https://github.com/unacast/actions-github-deployment-status/network/dependents"
+        },
+        "forks": 6,
+        "issues": {
+            "closed": 16,
+            "open": 4
+        },
+        "owner": "unacast",
+        "repository": "actions-github-deployment-status",
+        "stars": 29,
+        "verified": false,
+        "versions": {
+            "01/09/2020": "0.3.1",
+            "04/03/2020": "v0.3.0",
+            "05/09/2019": "0.1",
+            "07/09/2019": "0.2"
+        },
+        "watching": 4
+    },
+    "create-jira-release": {
+        "category": "api-management",
+        "contributors": [
+            "Rorychan"
+        ],
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/Rorychan/jira-releases-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "Rorychan",
+        "repository": "jira-releases-action",
+        "stars": 8,
+        "verified": false,
+        "versions": {
+            "23/11/2021": "v1"
+        },
+        "watching": 1
+    },
+    "create-openapi-yaml": {
+        "category": "api-management",
+        "contributors": [
+            "wistefan"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/wistefan/create-openapi-yaml/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "wistefan",
+        "repository": "create-openapi-yaml",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "07/05/2021": "0.0.0"
+        },
+        "watching": 1
+    },
+    "create-rancher-catalog-app": {
+        "category": "api-management",
+        "contributors": [
+            "kptLucek"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/BitBagCommerce/rancher-install-catalog-app/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "BitBagCommerce",
+        "repository": "rancher-install-catalog-app",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "03/02/2022": "v0.0.1"
+        },
+        "watching": 4
+    },
+    "create-release-local": {
+        "category": "api-management",
+        "contributors": [
+            "dependabot[bot]",
+            "ncipollo",
+            "varun-bst"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/varun-bst/release-action/network/dependents"
+        },
+        "forks": 3,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "varun-bst",
+        "repository": "release-action",
+        "stars": 2,
+        "verified": false,
+        "versions": {
+            "24/01/2020": "v1.6"
+        },
+        "watching": 0
+    },
+    "create-release-to-cloud-deploy": {
+        "category": "api-management",
+        "contributors": [
+            "KeisukeYamashita"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/gcp-clouddeploy-ecosystem/release-clouddeploy/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 55,
+            "open": 5
+        },
+        "owner": "gcp-clouddeploy-ecosystem",
+        "repository": "release-clouddeploy",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "22/09/2021": "v1.0.0"
+        },
+        "watching": 0
+    },
+    "create-repository-environments": {
+        "category": "api-management",
+        "contributors": [
+            "thijsvtol"
+        ],
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/thijsvtol/create-environments/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 1,
+            "open": 1
+        },
+        "owner": "thijsvtol",
+        "repository": "create-environments",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "05/12/2021": "1.0",
+            "23/12/2021": "2.0",
+            "24/12/2021": "3.0"
+        },
+        "watching": 1
+    },
+    "create-update-cloudflare-dns-records": {
+        "category": "api-management",
+        "contributors": [
+            "everpcpc"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/everpcpc/cloudflare-dns-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 1,
+            "open": 0
+        },
+        "owner": "everpcpc",
+        "repository": "cloudflare-dns-action",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "08/05/2022": "v1"
+        },
+        "watching": 1
+    },
+    "datapane-build": {
+        "category": "api-management",
+        "contributors": [
+            "Buroni",
+            "mands"
+        ],
+        "dependents": {
+            "number": 7,
+            "package_url": "https://github.com/datapane/build-action/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "datapane",
+        "repository": "build-action",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "08/10/2020": "v1",
+            "09/10/2020": "v2"
+        },
+        "watching": 2
+    },
+    "deck-action": {
+        "category": "api-management",
+        "contributors": [
+            "PyGuy2",
+            "dependabot[bot]",
+            "develohpanda",
+            "ikeike443"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/ikeike443/decK-action/network/dependents"
+        },
+        "forks": 2,
+        "issues": {
+            "closed": 41,
+            "open": 10
+        },
+        "owner": "ikeike443",
+        "repository": "decK-action",
+        "stars": 4,
+        "verified": false,
+        "versions": {
+            "03/06/2020": "v0.1.1",
+            "04/09/2020": "v0.1.2",
+            "06/02/2021": "v0.1.3"
+        },
+        "watching": 0
+    },
+    "delete-s3-objects-action-for-github-actions": {
+        "category": "api-management",
+        "contributors": [
+            "chadxz"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/chadxz/s3-delete-objects-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 53,
+            "open": 1
+        },
+        "owner": "chadxz",
+        "repository": "s3-delete-objects-action",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "02/07/2021": "v0.1.0"
+        },
+        "watching": 2
+    },
+    "deploy-to-cloud-deploy": {
+        "category": "api-management",
+        "contributors": [
+            "KeisukeYamashita"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/gcp-clouddeploy-ecosystem/deploy-clouddeploy/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 57,
+            "open": 5
+        },
+        "owner": "gcp-clouddeploy-ecosystem",
+        "repository": "deploy-clouddeploy",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "22/09/2021": "v1.0.0"
+        },
+        "watching": 0
+    },
+    "deployment-status-update-with-environment": {
+        "category": "api-management",
+        "contributors": [
+            "alexjurkiewicz",
+            "luukkemp",
+            "rsotnychenko"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/luukkemp/deployment-status-update/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "luukkemp",
+        "repository": "deployment-status-update",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "03/03/2022": "0.2.1",
+            "07/03/2022": "0.2.2"
+        },
+        "watching": 0
+    },
+    "deriv-app-id-generator-action": {
+        "category": "api-management",
+        "contributors": [
+            "aaimio",
+            "dependabot-preview[bot]"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/aaimio/deriv-app-id-action/network/dependents"
+        },
+        "forks": 3,
+        "issues": {
+            "closed": 62,
+            "open": 7
+        },
+        "owner": "aaimio",
+        "repository": "deriv-app-id-action",
+        "stars": 2,
+        "verified": false,
+        "versions": {
+            "02/10/2020": "v0.0.1",
+            "04/10/2020": "v0.0.2",
+            "08/10/2020": "v0.0.3",
+            "09/10/2020": "v0.0.4",
+            "09/11/2020": "v0.0.5",
+            "26/11/2020": "v1"
+        },
+        "watching": 1
+    },
+    "dev-shipa-action": {
+        "category": "api-management",
+        "contributors": [
+            "rostislavgit"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/rostislavgit/shipa-create-app-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "rostislavgit",
+        "repository": "shipa-create-app-action",
+        "stars": 2,
+        "verified": false,
+        "versions": {
+            "06/11/2021": "v1-beta",
+            "08/11/2021": "v0.0.1",
+            "09/11/2021": "v0.0.2",
+            "15/11/2021": "v0.0.3",
+            "16/11/2021": "v0.0.5",
+            "17/11/2021": "v0.0.7",
+            "18/11/2021": "v0.1.1",
+            "22/11/2021": "v0.1.2",
+            "23/11/2021": "v0.1.4"
+        },
+        "watching": 1
+    },
+    "discord-js-webhook": {
+        "category": "api-management",
+        "contributors": [
+            "EhsanFox"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/EhsanFox/djs-actions/network/dependents"
+        },
+        "forks": 2,
+        "issues": {
+            "closed": 1,
+            "open": 0
+        },
+        "owner": "EhsanFox",
+        "repository": "djs-actions",
+        "stars": 5,
+        "verified": false,
+        "versions": {
+            "24/07/2021": "0.1.0"
+        },
+        "watching": 2
+    },
+    "easy-kotlin-lib-jar": {
+        "category": "api-management",
+        "contributors": [
+            "amirisback"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/amirisback/easy-kotlin-lib-jar/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "amirisback",
+        "repository": "easy-kotlin-lib-jar",
+        "stars": 4,
+        "verified": false,
+        "versions": {
+            "01/03/2022": "1.0.4",
+            "03/03/2022": "1.0.6",
+            "07/10/2021": "1.0.3"
+        },
+        "watching": 1
+    },
+    "express-autodocs": {
+        "category": "api-management",
+        "contributors": [
+            "KulkarniSuraj",
+            "allcontributors[bot]",
+            "prafulla-codes",
+            "rahil1304",
+            "rosborne132"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/prafulla-codes/express-autodocs/network/dependents"
+        },
+        "forks": 14,
+        "issues": {
+            "closed": 25,
+            "open": 4
+        },
+        "owner": "prafulla-codes",
+        "repository": "express-autodocs",
+        "stars": 46,
+        "verified": false,
+        "versions": {
+            "02/09/2020": "v0.0.0-beta.1",
+            "07/09/2020": "v0.0.1-beta.1",
+            "15/10/2020": "v0.0.2",
+            "29/09/2020": "v0.0.2-beta.1"
+        },
+        "watching": 2
+    },
+    "extract-time-series": {
+        "category": "api-management",
+        "contributors": [
+            "0xtoshi",
+            "AuliaYF",
+            "ElSamplio",
+            "Jonur",
+            "Justus-D",
+            "LonnyGomes",
+            "MdUsmanAnsari",
+            "MrSunshyne",
+            "NeniEmSu",
+            "Nodimon",
+            "OssamaRafique",
+            "Psyzoo",
+            "RemDelaporteMathurin",
+            "Subhash3",
+            "TorsteinHonsi",
+            "Wendelstein7",
+            "actions-user",
+            "agaktr",
+            "ameerthehacker",
+            "andreasagap",
+            "andriikopp",
+            "ankushop2",
+            "backtrackbaba",
+            "blaz-blazer",
+            "bmaupin",
+            "chandan-reddy-k",
+            "danbilokha",
+            "daniel-karl",
+            "dariocazzani",
+            "dhanushkac",
+            "energee",
+            "eversionsystems",
+            "f2acode",
+            "faizalazman",
+            "felipec",
+            "gabrielcesar",
+            "gabsdotco",
+            "jeetiss",
+            "kant",
+            "kwasniew",
+            "main-sh4",
+            "michetonu",
+            "nickmccullum",
+            "nicolaschenet",
+            "notnavindu",
+            "ormesam",
+            "paroj",
+            "pcmnac",
+            "peachteaboba",
+            "pomber",
+            "rahulchauhan049",
+            "randallarms",
+            "ray-abhishek",
+            "ritomsonowal",
+            "rlindskog",
+            "robDevs",
+            "robert-northmind",
+            "royriojas",
+            "soround",
+            "thomas-alrek",
+            "tpkahlon",
+            "twei55",
+            "viniciusrodrigues1a",
+            "web-sys1",
+            "zbraniecki"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/web-sys1/COVID19-main/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "web-sys1",
+        "repository": "COVID19-main",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "01/08/2020": "1,2",
+            "27/07/2020": "covid",
+            "31/03/2020": "2"
+        },
+        "watching": 2
+    },
+    "fetch-api-data": {
+        "category": "api-management",
+        "contributors": [
+            "JamesIves",
+            "dependabot-preview[bot]",
+            "dependabot[bot]",
+            "humble-barnacle001",
+            "saravananselvamohan"
+        ],
+        "dependents": {
+            "number": 52,
+            "package_url": "https://github.com/JamesIves/fetch-api-data-action/network/dependents?package_id=UGFja2FnZS0yOTQ4ODA5NTgw"
+        },
+        "forks": 5,
+        "issues": {
+            "closed": 96,
+            "open": 0
+        },
+        "owner": "JamesIves",
+        "repository": "fetch-api-data-action",
+        "stars": 72,
+        "verified": false,
+        "versions": {
+            "02/04/2020": "1.0.5",
+            "06/03/2020": "1.0.0",
+            "06/03/2022": "v2.2.1",
+            "07/03/2020": "1.0.2",
+            "08/01/2022": "2.0.1",
+            "08/03/2020": "1.0.3",
+            "10/01/2022": "v2.1.0",
+            "12/01/2022": "v2.2.0",
+            "13/03/2020": "1.0.4",
+            "16/05/2020": "1.0.7",
+            "17/11/2020": "1.0.16",
+            "18/12/2021": "2.0.0",
+            "29/07/2020": "1.0.15"
+        },
+        "watching": 1
+    },
+    "file-exists-action": {
+        "category": "api-management",
+        "contributors": [
+            "jiangxin"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/jiangxin/file-exists-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "jiangxin",
+        "repository": "file-exists-action",
+        "stars": 2,
+        "verified": false,
+        "versions": {
+            "26/08/2021": "v1.0.0",
+            "27/08/2021": "v1.0.1"
+        },
+        "watching": 1
+    },
+    "frogo-consume-api": {
+        "category": "api-management",
+        "contributors": [
+            "amirisback"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/frogobox/frogo-consume-api/network/dependents"
+        },
+        "forks": 2,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "frogobox",
+        "repository": "frogo-consume-api",
+        "stars": 8,
+        "verified": false,
+        "versions": {
+            "01/03/2022": "2.0.0",
+            "01/09/2021": "1.0.6",
+            "07/04/2022": "2.1.0",
+            "09/03/2022": "2.0.1",
+            "11/04/2022": "2.1.1",
+            "12/05/2022": "2.3.1",
+            "13/02/2022": "1.0.8",
+            "14/03/2022": "2.0.2",
+            "14/04/2022": "2.2.1",
+            "17/04/2022": "2.2.2",
+            "18/03/2022": "2.0.3",
+            "18/04/2022": "2.2.3",
+            "20/03/2022": "2.0.4",
+            "21/08/2021": "1.0.3",
+            "25/09/2021": "1.0.7",
+            "27/07/2021": "1.0.1",
+            "29/03/2022": "2.0.5",
+            "30/04/2022": "2.3.0"
+        },
+        "watching": 1
+    },
+    "frogo-ui": {
+        "category": "api-management",
+        "contributors": [
+            "amirisback"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/frogobox/frogo-ui/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "frogobox",
+        "repository": "frogo-ui",
+        "stars": 6,
+        "verified": false,
+        "versions": {
+            "01/03/2022": "0.0.1-beta02",
+            "07/04/2022": "0.0.2",
+            "09/03/2022": "0.0.1-beta04",
+            "11/04/2022": "1.0.0",
+            "11/05/2022": "1.0.2",
+            "14/03/2022": "0.0.1-beta05",
+            "20/03/2022": "0.0.1-beta06",
+            "27/02/2022": "0.0.1-beta01",
+            "29/03/2022": "0.0.1",
+            "30/04/2022": "1.0.1"
+        },
+        "watching": 1
+    },
+    "frogoadmob": {
+        "category": "api-management",
+        "contributors": [
+            "amirisback"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/amirisback/frogo-admob/network/dependents"
+        },
+        "forks": 11,
+        "issues": {
+            "closed": 7,
+            "open": 1
+        },
+        "owner": "amirisback",
+        "repository": "frogo-admob",
+        "stars": 38,
+        "verified": false,
+        "versions": {
+            "01/07/2021": "3.0.0",
+            "02/03/2022": "4.1.8",
+            "02/08/2021": "4.0.6",
+            "07/04/2022": "4.3.2",
+            "07/07/2021": "4.0.0",
+            "10/02/2020": "1.0.0",
+            "11/03/2022": "4.1.9",
+            "11/04/2022": "4.3.3",
+            "12/02/2022": "4.1.5",
+            "12/04/2022": "4.3.4",
+            "12/05/2022": "4.3.9",
+            "13/03/2022": "4.2.0",
+            "14/03/2022": "4.2.1",
+            "14/04/2022": "4.3.5",
+            "16/02/2022": "4.1.6",
+            "17/04/2022": "4.3.6",
+            "18/03/2022": "4.2.4",
+            "19/04/2022": "4.3.7",
+            "19/08/2021": "4.1.1",
+            "20/03/2022": "4.2.5",
+            "21/06/2021": "2.0.2",
+            "22/03/2022": "4.2.6",
+            "23/03/2022": "4.2.7",
+            "23/07/2021": "4.0.1",
+            "24/03/2022": "4.2.9",
+            "25/02/2022": "4.1.7",
+            "25/09/2021": "4.1.3",
+            "25/11/2021": "4.1.4",
+            "27/04/2021": "2.0.1",
+            "30/03/2022": "4.3.0",
+            "30/04/2022": "4.3.8",
+            "30/08/2021": "4.1.2",
+            "31/01/2021": "2.0.0"
+        },
+        "watching": 2
+    },
+    "generate-async-docs": {
+        "category": "api-management",
+        "contributors": [
+            "radek-baczynski"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/radek-baczynski/async-api-generator/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 0,
+            "open": 1
+        },
+        "owner": "radek-baczynski",
+        "repository": "async-api-generator",
+        "stars": 2,
+        "verified": false,
+        "versions": {
+            "19/11/2019": "v1",
+            "20/11/2019": "v2"
+        },
+        "watching": 2
+    },
+    "generate-authorized-keys": {
+        "category": "api-management",
+        "contributors": [
+            "yknx4"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/yknx4/generate-authorized-keys-from-github-teams/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 1
+        },
+        "owner": "yknx4",
+        "repository": "generate-authorized-keys-from-github-teams",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "27/01/2022": "v1.0.0"
+        },
+        "watching": 1
+    },
+    "generate-python-client-from-openapi": {
+        "category": "api-management",
+        "contributors": [
+            "dbanty",
+            "emann",
+            "renovate-bot",
+            "renovate[bot]"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/openapi-generators/openapi-python-client-action/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 10,
+            "open": 1
+        },
+        "owner": "openapi-generators",
+        "repository": "openapi-python-client-action",
+        "stars": 4,
+        "verified": false,
+        "versions": {
+            "03/02/2021": "v1.0.0",
+            "07/10/2021": "v2.1.0",
+            "24/05/2021": "v2.0.0"
+        },
+        "watching": 3
+    },
+    "generate-supabase-database-types": {
+        "category": "api-management",
+        "contributors": [
+            "lyqht"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/lyqht/generate-supabase-db-types-github-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 1
+        },
+        "owner": "lyqht",
+        "repository": "generate-supabase-db-types-github-action",
+        "stars": 3,
+        "verified": false,
+        "versions": {
+            "11/04/2022": "v0.0.1"
+        },
+        "watching": 1
+    },
+    "generator-for-asyncapi-documents": {
+        "category": "api-management",
+        "contributors": [
+            "HUTCHHUTCHHUTCH",
+            "asyncapi-bot",
+            "dependabot[bot]",
+            "derberg",
+            "pioneer2k"
+        ],
+        "dependents": {
+            "number": 7,
+            "package_url": "https://github.com/asyncapi/github-action-for-generator/network/dependents"
+        },
+        "forks": 5,
+        "issues": {
+            "closed": 24,
+            "open": 0
+        },
+        "owner": "asyncapi",
+        "repository": "github-action-for-generator",
+        "stars": 26,
+        "verified": false,
+        "versions": {
+            "02/09/2021": "v1.0.36",
+            "02/11/2021": "v1.0.50",
+            "03/03/2021": "v1.0.11",
+            "03/09/2021": "v1.0.39",
+            "03/11/2021": "v1.0.52",
+            "04/03/2021": "v1.0.12",
+            "04/06/2021": "v1.0.28",
+            "05/01/2021": "v1.0.2",
+            "05/03/2021": "v1.0.14",
+            "05/05/2021": "v1.0.25",
+            "05/10/2021": "v1.0.48",
+            "06/04/2021": "v1.0.20",
+            "06/09/2021": "v1.0.40",
+            "07/01/2021": "v1.0.3",
+            "07/04/2021": "v1.0.21",
+            "07/05/2021": "v1.0.26",
+            "08/09/2021": "v1.0.41",
+            "09/02/2021": "v1.0.7",
+            "09/08/2021": "v1.0.35",
+            "11/06/2021": "v1.0.29",
+            "12/03/2021": "v1.0.15",
+            "12/04/2021": "v1.0.22",
+            "13/11/2020": "v1",
+            "14/05/2021": "v1.0.27",
+            "15/04/2021": "v1.0.23",
+            "15/11/2021": "v1.0.53",
+            "15/12/2020": "v1.0.1",
+            "16/02/2021": "v1.0.9",
+            "17/09/2021": "v1.0.42",
+            "18/01/2021": "v1.0.6",
+            "18/03/2021": "v1.0.16",
+            "18/11/2021": "v1.0.54",
+            "19/11/2021": "v1.0.55",
+            "21/09/2021": "v1.0.43",
+            "22/03/2021": "v1.0.17",
+            "22/06/2021": "v1.0.30",
+            "22/11/2021": "v2.0.0",
+            "23/11/2021": "v2.0.1",
+            "24/06/2021": "v1.0.31",
+            "25/10/2021": "v1.0.49",
+            "25/11/2021": "v2.0.2",
+            "26/04/2021": "v1.0.24",
+            "26/04/2022": "v2.0.3",
+            "27/03/2020": "v0.0.1",
+            "27/09/2021": "v1.0.44",
+            "28/06/2021": "v1.0.32",
+            "28/07/2021": "v1.0.34",
+            "28/09/2021": "v1.0.45",
+            "29/03/2021": "v1.0.18",
+            "29/06/2021": "v1.0.33",
+            "29/09/2021": "v1.0.46",
+            "30/03/2021": "v1.0.19",
+            "30/09/2021": "v1.0.47",
+            "31/03/2020": "v0.1.0"
+        },
+        "watching": 4
+    },
+    "get-docker-image-latest-version": {
+        "category": "api-management",
+        "contributors": [
+            "luoqiz"
+        ],
+        "dependents": {
+            "number": 8,
+            "package_url": "https://github.com/luoqiz/docker-images-latest-version/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "luoqiz",
+        "repository": "docker-images-latest-version",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "14/01/2021": "v1.0"
+        },
+        "watching": 1
+    },
+    "get-github-email-from-username": {
+        "category": "api-management",
+        "contributors": [
+            "evvanErb"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/evvanErb/get-github-email-by-username-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 3,
+            "open": 0
+        },
+        "owner": "evvanErb",
+        "repository": "get-github-email-by-username-action",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "25/03/2022": "v1.15",
+            "29/03/2022": "v1.24",
+            "31/03/2022": "v2.0"
+        },
+        "watching": 1
+    },
+    "get-openapi-updated-package-version": {
+        "category": "api-management",
+        "contributors": [
+            "swimmwatch"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/swimmwatch/openapi-diff-semver-bump/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "swimmwatch",
+        "repository": "openapi-diff-semver-bump",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "07/05/2022": "v1.0.0"
+        },
+        "watching": 1
+    },
+    "get-the-last-deployment-by-commit-id": {
+        "category": "api-management",
+        "contributors": [
+            "juniuszhangserai"
+        ],
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/juniuszhangserai/getDeploymentById/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "juniuszhangserai",
+        "repository": "getDeploymentById",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "05/11/2021": "v1",
+            "19/11/2021": "v2.7"
+        },
+        "watching": 1
+    },
+    "github-action-for-hasura": {
+        "category": "api-management",
+        "contributors": [
+            "RapidOwl",
+            "cknuteson-firstlook",
+            "dbellotti",
+            "jhonnybail",
+            "tibotiber"
+        ],
+        "dependents": {
+            "number": 11,
+            "package_url": "https://github.com/tibotiber/hasura-action/network/dependents"
+        },
+        "forks": 19,
+        "issues": {
+            "closed": 13,
+            "open": 1
+        },
+        "owner": "tibotiber",
+        "repository": "hasura-action",
+        "stars": 36,
+        "verified": false,
+        "versions": {
+            "06/06/2021": "v1.5",
+            "09/07/2020": "v1.3",
+            "10/04/2021": "v1.4",
+            "11/01/2022": "v2.1",
+            "15/11/2019": "v1.0",
+            "20/08/2021": "v2.0",
+            "27/05/2020": "v1.2"
+        },
+        "watching": 1
+    },
+    "github-action-for-vultr-vultr-cli": {
+        "category": "api-management",
+        "contributors": [
+            "Xe",
+            "andrewsomething",
+            "dependabot[bot]",
+            "eddiezane",
+            "techknowlogick",
+            "teimurjan",
+            "xp-vit"
+        ],
+        "dependents": {
+            "number": 8,
+            "package_url": "https://github.com/techknowlogick/action-vultr/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 3,
+            "open": 0
+        },
+        "owner": "techknowlogick",
+        "repository": "action-vultr",
+        "stars": 5,
+        "verified": false,
+        "versions": {
+            "09/06/2021": "v2.3.0",
+            "20/01/2021": "v2.2.0"
+        },
+        "watching": 1
+    },
+    "github-actions-job_id-parser": {
+        "category": "api-management",
+        "contributors": [
+            "Tiryoh",
+            "generalmimon"
+        ],
+        "dependents": {
+            "number": 25,
+            "package_url": "https://github.com/Tiryoh/gha-jobid-action/network/dependents"
+        },
+        "forks": 2,
+        "issues": {
+            "closed": 10,
+            "open": 1
+        },
+        "owner": "Tiryoh",
+        "repository": "gha-jobid-action",
+        "stars": 5,
+        "verified": false,
+        "versions": {
+            "11/02/2020": "v0.0.1",
+            "30/01/2022": "v0.1.0"
+        },
+        "watching": 2
+    },
+    "github-app-access-token-generator": {
+        "category": "api-management",
+        "contributors": [
+            "KeisukeYamashita",
+            "mercari-oss-bot"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/mercari/github-app-token-generator/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 4,
+            "open": 0
+        },
+        "owner": "mercari",
+        "repository": "github-app-token-generator",
+        "stars": 6,
+        "verified": false,
+        "versions": {
+            "03/03/2022": "v1.0.1",
+            "07/02/2022": "v1"
+        },
+        "watching": 4
+    },
+    "github-checks": {
+        "category": "api-management",
+        "contributors": [
+            "Ban3",
+            "LouisBrunner",
+            "Saviq",
+            "benreynolds-drizly",
+            "dependabot[bot]"
+        ],
+        "dependents": {
+            "number": 324,
+            "package_url": "https://github.com/LouisBrunner/checks-action/network/dependents"
+        },
+        "forks": 31,
+        "issues": {
+            "closed": 23,
+            "open": 8
+        },
+        "owner": "LouisBrunner",
+        "repository": "checks-action",
+        "stars": 74,
+        "verified": false,
+        "versions": {
+            "01/03/2020": "v0.1.0",
+            "02/04/2021": "v1.1.2",
+            "03/09/2021": "v1.2.0",
+            "07/11/2020": "v1.1.1",
+            "08/09/2020": "v1.0.0",
+            "28/09/2020": "v1.1.0"
+        },
+        "watching": 2
+    },
+    "github-graphql-action": {
+        "category": "api-management",
+        "contributors": [
+            "dependabot[bot]",
+            "helaili"
+        ],
+        "dependents": {
+            "number": 22,
+            "package_url": "https://github.com/helaili/github-graphql-action/network/dependents"
+        },
+        "forks": 76,
+        "issues": {
+            "closed": 12,
+            "open": 14
+        },
+        "owner": "helaili",
+        "repository": "github-graphql-action",
+        "stars": 58,
+        "verified": false,
+        "versions": {
+            "19/01/2019": "1.0",
+            "26/03/2020": "2.0"
+        },
+        "watching": 8
+    },
+    "github-ip-allow-list-action": {
+        "category": "api-management",
+        "contributors": [
+            "peter-murray"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/peter-murray/github-ip-allow-list-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 1,
+            "open": 2
+        },
+        "owner": "peter-murray",
+        "repository": "github-ip-allow-list-action",
+        "stars": 7,
+        "verified": false,
+        "versions": {
+            "17/06/2021": "v1"
+        },
+        "watching": 1
+    },
+    "github-script-antfu": {
+        "category": "api-management",
+        "contributors": [
+            "JJ",
+            "advayDev1",
+            "ahmadnassri",
+            "antfu",
+            "dependabot[bot]",
+            "ethomson",
+            "francisfuzz",
+            "j-ulrich",
+            "jasonmacgowan",
+            "jcansdale",
+            "jclem",
+            "joshmgross",
+            "localheinz",
+            "nschonni",
+            "orta",
+            "pjquirk",
+            "tevoinea"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/antfu/github-script/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 1,
+            "open": 0
+        },
+        "owner": "antfu",
+        "repository": "github-script",
+        "stars": 3,
+        "verified": false,
+        "versions": {
+            "04/08/2020": "2.0.1"
+        },
+        "watching": 1
+    },
+    "go-apidiff": {
+        "category": "api-management",
+        "contributors": [
+            "alexeldeib",
+            "joelanford"
+        ],
+        "dependents": {
+            "number": 83,
+            "package_url": "https://github.com/joelanford/go-apidiff/network/dependents?package_id=UGFja2FnZS0yOTQyNTYxOTI4"
+        },
+        "forks": 5,
+        "issues": {
+            "closed": 14,
+            "open": 3
+        },
+        "owner": "joelanford",
+        "repository": "go-apidiff",
+        "stars": 16,
+        "verified": false,
+        "versions": {
+            "20/01/2022": "v0.2.0",
+            "23/02/2021": "v0.1.0",
+            "27/04/2022": "v0.4.0",
+            "28/02/2022": "v0.3.0"
+        },
+        "watching": 3
+    },
+    "go-swaggo-swag-tool": {
+        "category": "api-management",
+        "contributors": [
+            "yegorrybchenko"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/yegorrybchenko/go-swag-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 21,
+            "open": 0
+        },
+        "owner": "yegorrybchenko",
+        "repository": "go-swag-action",
+        "stars": 2,
+        "verified": false,
+        "versions": {
+            "08/04/2022": "v0.1"
+        },
+        "watching": 1
+    },
+    "golang-actionsszdxfcg11v": {
+        "category": "api-management",
+        "contributors": [
+            "ddivanshu"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/ddivanshu/test12/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "ddivanshu",
+        "repository": "test12",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "02/07/2021": "eee"
+        },
+        "watching": 1
+    },
+    "google-api-fetch-token-action": {
+        "category": "api-management",
+        "contributors": [
+            "actions-user",
+            "cardinalby",
+            "dependabot[bot]"
+        ],
+        "dependents": {
+            "number": 6,
+            "package_url": "https://github.com/cardinalby/google-api-fetch-token-action/network/dependents"
+        },
+        "forks": 3,
+        "issues": {
+            "closed": 3,
+            "open": 0
+        },
+        "owner": "cardinalby",
+        "repository": "google-api-fetch-token-action",
+        "stars": 3,
+        "verified": false,
+        "versions": {
+            "02/07/2020": "1.0.0",
+            "14/01/2022": "1.0.1"
+        },
+        "watching": 1
+    },
+    "googlesheet-actions": {
+        "category": "api-management",
+        "contributors": [
+            "dependabot[bot]",
+            "rjoydip"
+        ],
+        "dependents": {
+            "number": 6,
+            "package_url": "https://github.com/rjoydip/googlesheet-actions/network/dependents"
+        },
+        "forks": 4,
+        "issues": {
+            "closed": 12,
+            "open": 3
+        },
+        "owner": "rjoydip",
+        "repository": "googlesheet-actions",
+        "stars": 12,
+        "verified": false,
+        "versions": {
+            "26/07/2020": "0.1.0"
+        },
+        "watching": 2
+    },
+    "gql-pull": {
+        "category": "api-management",
+        "contributors": [
+            "knabben"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/knabben/gql-pull/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "knabben",
+        "repository": "gql-pull",
+        "stars": 2,
+        "verified": false,
+        "versions": {
+            "08/03/2020": "0.0.1",
+            "12/03/2020": "0.0.6"
+        },
+        "watching": 2
+    },
+    "gqldoc": {
+        "category": "api-management",
+        "contributors": [
+            "Code-Hex"
+        ],
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/Code-Hex/gqldoc-actions/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "Code-Hex",
+        "repository": "gqldoc-actions",
+        "stars": 2,
+        "verified": false,
+        "versions": {
+            "29/03/2021": "v1.0.0"
+        },
+        "watching": 2
+    },
+    "graphql-convert-introspection-schema": {
+        "category": "api-management",
+        "contributors": [
+            "AllexVeldman",
+            "dependabot[bot]"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/AllexVeldman/graphql-convert-introspection-schema/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 90,
+            "open": 8
+        },
+        "owner": "AllexVeldman",
+        "repository": "graphql-convert-introspection-schema",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "22/12/2021": "v0.1.0",
+            "23/12/2021": "v0.2.0"
+        },
+        "watching": 1
+    },
+    "graphql-diff": {
+        "category": "api-management",
+        "contributors": [
+            "agu-z"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/agu-z/gql-diff-action/network/dependents"
+        },
+        "forks": 3,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "agu-z",
+        "repository": "gql-diff-action",
+        "stars": 5,
+        "verified": false,
+        "versions": {
+            "22/12/2020": "v1"
+        },
+        "watching": 2
+    },
+    "graphql-pluck": {
+        "category": "api-management",
+        "contributors": [
+            "w33ble"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/w33ble/graphql-pluck-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "w33ble",
+        "repository": "graphql-pluck-action",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "04/05/2022": "v0.1.0"
+        },
+        "watching": 1
+    },
+    "gravitee-io-apim-drive-api-definition-settings": {
+        "category": "api-management",
+        "contributors": [
+            "GGui"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/GGui/graviteeio-apim-api-definition-action/network/dependents"
+        },
+        "forks": 2,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "GGui",
+        "repository": "graviteeio-apim-api-definition-action",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "05/10/2020": "v0.1",
+            "07/08/2020": "v1.0b01",
+            "21/12/2020": "0.3"
+        },
+        "watching": 1
+    },
+    "grpc-s-protoc-action": {
+        "category": "api-management",
+        "contributors": [
+            "abelfodil",
+            "scttl"
+        ],
+        "dependents": {
+            "number": 7,
+            "package_url": "https://github.com/abelfodil/protoc-action/network/dependents"
+        },
+        "forks": 7,
+        "issues": {
+            "closed": 2,
+            "open": 0
+        },
+        "owner": "abelfodil",
+        "repository": "protoc-action",
+        "stars": 3,
+        "verified": false,
+        "versions": {
+            "05/09/2020": "v1"
+        },
+        "watching": 1
+    },
+    "hashnode-publisher": {
+        "category": "api-management",
+        "contributors": [
+            "Nevvulo"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/Nevvulo/hashnode-publisher/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 27,
+            "open": 8
+        },
+        "owner": "Nevvulo",
+        "repository": "hashnode-publisher",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "22/02/2022": "1.0.0"
+        },
+        "watching": 1
+    },
+    "homeassistant-entity-action": {
+        "category": "api-management",
+        "contributors": [
+            "mellemhere"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/mellemhere/homeassistant-entity-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "mellemhere",
+        "repository": "homeassistant-entity-action",
+        "stars": 2,
+        "verified": false,
+        "versions": {
+            "03/04/2021": "1"
+        },
+        "watching": 1
+    },
+    "hugo-to-medium": {
+        "category": "api-management",
+        "contributors": [
+            "pr4k"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/pr4k/hugo-to-medium/network/dependents"
+        },
+        "forks": 8,
+        "issues": {
+            "closed": 0,
+            "open": 1
+        },
+        "owner": "pr4k",
+        "repository": "hugo-to-medium",
+        "stars": 23,
+        "verified": false,
+        "versions": {
+            "08/03/2020": "v1"
+        },
+        "watching": 2
+    },
+    "import-or-export-azure-api-management-developer-portal-content": {
+        "category": "api-management",
+        "contributors": [
+            "JanneMattila"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/JanneMattila/azure-api-management-developer-portal-action/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "JanneMattila",
+        "repository": "azure-api-management-developer-portal-action",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "27/08/2021": "v1"
+        },
+        "watching": 1
+    },
+    "jelastic-cli": {
+        "category": "api-management",
+        "contributors": [
+            "DovnarAlexander",
+            "martinmaillard"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/DovnarAlexander/github-actions-jelastic/network/dependents"
+        },
+        "forks": 7,
+        "issues": {
+            "closed": 13,
+            "open": 3
+        },
+        "owner": "DovnarAlexander",
+        "repository": "github-actions-jelastic",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "05/04/2021": "v0.17.0",
+            "05/05/2021": "v0.20.0",
+            "14/12/2020": "v0.15.0",
+            "15/01/2021": "v0.16.0",
+            "16/04/2021": "v0.18.0",
+            "16/10/2020": "v0.4.0",
+            "19/10/2020": "v0.7.0",
+            "20/10/2020": "v0.10.0",
+            "30/09/2020": "v0.3.0"
+        },
+        "watching": 1
+    },
+    "jishida-action": {
+        "category": "api-management",
+        "contributors": [
+            "funnyzak"
+        ],
+        "dependents": {
+            "number": 6,
+            "package_url": "https://github.com/funnyzak/jishida-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "funnyzak",
+        "repository": "jishida-action",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "27/11/2021": "v0.1.0"
+        },
+        "watching": 2
+    },
+    "js-webhook-action": {
+        "category": "api-management",
+        "contributors": [
+            "piranha"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/piranha/webhook-action/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "piranha",
+        "repository": "webhook-action",
+        "stars": 4,
+        "verified": false,
+        "versions": {
+            "27/08/2020": "1.0.0",
+            "31/08/2020": "1.0.2"
+        },
+        "watching": 1
+    },
+    "jsdoc-action": {
+        "category": "api-management",
+        "contributors": [
+            "andstor",
+            "waldyrious"
+        ],
+        "dependents": {
+            "number": 854,
+            "package_url": "https://github.com/andstor/jsdoc-action/network/dependents"
+        },
+        "forks": 7,
+        "issues": {
+            "closed": 50,
+            "open": 9
+        },
+        "owner": "andstor",
+        "repository": "jsdoc-action",
+        "stars": 57,
+        "verified": false,
+        "versions": {
+            "07/12/2021": "v1.2.1",
+            "21/04/2020": "v1.2.0",
+            "22/02/2020": "v1.0.0",
+            "24/02/2020": "v1.0.2",
+            "26/02/2020": "v1.1.0"
+        },
+        "watching": 2
+    },
+    "jsonbin-action": {
+        "category": "api-management",
+        "contributors": [
+            "dependabot[bot]",
+            "fabasoad",
+            "github-actions[bot]"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/fabasoad/jsonbin-action/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 74,
+            "open": 0
+        },
+        "owner": "fabasoad",
+        "repository": "jsonbin-action",
+        "stars": 4,
+        "verified": false,
+        "versions": {
+            "01/01/2021": "v1.0.5",
+            "03/07/2021": "v1.0.11",
+            "04/10/2020": "v1.0.2",
+            "04/11/2021": "v1.0.12",
+            "06/02/2021": "v1.0.7",
+            "07/04/2020": "v1.0.1",
+            "10/04/2021": "v1.0.10",
+            "13/02/2022": "v1.0.13",
+            "13/03/2021": "v1.0.9",
+            "17/01/2021": "v1.0.6",
+            "20/02/2021": "v1.0.8",
+            "25/03/2020": "v1.0.0",
+            "27/12/2020": "v1.0.3"
+        },
+        "watching": 2
+    },
+    "keycloak-admin-cli": {
+        "category": "api-management",
+        "contributors": [
+            "carlosthe19916"
+        ],
+        "dependents": {
+            "number": 11,
+            "package_url": "https://github.com/carlosthe19916/keycloak-action/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "carlosthe19916",
+        "repository": "keycloak-action",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "14/01/2021": "0.3",
+            "19/01/2021": "0.4",
+            "27/12/2020": "0.1",
+            "29/12/2020": "0.2"
+        },
+        "watching": 1
+    },
+    "kryptowire-analysis": {
+        "category": "api-management",
+        "contributors": [
+            "pkumar001"
+        ],
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/pkumar001/kryptowire-analysis-action/network/dependents"
+        },
+        "forks": 3,
+        "issues": {
+            "closed": 1,
+            "open": 4
+        },
+        "owner": "pkumar001",
+        "repository": "kryptowire-analysis-action",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "15/06/2020": "1.0.2",
+            "16/06/2020": "master"
+        },
+        "watching": 1
+    },
+    "kubectl-alpine": {
+        "category": "api-management",
+        "contributors": [
+            "d4nicoder"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/d4nicoder/kubectl-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "d4nicoder",
+        "repository": "kubectl-action",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "18/09/2020": "v2-beta1"
+        },
+        "watching": 1
+    },
+    "kubernetes-port-forward": {
+        "category": "api-management",
+        "contributors": [
+            "vbem"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/vbem/k8s-port-forward/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "vbem",
+        "repository": "k8s-port-forward",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "10/04/2022": "v1.0.0"
+        },
+        "watching": 1
+    },
+    "leanpub-preview-action": {
+        "category": "api-management",
+        "contributors": [
+            "michaeltlombardi",
+            "robert-matusewicz"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/robert-matusewicz/leanpub-preview-action/network/dependents"
+        },
+        "forks": 2,
+        "issues": {
+            "closed": 1,
+            "open": 1
+        },
+        "owner": "robert-matusewicz",
+        "repository": "leanpub-preview-action",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "06/03/2021": "v1.0"
+        },
+        "watching": 2
+    },
+    "leanpub-publish-action": {
+        "category": "api-management",
+        "contributors": [
+            "robert-matusewicz",
+            "zzamboni"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/robert-matusewicz/leanpub-publish-action/network/dependents"
+        },
+        "forks": 2,
+        "issues": {
+            "closed": 1,
+            "open": 0
+        },
+        "owner": "robert-matusewicz",
+        "repository": "leanpub-publish-action",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "06/03/2021": "v1.0"
+        },
+        "watching": 2
+    },
+    "leanpub-watch-action": {
+        "category": "api-management",
+        "contributors": [
+            "zzamboni"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/zzamboni/leanpub-watch-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "zzamboni",
+        "repository": "leanpub-watch-action",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "25/05/2021": "v1",
+            "26/05/2021": "v1.1"
+        },
+        "watching": 1
+    },
+    "load-test-your-platform-with-rungutan": {
+        "category": "api-management",
+        "contributors": [
+            "mariusmitrofan"
+        ],
+        "dependents": {
+            "number": 4,
+            "package_url": "https://github.com/Rungutan/rungutan-actions/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "Rungutan",
+        "repository": "rungutan-actions",
+        "stars": 2,
+        "verified": false,
+        "versions": {
+            "22/05/2020": "0.0.1"
+        },
+        "watching": 2
+    },
+    "lock-pull-request": {
+        "category": "api-management",
+        "contributors": [
+            "dependabot[bot]",
+            "sudo-robot",
+            "williamdes"
+        ],
+        "dependents": {
+            "number": 13,
+            "package_url": "https://github.com/sudo-bot/action-pull-request-lock/network/dependents"
+        },
+        "forks": 4,
+        "issues": {
+            "closed": 7,
+            "open": 1
+        },
+        "owner": "sudo-bot",
+        "repository": "action-pull-request-lock",
+        "stars": 5,
+        "verified": false,
+        "versions": {
+            "08/12/2019": "v1.0.0"
+        },
+        "watching": 4
+    },
+    "manage-segment-function": {
+        "category": "api-management",
+        "contributors": [
+            "kalamay",
+            "samgehret"
+        ],
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/samgehret/manageSegmentFunction/network/dependents"
+        },
+        "forks": 2,
+        "issues": {
+            "closed": 5,
+            "open": 6
+        },
+        "owner": "samgehret",
+        "repository": "manageSegmentFunction",
+        "stars": 4,
+        "verified": false,
+        "versions": {
+            "22/06/2020": "1.6"
+        },
+        "watching": 1
+    },
+    "meeshkan": {
+        "category": "api-management",
+        "contributors": [
+            "fornwall",
+            "k4m4"
+        ],
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/meeshkan/action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 2,
+            "open": 0
+        },
+        "owner": "meeshkan",
+        "repository": "action",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "03/06/2021": "v1.0-beta",
+            "04/06/2021": "v1.1-beta",
+            "10/04/2020": "v0.1",
+            "22/04/2020": "v0.3",
+            "24/11/2020": "v0.4",
+            "26/11/2020": "v0.8"
+        },
+        "watching": 3
+    },
+    "microcks-import-github-action": {
+        "category": "api-management",
+        "contributors": [
+            "lbroudoux"
+        ],
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/microcks/import-github-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 2,
+            "open": 0
+        },
+        "owner": "microcks",
+        "repository": "import-github-action",
+        "stars": 3,
+        "verified": false,
+        "versions": {
+            "03/01/2022": "v1.0",
+            "06/04/2022": "v1"
+        },
+        "watching": 1
+    },
+    "microcks-test-github-action": {
+        "category": "api-management",
+        "contributors": [
+            "lbroudoux"
+        ],
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/microcks/test-github-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 2,
+            "open": 0
+        },
+        "owner": "microcks",
+        "repository": "test-github-action",
+        "stars": 3,
+        "verified": false,
+        "versions": {
+            "03/01/2022": "v1.1",
+            "06/04/2022": "v1",
+            "08/01/2021": "v1.0"
+        },
+        "watching": 2
+    },
+    "move-card-in-zenhub": {
+        "category": "api-management",
+        "contributors": [
+            "aisensiy"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/signcl/zenhub-move-card/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 2,
+            "open": 0
+        },
+        "owner": "signcl",
+        "repository": "zenhub-move-card",
+        "stars": 2,
+        "verified": false,
+        "versions": {
+            "21/07/2021": "v1"
+        },
+        "watching": 4
+    },
+    "multigitminder": {
+        "category": "api-management",
+        "contributors": [
+            "HaydenMacDonald"
+        ],
+        "dependents": {
+            "number": 4,
+            "package_url": "https://github.com/HaydenMacDonald/multigitminder/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 13,
+            "open": 0
+        },
+        "owner": "HaydenMacDonald",
+        "repository": "multigitminder",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "16/05/2022": "v1.1.0",
+            "21/04/2021": "v1.0.0"
+        },
+        "watching": 2
+    },
+    "myanimelist-action": {
+        "category": "api-management",
+        "contributors": [
+            "Katsute",
+            "dependabot[bot]",
+            "github-actions[bot]",
+            "sinon-bot"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/Katsute/MyAnimeList/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 29,
+            "open": 0
+        },
+        "owner": "Katsute",
+        "repository": "MyAnimeList",
+        "stars": 2,
+        "verified": false,
+        "versions": {
+            "07/12/2021": "v2",
+            "16/09/2021": "v1.1",
+            "22/08/2021": "v1"
+        },
+        "watching": 1
+    },
+    "myteam-notify": {
+        "category": "api-management",
+        "contributors": [
+            "dasshit"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/dasshit/myteam-notify/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 1,
+            "open": 0
+        },
+        "owner": "dasshit",
+        "repository": "myteam-notify",
+        "stars": 4,
+        "verified": false,
+        "versions": {
+            "22/02/2022": "1.1"
+        },
+        "watching": 1
+    },
+    "netrc-credentials": {
+        "category": "api-management",
+        "contributors": [
+            "bcomnes",
+            "dependabot[bot]",
+            "github-actions[bot]",
+            "jfoxtech",
+            "jpmckinney",
+            "l12s-bot"
+        ],
+        "dependents": {
+            "number": 15,
+            "package_url": "https://github.com/little-core-labs/netrc-creds/network/dependents"
+        },
+        "forks": 5,
+        "issues": {
+            "closed": 79,
+            "open": 1
+        },
+        "owner": "little-core-labs",
+        "repository": "netrc-creds",
+        "stars": 4,
+        "verified": false,
+        "versions": {
+            "01/10/2020": "v2.0.0",
+            "06/08/2020": "v1.0.4",
+            "23/12/2020": "v2.0.1",
+            "28/02/2020": "v0.0.8",
+            "28/12/2020": "v2.1.0"
+        },
+        "watching": 4
+    },
+    "newman-action": {
+        "category": "api-management",
+        "contributors": [
+            "konifar",
+            "matt-ball"
+        ],
+        "dependents": {
+            "number": 228,
+            "package_url": "https://github.com/matt-ball/newman-action/network/dependents"
+        },
+        "forks": 31,
+        "issues": {
+            "closed": 45,
+            "open": 8
+        },
+        "owner": "matt-ball",
+        "repository": "newman-action",
+        "stars": 93,
+        "verified": false,
+        "versions": {
+            "08/10/2021": "v.0.3.3",
+            "11/10/2021": "v1.0.2",
+            "11/11/2020": "0.0.29",
+            "13/09/2019": "0.0.22",
+            "14/12/2021": "v1.0.3",
+            "18/12/2020": "v0.2.1",
+            "20/12/2021": "v1.0.4",
+            "27/08/2019": "0.0.2",
+            "28/08/2019": "0.0.4"
+        },
+        "watching": 2
+    },
+    "newman-cli-postman-action": {
+        "category": "api-management",
+        "contributors": [
+            "VFUC",
+            "anthonyvscode",
+            "dependabot-preview[bot]",
+            "dependabot[bot]"
+        ],
+        "dependents": {
+            "number": 170,
+            "package_url": "https://github.com/anthonyvscode/newman-action/network/dependents"
+        },
+        "forks": 10,
+        "issues": {
+            "closed": 35,
+            "open": 0
+        },
+        "owner": "anthonyvscode",
+        "repository": "newman-action",
+        "stars": 29,
+        "verified": false,
+        "versions": {
+            "27/06/2020": "v1",
+            "30/11/2020": "v1.1"
+        },
+        "watching": 1
+    },
+    "nexus-assignment-update-notifier": {
+        "category": "api-management",
+        "contributors": [
+            "mpoc"
+        ],
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/mpoc/nexus-update-notifier-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "mpoc",
+        "repository": "nexus-update-notifier-action",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "17/03/2021": "v1"
+        },
+        "watching": 2
+    },
+    "nexus-grader-config-validation": {
+        "category": "api-management",
+        "contributors": [
+            "mpoc"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/mpoc/nexus-grader-config-test-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "mpoc",
+        "repository": "nexus-grader-config-test-action",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "23/02/2021": "v1"
+        },
+        "watching": 2
+    },
+    "nexus-release": {
+        "category": "api-management",
+        "contributors": [
+            "Propromp"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/Propromp/nexus-release/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "Propromp",
+        "repository": "nexus-release",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "15/02/2022": "1"
+        },
+        "watching": 1
+    },
+    "notion-db-auto-relator": {
+        "category": "api-management",
+        "contributors": [
+            "litencatt"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/litencatt/notion-db-auto-relator/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 8,
+            "open": 0
+        },
+        "owner": "litencatt",
+        "repository": "notion-db-auto-relator",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "13/02/2022": "v0.1.0",
+            "14/02/2022": "v0.1.1"
+        },
+        "watching": 1
+    },
+    "notion-github-catalog": {
+        "category": "api-management",
+        "contributors": [
+            "cliftonc"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/infinitaslearning/notion-github-catalog/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 1,
+            "open": 1
+        },
+        "owner": "infinitaslearning",
+        "repository": "notion-github-catalog",
+        "stars": 3,
+        "verified": false,
+        "versions": {
+            "19/12/2021": "v0.1",
+            "20/12/2021": "v0.5",
+            "22/12/2021": "v0.7",
+            "24/12/2021": "v0.10",
+            "30/12/2021": "v0.11",
+            "31/12/2021": "v0.12"
+        },
+        "watching": 5
+    },
+    "notion-github-issues-automation": {
+        "category": "api-management",
+        "contributors": [
+            "Sajantoor"
+        ],
+        "dependents": {
+            "number": 4,
+            "package_url": "https://github.com/Sajantoor/Notion-GitHub-Issues-Automation/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 3,
+            "open": 0
+        },
+        "owner": "Sajantoor",
+        "repository": "Notion-GitHub-Issues-Automation",
+        "stars": 3,
+        "verified": false,
+        "versions": {
+            "10/06/2021": "1.0.0"
+        },
+        "watching": 1
+    },
+    "nutrition-framework": {
+        "category": "api-management",
+        "contributors": [
+            "amirisback"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/amirisback/nutrition-framework/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "amirisback",
+        "repository": "nutrition-framework",
+        "stars": 29,
+        "verified": false,
+        "versions": {
+            "08/12/2021": "0.0.2-beta03",
+            "10/01/2022": "1.0.0",
+            "14/10/2021": "0.0.2-alpha01",
+            "15/04/2022": "2.0.0",
+            "16/11/2021": "0.0.2-alpha06",
+            "18/10/2021": "0.0.2-alpha03",
+            "18/11/2021": "0.0.2-alpha08",
+            "19/10/2021": "0.0.2-alpha04",
+            "19/11/2021": "0.0.2-alpha09",
+            "20/10/2021": "0.0.2-alpha05",
+            "20/11/2021": "0.0.2-alpha10",
+            "23/12/2021": "1.0.0-beta01",
+            "24/08/2021": "0.0.1",
+            "30/11/2021": "0.0.2-beta02",
+            "30/12/2021": "1.0.0-beta02"
+        },
+        "watching": 2
+    },
+    "oction-create-deployment": {
+        "category": "api-management",
+        "contributors": [
+            "maxkomarychev"
+        ],
+        "dependents": {
+            "number": 9,
+            "package_url": "https://github.com/maxkomarychev/oction-create-deployment/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 1,
+            "open": 4
+        },
+        "owner": "maxkomarychev",
+        "repository": "oction-create-deployment",
+        "stars": 5,
+        "verified": false,
+        "versions": {
+            "20/10/2019": "v0.6.1"
+        },
+        "watching": 1
+    },
+    "oction-create-deployment-status": {
+        "category": "api-management",
+        "contributors": [
+            "maxkomarychev"
+        ],
+        "dependents": {
+            "number": 6,
+            "package_url": "https://github.com/maxkomarychev/oction-create-deployment-status/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 1,
+            "open": 3
+        },
+        "owner": "maxkomarychev",
+        "repository": "oction-create-deployment-status",
+        "stars": 4,
+        "verified": false,
+        "versions": {
+            "20/10/2019": "v0.6.1"
+        },
+        "watching": 1
+    },
+    "oction-create-issue": {
+        "category": "api-management",
+        "contributors": [
+            "maxkomarychev"
+        ],
+        "dependents": {
+            "number": 209,
+            "package_url": "https://github.com/maxkomarychev/oction-create-issue/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 1,
+            "open": 3
+        },
+        "owner": "maxkomarychev",
+        "repository": "oction-create-issue",
+        "stars": 4,
+        "verified": false,
+        "versions": {
+            "20/10/2019": "v0.6.2"
+        },
+        "watching": 2
+    },
+    "oction-create-release": {
+        "category": "api-management",
+        "contributors": [
+            "maxkomarychev"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/maxkomarychev/oction-create-release/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 1,
+            "open": 3
+        },
+        "owner": "maxkomarychev",
+        "repository": "oction-create-release",
+        "stars": 4,
+        "verified": false,
+        "versions": {
+            "20/10/2019": "v0.6.1"
+        },
+        "watching": 1
+    },
+    "oction-lock-issue": {
+        "category": "api-management",
+        "contributors": [
+            "maxkomarychev"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/maxkomarychev/oction-lock-issue/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 1,
+            "open": 2
+        },
+        "owner": "maxkomarychev",
+        "repository": "oction-lock-issue",
+        "stars": 2,
+        "verified": false,
+        "versions": {
+            "20/10/2019": "v0.6.1"
+        },
+        "watching": 2
+    },
+    "oction-unlock-issue": {
+        "category": "api-management",
+        "contributors": [
+            "maxkomarychev"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/maxkomarychev/oction-unlock-issue/network/dependents"
+        },
+        "forks": 4,
+        "issues": {
+            "closed": 1,
+            "open": 2
+        },
+        "owner": "maxkomarychev",
+        "repository": "oction-unlock-issue",
+        "stars": 3,
+        "verified": false,
+        "versions": {
+            "20/10/2019": "v0.6.1"
+        },
+        "watching": 3
+    },
+    "octodns-sync_": {
+        "category": "api-management",
+        "contributors": [
+            "antonydevanchi",
+            "solvaholic"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/antonydevanchi/octodns-sync/network/dependents"
+        },
+        "forks": 2,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "antonydevanchi",
+        "repository": "octodns-sync",
+        "stars": 2,
+        "verified": false,
+        "versions": {
+            "28/12/2020": "v2.2.0"
+        },
+        "watching": 0
+    },
+    "open-api-diff-notes": {
+        "category": "api-management",
+        "contributors": [
+            "rvolo"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/rvolo/open-api-diff-notes-action/network/dependents"
+        },
+        "forks": 4,
+        "issues": {
+            "closed": 0,
+            "open": 1
+        },
+        "owner": "rvolo",
+        "repository": "open-api-diff-notes-action",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "11/02/2021": "v0.1",
+            "12/02/2021": "v0.11"
+        },
+        "watching": 1
+    },
+    "open-build-src": {
+        "category": "api-management",
+        "contributors": [
+            "amirisback"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/frogobox/open-build-src/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "frogobox",
+        "repository": "open-build-src",
+        "stars": 2,
+        "verified": false,
+        "versions": {
+            "06/04/2022": "1.1.1",
+            "08/03/2022": "1.0.0",
+            "11/03/2022": "1.0.2",
+            "11/05/2022": "1.1.3",
+            "12/03/2022": "1.0.3",
+            "13/03/2022": "1.0.4",
+            "14/03/2022": "1.0.5",
+            "26/03/2022": "1.0.7",
+            "27/03/2022": "1.0.7-beta01",
+            "28/03/2022": "1.0.8-beta02",
+            "29/03/2022": "1.0.8",
+            "30/04/2022": "1.1.2"
+        },
+        "watching": 1
+    },
+    "openapi-cli-bundle": {
+        "category": "api-management",
+        "contributors": [
+            "hilary"
+        ],
+        "dependents": {
+            "number": 5,
+            "package_url": "https://github.com/hilary/openapi-cli-bundle-action/network/dependents"
+        },
+        "forks": 2,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "hilary",
+        "repository": "openapi-cli-bundle-action",
+        "stars": 2,
+        "verified": false,
+        "versions": {
+            "09/12/2020": "v0.0.2",
+            "26/01/2021": "v0.1.0"
+        },
+        "watching": 2
+    },
+    "openapi-cli-github-action": {
+        "category": "api-management",
+        "contributors": [
+            "StevePorter92"
+        ],
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/trybeapp/redocly-openapi-cli-github-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "trybeapp",
+        "repository": "redocly-openapi-cli-github-action",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "22/12/2021": "v0.0.1"
+        },
+        "watching": 3
+    },
+    "openapi-diff": {
+        "category": "api-management",
+        "contributors": [
+            "mvegter"
+        ],
+        "dependents": {
+            "number": 4,
+            "package_url": "https://github.com/mvegter/openapi-diff-action/network/dependents"
+        },
+        "forks": 2,
+        "issues": {
+            "closed": 1,
+            "open": 1
+        },
+        "owner": "mvegter",
+        "repository": "openapi-diff-action",
+        "stars": 15,
+        "verified": false,
+        "versions": {
+            "01/03/2020": "v0.0.0",
+            "13/11/2021": "v0.23.5",
+            "23/05/2020": "v0.3.0",
+            "27/03/2020": "v0.2.0",
+            "29/08/2020": "v0.23.3",
+            "29/11/2020": "v0.23.4"
+        },
+        "watching": 2
+    },
+    "openapi-diff-action": {
+        "category": "api-management",
+        "contributors": [
+            "swimmwatch"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/swimmwatch/openapi-diff-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "swimmwatch",
+        "repository": "openapi-diff-action",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "06/05/2022": "v1.0.0"
+        },
+        "watching": 1
+    },
+    "openapi-diff-in-pr": {
+        "category": "api-management",
+        "contributors": [
+            "fabich",
+            "leowns"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/LimeFlight/openapi-diff-action/network/dependents?package_id=UGFja2FnZS0yOTc4MDg3Nzky"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 30,
+            "open": 0
+        },
+        "owner": "LimeFlight",
+        "repository": "openapi-diff-action",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "02/03/2021": "v2.0.4",
+            "04/05/2020": "v1.1.3",
+            "08/06/2020": "v1.1.4",
+            "12/08/2021": "2.0.5-preview.17",
+            "17/02/2021": "v2.0.2",
+            "18/02/2021": "v2.0.3",
+            "18/04/2020": "v1.0.0-alpha1",
+            "18/08/2021": "v3.0.9",
+            "19/04/2020": "v1.0.0-alpha10",
+            "20/04/2020": "v1.0.0",
+            "21/04/2020": "v1.1.0-alpha1"
+        },
+        "watching": 4
+    },
+    "openapi-generator-generate-action": {
+        "category": "api-management",
+        "contributors": [
+            "craicoverflow"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/craicoverflow/openapi-generator-generate-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 5,
+            "open": 0
+        },
+        "owner": "craicoverflow",
+        "repository": "openapi-generator-generate-action",
+        "stars": 5,
+        "verified": false,
+        "versions": {
+            "08/02/2022": "v1.1.0",
+            "12/05/2021": "v0.1",
+            "14/02/2022": "v1.2.0",
+            "14/05/2021": "v1.0.0"
+        },
+        "watching": 0
+    },
+    "openapi-lint-action": {
+        "category": "api-management",
+        "contributors": [
+            "nwestfall",
+            "syncush"
+        ],
+        "dependents": {
+            "number": 55,
+            "package_url": "https://github.com/nwestfall/openapi-action/network/dependents"
+        },
+        "forks": 3,
+        "issues": {
+            "closed": 3,
+            "open": 0
+        },
+        "owner": "nwestfall",
+        "repository": "openapi-action",
+        "stars": 5,
+        "verified": false,
+        "versions": {
+            "01/12/2020": "v1.0.0",
+            "31/12/2020": "v1.0.2"
+        },
+        "watching": 1
+    },
+    "optimade-validator": {
+        "category": "api-management",
+        "contributors": [
+            "CasperWA",
+            "bot-optimade",
+            "dependabot[bot]",
+            "ml-evs"
+        ],
+        "dependents": {
+            "number": 12,
+            "package_url": "https://github.com/Materials-Consortia/optimade-validator-action/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 7,
+            "open": 0
+        },
+        "owner": "Materials-Consortia",
+        "repository": "optimade-validator-action",
+        "stars": 3,
+        "verified": false,
+        "versions": {
+            "10/03/2021": "v2.5.0",
+            "11/01/2021": "v2.3.0",
+            "11/02/2021": "v2.4.0",
+            "11/10/2020": "v2.2.2",
+            "12/03/2020": "v1.0.0",
+            "13/03/2020": "v1.1.0",
+            "16/05/2022": "v2.7.0",
+            "16/09/2020": "v2.0.1",
+            "17/07/2020": "v2.0.0",
+            "17/09/2020": "v2.1.0",
+            "20/08/2021": "v2.6.0",
+            "25/06/2020": "v1.2.0",
+            "28/09/2020": "v2.2.0"
+        },
+        "watching": 17
+    },
+    "ovh-alter-dns-record": {
+        "category": "api-management",
+        "contributors": [
+            "CrispyBaguette"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/CrispyBaguette/ovh-dns-alter-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 2,
+            "open": 0
+        },
+        "owner": "CrispyBaguette",
+        "repository": "ovh-dns-alter-action",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "09/08/2021": "v1.1",
+            "16/11/2021": "v1.1.1"
+        },
+        "watching": 1
+    },
+    "ovh-refresh-dns-zone": {
+        "category": "api-management",
+        "contributors": [
+            "CrispyBaguette"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/CrispyBaguette/ovh-dns-refresh-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "CrispyBaguette",
+        "repository": "ovh-dns-refresh-action",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "14/08/2021": "v1.0",
+            "16/11/2021": "v1.0.1"
+        },
+        "watching": 1
+    },
+    "pact-create-tag-action": {
+        "category": "api-management",
+        "contributors": [
+            "roycdiscovery"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/roycdiscovery/pact-create-tag-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "roycdiscovery",
+        "repository": "pact-create-tag-action",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "07/05/2021": "v1.0"
+        },
+        "watching": 1
+    },
+    "pact-publish-oas-action": {
+        "category": "api-management",
+        "contributors": [
+            "roycdiscovery"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/roycdiscovery/pact-publish-oas-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "roycdiscovery",
+        "repository": "pact-publish-oas-action",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "07/05/2021": "v1.0"
+        },
+        "watching": 1
+    },
+    "pact-publish-pactfile-action": {
+        "category": "api-management",
+        "contributors": [
+            "roycdiscovery"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/roycdiscovery/pact-publish-pactfiles-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "roycdiscovery",
+        "repository": "pact-publish-pactfiles-action",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "11/05/2021": "v1.0"
+        },
+        "watching": 1
+    },
+    "parrajustin-helm-chart-releaser": {
+        "category": "api-management",
+        "contributors": [
+            "cpanato",
+            "scottrigby",
+            "unguiculus"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/parrajustin/chart-releaser-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "parrajustin",
+        "repository": "chart-releaser-action",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "21/03/2020": "v1.0.0-alpha.3"
+        },
+        "watching": 0
+    },
+    "ping-url-javascript-action": {
+        "category": "api-management",
+        "contributors": [
+            "soul-wish"
+        ],
+        "dependents": {
+            "number": 4,
+            "package_url": "https://github.com/soul-wish/ping-url-javascript-action/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "soul-wish",
+        "repository": "ping-url-javascript-action",
+        "stars": 5,
+        "verified": false,
+        "versions": {
+            "18/02/2021": "v1.1"
+        },
+        "watching": 1
+    },
+    "ply-ct": {
+        "category": "api-management",
+        "contributors": [
+            "donaldoakes"
+        ],
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/ply-ct/ply-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 1,
+            "open": 1
+        },
+        "owner": "ply-ct",
+        "repository": "ply-action",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "02/02/2022": "v1.0.4",
+            "23/05/2021": "v0.1.1",
+            "29/08/2021": "v1.0.3"
+        },
+        "watching": 5
+    },
+    "post-api-call-action": {
+        "category": "api-management",
+        "contributors": [
+            "dkershner6"
+        ],
+        "dependents": {
+            "number": 7,
+            "package_url": "https://github.com/dkershner6/post-api-call-action/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "dkershner6",
+        "repository": "post-api-call-action",
+        "stars": 5,
+        "verified": false,
+        "versions": {
+            "22/05/2021": "v1"
+        },
+        "watching": 1
+    },
+    "postman-collection-action": {
+        "category": "api-management",
+        "contributors": [
+            "dependabot[bot]",
+            "jneate"
+        ],
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/jneate/postman-collection-action/network/dependents"
+        },
+        "forks": 2,
+        "issues": {
+            "closed": 47,
+            "open": 0
+        },
+        "owner": "jneate",
+        "repository": "postman-collection-action",
+        "stars": 2,
+        "verified": false,
+        "versions": {
+            "15/06/2021": "v1.0.2",
+            "23/05/2021": "v1.0.0"
+        },
+        "watching": 1
+    },
+    "project-add": {
+        "category": "api-management",
+        "contributors": [
+            "austenstone"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/austenstone/project-add/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 43,
+            "open": 1
+        },
+        "owner": "austenstone",
+        "repository": "project-add",
+        "stars": 4,
+        "verified": false,
+        "versions": {
+            "09/03/2022": "v1"
+        },
+        "watching": 1
+    },
+    "project-beta-automations": {
+        "category": "api-management",
+        "contributors": [
+            "MatteoManzoni",
+            "aarontwf",
+            "johnnyoshika",
+            "leonsteinhaeuser",
+            "matthewmayer",
+            "thingalon",
+            "yinonov"
+        ],
+        "dependents": {
+            "number": 360,
+            "package_url": "https://github.com/leonsteinhaeuser/project-beta-automations/network/dependents"
+        },
+        "forks": 8,
+        "issues": {
+            "closed": 34,
+            "open": 2
+        },
+        "owner": "leonsteinhaeuser",
+        "repository": "project-beta-automations",
+        "stars": 41,
+        "verified": false,
+        "versions": {
+            "04/10/2021": "v1.0.1",
+            "10/02/2022": "v1.2.0",
+            "13/11/2021": "v1.0.2-alpha.1",
+            "14/11/2021": "v1.0.2",
+            "16/01/2022": "v1.1.0",
+            "27/01/2022": "v1.1.1",
+            "27/02/2022": "v1.2.1-rc.1",
+            "29/09/2021": "v1.0.0",
+            "30/12/2021": "v1.0.3"
+        },
+        "watching": 3
+    },
+    "protoc-action": {
+        "category": "api-management",
+        "contributors": [
+            "PxyUp"
+        ],
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/PxyUp/protoc-actions/network/dependents"
+        },
+        "forks": 6,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "PxyUp",
+        "repository": "protoc-actions",
+        "stars": 13,
+        "verified": false,
+        "versions": {
+            "11/09/2019": "v0.0.1",
+            "12/07/2021": "v2.0.10",
+            "21/02/2020": "v2.0.9",
+            "25/09/2019": "v2.0.0",
+            "26/10/2019": "v2.0.7"
+        },
+        "watching": 2
+    },
+    "publish-api-doc-on-apitree": {
+        "category": "api-management",
+        "contributors": [
+            "slin-master"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/apitree/github-actions/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "apitree",
+        "repository": "github-actions",
+        "stars": 4,
+        "verified": false,
+        "versions": {
+            "07/02/2020": "v1.0.0"
+        },
+        "watching": 2
+    },
+    "publish-apk-to-esper-io": {
+        "category": "api-management",
+        "contributors": [
+            "jmn8718"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/jmn8718/action-esper.io-upload/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "jmn8718",
+        "repository": "action-esper.io-upload",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "17/05/2022": "v1.0"
+        },
+        "watching": 1
+    },
+    "pull-request-merge": {
+        "category": "api-management",
+        "contributors": [
+            "dependabot[bot]",
+            "sudo-robot",
+            "williamdes"
+        ],
+        "dependents": {
+            "number": 82,
+            "package_url": "https://github.com/sudo-bot/action-pull-request-merge/network/dependents"
+        },
+        "forks": 6,
+        "issues": {
+            "closed": 11,
+            "open": 1
+        },
+        "owner": "sudo-bot",
+        "repository": "action-pull-request-merge",
+        "stars": 8,
+        "verified": false,
+        "versions": {
+            "03/06/2020": "v1.1.1",
+            "09/12/2019": "v1.0.0",
+            "26/02/2020": "v1.1.0"
+        },
+        "watching": 3
+    },
+    "pull-request-prepend-ticket": {
+        "category": "api-management",
+        "contributors": [
+            "iansu",
+            "pqt",
+            "ransbymich",
+            "ransbymichSendSafely"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/ransbymich/ticket-check-action/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "ransbymich",
+        "repository": "ticket-check-action",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "10/06/2020": "v0.0.1",
+            "11/06/2020": "v0.0.6",
+            "26/06/2020": "v0.0.9"
+        },
+        "watching": 0
+    },
+    "rapidapi-openapi": {
+        "category": "api-management",
+        "contributors": [
+            "vvatelot"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/vvatelot/rapidapi-openapi-github-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "vvatelot",
+        "repository": "rapidapi-openapi-github-action",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "14/12/2021": "v1"
+        },
+        "watching": 1
+    },
+    "rapidapi-testing-trigger": {
+        "category": "api-management",
+        "contributors": [
+            "iddogino",
+            "lucas-rapid",
+            "s-giovanni",
+            "stav"
+        ],
+        "dependents": {
+            "number": 6,
+            "package_url": "https://github.com/RapidAPI/gh-api-testing-trigger/network/dependents"
+        },
+        "forks": 5,
+        "issues": {
+            "closed": 6,
+            "open": 1
+        },
+        "owner": "RapidAPI",
+        "repository": "gh-api-testing-trigger",
+        "stars": 8,
+        "verified": true,
+        "versions": {
+            "03/06/2021": "v0.0.3",
+            "07/05/2021": "v0.0.1",
+            "29/05/2021": "v0.0.2"
+        },
+        "watching": 5
+    },
+    "rdme-sync-to-readme": {
+        "category": "api-management",
+        "contributors": [
+            "benwaffle",
+            "dependabot-preview[bot]",
+            "dependabot[bot]",
+            "domharrington",
+            "erunion",
+            "gkoberger",
+            "gratcliff",
+            "jdecool",
+            "kanadgupta",
+            "mjcuva",
+            "ollyfg",
+            "pvorb",
+            "rahulhegdee"
+        ],
+        "dependents": {
+            "number": 50,
+            "package_url": "https://github.com/readmeio/rdme/network/dependents?package_id=UGFja2FnZS0zMDIzMTI5ODIw"
+        },
+        "forks": 19,
+        "issues": {
+            "closed": 9,
+            "open": 0
+        },
+        "owner": "readmeio",
+        "repository": "rdme",
+        "stars": 34,
+        "verified": false,
+        "versions": {
+            "01/02/2022": "6.3.2",
+            "01/03/2022": "6.5.0",
+            "01/04/2022": "7.0.3",
+            "02/02/2022": "6.4.0",
+            "03/01/2022": "6.2.0",
+            "03/12/2021": "6.0.0",
+            "04/01/2022": "6.2.1",
+            "08/12/2021": "6.0.1",
+            "09/12/2021": "6.1.0",
+            "10/03/2022": "7.0.0",
+            "12/01/2022": "6.3.0",
+            "12/04/2022": "7.1.0",
+            "13/04/2022": "7.1.1",
+            "13/12/2021": "6.1.1",
+            "16/12/2021": "6.1.2",
+            "17/12/2021": "6.1.3",
+            "18/03/2022": "7.0.1",
+            "20/04/2022": "7.2.0",
+            "31/01/2022": "6.3.1",
+            "31/03/2022": "7.0.2"
+        },
+        "watching": 15
+    },
+    "recently-closed-issues": {
+        "category": "api-management",
+        "contributors": [
+            "TheBusyBiscuit",
+            "dependabot[bot]",
+            "renovate-bot"
+        ],
+        "dependents": {
+            "number": 57,
+            "package_url": "https://github.com/TheBusyBiscuit/recently-closed-issues/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 8,
+            "open": 1
+        },
+        "owner": "TheBusyBiscuit",
+        "repository": "recently-closed-issues",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "21/03/2020": "1.0.0"
+        },
+        "watching": 0
+    },
+    "redoc-cli-github-action": {
+        "category": "api-management",
+        "contributors": [
+            "seeebiii"
+        ],
+        "dependents": {
+            "number": 135,
+            "package_url": "https://github.com/seeebiii/redoc-cli-github-action/network/dependents"
+        },
+        "forks": 4,
+        "issues": {
+            "closed": 2,
+            "open": 1
+        },
+        "owner": "seeebiii",
+        "repository": "redoc-cli-github-action",
+        "stars": 9,
+        "verified": false,
+        "versions": {
+            "18/04/2020": "v9"
+        },
+        "watching": 1
+    },
+    "release-tag-to-upload-url": {
+        "category": "api-management",
+        "contributors": [
+            "pdamianik"
+        ],
+        "dependents": {
+            "number": 62,
+            "package_url": "https://github.com/pdamianik/release-tag-to-upload-url-action/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 1,
+            "open": 0
+        },
+        "owner": "pdamianik",
+        "repository": "release-tag-to-upload-url-action",
+        "stars": 2,
+        "verified": false,
+        "versions": {
+            "25/07/2020": "v1.0.0"
+        },
+        "watching": 0
+    },
+    "remote-yaml-file-validation": {
+        "category": "api-management",
+        "contributors": [
+            "mpoc"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/mpoc/yaml-validation-action/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "mpoc",
+        "repository": "yaml-validation-action",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "20/02/2021": "v1"
+        },
+        "watching": 3
+    },
+    "remove-installed-catalog-app": {
+        "category": "api-management",
+        "contributors": [
+            "kptLucek"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/BitBagCommerce/rancher-remove-catalog-app/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "BitBagCommerce",
+        "repository": "rancher-remove-catalog-app",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "03/02/2022": "v0.1.0"
+        },
+        "watching": 4
+    },
+    "repo-list-generator": {
+        "category": "api-management",
+        "contributors": [
+            "dependabot-preview[bot]",
+            "dependabot[bot]",
+            "yi-Xu-0100"
+        ],
+        "dependents": {
+            "number": 12,
+            "package_url": "https://github.com/yi-Xu-0100/repo-list-generator/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 99,
+            "open": 0
+        },
+        "owner": "yi-Xu-0100",
+        "repository": "repo-list-generator",
+        "stars": 4,
+        "verified": false,
+        "versions": {
+            "01/02/2021": "v1.0.0",
+            "02/02/2021": "v1.0.1",
+            "09/11/2020": "v0.4.0",
+            "11/10/2020": "v0.0.1",
+            "14/10/2020": "v0.0.2",
+            "16/10/2020": "v0.0.3",
+            "18/10/2020": "v0.2.0",
+            "19/10/2020": "v0.2.1",
+            "20/10/2020": "v0.3.0"
+        },
+        "watching": 1
+    },
+    "rml-mapper-java": {
+        "category": "api-management",
+        "contributors": [
+            "berombau",
+            "bjdmeest",
+            "driesmarzougui",
+            "duschu",
+            "pheyvaer",
+            "thomas-delva",
+            "vemonet"
+        ],
+        "dependents": {
+            "number": 5,
+            "package_url": "https://github.com/vemonet/rmlmapper-java/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "vemonet",
+        "repository": "rmlmapper-java",
+        "stars": 2,
+        "verified": false,
+        "versions": {
+            "16/09/2020": "v4.9.0",
+            "29/05/2020": "v4.8"
+        },
+        "watching": 1
+    },
+    "run-cronicle-job": {
+        "category": "api-management",
+        "contributors": [
+            "phartenfeller"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/phartenfeller/cronicle-job-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 9,
+            "open": 1
+        },
+        "owner": "phartenfeller",
+        "repository": "cronicle-job-action",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "04/02/2022": "v1.2.0",
+            "05/02/2022": "v1.2.1",
+            "07/02/2022": "v1.2.3",
+            "07/09/2021": "v0.1",
+            "08/02/2022": "v1.2.4",
+            "08/09/2021": "v1.0.0"
+        },
+        "watching": 1
+    },
+    "run-databricks-notebook": {
+        "category": "api-management",
+        "contributors": [
+            "mohamad-arabi",
+            "smurching"
+        ],
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/databricks/run-notebook/network/dependents"
+        },
+        "forks": 2,
+        "issues": {
+            "closed": 12,
+            "open": 0
+        },
+        "owner": "databricks",
+        "repository": "run-notebook",
+        "stars": 13,
+        "verified": true,
+        "versions": {
+            "13/04/2022": "v0"
+        },
+        "watching": 5
+    },
+    "s3-cp": {
+        "category": "api-management",
+        "contributors": [
+            "prewk",
+            "theovincent"
+        ],
+        "dependents": {
+            "number": 133,
+            "package_url": "https://github.com/prewk/s3-cp-action/network/dependents"
+        },
+        "forks": 5,
+        "issues": {
+            "closed": 2,
+            "open": 2
+        },
+        "owner": "prewk",
+        "repository": "s3-cp-action",
+        "stars": 12,
+        "verified": false,
+        "versions": {
+            "18/02/2020": "v0.1.0"
+        },
+        "watching": 3
+    },
+    "sbpack-push": {
+        "category": "api-management",
+        "contributors": [
+            "thomasyu888"
+        ],
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/include-dcc/sbpack-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 2,
+            "open": 0
+        },
+        "owner": "include-dcc",
+        "repository": "sbpack-action",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "05/10/2021": "v0.0.2",
+            "28/07/2021": "v0.0.1"
+        },
+        "watching": 6
+    },
+    "scaleway-cli-action": {
+        "category": "api-management",
+        "contributors": [
+            "philibea"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/philibea/scw-cli-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 1,
+            "open": 0
+        },
+        "owner": "philibea",
+        "repository": "scw-cli-action",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "06/07/2021": "2.3.1"
+        },
+        "watching": 1
+    },
+    "scanapi": {
+        "category": "api-management",
+        "contributors": [
+            "ShubhamSood1406",
+            "camilamaia",
+            "snyk-bot",
+            "vinigfer"
+        ],
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/scanapi/github-action/network/dependents"
+        },
+        "forks": 2,
+        "issues": {
+            "closed": 9,
+            "open": 0
+        },
+        "owner": "scanapi",
+        "repository": "github-action",
+        "stars": 10,
+        "verified": false,
+        "versions": {
+            "19/10/2020": "v1.1.0",
+            "20/09/2020": "v0.1.0",
+            "21/09/2020": "v1.0.0"
+        },
+        "watching": 16
+    },
+    "schemaregistry": {
+        "category": "api-management",
+        "contributors": [
+            "nnanto"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/nnanto/schemacodeman/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "nnanto",
+        "repository": "schemacodeman",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "10/05/2020": "v1.0"
+        },
+        "watching": 1
+    },
+    "send-message": {
+        "category": "api-management",
+        "contributors": [
+            "ZjBlog"
+        ],
+        "dependents": {
+            "number": 4,
+            "package_url": "https://github.com/ZjBlog/message/network/dependents"
+        },
+        "forks": 13,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "ZjBlog",
+        "repository": "message",
+        "stars": 12,
+        "verified": false,
+        "versions": {
+            "04/06/2019": "v1",
+            "05/06/2019": "v1.2"
+        },
+        "watching": 4
+    },
+    "send-releases-to-slack": {
+        "category": "api-management",
+        "contributors": [
+            "ankur-lt"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/ankur-lt/send-releases-to-slack/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 1,
+            "open": 0
+        },
+        "owner": "ankur-lt",
+        "repository": "send-releases-to-slack",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "10/08/2021": "v1.0.1",
+            "16/08/2021": "v1.0.10",
+            "24/08/2021": "v1.0.13",
+            "26/08/2021": "v1.0.14",
+            "27/08/2021": "v1.2.0"
+        },
+        "watching": 1
+    },
+    "send-telegram-messages": {
+        "category": "api-management",
+        "contributors": [
+            "ladjeek-actions",
+            "slblog-github",
+            "xinthink"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/ladjeek-actions/action-telegram/network/dependents"
+        },
+        "forks": 2,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "ladjeek-actions",
+        "repository": "action-telegram",
+        "stars": 2,
+        "verified": false,
+        "versions": {
+            "24/02/2021": "v1.0"
+        },
+        "watching": 0
+    },
+    "servicenow-devops-artifact-package": {
+        "category": "api-management",
+        "contributors": [
+            "jgiara",
+            "svc-snow-rapdev",
+            "thorntonmc"
+        ],
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/rapdev-io/sn-devops-package/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 1,
+            "open": 0
+        },
+        "owner": "rapdev-io",
+        "repository": "sn-devops-package",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "02/01/2022": "v1.0.6",
+            "10/01/2022": "v2.0.0",
+            "15/10/2021": "v1.0.0",
+            "17/12/2021": "v1.0.4",
+            "21/01/2022": "v2.0.1"
+        },
+        "watching": 5
+    },
+    "servicenow-devops-artifact-registration": {
+        "category": "api-management",
+        "contributors": [
+            "jgiara",
+            "svc-snow-rapdev",
+            "thorntonmc"
+        ],
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/rapdev-io/sn-devops-artifact/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "rapdev-io",
+        "repository": "sn-devops-artifact",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "02/01/2022": "v1.0.7",
+            "10/01/2022": "v2.0.0",
+            "15/10/2021": "v1.0.0",
+            "17/12/2021": "v1.0.5",
+            "21/01/2022": "v2.0.1"
+        },
+        "watching": 6
+    },
+    "servicenow-devops-change": {
+        "category": "api-management",
+        "contributors": [
+            "jgiara",
+            "svc-snow-rapdev",
+            "thorntonmc"
+        ],
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/rapdev-io/sn-devops-change/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "rapdev-io",
+        "repository": "sn-devops-change",
+        "stars": 2,
+        "verified": false,
+        "versions": {
+            "02/01/2022": "v.1.0.3",
+            "03/01/2022": "v1.0.6",
+            "10/01/2022": "v1.0.7",
+            "15/10/2021": "v1.0.0",
+            "21/01/2022": "v2.0.1"
+        },
+        "watching": 6
+    },
+    "servicenow-devops-change-update": {
+        "category": "api-management",
+        "contributors": [
+            "jgiara",
+            "svc-snow-rapdev",
+            "thorntonmc"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/rapdev-io/sn-devops-change-update/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "rapdev-io",
+        "repository": "sn-devops-change-update",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "10/01/2022": "v1.0.0",
+            "21/01/2022": "v2.3.1"
+        },
+        "watching": 5
+    },
+    "servicenow-devops-notification": {
+        "category": "api-management",
+        "contributors": [
+            "jgiara",
+            "thorntonmc"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/rapdev-io/sn-devops-notification/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "rapdev-io",
+        "repository": "sn-devops-notification",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "15/10/2021": "v1.0.0",
+            "17/12/2021": "v1.0.7",
+            "27/10/2021": "v1.0.3"
+        },
+        "watching": 6
+    },
+    "setup-fastly-cli": {
+        "category": "api-management",
+        "contributors": [
+            "softprops"
+        ],
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/softprops/setup-fastly-cli/network/dependents"
+        },
+        "forks": 2,
+        "issues": {
+            "closed": 2,
+            "open": 2
+        },
+        "owner": "softprops",
+        "repository": "setup-fastly-cli",
+        "stars": 3,
+        "verified": false,
+        "versions": {
+            "16/05/2020": "v0.1.0",
+            "24/08/2021": "v0.1.1"
+        },
+        "watching": 0
+    },
+    "setup-inso": {
+        "category": "api-management",
+        "contributors": [
+            "mheap"
+        ],
+        "dependents": {
+            "number": 9,
+            "package_url": "https://github.com/Kong/setup-inso/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "Kong",
+        "repository": "setup-inso",
+        "stars": 5,
+        "verified": false,
+        "versions": {
+            "12/11/2021": "v1"
+        },
+        "watching": 7
+    },
+    "setup-pantheon-terminus": {
+        "category": "api-management",
+        "contributors": [
+            "kopepasah"
+        ],
+        "dependents": {
+            "number": 12,
+            "package_url": "https://github.com/kopepasah/setup-pantheon-terminus/network/dependents"
+        },
+        "forks": 12,
+        "issues": {
+            "closed": 1,
+            "open": 9
+        },
+        "owner": "kopepasah",
+        "repository": "setup-pantheon-terminus",
+        "stars": 10,
+        "verified": false,
+        "versions": {
+            "11/10/2019": "1.0.0"
+        },
+        "watching": 2
+    },
+    "setup-phrase-cli-v2": {
+        "category": "api-management",
+        "contributors": [
+            "araujoigor",
+            "dependabot[bot]",
+            "iamandrewluca",
+            "pedpess"
+        ],
+        "dependents": {
+            "number": 29,
+            "package_url": "https://github.com/winify-ag/setup-phraseapp/network/dependents"
+        },
+        "forks": 11,
+        "issues": {
+            "closed": 13,
+            "open": 6
+        },
+        "owner": "winify-ag",
+        "repository": "setup-phraseapp",
+        "stars": 16,
+        "verified": false,
+        "versions": {
+            "09/10/2020": "v2.1.0",
+            "16/08/2020": "v2.0.1",
+            "16/10/2019": "v1.0.0",
+            "22/07/2020": "v2.0.0"
+        },
+        "watching": 1
+    },
+    "silverstripe-cloud-dashboard-api-service": {
+        "category": "api-management",
+        "contributors": [
+            "andrewandante"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/andrewandante/silverstripe-cloud-dash-action/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 3,
+            "open": 0
+        },
+        "owner": "andrewandante",
+        "repository": "silverstripe-cloud-dash-action",
+        "stars": 5,
+        "verified": false,
+        "versions": {
+            "29/10/2020": "v0.1.0",
+            "30/10/2020": "v0.2.0"
+        },
+        "watching": 2
+    },
+    "slackbot-bot-automation": {
+        "category": "api-management",
+        "contributors": [
+            "WolfenGames",
+            "dependabot[bot]"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/wethinkcode/github_action_slackbot/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 3,
+            "open": 0
+        },
+        "owner": "wethinkcode",
+        "repository": "github_action_slackbot",
+        "stars": 3,
+        "verified": false,
+        "versions": {
+            "01/03/2021": "v0.1.8",
+            "03/03/2021": "v0.1.9",
+            "08/02/2021": "v0.1.0",
+            "09/02/2021": "v0.1.3",
+            "25/06/2021": "v0.2",
+            "28/02/2021": "v0.1.4"
+        },
+        "watching": 4
+    },
+    "sparql-operations": {
+        "category": "api-management",
+        "contributors": [
+            "vemonet"
+        ],
+        "dependents": {
+            "number": 10,
+            "package_url": "https://github.com/vemonet/sparql-operations-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "vemonet",
+        "repository": "sparql-operations-action",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "12/04/2021": "v1"
+        },
+        "watching": 2
+    },
+    "ssosync": {
+        "category": "api-management",
+        "contributors": [
+            "arthurbdiniz"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/DNXLabs/ssosync-action/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 0,
+            "open": 1
+        },
+        "owner": "DNXLabs",
+        "repository": "ssosync-action",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "12/08/2020": "v1"
+        },
+        "watching": 2
+    },
+    "start-shifter-wordpress": {
+        "category": "api-management",
+        "contributors": [
+            "sawanoboly"
+        ],
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/getshifter/actions-start/network/dependents"
+        },
+        "forks": 4,
+        "issues": {
+            "closed": 1,
+            "open": 1
+        },
+        "owner": "getshifter",
+        "repository": "actions-start",
+        "stars": 2,
+        "verified": false,
+        "versions": {
+            "09/01/2020": "v2",
+            "25/12/2019": "v1"
+        },
+        "watching": 6
+    },
+    "stop-shifter-wordpress": {
+        "category": "api-management",
+        "contributors": [
+            "sawanoboly"
+        ],
+        "dependents": {
+            "number": 3,
+            "package_url": "https://github.com/getshifter/actions-stop/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 1
+        },
+        "owner": "getshifter",
+        "repository": "actions-stop",
+        "stars": 2,
+        "verified": false,
+        "versions": {
+            "09/01/2020": "v2",
+            "25/12/2019": "v1"
+        },
+        "watching": 6
+    },
+    "swagger-cli": {
+        "category": "api-management",
+        "contributors": [
+            "falnyr",
+            "mpetrunic",
+            "vaibhav-jain"
+        ],
+        "dependents": {
+            "number": 26,
+            "package_url": "https://github.com/mpetrunic/swagger-cli-action/network/dependents"
+        },
+        "forks": 3,
+        "issues": {
+            "closed": 3,
+            "open": 0
+        },
+        "owner": "mpetrunic",
+        "repository": "swagger-cli-action",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "24/05/2020": "v1.0.0"
+        },
+        "watching": 0
+    },
+    "swagger-editor-validator": {
+        "category": "api-management",
+        "contributors": [
+            "char0n",
+            "dependabot[bot]"
+        ],
+        "dependents": {
+            "number": 89,
+            "package_url": "https://github.com/char0n/swagger-editor-validate/network/dependents"
+        },
+        "forks": 8,
+        "issues": {
+            "closed": 75,
+            "open": 5
+        },
+        "owner": "char0n",
+        "repository": "swagger-editor-validate",
+        "stars": 19,
+        "verified": false,
+        "versions": {
+            "02/02/2022": "v1.3.0",
+            "05/04/2021": "v1.2.1",
+            "07/03/2021": "v1.0.0",
+            "16/02/2022": "v1.3.1",
+            "23/03/2021": "v1.1.0"
+        },
+        "watching": 2
+    },
+    "swagger-ui": {
+        "category": "api-management",
+        "contributors": [
+            "BigTows",
+            "blademainer"
+        ],
+        "dependents": {
+            "number": 72,
+            "package_url": "https://github.com/pjoc-team/swagger-ui-action/network/dependents"
+        },
+        "forks": 5,
+        "issues": {
+            "closed": 2,
+            "open": 1
+        },
+        "owner": "pjoc-team",
+        "repository": "swagger-ui-action",
+        "stars": 8,
+        "verified": false,
+        "versions": {
+            "29/10/2020": "v0.0.1"
+        },
+        "watching": 3
+    },
+    "swagger-ui-action": {
+        "category": "api-management",
+        "contributors": [
+            "Legion2",
+            "RemiBardon",
+            "dependabot[bot]"
+        ],
+        "dependents": {
+            "number": 141,
+            "package_url": "https://github.com/Legion2/swagger-ui-action/network/dependents"
+        },
+        "forks": 3,
+        "issues": {
+            "closed": 63,
+            "open": 0
+        },
+        "owner": "Legion2",
+        "repository": "swagger-ui-action",
+        "stars": 21,
+        "verified": false,
+        "versions": {
+            "04/09/2020": "v1.0.0",
+            "07/09/2021": "v1.1.3",
+            "08/03/2021": "v1.0.3",
+            "12/03/2021": "v1.1.1",
+            "19/04/2021": "v1.1.2",
+            "29/12/2020": "v1.0.2"
+        },
+        "watching": 2
+    },
+    "swift-api-assign-reviewer": {
+        "category": "api-management",
+        "contributors": [
+            "MarcoEidinger",
+            "dependabot[bot]"
+        ],
+        "dependents": {
+            "number": 15,
+            "package_url": "https://github.com/MarcoEidinger/swift-api-assign-reviewer/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 9,
+            "open": 0
+        },
+        "owner": "MarcoEidinger",
+        "repository": "swift-api-assign-reviewer",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "09/05/2020": "1.0.0",
+            "27/05/2021": "1.0.1"
+        },
+        "watching": 1
+    },
+    "sync-swagger-to-postman": {
+        "category": "api-management",
+        "contributors": [
+            "salockhart"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/salockhart/sync-swagger-postman-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 1,
+            "open": 0
+        },
+        "owner": "salockhart",
+        "repository": "sync-swagger-postman-action",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "16/09/2021": "v1"
+        },
+        "watching": 1
+    },
+    "terraform-cloud-run-action": {
+        "category": "api-management",
+        "contributors": [
+            "dependabot[bot]",
+            "kvrhdn",
+            "nicole-ashley"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/raphapr/tfe-run/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "raphapr",
+        "repository": "tfe-run",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "01/07/2021": "v1.1.1"
+        },
+        "watching": 1
+    },
+    "test-action-1": {
+        "category": "api-management",
+        "contributors": [
+            "amondnet"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/bot-pf/test-action-4/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 1,
+            "open": 9
+        },
+        "owner": "bot-pf",
+        "repository": "test-action-4",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "16/05/2020": "v0.0.1"
+        },
+        "watching": 3
+    },
+    "theneo-api-documentation": {
+        "category": "api-management",
+        "contributors": [
+            "theneoAPIDoc"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/Theneo-Inc/api-documentation/network/dependents"
+        },
+        "forks": 2,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "Theneo-Inc",
+        "repository": "api-documentation",
+        "stars": 12,
+        "verified": false,
+        "versions": {
+            "10/03/2022": "1.0",
+            "23/02/2022": "v1"
+        },
+        "watching": 1
+    },
+    "traffic-to-badge": {
+        "category": "api-management",
+        "contributors": [
+            "dependabot-preview[bot]",
+            "dependabot[bot]",
+            "yi-Xu-0100"
+        ],
+        "dependents": {
+            "number": 44,
+            "package_url": "https://github.com/yi-Xu-0100/traffic-to-badge/network/dependents"
+        },
+        "forks": 2,
+        "issues": {
+            "closed": 24,
+            "open": 0
+        },
+        "owner": "yi-Xu-0100",
+        "repository": "traffic-to-badge",
+        "stars": 14,
+        "verified": false,
+        "versions": {
+            "01/10/2020": "v1.0.0",
+            "05/11/2020": "v1.2.0",
+            "06/11/2020": "v1.2.1",
+            "08/10/2020": "v1.0.1",
+            "19/01/2021": "v1.3.0",
+            "20/10/2020": "v1.1.0",
+            "21/10/2020": "v1.1.1",
+            "24/01/2021": "v1.4.0",
+            "24/10/2020": "v1.1.4",
+            "25/10/2020": "v1.1.5",
+            "31/10/2020": "v1.1.6"
+        },
+        "watching": 1
+    },
+    "update-avrae-aliases": {
+        "category": "api-management",
+        "contributors": [
+            "1drturtle"
+        ],
+        "dependents": {
+            "number": 4,
+            "package_url": "https://github.com/1drturtle/avrae-alias-update-action/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "1drturtle",
+        "repository": "avrae-alias-update-action",
+        "stars": 4,
+        "verified": false,
+        "versions": {
+            "03/11/2020": "v0.0.1",
+            "04/11/2020": "v1.1"
+        },
+        "watching": 2
+    },
+    "update-azure-api-management": {
+        "category": "api-management",
+        "contributors": [
+            "MOlausson",
+            "dependabot[bot]"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/solidify/github-action-update-azapim/network/dependents"
+        },
+        "forks": 3,
+        "issues": {
+            "closed": 11,
+            "open": 0
+        },
+        "owner": "solidify",
+        "repository": "github-action-update-azapim",
+        "stars": 4,
+        "verified": false,
+        "versions": {
+            "16/09/2020": "v0.9.4"
+        },
+        "watching": 3
+    },
+    "update-azure-api-management-openapi-schema": {
+        "category": "api-management",
+        "contributors": [
+            "MOlausson",
+            "OssiPesonen",
+            "OssiPesonenVincit",
+            "dependabot[bot]"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/OssiPesonen/action-update-api-management-openapi/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "OssiPesonen",
+        "repository": "action-update-api-management-openapi",
+        "stars": 0,
+        "verified": false,
+        "versions": {
+            "05/03/2022": "v1.0.0",
+            "06/03/2022": "v1.1.1"
+        },
+        "watching": 0
+    },
+    "update-azure-api-management-services": {
+        "category": "api-management",
+        "contributors": [
+            "Kipriz"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/Kipriz/update-azure-api-management/network/dependents"
+        },
+        "forks": 2,
+        "issues": {
+            "closed": 1,
+            "open": 0
+        },
+        "owner": "Kipriz",
+        "repository": "update-azure-api-management",
+        "stars": 4,
+        "verified": false,
+        "versions": {
+            "21/12/2020": "v1"
+        },
+        "watching": 3
+    },
+    "update-source-and-configuration-of-aws-lambda-function": {
+        "category": "api-management",
+        "contributors": [
+            "mydea",
+            "valado"
+        ],
+        "dependents": {
+            "number": 2,
+            "package_url": "https://github.com/mupixa/deploy-lambda/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 2,
+            "open": 0
+        },
+        "owner": "mupixa",
+        "repository": "deploy-lambda",
+        "stars": 2,
+        "verified": false,
+        "versions": {
+            "14/05/2022": "v1.1",
+            "31/08/2020": "v0.4"
+        },
+        "watching": 2
+    },
+    "upload-dbfs-temp": {
+        "category": "api-management",
+        "contributors": [
+            "mohamad-arabi",
+            "smurching"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/databricks/upload-dbfs-temp/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 11,
+            "open": 0
+        },
+        "owner": "databricks",
+        "repository": "upload-dbfs-temp",
+        "stars": 4,
+        "verified": true,
+        "versions": {
+            "13/04/2022": "v0"
+        },
+        "watching": 5
+    },
+    "upload-to-curseforge": {
+        "category": "api-management",
+        "contributors": [
+            "dependabot[bot]",
+            "itsmeow"
+        ],
+        "dependents": {
+            "number": 189,
+            "package_url": "https://github.com/itsmeow/curseforge-upload/network/dependents"
+        },
+        "forks": 3,
+        "issues": {
+            "closed": 15,
+            "open": 1
+        },
+        "owner": "itsmeow",
+        "repository": "curseforge-upload",
+        "stars": 22,
+        "verified": false,
+        "versions": {
+            "06/03/2020": "v1",
+            "09/01/2022": "v3.1.0",
+            "19/12/2020": "v3.0.0"
+        },
+        "watching": 1
+    },
+    "usabl-duplicate-task-github-action": {
+        "category": "api-management",
+        "contributors": [
+            "SageUsabl",
+            "stephaniegoldman12"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/Usabl-dev/usabl-github-action/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 2,
+            "open": 0
+        },
+        "owner": "Usabl-dev",
+        "repository": "usabl-github-action",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "08/12/2021": "v1"
+        },
+        "watching": 0
+    },
+    "validate-json-request-response": {
+        "category": "api-management",
+        "contributors": [
+            "TobiasOlofsson88"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/TobiasOlofsson88/github-action-validate-json-request-result/network/dependents"
+        },
+        "forks": 2,
+        "issues": {
+            "closed": 0,
+            "open": 1
+        },
+        "owner": "TobiasOlofsson88",
+        "repository": "github-action-validate-json-request-result",
+        "stars": 4,
+        "verified": false,
+        "versions": {
+            "23/10/2020": "v1.0.1"
+        },
+        "watching": 2
+    },
+    "vapeshield": {
+        "category": "api-management",
+        "contributors": [
+            "dependabot[bot]",
+            "seano-vs"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/Voteshield/VapeShield/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 11,
+            "open": 0
+        },
+        "owner": "Voteshield",
+        "repository": "VapeShield",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "13/10/2021": "v0.1.0",
+            "19/10/2021": "v0.1.1"
+        },
+        "watching": 2
+    },
+    "watermelon-http-client": {
+        "category": "api-management",
+        "contributors": [
+            "CamiloGarciaLaRotta",
+            "dependabot-preview[bot]",
+            "dependabot[bot]",
+            "rramo012",
+            "titoine54"
+        ],
+        "dependents": {
+            "number": 80,
+            "package_url": "https://github.com/CamiloGarciaLaRotta/watermelon-http-client/network/dependents"
+        },
+        "forks": 12,
+        "issues": {
+            "closed": 18,
+            "open": 0
+        },
+        "owner": "CamiloGarciaLaRotta",
+        "repository": "watermelon-http-client",
+        "stars": 21,
+        "verified": false,
+        "versions": {
+            "07/04/2020": "v1.2",
+            "10/04/2020": "v1.3",
+            "17/04/2020": "v1.4",
+            "21/02/2021": "v1.5",
+            "22/03/2020": "watermelon-release",
+            "23/03/2020": "v1.0"
+        },
+        "watching": 1
+    },
+    "web-request-action": {
+        "category": "api-management",
+        "contributors": [
+            "Satak",
+            "dependabot[bot]"
+        ],
+        "dependents": {
+            "number": 372,
+            "package_url": "https://github.com/Satak/webrequest-action/network/dependents"
+        },
+        "forks": 5,
+        "issues": {
+            "closed": 16,
+            "open": 2
+        },
+        "owner": "Satak",
+        "repository": "webrequest-action",
+        "stars": 34,
+        "verified": false,
+        "versions": {
+            "04/12/2019": "v1",
+            "05/01/2021": "v1.2.4",
+            "05/12/2019": "v1.2",
+            "10/05/2020": "v1.2.3"
+        },
+        "watching": 2
+    },
+    "webhook-action": {
+        "category": "api-management",
+        "contributors": [
+            "AnandChowdhary",
+            "dependabot[bot]",
+            "joelwmale",
+            "mergify[bot]"
+        ],
+        "dependents": {
+            "number": 622,
+            "package_url": "https://github.com/joelwmale/webhook-action/network/dependents"
+        },
+        "forks": 31,
+        "issues": {
+            "closed": 51,
+            "open": 0
+        },
+        "owner": "joelwmale",
+        "repository": "webhook-action",
+        "stars": 104,
+        "verified": false,
+        "versions": {
+            "17/10/2019": "1.0.1",
+            "18/08/2019": "1.0.0",
+            "26/02/2021": "2.1.0",
+            "26/08/2020": "2.0.0",
+            "27/08/2020": "2.0.1",
+            "29/08/2020": "2.0.2"
+        },
+        "watching": 4
+    },
+    "webhook-action-for-node": {
+        "category": "api-management",
+        "contributors": [
+            "denar90"
+        ],
+        "dependents": {
+            "number": 10,
+            "package_url": "https://github.com/denar90/webhook-action/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 0,
+            "open": 2
+        },
+        "owner": "denar90",
+        "repository": "webhook-action",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "05/07/2020": "0.1.1",
+            "20/06/2020": "0.1.0"
+        },
+        "watching": 2
+    },
+    "webhook-post-action": {
+        "category": "api-management",
+        "contributors": [
+            "dependabot[bot]",
+            "muinmomin"
+        ],
+        "dependents": {
+            "number": 68,
+            "package_url": "https://github.com/muinmomin/webhook-action/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 7,
+            "open": 8
+        },
+        "owner": "muinmomin",
+        "repository": "webhook-action",
+        "stars": 9,
+        "verified": false,
+        "versions": {
+            "17/02/2020": "v0.0.1"
+        },
+        "watching": 1
+    },
+    "xtra-hook-shot": {
+        "category": "api-management",
+        "contributors": [
+            "xtrakTD"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/xtrakTD/xtra-hook-shot/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "xtrakTD",
+        "repository": "xtra-hook-shot",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "13/10/2021": "v1.0.10",
+            "25/09/2021": "v1.0.9"
+        },
+        "watching": 1
+    },
+    "yaml-file-validation-using-a-remote-json-schema": {
+        "category": "api-management",
+        "contributors": [
+            "mpoc"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/mpoc/nexus-validate-using-remote-schema-action/network/dependents"
+        },
+        "forks": 1,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "mpoc",
+        "repository": "nexus-validate-using-remote-schema-action",
+        "stars": 2,
+        "verified": false,
+        "versions": {
+            "20/03/2021": "v1"
+        },
+        "watching": 2
+    },
+    "yandex-cloud-yc-token-generator": {
+        "category": "api-management",
+        "contributors": [
+            "BigTows"
+        ],
+        "dependents": {
+            "number": 1,
+            "package_url": "https://github.com/BigTows/yc-token/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 4,
+            "open": 0
+        },
+        "owner": "BigTows",
+        "repository": "yc-token",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "06/11/2021": "dev-6944eeb88e5cf00142717491e8e66c6893b94cde",
+            "28/10/2021": "latest"
+        },
+        "watching": 2
+    },
+    "yandex-lockbox-secret-vault": {
+        "category": "api-management",
+        "contributors": [
+            "BigTows"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/BigTows/yc-lockbox/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 4,
+            "open": 0
+        },
+        "owner": "BigTows",
+        "repository": "yc-lockbox",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "28/10/2021": "latest"
+        },
+        "watching": 2
+    },
+    "zenhub-move-card": {
+        "category": "api-management",
+        "contributors": [
+            "taylorg198739"
+        ],
+        "dependents": {
+            "number": 0,
+            "package_url": "https://github.com/taylorg198739/workflow-actions/network/dependents"
+        },
+        "forks": 0,
+        "issues": {
+            "closed": 0,
+            "open": 0
+        },
+        "owner": "taylorg198739",
+        "repository": "workflow-actions",
+        "stars": 1,
+        "verified": false,
+        "versions": {
+            "07/09/2020": "v2"
+        },
+        "watching": 1
+    }
+}
