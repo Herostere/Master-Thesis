@@ -429,6 +429,39 @@ def deal_with_api_403(api_response: requests.Response, i: int, url: str) -> tupl
     return tree_response, i
 
 
+def check_issues():
+    """
+    Check the number of repositories with open and closed issues.
+    """
+    open_issues = 0
+    closed_issues = 0
+
+    open_up_to_date = 0
+    open_not_up_to_date = 0
+
+    for action in loaded_data:
+        if loaded_data[action]["issues"]["open"] > 0:
+            open_issues += 1
+
+            dates = [key for key in loaded_data[action]["versions"]]
+            dates = [datetime.strptime(date, "%d/%m/%Y") for date in dates]
+            dates.sort()
+            sorted_dates = [datetime.strftime(date, "%d/%m/%Y") for date in dates]
+            last_date = sorted_dates[-1]
+            now = datetime.strftime(datetime.now(), "%d/%m/%Y")
+            difference = datetime.strptime(now, "%d/%m/%Y") - datetime.strptime(last_date, "%d/%m/%Y")
+            days = difference.days
+            if days > 182:
+                open_not_up_to_date += 1
+            else:
+                open_up_to_date += 1
+        elif loaded_data[action]["issues"]["closed"] > 0:
+            closed_issues += 1
+
+    print(open_issues, closed_issues)
+    print(open_up_to_date, open_not_up_to_date)
+
+
 if __name__ == "__main__":
     file = config.file_name
     try:
@@ -463,3 +496,6 @@ if __name__ == "__main__":
 
     if config.multiple_actions:
         multiple_actions()
+
+    if config.actions_issues:
+        check_issues()
