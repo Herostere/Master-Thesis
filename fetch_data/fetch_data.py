@@ -423,10 +423,6 @@ def get_api(key: str | list, owner: str, repo_name: str, index: int) -> tuple[in
         'watching': 'login',
         'issues': ('open', 'closed')
     }
-    headers = {
-        'Authorization': f'token {GITHUB_TOKENS[i]}',
-        'accept': 'application/vnd.github.v3+json',
-    }
 
     try:
         is_tuple = type(to_extract[key]) is tuple
@@ -438,15 +434,10 @@ def get_api(key: str | list, owner: str, repo_name: str, index: int) -> tuple[in
     else:
         final = []
 
-    while True:
-        try:
-            if type(key) is list:
-                api_call = requests.get(url, headers=headers)
-            else:
-                api_call = requests.get(urls[key], headers=headers)
-            break
-        except requests.ConnectionError:
-            time.sleep(60)
+    if type(key) is list:
+        api_call = request_to_api(url, i)
+    else:
+        api_call = request_to_api(urls[key], i)
 
     if type(key) is list:
         to_return, i = extract(api_call, key, url, i)
@@ -467,12 +458,8 @@ def get_api(key: str | list, owner: str, repo_name: str, index: int) -> tuple[in
             else:
                 for extracted in temp:
                     final.append(extracted)
-            while True:
-                try:
-                    api_call = requests.get(api_call.links['next']['url'], headers)
-                    break
-                except requests.exceptions.ConnectionError:
-                    time.sleep(60)
+
+            api_call = request_to_api(api_call.links['next']['url'], i)
 
         temp, i = extract(api_call, to_extract[key], urls[key], i)
         if is_tuple:
@@ -487,17 +474,27 @@ def get_api(key: str | list, owner: str, repo_name: str, index: int) -> tuple[in
     return final, i
 
 
-def request_to_api(key):
-    
+def request_to_api(url: str, i: int) -> requests.Response:
+    """
+    Make a request to the GitHub's API.
+
+    :param url: The URL where the information is located.
+    :param i: The index for the GitHub Tokens.
+    :return: The API response.
+    """
+    headers = {
+        'Authorization': f'token {GITHUB_TOKENS[i]}',
+        'accept': 'application/vnd.github.v3+json',
+    }
+
     while True:
         try:
-            if type(key) is list:
-                api_call = requests.get(url, headers=headers)
-            else:
-                api_call = requests.get(urls[key], headers=headers)
+            api_call = requests.get(url, headers=headers)
             break
-        except requests.ConnectionError:
+        except requests.exceptions.ConnectionError:
             time.sleep(60)
+
+    return api_call
 
 
 def extract(api_call: requests.Response, to_extract: str | tuple | list, url, index):

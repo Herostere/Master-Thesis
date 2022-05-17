@@ -3,7 +3,7 @@ This script is used to generate plots in order to analyse the data previously re
 """
 from collections import Counter
 from datetime import datetime
-from fetch_data import get_api, get_request, beautiful_html
+from fetch_data import request_to_api, get_request, beautiful_html, get_remaining_api_calls, GITHUB_TOKENS
 from packaging import version as packaging_version
 
 import data_analysis_config as config
@@ -12,8 +12,10 @@ import math
 import matplotlib.pyplot as plt
 import random
 import re
+import requests
 import seaborn
 import statistics
+import time
 
 
 def market_growing_over_time(p_category: str = None) -> None:
@@ -304,15 +306,17 @@ def determine_popularity() -> None:
         print(f"{key}: {value} --- {key_category}")
 
 
-def multiple_actions():
+def multiple_actions() -> None:
+    """
+    Check the mean for the number of actions per repository. Safe the links to yml files.
+    """
     actions_in_repos = []
     yml_files = []
 
     i = 0
     for action in loaded_data:
-        # get name of the main branch
-        # api request to get the sha of the branch
-        # api request to get the files
+        actions = 0
+
         owner = loaded_data[action]["owner"]
         repository = loaded_data[action]["repository"]
         url = f"https://github.com/{owner}/{repository}"
@@ -329,41 +333,100 @@ def multiple_actions():
         space_pattern = re.compile(r"\s+")
         main_branch = re.sub(space_pattern, "", root.xpath(xpath_branch)[0])
 
-        tree = get_api
+        api_branch_url = f"https://api.github.com/repos/{owner}/{repository}/commits/{main_branch}"
+        tree_response = request_to_api(api_branch_url, i)
+        while True:
+            if tree_response.status_code == 200:
+                tree_json = tree_response.json()
+                tree_sha = tree_json["commit"]["tree"]["sha"]
+                break
+            elif tree_response.status_code == 403:
+                tree_response, i = deal_with_api_403(tree_response, i, api_branch_url)
 
-    #     xpath_workflow = '//a[text()[contains(., ".github")]]/@href'
-    #     xpath_yml = '//a[text()[contains(., "yml")]]/@href'
-    #     try:
-    #         root = beautiful_html(request.text)
-    #     except AttributeError:
-    #         continue
-    #
-    #     base = "https://github.com"
-    #     ymls = root.xpath(xpath_yml)
-    #     workflow = root.xpath(xpath_workflow)
-    #     for element in workflow:
-    #         if "#" in element:
-    #             workflow.remove(element)
-    #         else:
-    #             request = get_request("multiple_actions", f"{base}/{element}")
-    #             if request:
-    #                 root = beautiful_html(request.text)
-    #                 ymls += root.xpath(xpath_yml)
-    #     for element in ymls:
-    #         if "#" in element or "/commit/" in element:
-    #             ymls.remove(element)
-    #         yml_files.append(f"{base}/{element}")
-    #
-    #     actions_in_repos.append(len(ymls))
-    #
-    #     i += 1
-    #
-    # mean_actions_in_repos = statistics.mean(actions_in_repos)
-    # print(actions_in_repos)
-    # with open("yml_files.json", 'w') as write_file:
-    #     json.dump(yml_files, write_file, indent=2)
-    #
-    # print(round(mean_actions_in_repos, 2))
+        api_files_main_url = f"https://api.github.com/repos/{owner}/{repository}/git/trees/{tree_sha}"
+        files_response = request_to_api(api_files_main_url, i)
+        github_url = ""
+        while True:
+            if files_response.status_code == 200:
+                files_json = files_response.json()
+                files = files_json["tree"]
+                for element in files:
+                    if ".yml" in element["path"]:
+                        yml_files.append((element["path"], element["url"]))
+                        actions += 1
+                    elif ".github" == element["path"]:
+                        github_sha = element["sha"]
+                        github_url = f"https://api.github.com/repos/{owner}/{repository}/git/trees/{github_sha}"
+                break
+            elif files_response.status_code == 403:
+                files_response, i = deal_with_api_403(files_response, i, api_files_main_url)
+
+        workflow_url = ""
+        if github_url:
+            github_response = request_to_api(github_url, i)
+            while True:
+                if github_response.status_code == 200:
+                    github_json = github_response.json()
+                    for element in github_json["tree"]:
+                        if element["path"] == "workflows":
+                            workflow_url = element["url"]
+                        if ".yml" in element["path"]:
+                            yml_files.append((element["path"], element["url"]))
+                            actions += 1
+                    break
+                elif github_response.status_code == 403:
+                    github_response, i = deal_with_api_403(github_response, i, github_url)
+
+        if workflow_url:
+            workflow_response = request_to_api(workflow_url, i)
+            while True:
+                if workflow_response.status_code == 200:
+                    workflow_json = workflow_response.json()
+                    for element in workflow_json["tree"]:
+                        if ".yml" in element["path"]:
+                            yml_files.append((element["path"], element["url"]))
+                            actions += 1
+                    break
+                elif workflow_response.status_code == 403:
+                    workflow_response, i = deal_with_api_403(workflow_response, i, workflow_url)
+
+        actions_in_repos.append(actions)
+
+    print(round(statistics.mean(actions_in_repos), 2))
+    with open("yml_files.json", 'w') as f2:
+        json.dump(yml_files, f2, indent=4)
+
+
+def deal_with_api_403(api_response: requests.Response, i: int, url: str) -> tuple[requests.Response, int]:
+    """
+    Deal with a response when it gets error 403. Wait until it gets a 200 status code.
+
+    :param api_response: The response.
+    :param i: The index for the GitHub Tokens.
+    :param url: The URL to connect to.
+    :return: The response and the index for the GitHub tokens.
+    """
+    message = 'message' in api_response.json().keys()
+    if 'Retry-After' in api_response.headers.keys():
+        if not get_remaining_api_calls():
+            time.sleep(int(api_response.headers['Retry-After']))
+        else:
+            i = (i + 1) % len(GITHUB_TOKENS)
+    elif message and "Authenticated requests get a higher rate limit." in api_response.json()['message']:
+        pass
+    else:
+        reset = int(api_response.headers['X-RateLimit-Reset'])
+        current = int(time.time())
+        time_for_reset = reset - current
+        if time_for_reset > 0:
+            if not get_remaining_api_calls():
+                time.sleep(time_for_reset)
+            else:
+                i = (i + 1) % len(GITHUB_TOKENS)
+
+    tree_response = request_to_api(url, i)
+
+    return tree_response, i
 
 
 if __name__ == "__main__":
