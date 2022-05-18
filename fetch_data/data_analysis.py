@@ -429,7 +429,7 @@ def deal_with_api_403(api_response: requests.Response, i: int, url: str) -> tupl
     return tree_response, i
 
 
-def check_issues():
+def check_issues() -> None:
     """
     Check the number of repositories with open and closed issues.
     """
