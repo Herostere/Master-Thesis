@@ -17,3 +17,4 @@ actions_technical_lag = False
 popularity = False
 multiple_actions = False
 actions_issues = False
+contributors = True
