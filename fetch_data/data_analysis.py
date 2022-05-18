@@ -7,6 +7,7 @@ from fetch_data import request_to_api, get_request, beautiful_html, get_remainin
 from packaging import version as packaging_version
 
 import data_analysis_config as config
+import heapq
 import json
 import math
 import matplotlib.pyplot as plt
@@ -468,7 +469,7 @@ def deal_with_api_403(api_response: requests.Response, i: int, url: str) -> tupl
     return tree_response, i
 
 
-def check_issues():
+def check_issues() -> None:
     """
     Check the number of repositories with open and closed issues.
     """
@@ -499,6 +500,31 @@ def check_issues():
 
     print(open_issues, closed_issues)
     print(open_up_to_date, open_not_up_to_date)
+
+
+def check_contributors() -> None:
+    """
+    Retrieve the 20 most active contributors.
+    """
+    contributors = {}
+    for action in loaded_data.keys():
+        action_contributors = loaded_data[action]["contributors"]
+        for contributor in action_contributors:
+            if contributor not in contributors:
+                contributors[contributor] = 1
+            else:
+                contributors[contributor] += 1
+
+    most_active_with_bots = heapq.nlargest(20, contributors.items(), key=lambda i: i[1])
+
+    contributors_to_delete = [contributor for contributor in contributors if "bot" in contributor]
+    for contributor in contributors_to_delete:
+        del contributors[contributor]
+
+    most_active_without_bots = heapq.nlargest(20, contributors.items(), key=lambda i: i[1])
+
+    print(most_active_with_bots)
+    print(most_active_without_bots)
 
 
 if __name__ == "__main__":
@@ -539,3 +565,6 @@ if __name__ == "__main__":
 
     if config.actions_issues:
         check_issues()
+
+    if config.contributors:
+        check_contributors()
