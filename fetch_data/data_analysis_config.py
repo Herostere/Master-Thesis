@@ -15,5 +15,5 @@ actions_diversity = False
 most_commonly_proposed = False
 actions_technical_lag = False
 popularity = False
-multiple_actions = False
+multiple_actions = True
 actions_issues = False
