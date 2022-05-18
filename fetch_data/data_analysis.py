@@ -339,11 +339,13 @@ def multiple_actions_start_threads():
     return multiple_results
 
 
-def multiple_actions(p_elements: dict, results, index) -> None:
+def multiple_actions(p_elements: dict, p_results: list, index: int) -> None:
     """
     Check the mean for the number of actions per repository. Safe the links to yml files.
 
     :param p_elements: The dictionary with the Actions in it.
+    :param p_results: The list in which the data must be saved.
+    :param index: The position in the list where the data must be saved.
     """
     actions_in_repos = []
     yml_files = []
@@ -429,7 +431,7 @@ def multiple_actions(p_elements: dict, results, index) -> None:
 
         actions_in_repos.append(actions)
 
-    results[index] = (actions_in_repos, yml_files)
+    p_results[index] = (actions_in_repos, yml_files)
     # print(round(statistics.mean(actions_in_repos), 2))
     # with open("yml_files.json", 'w') as f2:
     #     json.dump(yml_files, f2, indent=4)
