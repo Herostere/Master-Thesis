@@ -15,6 +15,7 @@ import re
 import requests
 import seaborn
 import statistics
+import threading
 import time
 
 
@@ -306,19 +307,55 @@ def determine_popularity() -> None:
         print(f"{key}: {value} --- {key_category}")
 
 
-def multiple_actions() -> None:
+def multiple_actions_start_threads():
+    threads = 10
+    run_threads = []
+    multiple_results = [None] * threads
+
+    data = loaded_data
+    full = int(len(data) / (threads-1))
+    elements = {}
+
+    index = 0
+
+    count = 0
+    for element in data:
+        if count == full:
+            run_threads.append(threading.Thread(target=multiple_actions, args=(elements, multiple_results, index,)))
+            elements = {}
+            count = 0
+            index += 1
+        if count < full:
+            elements[element] = data[element]
+            count += 1
+
+    run_threads.append(threading.Thread(target=multiple_actions, args=(elements, multiple_results, index,)))
+
+    for thread in run_threads:
+        thread.start()
+    for thread in run_threads:
+        thread.join()
+
+    return multiple_results
+
+
+def multiple_actions(p_elements: dict, p_results: list, index: int) -> None:
     """
     Check the mean for the number of actions per repository. Safe the links to yml files.
+
+    :param p_elements: The dictionary with the Actions in it.
+    :param p_results: The list in which the data must be saved.
+    :param index: The position in the list where the data must be saved.
     """
     actions_in_repos = []
     yml_files = []
 
     i = 0
-    for action in loaded_data:
+    for action in p_elements:
         actions = 0
 
-        owner = loaded_data[action]["owner"]
-        repository = loaded_data[action]["repository"]
+        owner = p_elements[action]["owner"]
+        repository = p_elements[action]["repository"]
         url = f"https://github.com/{owner}/{repository}"
 
         request = get_request("multiple_actions", url)
@@ -376,6 +413,8 @@ def multiple_actions() -> None:
                     break
                 elif github_response.status_code == 403:
                     github_response, i = deal_with_api_403(github_response, i, github_url)
+                else:
+                    break
 
         if workflow_url:
             workflow_response = request_to_api(workflow_url, i)
@@ -392,9 +431,10 @@ def multiple_actions() -> None:
 
         actions_in_repos.append(actions)
 
-    print(round(statistics.mean(actions_in_repos), 2))
-    with open("yml_files.json", 'w') as f2:
-        json.dump(yml_files, f2, indent=4)
+    p_results[index] = (actions_in_repos, yml_files)
+    # print(round(statistics.mean(actions_in_repos), 2))
+    # with open("yml_files.json", 'w') as f2:
+    #     json.dump(yml_files, f2, indent=4)
 
 
 def deal_with_api_403(api_response: requests.Response, i: int, url: str) -> tuple[requests.Response, int]:
@@ -408,10 +448,9 @@ def deal_with_api_403(api_response: requests.Response, i: int, url: str) -> tupl
     """
     message = 'message' in api_response.json().keys()
     if 'Retry-After' in api_response.headers.keys():
-        if not get_remaining_api_calls():
-            time.sleep(int(api_response.headers['Retry-After']))
-        else:
-            i = (i + 1) % len(GITHUB_TOKENS)
+        while not get_remaining_api_calls():
+            time.sleep(30)
+        i = (i + 1) % len(GITHUB_TOKENS)
     elif message and "Authenticated requests get a higher rate limit." in api_response.json()['message']:
         pass
     else:
@@ -419,8 +458,8 @@ def deal_with_api_403(api_response: requests.Response, i: int, url: str) -> tupl
         current = int(time.time())
         time_for_reset = reset - current
         if time_for_reset > 0:
-            if not get_remaining_api_calls():
-                time.sleep(time_for_reset)
+            while not get_remaining_api_calls():
+                time.sleep(30)
             else:
                 i = (i + 1) % len(GITHUB_TOKENS)
 
@@ -495,7 +534,8 @@ if __name__ == "__main__":
         determine_popularity()
 
     if config.multiple_actions:
-        multiple_actions()
+        results = multiple_actions_start_threads()
+        print(results)
 
     if config.actions_issues:
         check_issues()
