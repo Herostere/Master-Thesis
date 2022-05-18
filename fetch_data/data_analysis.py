@@ -499,3 +499,6 @@ if __name__ == "__main__":
 
     if config.actions_issues:
         check_issues()
+
+    if config.contributors:
+        check_contributors()
