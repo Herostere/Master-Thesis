@@ -286,10 +286,12 @@ def days_between_dates(dates: list) -> list:
     return days
 
 
-def determine_popularity() -> None:
+def determine_popularity() -> list:
     """
     Determine the popularity of an Action.
     The popularity is computed as number of stars + number of dependents + number of forks + number of watching.
+
+    :return: The list of 20 most popular Actions.
     """
     scores = {}
     for action in loaded_data:
@@ -303,10 +305,14 @@ def determine_popularity() -> None:
 
     scores_counter = Counter(scores)
 
-    for key, value in scores_counter.most_common(15):
+    popular_actions = scores_counter.most_common(20)
+
+    for key, value in popular_actions:
         key_category = loaded_data[key]["category"]
         print(f"{key}: {value} --- {key_category}")
 
+    return popular_actions
+        
 
 def multiple_actions_start_threads():
     threads = 10
@@ -515,16 +521,22 @@ def check_contributors() -> None:
             else:
                 contributors[contributor] += 1
 
-    most_active_with_bots = heapq.nlargest(20, contributors.items(), key=lambda i: i[1])
+    contributors_counter = Counter(contributors)
+
+    # most_active_with_bots = heapq.nlargest(20, contributors.items(), key=lambda i: i[1])
+    most_common_with_bots = contributors_counter.most_common(20)
 
     contributors_to_delete = [contributor for contributor in contributors if "bot" in contributor]
     for contributor in contributors_to_delete:
         del contributors[contributor]
 
-    most_active_without_bots = heapq.nlargest(20, contributors.items(), key=lambda i: i[1])
+    contributors_counter = Counter(contributors)
 
-    print(most_active_with_bots)
-    print(most_active_without_bots)
+    # most_active_without_bots = heapq.nlargest(20, contributors.items(), key=lambda i: i[1])
+    most_common_without_bots = contributors_counter.most_common(20)
+
+    print(most_common_with_bots)
+    print(most_common_without_bots)
 
 
 if __name__ == "__main__":
