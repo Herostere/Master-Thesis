@@ -286,7 +286,7 @@ def days_between_dates(dates: list) -> list:
     return days
 
 
-def determine_popularity() -> list:
+def determine_action_popularity() -> list:
     """
     Determine the popularity of an Action.
     The popularity is computed as number of stars + number of dependents + number of forks + number of watching.
@@ -305,14 +305,16 @@ def determine_popularity() -> list:
 
     scores_counter = Counter(scores)
 
-    popular_actions = scores_counter.most_common(20)
+    sample_size = compute_sample_size(len(scores))
 
-    for key, value in popular_actions:
-        key_category = loaded_data[key]["category"]
-        print(f"{key}: {value} --- {key_category}")
+    popular_actions = scores_counter.most_common(sample_size)
+
+    # for key, value in popular_actions:
+    #     key_category = loaded_data[key]["category"]
+    #     print(f"{key}: {value} --- {key_category}")
 
     return popular_actions
-        
+
 
 def multiple_actions_start_threads():
     threads = 10
@@ -508,9 +510,11 @@ def check_issues() -> None:
     print(open_up_to_date, open_not_up_to_date)
 
 
-def check_contributors() -> None:
+def check_contributors_activity() -> tuple[list, list]:
     """
     Retrieve the 20 most active contributors.
+
+    :return: A tuple with the list of most common contributor with bots, and without bots.
     """
     contributors = {}
     for action in loaded_data.keys():
@@ -523,8 +527,10 @@ def check_contributors() -> None:
 
     contributors_counter = Counter(contributors)
 
+    sample_size = compute_sample_size(len(contributors))
+
     # most_active_with_bots = heapq.nlargest(20, contributors.items(), key=lambda i: i[1])
-    most_common_with_bots = contributors_counter.most_common(20)
+    most_common_with_bots = contributors_counter.most_common(sample_size)
 
     contributors_to_delete = [contributor for contributor in contributors if "bot" in contributor]
     for contributor in contributors_to_delete:
@@ -532,11 +538,43 @@ def check_contributors() -> None:
 
     contributors_counter = Counter(contributors)
 
-    # most_active_without_bots = heapq.nlargest(20, contributors.items(), key=lambda i: i[1])
-    most_common_without_bots = contributors_counter.most_common(20)
+    sample_size = compute_sample_size(len(contributors))
 
-    print(most_common_with_bots)
-    print(most_common_without_bots)
+    # most_active_without_bots = heapq.nlargest(20, contributors.items(), key=lambda i: i[1])
+    most_common_without_bots = contributors_counter.most_common(sample_size)
+
+    return most_common_with_bots, most_common_without_bots
+
+
+def active_developer_in_popular_app():
+    popular_actions = determine_action_popularity()
+    active_developers_bots, active_developers = check_contributors_activity()
+
+    popular_actions = [action[0] for action in popular_actions]
+    active_developers_bots = [developer[0] for developer in active_developers_bots]
+    active_developers = [developer[0] for developer in active_developers]
+
+    developer_in_popular = {}
+
+    for action in popular_actions:
+        for developer in active_developers_bots:
+            if developer in loaded_data[action]["contributors"]:
+                if developer not in developer_in_popular:
+                    developer_in_popular[developer] = 1
+                else:
+                    developer_in_popular[developer] += 1
+        for developer in active_developers:
+            if developer in loaded_data[action]["contributors"]:
+                if developer not in developer_in_popular and developer not in active_developers_bots:
+                    developer_in_popular[developer] = 1
+                elif developer not in active_developers_bots:
+                    developer_in_popular[developer] += 1
+
+    print(f"Actions: {len(popular_actions)}")
+    print(f"Developers and bots: {len(active_developers_bots)}")
+    print(f"Developers: {len(active_developers)}")
+    # print(sorted(developer_in_popular, key=developer_in_popular.get, reverse=True))
+    print(developer_in_popular)
 
 
 if __name__ == "__main__":
@@ -569,7 +607,7 @@ if __name__ == "__main__":
         actions_technical_lag()
 
     if config.popularity:
-        determine_popularity()
+        determine_action_popularity()
 
     if config.multiple_actions:
         results = multiple_actions_start_threads()
@@ -578,5 +616,8 @@ if __name__ == "__main__":
     if config.actions_issues:
         check_issues()
 
-    if config.contributors:
-        check_contributors()
+    if config.contributors_activity:
+        check_contributors_activity()
+
+    if config.active_developer_popular_app:
+        active_developer_in_popular_app()
