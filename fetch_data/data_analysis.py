@@ -606,7 +606,7 @@ if __name__ == "__main__":
     if config.actions_technical_lag:
         actions_technical_lag()
 
-    if config.popularity:
+    if config.actions_popularity:
         determine_action_popularity()
 
     if config.multiple_actions:
