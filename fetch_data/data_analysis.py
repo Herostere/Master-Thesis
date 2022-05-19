@@ -291,7 +291,7 @@ def determine_action_popularity() -> list:
     Determine the popularity of an Action.
     The popularity is computed as number of stars + number of dependents + number of forks + number of watching.
 
-    :return: The list of 20 most popular Actions.
+    :return: The list of most popular Actions for a representative sample.
     """
     scores = {}
     for action in loaded_data:
