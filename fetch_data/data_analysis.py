@@ -203,9 +203,9 @@ def actions_technical_lag() -> None:
         for element in micro:
             micro_mean_days.append(element)
 
-    print(round(statistics.mean(major_mean_days), 2))
-    print(round(statistics.mean(minor_mean_days), 2))
-    print(round(statistics.mean(micro_mean_days), 2))
+    print(f"Number of days between major versions (mean): {round(statistics.mean(major_mean_days), 2)}")
+    print(f"Number of days between minor versions (mean): {round(statistics.mean(minor_mean_days), 2)}")
+    print(f"Number of days between patch versions (mean): {round(statistics.mean(micro_mean_days), 2)}")
 
 
 def get_sample(key: str) -> list:
@@ -528,11 +528,14 @@ def check_issues() -> None:
     open_not_up_to_date = 0
 
     for action in loaded_data:
-        if loaded_data[action]["issues"]["open"] > 0 and loaded_data[action]["issues"]["closed"] == 0:
+        number_of_open_issues = loaded_data[action]["issues"]["open"]
+        number_of_closed_issues = loaded_data[action]["issues"]["closed"]
+
+        if number_of_open_issues > 0 and number_of_closed_issues == 0:
             open_no_close_issues += 1
-        elif loaded_data[action]["issues"]["closed"] > 0 and loaded_data[action]["issues"]["open"] == 0:
+        elif number_of_closed_issues > 0 and number_of_open_issues == 0:
             closed_no_open_issues += 1
-        if loaded_data[action]["issues"]["open"] > 0:
+        if number_of_open_issues > 0:
             open_issues += 1
 
             dates = [key for key in loaded_data[action]["versions"]]
@@ -547,17 +550,17 @@ def check_issues() -> None:
                 open_not_up_to_date += 1
             else:
                 open_up_to_date += 1
-        if loaded_data[action]["issues"]["closed"] > 0:
+        if number_of_closed_issues > 0:
             closed_issues += 1
-        if loaded_data[action]["issues"]["open"] == 0 and loaded_data[action]["issues"]["closed"] == 0:
+        if number_of_open_issues == 0 and number_of_closed_issues == 0:
             no_issues += 1
 
     no_issues = abs(open_issues - closed_issues)
 
-    print(f"Actions with open issues: {open_issues}. "
-          f"Actions with closed issues: {closed_issues}. "
-          f"Action without issues: {no_issues}")
-    print(f"Actions with the oldest open issue that is more than 182 days old: {open_not_up_to_date}. "
+    print(f"Actions with open issues: {open_issues}.\n"
+          f"Actions with closed issues: {closed_issues}.\n"
+          f"Action without issues: {no_issues}\n")
+    print(f"Actions with the oldest open issue that is more than 182 days old: {open_not_up_to_date}.\n"
           f"Actions with the oldest open issue that is less than 182 days old: {open_up_to_date}.")
 
 
@@ -598,35 +601,33 @@ def check_contributors_activity() -> tuple[list, list]:
     return most_common_with_bots, most_common_without_bots
 
 
-def active_developer_in_popular_app():
-    popular_actions = determine_action_popularity()
-    active_developers_bots, active_developers = check_contributors_activity()
+def is_actions_developed_by_officials() -> None:
+    sample = {}
+    total_number_actions = len(loaded_data)
+    sample_size = compute_sample_size(total_number_actions)
+    probability = round(sample_size / total_number_actions, 16)
+    total_number_sample = len(sample)
+    while total_number_sample < sample_size:
+        for action in loaded_data:
+            random_number = random.random()
+            if random_number < probability and action not in sample.keys():
+                sample[action] = loaded_data[action]
+                total_number_sample = len(sample)
+                if total_number_sample == sample_size:
+                    break
 
-    popular_actions = list(popular_actions.keys())
-    active_developers_bots = [developer[0] for developer in active_developers_bots]
-    active_developers = [developer[0] for developer in active_developers]
+    official_or_not = {
+        "official": 0,
+        "unofficial": 0,
+    }
 
-    developer_in_popular = {}
+    for action in sample:
+        if not sample[action]["verified"]:
+            official_or_not["official"] += 1
+        else:
+            official_or_not["unofficial"] += 1
 
-    for action in popular_actions:
-        for developer in active_developers_bots:
-            if developer in loaded_data[action]["contributors"]:
-                if developer not in developer_in_popular:
-                    developer_in_popular[developer] = 1
-                else:
-                    developer_in_popular[developer] += 1
-        for developer in active_developers:
-            if developer in loaded_data[action]["contributors"]:
-                if developer not in developer_in_popular and developer not in active_developers_bots:
-                    developer_in_popular[developer] = 1
-                elif developer not in active_developers_bots:
-                    developer_in_popular[developer] += 1
-
-    print(f"Actions: {len(popular_actions)}")
-    print(f"Developers and bots: {len(active_developers_bots)}")
-    print(f"Developers: {len(active_developers)}")
-    # print(sorted(developer_in_popular, key=developer_in_popular.get, reverse=True))
-    print(developer_in_popular)
+    print(official_or_not)
 
 
 def how_popular_actions_triggered():
@@ -786,8 +787,8 @@ if __name__ == "__main__":
     if config.contributors_activity:
         check_contributors_activity()
 
-    if config.active_developer_popular_app:
-        active_developer_in_popular_app()
+    if config.is_actions_developed_by_officials:
+        is_actions_developed_by_officials()
 
     if config.how_popular_actions_triggered:
         how_popular_actions_triggered()
