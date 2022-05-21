@@ -21,4 +21,5 @@ multiple_actions = False
 actions_issues = False
 contributors_activity = False
 active_developer_popular_app = False
-how_popular_actions_triggered = True
+how_popular_actions_triggered = False
+compare_number_of_versions = False
