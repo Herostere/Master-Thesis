@@ -700,6 +700,40 @@ def how_popular_actions_triggered():
         print(f"{element}: {int(round(trigger[element] / total_triggers, 2) * 100)}%")
 
 
+def compare_number_of_versions():
+    popular_actions = determine_action_popularity()
+    total_number_actions = len(loaded_data)
+    sample_size = compute_sample_size(total_number_actions)
+
+    not_popular_actions = {}
+    probability = round(sample_size / total_number_actions, 16)
+    total_number_not_popular_actions = len(not_popular_actions)
+    while total_number_not_popular_actions < sample_size:
+        for action in loaded_data:
+            random_number = random.random()
+            if random_number < probability and action not in popular_actions.keys():
+                versions = loaded_data[action]["versions"]
+                not_popular_actions[action] = versions
+                total_number_not_popular_actions = len(not_popular_actions)
+                if total_number_not_popular_actions == sample_size:
+                    break
+
+    popular_versions = []
+    for popular_action in popular_actions:
+        name = popular_action.split("/")[2]
+        for action in loaded_data:
+            if name == action:
+                versions = len(loaded_data[name]["versions"])
+                popular_versions.append(versions)
+                break
+    not_popular_versions = [len(not_popular_actions[action]) for action in not_popular_actions]
+
+    mean_popular_versions = round(statistics.mean(popular_versions), 2)
+    mean_not_popular_versions = round(statistics.mean(not_popular_versions), 2)
+    print(f"Mean for popular actions: {mean_popular_versions}")
+    print(f"Mean for not popular actions: {mean_not_popular_versions}")
+
+
 if __name__ == "__main__":
     file = config.file_name
     try:
@@ -757,3 +791,6 @@ if __name__ == "__main__":
 
     if config.how_popular_actions_triggered:
         how_popular_actions_triggered()
+
+    if config.compare_number_of_versions:
+        compare_number_of_versions()
