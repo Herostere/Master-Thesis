@@ -35,6 +35,9 @@ tokens = [
     os.getenv("GITHUB_TOKEN2"),
     os.getenv("GITHUB_TOKEN3"),
     os.getenv("GITHUB_TOKEN4"),
+    os.getenv("GITHUB_TOKEN5"),
+    os.getenv("GITHUB_TOKEN6"),
+    os.getenv("GITHUB_TOKEN7"),
 ]
 
 limit_requests = 350

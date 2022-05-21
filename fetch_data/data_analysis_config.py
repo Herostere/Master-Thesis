@@ -10,6 +10,8 @@ old_files_names = [
     "actions_data_16_05_2022.json",
 ]
 
+debug_multiple_actions = False
+
 market_growing_over_time = False
 actions_diversity = False
 most_commonly_proposed = False
@@ -19,3 +21,4 @@ multiple_actions = False
 actions_issues = False
 contributors_activity = False
 active_developer_popular_app = False
+how_popular_actions_triggered = True
