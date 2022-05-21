@@ -74,10 +74,10 @@ def market_growing_over_time(p_category: str = None) -> None:
 
 def show_bar_plots(x: list, y: list, orient: str, title: str) -> None:
     """
-    Shows a bar plot.
+    Show a bar plot.
 
-    :param x: The values for the x axis.
-    :param y: The values for the y axis.
+    :param x: The list of values for the x axis.
+    :param y: The list of values for the y axis.
     :param orient: The plot orientation.
     :param title: The title of the plot.
     """
@@ -119,6 +119,13 @@ def actions_diversity() -> None:
 def most_commonly_proposed() -> None:
     """
     Shows the number of categories that falls in each section.
+    Sections are:
+        - > 700
+        - > 550
+        - > 400
+        - > 250
+        - > 100
+        - >= 0
     """
     sections_categories = {
         "> 700": 0,
@@ -334,7 +341,7 @@ def multiple_actions_start_threads() -> tuple[dict, dict]:
     """
     Starts the threads for multiple_actions().
 
-    :return: A list with the number of
+    :return: A tuple with the dictionaries that contains the data.
     """
     threads = 10
     run_threads = []
@@ -490,7 +497,7 @@ def deal_with_api_403(api_response: requests.Response, i: int, url: str) -> tupl
     :param api_response: The response.
     :param i: The index for the GitHub Tokens.
     :param url: The URL to connect to.
-    :return: The response and the index for the GitHub tokens.
+    :return: The response and the index for the GitHub tokens in a tuple.
     """
     message = 'message' in api_response.json().keys()
     if 'Retry-After' in api_response.headers.keys():
@@ -602,6 +609,9 @@ def check_contributors_activity() -> tuple[list, list]:
 
 
 def is_actions_developed_by_officials() -> None:
+    """
+    Take a sample of all actions and check if the actions are developed by official users.
+    """
     sample = {}
     total_number_actions = len(loaded_data)
     sample_size = compute_sample_size(total_number_actions)
@@ -630,7 +640,11 @@ def is_actions_developed_by_officials() -> None:
     print(official_or_not)
 
 
-def how_popular_actions_triggered():
+def how_popular_actions_triggered() -> None:
+    """
+    Check how the popular actions are triggered on a general basis. Take a representative sample of the most popular
+    actions.
+    """
 
     """Representative sample of popular actions"""
     try:
@@ -701,7 +715,10 @@ def how_popular_actions_triggered():
         print(f"{element}: {int(round(trigger[element] / total_triggers, 2) * 100)}%")
 
 
-def compare_number_of_versions():
+def compare_number_of_versions() -> None:
+    """
+    Compare the number of versions for popular and not popular actions.
+    """
     popular_actions = determine_action_popularity()
     total_number_actions = len(loaded_data)
     sample_size = compute_sample_size(total_number_actions)
