@@ -6,8 +6,8 @@ from datetime import datetime
 from fetch_data import request_to_api, get_request, beautiful_html, get_remaining_api_calls, GITHUB_TOKENS
 from packaging import version as packaging_version
 
+import base64
 import data_analysis_config as config
-import heapq
 import json
 import math
 import matplotlib.pyplot as plt
@@ -18,6 +18,7 @@ import seaborn
 import statistics
 import threading
 import time
+import yaml
 
 
 def market_growing_over_time(p_category: str = None) -> None:
@@ -114,8 +115,6 @@ def actions_diversity() -> None:
 
     show_bar_plots(values, categories, "h", "Actions Diversity")
 
-    plt.show()
-
 
 def most_commonly_proposed() -> None:
     """
@@ -145,7 +144,7 @@ def most_commonly_proposed() -> None:
             sections_categories[">= 0"] += 1
 
     show_bar_plots(list(sections_categories.keys()), list(sections_categories.values()), "v",
-                   "Number of Actions For Each Category")
+                   "Number of Actions For the Categories")
 
 
 def actions_technical_lag() -> None:
@@ -286,7 +285,7 @@ def days_between_dates(dates: list) -> list:
     return days
 
 
-def determine_action_popularity() -> list:
+def determine_action_popularity() -> dict:
     """
     Determine the popularity of an Action.
     The popularity is computed as number of stars + number of dependents + number of forks + number of watching.
@@ -294,14 +293,17 @@ def determine_action_popularity() -> list:
     :return: The list of most popular Actions for a representative sample.
     """
     scores = {}
-    for action in loaded_data:
+    for action in loaded_data.keys():
         stars = loaded_data[action]["stars"]
         dependents = loaded_data[action]["dependents"]["number"]
         forks = loaded_data[action]["forks"]
         watching = loaded_data[action]["watching"]
         score = stars + dependents + forks + watching
 
-        scores[action] = score
+        owner = loaded_data[action]["owner"]
+        repository = loaded_data[action]["repository"]
+
+        scores[f"{owner}/{repository}/{action}"] = score
 
     scores_counter = Counter(scores)
 
@@ -313,10 +315,27 @@ def determine_action_popularity() -> list:
     #     key_category = loaded_data[key]["category"]
     #     print(f"{key}: {value} --- {key_category}")
 
-    return popular_actions
+    popular_actions_dictionary = {}
+    for couple in popular_actions:
+        key = couple[0]
+        value = couple[1]
+        popular_actions_dictionary[key] = value
+
+    # print(popular_actions_dictionary)
+    # print(f"The {sample_size} most popular actions has been writen in the 'popular_actions.json' file.")
+
+    with open('popular_actions.json', 'w') as f2:
+        json.dump(popular_actions_dictionary, f2, indent=4)
+
+    return popular_actions_dictionary
 
 
-def multiple_actions_start_threads():
+def multiple_actions_start_threads() -> tuple[dict, dict]:
+    """
+    Starts the threads for multiple_actions().
+
+    :return: A list with the number of
+    """
     threads = 10
     run_threads = []
     multiple_results = [None] * threads
@@ -345,19 +364,28 @@ def multiple_actions_start_threads():
     for thread in run_threads:
         thread.join()
 
-    return multiple_results
+    yml_files = [files[1] for files in multiple_results if files is not None]
+    yml_per_repository = [files[0] for files in multiple_results if files is not None]
+    yml_files = {key: value for dictionary in yml_files for key, value in dictionary.items()}
+    yml_per_repository = {key: value for dictionary in yml_per_repository for key, value in dictionary.items()}
+    with open("yml_files.json", 'w') as f2:
+        json.dump(yml_files, f2, indent=4)
+    with open("yml_per_repository.json", 'w') as f2:
+        json.dump(yml_per_repository, f2, indent=4)
+
+    return yml_per_repository, yml_files
 
 
 def multiple_actions(p_elements: dict, p_results: list, index: int) -> None:
     """
-    Check the mean for the number of actions per repository. Safe the links to yml files.
+    Check the number of actions per repository. Safe the links to yml files on a JSON.
 
     :param p_elements: The dictionary with the Actions in it.
     :param p_results: The list in which the data must be saved.
     :param index: The position in the list where the data must be saved.
     """
-    actions_in_repos = []
-    yml_files = []
+    actions_in_repos = {}
+    yml_files = {}
 
     i = 0
     for action in p_elements:
@@ -381,6 +409,7 @@ def multiple_actions(p_elements: dict, p_results: list, index: int) -> None:
 
         api_branch_url = f"https://api.github.com/repos/{owner}/{repository}/commits/{main_branch}"
         tree_response = request_to_api(api_branch_url, i)
+        no_tree = False
         while True:
             if tree_response.status_code == 200:
                 tree_json = tree_response.json()
@@ -388,6 +417,13 @@ def multiple_actions(p_elements: dict, p_results: list, index: int) -> None:
                 break
             elif tree_response.status_code == 403:
                 tree_response, i = deal_with_api_403(tree_response, i, api_branch_url)
+            else:
+                no_tree = True
+                tree_sha = ""
+                break
+
+        if no_tree:
+            continue
 
         api_files_main_url = f"https://api.github.com/repos/{owner}/{repository}/git/trees/{tree_sha}"
         files_response = request_to_api(api_files_main_url, i)
@@ -398,7 +434,7 @@ def multiple_actions(p_elements: dict, p_results: list, index: int) -> None:
                 files = files_json["tree"]
                 for element in files:
                     if ".yml" in element["path"]:
-                        yml_files.append((element["path"], element["url"]))
+                        yml_files[f"{owner}/{repository}/{action}"] = element["url"]
                         actions += 1
                     elif ".github" == element["path"]:
                         github_sha = element["sha"]
@@ -406,6 +442,8 @@ def multiple_actions(p_elements: dict, p_results: list, index: int) -> None:
                 break
             elif files_response.status_code == 403:
                 files_response, i = deal_with_api_403(files_response, i, api_files_main_url)
+            else:
+                break
 
         workflow_url = ""
         if github_url:
@@ -417,7 +455,7 @@ def multiple_actions(p_elements: dict, p_results: list, index: int) -> None:
                         if element["path"] == "workflows":
                             workflow_url = element["url"]
                         if ".yml" in element["path"]:
-                            yml_files.append((element["path"], element["url"]))
+                            yml_files[f"{owner}/{repository}/{action}"] = element["url"]
                             actions += 1
                     break
                 elif github_response.status_code == 403:
@@ -432,18 +470,17 @@ def multiple_actions(p_elements: dict, p_results: list, index: int) -> None:
                     workflow_json = workflow_response.json()
                     for element in workflow_json["tree"]:
                         if ".yml" in element["path"]:
-                            yml_files.append((element["path"], element["url"]))
+                            yml_files[f"{owner}/{repository}/{action}"] = element["url"]
                             actions += 1
                     break
                 elif workflow_response.status_code == 403:
                     workflow_response, i = deal_with_api_403(workflow_response, i, workflow_url)
+                else:
+                    break
 
-        actions_in_repos.append(actions)
+        actions_in_repos[action] = actions
 
     p_results[index] = (actions_in_repos, yml_files)
-    # print(round(statistics.mean(actions_in_repos), 2))
-    # with open("yml_files.json", 'w') as f2:
-    #     json.dump(yml_files, f2, indent=4)
 
 
 def deal_with_api_403(api_response: requests.Response, i: int, url: str) -> tuple[requests.Response, int]:
@@ -483,11 +520,18 @@ def check_issues() -> None:
     """
     open_issues = 0
     closed_issues = 0
+    open_no_close_issues = 0
+    closed_no_open_issues = 0
+    no_issues = 0
 
     open_up_to_date = 0
     open_not_up_to_date = 0
 
     for action in loaded_data:
+        if loaded_data[action]["issues"]["open"] > 0 and loaded_data[action]["issues"]["closed"] == 0:
+            open_no_close_issues += 1
+        elif loaded_data[action]["issues"]["closed"] > 0 and loaded_data[action]["issues"]["open"] == 0:
+            closed_no_open_issues += 1
         if loaded_data[action]["issues"]["open"] > 0:
             open_issues += 1
 
@@ -498,21 +542,28 @@ def check_issues() -> None:
             last_date = sorted_dates[-1]
             now = datetime.strftime(datetime.now(), "%d/%m/%Y")
             difference = datetime.strptime(now, "%d/%m/%Y") - datetime.strptime(last_date, "%d/%m/%Y")
-            days = difference.days
-            if days > 182:
+            days_since_update = difference.days
+            if days_since_update > 182:
                 open_not_up_to_date += 1
             else:
                 open_up_to_date += 1
-        elif loaded_data[action]["issues"]["closed"] > 0:
+        if loaded_data[action]["issues"]["closed"] > 0:
             closed_issues += 1
+        if loaded_data[action]["issues"]["open"] == 0 and loaded_data[action]["issues"]["closed"] == 0:
+            no_issues += 1
 
-    print(open_issues, closed_issues)
-    print(open_up_to_date, open_not_up_to_date)
+    no_issues = abs(open_issues - closed_issues)
+
+    print(f"Actions with open issues: {open_issues}. "
+          f"Actions with closed issues: {closed_issues}. "
+          f"Action without issues: {no_issues}")
+    print(f"Actions with the oldest open issue that is more than 182 days old: {open_not_up_to_date}. "
+          f"Actions with the oldest open issue that is less than 182 days old: {open_up_to_date}.")
 
 
 def check_contributors_activity() -> tuple[list, list]:
     """
-    Retrieve the 20 most active contributors.
+    Retrieve the most active contributors.
 
     :return: A tuple with the list of most common contributor with bots, and without bots.
     """
@@ -532,7 +583,8 @@ def check_contributors_activity() -> tuple[list, list]:
     # most_active_with_bots = heapq.nlargest(20, contributors.items(), key=lambda i: i[1])
     most_common_with_bots = contributors_counter.most_common(sample_size)
 
-    contributors_to_delete = [contributor for contributor in contributors if "bot" in contributor]
+    contributors_to_delete = [contributor for contributor in contributors
+                              if "-bot" in contributor or "[bot]" in contributor]
     for contributor in contributors_to_delete:
         del contributors[contributor]
 
@@ -550,7 +602,7 @@ def active_developer_in_popular_app():
     popular_actions = determine_action_popularity()
     active_developers_bots, active_developers = check_contributors_activity()
 
-    popular_actions = [action[0] for action in popular_actions]
+    popular_actions = list(popular_actions.keys())
     active_developers_bots = [developer[0] for developer in active_developers_bots]
     active_developers = [developer[0] for developer in active_developers]
 
@@ -575,6 +627,77 @@ def active_developer_in_popular_app():
     print(f"Developers: {len(active_developers)}")
     # print(sorted(developer_in_popular, key=developer_in_popular.get, reverse=True))
     print(developer_in_popular)
+
+
+def how_popular_actions_triggered():
+
+    """Representative sample of popular actions"""
+    try:
+        with open("popular_actions.json", 'r') as f2:
+            popular_actions = json.load(f2)
+    except FileNotFoundError:
+        popular_actions = determine_action_popularity()
+
+    try:
+        with open("yml_files.json", 'r') as f2:
+            yml_files = json.load(f2)
+    except FileNotFoundError:
+        multiple_results = multiple_actions_start_threads()
+        yml_files = multiple_results[1]
+
+    trigger = {}
+
+    i = 0
+    for action in popular_actions:
+        try:
+            api_url = yml_files[action]
+        except KeyError:
+            continue
+        api_response = request_to_api(api_url, i)
+        no_content = False
+        action_content_encoded = ""
+
+        while True:
+            if api_response.status_code == 200:
+                api_json = api_response.json()
+                action_content_encoded = api_json["content"]
+                break
+            elif api_response.status_code == 403:
+                api_response, i = deal_with_api_403(api_response, i, api_url)
+            else:
+                no_content = True
+                break
+
+        if no_content:
+            continue
+
+        action_content_decoded = base64.b64decode(action_content_encoded).decode("utf-8").replace("on:", "trigger:")
+        action_content_decoded = action_content_decoded.replace('"on":', "trigger:")
+        yaml_content = yaml.safe_load(action_content_decoded)
+        try:
+            triggered_by = yaml_content["trigger"]
+        except KeyError:
+            continue
+        except TypeError:
+            continue
+        if type(triggered_by) == str:
+            if triggered_by not in trigger:
+                trigger[triggered_by] = 1
+            elif triggered_by in trigger:
+                trigger[triggered_by] += 1
+        else:
+            for element in triggered_by:
+                if element not in trigger:
+                    trigger[element] = 1
+                elif element in trigger:
+                    trigger[element] += 1
+
+    total_triggers = 0
+    for element in trigger:
+        total_triggers += trigger[element]
+
+    for element in trigger:
+        print(f"{element}: {int(round(trigger[element] / total_triggers, 2) * 100)}%")
 
 
 if __name__ == "__main__":
@@ -610,8 +733,18 @@ if __name__ == "__main__":
         determine_action_popularity()
 
     if config.multiple_actions:
-        results = multiple_actions_start_threads()
-        print(results)
+        if config.debug_multiple_actions:
+            new_data = {}
+            data_keys = loaded_data.keys()
+            data_in_new = 0
+            for key_1 in data_keys:
+                if data_in_new < 20:
+                    new_data[key_1] = loaded_data[key_1]
+                    data_in_new += 1
+                else:
+                    break
+            loaded_data = new_data
+        multiple_actions_start_threads()
 
     if config.actions_issues:
         check_issues()
@@ -621,3 +754,6 @@ if __name__ == "__main__":
 
     if config.active_developer_popular_app:
         active_developer_in_popular_app()
+
+    if config.how_popular_actions_triggered:
+        how_popular_actions_triggered()
