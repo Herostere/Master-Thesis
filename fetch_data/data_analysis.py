@@ -158,7 +158,6 @@ def actions_technical_lag() -> None:
     """
     Determine the mean for the technical lag of the Actions.
     """
-    # versions = get_sample("versions")
     versions = [loaded_data[key]["versions"] for key in loaded_data]
     versions = sort_dates_keys(versions)
 
@@ -213,27 +212,6 @@ def actions_technical_lag() -> None:
     print(f"Number of days between major versions (mean): {round(statistics.mean(major_mean_days), 2)}")
     print(f"Number of days between minor versions (mean): {round(statistics.mean(minor_mean_days), 2)}")
     print(f"Number of days between patch versions (mean): {round(statistics.mean(micro_mean_days), 2)}")
-
-
-def get_sample(key: str) -> list:
-    """
-    Returns a sample using a specific key.
-
-    :param key: The key to access the data. Must be a string.
-    :return: A list containing the data.
-    """
-    sample_size = compute_sample_size(len(loaded_data))
-    versions = []
-
-    data = loaded_data
-
-    while sample_size > 0:
-        random_index = random.randint(0, len(data)-1)
-        versions.append(list(data.values())[random_index][key])
-        data.pop(list(data.keys())[random_index])
-        sample_size -= 1
-
-    return versions
 
 
 def compute_sample_size(population_size: int) -> int:
@@ -292,7 +270,7 @@ def days_between_dates(dates: list) -> list:
     return days
 
 
-def determine_action_popularity() -> dict:
+def determine_actions_popularity() -> dict:
     """
     Determine the popularity of an Action.
     The popularity is computed as number of stars + number of dependents + number of forks + number of watching.
@@ -651,7 +629,7 @@ def how_popular_actions_triggered() -> None:
         with open("popular_actions.json", 'r') as f2:
             popular_actions = json.load(f2)
     except FileNotFoundError:
-        popular_actions = determine_action_popularity()
+        popular_actions = determine_actions_popularity()
 
     try:
         with open("yml_files.json", 'r') as f2:
@@ -719,7 +697,7 @@ def compare_number_of_versions() -> None:
     """
     Compare the number of versions for popular and not popular actions.
     """
-    popular_actions = determine_action_popularity()
+    popular_actions = determine_actions_popularity()
     total_number_actions = len(loaded_data)
     sample_size = compute_sample_size(total_number_actions)
 
@@ -752,6 +730,37 @@ def compare_number_of_versions() -> None:
     print(f"Mean for not popular actions: {mean_not_popular_versions}")
 
 
+def compare_contributors_popular_not_popular() -> None:
+    """
+    Compare the number of contributors for popular and not popular actions.
+    Take a sample of both popular and not popular actions,
+    """
+    popular_actions = determine_actions_popularity()
+
+    total_number_actions = len(loaded_data)
+    sample_size = compute_sample_size(total_number_actions)
+
+    not_popular_actions = {}
+    probability = round(sample_size / total_number_actions, 16)
+    total_number_not_popular_actions = len(not_popular_actions)
+    while total_number_not_popular_actions < sample_size:
+        for action in loaded_data:
+            random_number = random.random()
+            if random_number < probability and action not in popular_actions.keys():
+                not_popular_actions[action] = loaded_data[action]
+                total_number_not_popular_actions = len(not_popular_actions)
+                if total_number_not_popular_actions == sample_size:
+                    break
+
+    popular_actions_contributors = [len(loaded_data[action.split("/")[2]]["contributors"])
+                                    for action in popular_actions]
+    not_popular_actions_contributors = [len(not_popular_actions[action]["contributors"])
+                                        for action in not_popular_actions]
+
+    print(round(statistics.mean(popular_actions_contributors), 2))
+    print(round(statistics.mean(not_popular_actions_contributors), 2))
+
+
 if __name__ == "__main__":
     file = config.file_name
     try:
@@ -782,7 +791,7 @@ if __name__ == "__main__":
         actions_technical_lag()
 
     if config.actions_popularity:
-        determine_action_popularity()
+        determine_actions_popularity()
 
     if config.multiple_actions:
         if config.debug_multiple_actions:
@@ -812,3 +821,6 @@ if __name__ == "__main__":
 
     if config.compare_number_of_versions:
         compare_number_of_versions()
+
+    if config.compare_contributors_popular_not_popular:
+        compare_contributors_popular_not_popular()

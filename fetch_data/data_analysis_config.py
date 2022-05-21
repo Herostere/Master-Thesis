@@ -23,5 +23,5 @@ contributors_activity = False
 is_actions_developed_by_officials = False
 how_popular_actions_triggered = False
 compare_number_of_versions = False
-compare_contributors_popular_unpopular = False  # TODO
+compare_contributors_popular_not_popular = False
 do_popular_use_dependabot = False  # TODO
