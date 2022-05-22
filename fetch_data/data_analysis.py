@@ -719,34 +719,31 @@ def compare_number_of_versions() -> None:
     print(f"Mean for actions: {mean_versions}")
 
 
-def compare_contributors_popular_not_popular() -> None:
+def compare_number_of_contributors() -> None:
     """
-    Compare the number of contributors for popular and not popular actions.
-    Take a sample of both popular and not popular actions,
+    Compare the number of contributors.
     """
     popular_actions = actions_popularity()
 
-    total_number_actions = len(loaded_data)
-    sample_size = compute_sample_size(total_number_actions)
-    not_popular_actions = {}
-    probability = round(sample_size / total_number_actions, 16)
-    total_number_not_popular_actions = len(not_popular_actions)
-    while total_number_not_popular_actions < sample_size:
-        for action in loaded_data:
-            random_number = random.random()
-            if random_number < probability and action not in popular_actions:
-                not_popular_actions[action] = loaded_data[action]
-                total_number_not_popular_actions = len(not_popular_actions)
-                if total_number_not_popular_actions == sample_size:
-                    break
-
     popular_actions_contributors = [len(loaded_data[action.split("/")[2]]["contributors"])
                                     for action in popular_actions]
-    not_popular_actions_contributors = [len(not_popular_actions[action]["contributors"])
-                                        for action in not_popular_actions]
+    not_popular_actions_contributors = []
 
-    print(round(statistics.mean(popular_actions_contributors), 2))
-    print(round(statistics.mean(not_popular_actions_contributors), 2))
+    for i in range(500):
+        not_popular_actions = get_actions_sample(True)
+        not_popular_actions_contributors_temp = [len(not_popular_actions[action]["contributors"])
+                                                 for action in not_popular_actions]
+        not_popular_actions_contributors += not_popular_actions_contributors_temp
+
+    actions_contributors = [len(loaded_data[action]["contributors"]) for action in loaded_data]
+
+    mean_contributors_popular = round(statistics.mean(popular_actions_contributors), 2)
+    mean_contributors_not_popular = round(statistics.mean(not_popular_actions_contributors), 2)
+    mean_actions = round(statistics.mean(actions_contributors), 2)
+
+    print(f'Popular actions have a mean of {mean_contributors_popular} contributors.')
+    print(f'Not popular actions have a mean of {mean_contributors_not_popular} contributors.')
+    print(f'Actions have a mean of {mean_actions} contributors.')
 
 
 def do_actions_use_dependabot() -> None:
@@ -762,7 +759,7 @@ def do_actions_use_dependabot() -> None:
         if "dependabot[bot]" in contributors:
             popular_use_dependabot += 1
 
-    sample_not_popular_actions = get_actions_sample()
+    sample_not_popular_actions = get_actions_sample(True)
 
     not_popular_use_dependabot = 0
     for action in sample_not_popular_actions:
@@ -785,11 +782,11 @@ def do_actions_use_dependabot() -> None:
     print(f"{actions_using_dependabot}/{len(loaded_data)} actions are using dependabot.")
 
 
-def get_actions_sample(not_popular: bool) -> dict:
+def get_actions_sample(exclude_popular: bool) -> dict:
     """
     Get a representative sample of the Actions.
 
-    :param not_popular: If true, the sample does not contains popular actions.
+    :param exclude_popular: If true, the sample does not contains popular actions.
     :return: The representative sample of the Actions.
     """
     popular_actions = actions_popularity()
@@ -804,7 +801,7 @@ def get_actions_sample(not_popular: bool) -> dict:
     while total_sample < sample_size:
         for action in loaded_data:
             random_number = random.random()
-            if not_popular and random_number < probability and action not in popular_actions:
+            if exclude_popular and random_number < probability and action not in popular_actions:
                 sample[action] = loaded_data[action]
             elif random_number < probability:
                 sample[action] = loaded_data[action]
@@ -876,8 +873,8 @@ if __name__ == "__main__":
     if config.compare_number_of_versions:
         compare_number_of_versions()
 
-    if config.compare_contributors_popular_not_popular:
-        compare_contributors_popular_not_popular()
+    if config.compare_number_of_contributors:
+        compare_number_of_contributors()
 
     if config.do_actions_use_dependabot:
         do_actions_use_dependabot()

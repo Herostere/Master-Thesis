@@ -23,5 +23,5 @@ most_active_contributors = False  # Done
 is_actions_developed_by_officials = False
 how_actions_triggered = False
 compare_number_of_versions = False  # Done
-compare_contributors_popular_not_popular = False
+compare_number_of_contributors = False  # Done
 do_actions_use_dependabot = False  # Done
