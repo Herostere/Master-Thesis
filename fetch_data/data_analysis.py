@@ -3,7 +3,7 @@ This script is used to generate plots in order to analyse the data previously re
 """
 from collections import Counter
 from datetime import datetime
-from fetch_data.fetch_data import (
+from fetch_data import (
     request_to_api,
     get_request,
     beautiful_html,
@@ -30,28 +30,26 @@ def market_growing_over_time(p_category: str = None) -> None:
     """
     Shows the plots for the number of actions for each category. The last plot show the global number of actions.
 
-    :param p_category: A string representing the category to plot.
+    :param p_category: The category for to be plotted.
     """
     old_files = config.old_files_names
     actions_data = []
     try:
         for temp_file in old_files:
-            with open(temp_file, 'r', encoding='utf-8') as temporary:
-                actions_data.append(json.load(temporary))
+            with open(temp_file, 'r', encoding='utf-8') as old_data:
+                actions_data.append(json.load(old_data))
     except FileNotFoundError:
-        print("File not found. Please, check if the file is located in the same folder as this script.")
+        print("File not found. Please, check if the path.")
 
     actions_data.append(loaded_data)
 
     if p_category:
-        i = 0
-        for data_set in actions_data:
+        for i, data_set in enumerate(actions_data):
             temp = {}
             for action in data_set:
                 if data_set[action]["category"] == p_category:
                     temp[action] = data_set[action]
             actions_data[i] = temp
-            i += 1
 
     grow = {
         "10/03/2022": 0,
@@ -63,9 +61,9 @@ def market_growing_over_time(p_category: str = None) -> None:
     }
     grow_keys = list(grow.keys())
 
-    for i in range(len(actions_data)):
+    for i, action_data in enumerate(actions_data):
         key = grow_keys[i]
-        data = actions_data[i]
+        data = action_data
         grow[key] = len(data)
 
     values = [grow[k] for k in grow_keys]
@@ -310,12 +308,6 @@ def determine_actions_popularity() -> dict:
         key = couple[0]
         value = couple[1]
         popular_actions_dictionary[key] = value
-
-    # print(popular_actions_dictionary)
-    # print(f"The {sample_size} most popular actions has been writen in the 'popular_actions.json' file.")
-
-    with open('outputs/popular_actions.json', 'w', encoding='utf-8') as json_file:
-        json.dump(popular_actions_dictionary, json_file, indent=4)
 
     return popular_actions_dictionary
 
@@ -623,18 +615,13 @@ def is_actions_developed_by_officials() -> None:
     print(official_or_not)
 
 
-def how_popular_actions_triggered() -> None:
+def how_actions_triggered() -> None:
     """
-    Check how the popular actions are triggered on a general basis. Take a representative sample of the most popular
-    actions.
+    Check how the actions are triggered on a general basis. Take a representative sample of the most popular actions.
     """
 
-    # Representative sample of popular actions
-    try:
-        with open("outputs/popular_actions.json", 'r', encoding='utf-8') as json_file:
-            popular_actions = json.load(json_file)
-    except FileNotFoundError:
-        popular_actions = determine_actions_popularity()
+    popular_actions = determine_actions_popularity()
+    actions_sample = get_actions_sample()
 
     try:
         with open("outputs/yml_files.json", 'r', encoding='utf-8') as json_file:
@@ -696,6 +683,16 @@ def how_popular_actions_triggered() -> None:
 
     for element in trigger:
         print(f"{element}: {int(round(trigger[element] / total_triggers, 2) * 100)}%")
+
+
+def get_actions_sample(popular: bool = True) -> dict:
+    """
+    Get a representative sample of the actions.
+
+    :param popular:
+    :return:
+    """
+    pass
 
 
 def compare_number_of_versions() -> None:
@@ -859,8 +856,8 @@ if __name__ == "__main__":
     if config.is_actions_developed_by_officials:
         is_actions_developed_by_officials()
 
-    if config.how_popular_actions_triggered:
-        how_popular_actions_triggered()
+    if config.how_actions_triggered:
+        how_actions_triggered()
 
     if config.compare_number_of_versions:
         compare_number_of_versions()

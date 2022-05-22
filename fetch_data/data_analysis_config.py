@@ -12,7 +12,7 @@ old_files_names = [
 
 debug_multiple_actions = False
 
-market_growing_over_time = False
+market_growing_over_time = True
 actions_diversity = False
 most_commonly_proposed = False
 actions_technical_lag = False
@@ -21,7 +21,7 @@ multiple_actions = False
 actions_issues = False
 contributors_activity = False
 is_actions_developed_by_officials = False
-how_popular_actions_triggered = False
+how_actions_triggered = False
 compare_number_of_versions = False
 compare_contributors_popular_not_popular = False
 do_actions_use_dependabot = False
