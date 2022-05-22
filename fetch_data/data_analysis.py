@@ -97,17 +97,15 @@ def compute_actions_per_categories() -> list:
     :return: A list containing the number of action for each category. The list is sorted in the some order as the
     categories.
     """
-    actions_per_categories_n = {}
+    actions_per_categories_list = []
     for p_category in categories:
         number = 0
         for action in loaded_data:
             if loaded_data[action]["category"] == p_category:
                 number += 1
-        actions_per_categories_n[p_category] = number
+        actions_per_categories_list.append(number)
 
-    values = [actions_per_categories_n[k] for k in categories]
-
-    return values
+    return actions_per_categories_list
 
 
 def actions_diversity() -> None:

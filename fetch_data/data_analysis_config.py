@@ -12,8 +12,8 @@ old_files_names = [
 
 debug_multiple_actions = False
 
-market_growing_over_time = True
-actions_diversity = False
+market_growing_over_time = False
+actions_diversity = True
 most_commonly_proposed = False
 actions_technical_lag = False
 actions_popularity = False
