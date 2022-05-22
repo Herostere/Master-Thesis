@@ -133,7 +133,7 @@ def fetch_data_multithread() -> None:
 
     for category in categories:
         try:
-            with open("actions_data.json", 'r') as f1:
+            with open("outputs/actions_data.json", 'r') as f1:
                 save_data = json.load(f1)
         except FileNotFoundError:
             save_data = json.loads('{}')
@@ -163,7 +163,7 @@ def fetch_data_multithread() -> None:
             for thread in threads:
                 thread.join()
 
-        with open("actions_data.json", 'w') as f2:
+        with open("outputs/actions_data.json", 'w') as f2:
             json.dump(save_data, f2, sort_keys=True, indent=4)
 
 
@@ -703,7 +703,7 @@ if __name__ == "__main__":
             fetch_data_multithread()
 
             try:
-                with open("actions_data.json", 'r') as f:
+                with open("outputs/actions_data.json", 'r') as f:
                     load_data = json.load(f)
             except FileNotFoundError:
                 load_data = json.loads('{}')

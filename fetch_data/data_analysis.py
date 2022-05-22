@@ -314,7 +314,7 @@ def determine_actions_popularity() -> dict:
     # print(popular_actions_dictionary)
     # print(f"The {sample_size} most popular actions has been writen in the 'popular_actions.json' file.")
 
-    with open('popular_actions.json', 'w', encoding='utf-8') as json_file:
+    with open('outputs/popular_actions.json', 'w', encoding='utf-8') as json_file:
         json.dump(popular_actions_dictionary, json_file, indent=4)
 
     return popular_actions_dictionary
@@ -358,9 +358,9 @@ def multiple_actions_start_threads() -> tuple[dict, dict]:
     yml_per_repository = [files[0] for files in multiple_results if files is not None]
     yml_files = {key: value for dictionary in yml_files for key, value in dictionary.items()}
     yml_per_repository = {key: value for dictionary in yml_per_repository for key, value in dictionary.items()}
-    with open("yml_files.json", 'w', encoding="utf-8") as json_file:
+    with open("outputs/yml_files.json", 'w', encoding="utf-8") as json_file:
         json.dump(yml_files, json_file, indent=4)
-    with open("yml_per_repository.json", 'w', encoding="utf-8") as json_file:
+    with open("outputs/yml_per_repository.json", 'w', encoding="utf-8") as json_file:
         json.dump(yml_per_repository, json_file, indent=4)
 
     return yml_per_repository, yml_files
@@ -631,13 +631,13 @@ def how_popular_actions_triggered() -> None:
 
     # Representative sample of popular actions
     try:
-        with open("popular_actions.json", 'r', encoding='utf-8') as json_file:
+        with open("outputs/popular_actions.json", 'r', encoding='utf-8') as json_file:
             popular_actions = json.load(json_file)
     except FileNotFoundError:
         popular_actions = determine_actions_popularity()
 
     try:
-        with open("yml_files.json", 'r', encoding='utf-8') as json_file:
+        with open("outputs/yml_files.json", 'r', encoding='utf-8') as json_file:
             yml_files = json.load(json_file)
     except FileNotFoundError:
         multiple_results = multiple_actions_start_threads()
