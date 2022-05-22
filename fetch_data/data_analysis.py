@@ -286,15 +286,16 @@ def days_between_dates(dates: list) -> list:
     return days
 
 
-def determine_actions_popularity() -> dict:
+def actions_popularity(printing: bool = False) -> dict:
     """
-    Determine the popularity of an Action.
-    The popularity is computed as number of stars + number of dependents + number of forks + number of watching.
+    Determine the popularity of the Actions.
+    The popularity is computed as the number of stars + number of dependents + number of forks + number of watching.
 
+    :param printing: True if the function should print the output. Otherwise False.
     :return: The list of most popular Actions for a representative sample.
     """
     scores = {}
-    for action in loaded_data.keys():
+    for action in loaded_data:
         stars = loaded_data[action]["stars"]
         dependents = loaded_data[action]["dependents"]["number"]
         forks = loaded_data[action]["forks"]
@@ -306,21 +307,18 @@ def determine_actions_popularity() -> dict:
 
         scores[f"{owner}/{repository}/{action}"] = score
 
-    scores_counter = Counter(scores)
-
     sample_size = compute_sample_size(len(scores))
-
-    popular_actions = scores_counter.most_common(sample_size)
-
-    # for key, value in popular_actions:
-    #     key_category = loaded_data[key]["category"]
-    #     print(f"{key}: {value} --- {key_category}")
+    popular_actions = Counter(scores).most_common(sample_size)
 
     popular_actions_dictionary = {}
-    for couple in popular_actions:
-        key = couple[0]
-        value = couple[1]
+    for key, value in popular_actions:
         popular_actions_dictionary[key] = value
+
+    if printing:
+        for i, element in enumerate(popular_actions_dictionary):
+            name = element.split("/")[2]
+            value = popular_actions_dictionary[element]
+            print(f'{i+1}: "{name}" -> {value}')
 
     return popular_actions_dictionary
 
@@ -633,7 +631,7 @@ def how_actions_triggered() -> None:
     Check how the actions are triggered on a general basis. Take a representative sample of the most popular actions.
     """
 
-    popular_actions = determine_actions_popularity()
+    popular_actions = actions_popularity()
     actions_sample = get_actions_sample()
 
     try:
@@ -712,7 +710,7 @@ def compare_number_of_versions() -> None:
     """
     Compare the number of versions for popular and not popular actions.
     """
-    popular_actions = determine_actions_popularity()
+    popular_actions = actions_popularity()
     total_number_actions = len(loaded_data)
     sample_size = compute_sample_size(total_number_actions)
 
@@ -750,7 +748,7 @@ def compare_contributors_popular_not_popular() -> None:
     Compare the number of contributors for popular and not popular actions.
     Take a sample of both popular and not popular actions,
     """
-    popular_actions = determine_actions_popularity()
+    popular_actions = actions_popularity()
 
     total_number_actions = len(loaded_data)
     sample_size = compute_sample_size(total_number_actions)
@@ -779,7 +777,7 @@ def do_actions_use_dependabot() -> None:
     """
     Show the number of actions that use dependabot.
     """
-    popular_actions = determine_actions_popularity()
+    popular_actions = actions_popularity()
     popular_use_dependabot = 0
 
     for action in popular_actions:
@@ -844,7 +842,7 @@ if __name__ == "__main__":
         actions_technical_lag()
 
     if config.actions_popularity:
-        determine_actions_popularity()
+        actions_popularity(True)
 
     if config.multiple_actions:
         if config.debug_multiple_actions:
