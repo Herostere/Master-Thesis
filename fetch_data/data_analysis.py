@@ -175,9 +175,9 @@ def most_commonly_proposed() -> None:
 
 def actions_technical_lag() -> None:
     """
-    Determine the mean for the technical lag of the Actions.
+    Determine the technical lag of the Actions.
     """
-    versions = [loaded_data[key]["versions"] for key in loaded_data]
+    versions = list(loaded_data[action]["versions"] for action in loaded_data)
     versions = sort_dates_keys(versions)
 
     major_mean_days = []
@@ -254,17 +254,14 @@ def sort_dates_keys(versions: list) -> list:
     :param versions: The list representing the sample of versions.
     :return: The sorted list of versions.
     """
-    i = 0
-    for dictionary in versions:
+    for i, dictionary in enumerate(versions):
         dictionary_keys = list(dictionary.keys())
         dates = [datetime.strptime(dk, "%d/%m/%Y") for dk in dictionary_keys]
         dates.sort()
         sorted_dates = [datetime.strftime(dk, "%d/%m/%Y") for dk in dates]
-        temp = {}
+        versions[i] = {}
         for date in sorted_dates:
-            temp[date] = dictionary[date]
-        versions[i] = temp
-        i += 1
+            versions[i][date] = dictionary[date]
 
     return versions
 
