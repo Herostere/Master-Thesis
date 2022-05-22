@@ -790,12 +790,44 @@ def do_actions_use_dependabot() -> None:
         if "dependabot[bot]" in contributors:
             popular_use_dependabot += 1
 
+    sample_not_popular_actions = get_sample_not_popular_actions()
+
+    not_popular_use_dependabot = 0
+    for action in sample_not_popular_actions:
+        contributors = loaded_data[action]["contributors"]
+        if "dependabot[bot]" in contributors:
+            not_popular_use_dependabot += 1
+
+    sample_size = compute_sample_size(len(sample_not_popular_actions))
+
+    total_popular_actions = len(popular_actions)
+    print(f"{popular_use_dependabot}/{total_popular_actions} popular actions are using dependabot.")
+    print(f"{not_popular_use_dependabot}/{sample_size} not popular actions are using dependabot.")
+
+    actions_using_dependabot = 0
+    for action in loaded_data:
+        contributors = loaded_data[action]["contributors"]
+        if "dependabot[bot]" in contributors:
+            actions_using_dependabot += 1
+
+    print(f"{actions_using_dependabot}/{len(loaded_data)} actions are using dependabot.")
+
+
+def get_sample_not_popular_actions() -> dict:
+    """
+    Get a representative sample of the Actions. Those Actions are not in the most popular Actions.
+
+    :return: The representative sample of the Actions.
+    """
+    popular_actions = actions_popularity()
+
     total_number_actions = len(loaded_data)
     sample_size = compute_sample_size(total_number_actions)
 
     not_popular_actions = {}
     probability = round(sample_size / total_number_actions, 16)
     total_number_not_popular_actions = len(not_popular_actions)
+
     while total_number_not_popular_actions < sample_size:
         for action in loaded_data:
             random_number = random.random()
@@ -805,15 +837,7 @@ def do_actions_use_dependabot() -> None:
                 if total_number_not_popular_actions == sample_size:
                     break
 
-    not_popular_use_dependabot = 0
-    for action in not_popular_actions:
-        contributors = loaded_data[action]["contributors"]
-        if "dependabot[bot]" in contributors:
-            not_popular_use_dependabot += 1
-
-    total_popular_actions = len(popular_actions)
-    print(f"{popular_use_dependabot}/{total_popular_actions} popular actions are using dependabot.")
-    print(f"{not_popular_use_dependabot}/{sample_size} not popular actions are using dependabot.")
+    return not_popular_actions
 
 
 if __name__ == "__main__":
