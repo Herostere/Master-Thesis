@@ -3,7 +3,12 @@ This script is used to generate plots in order to analyse the data previously re
 """
 from collections import Counter
 from datetime import datetime
-from fetch_data import request_to_api, get_request, beautiful_html, get_remaining_api_calls, GITHUB_TOKENS
+from fetch_data import (
+    request_to_api,
+    get_request,
+    beautiful_html,
+    get_remaining_api_calls,
+    GITHUB_TOKENS)
 from packaging import version as packaging_version
 
 import base64
@@ -31,10 +36,10 @@ def market_growing_over_time(p_category: str = None) -> None:
     actions_data = []
     try:
         for temp_file in old_files:
-            with open(temp_file, 'r') as x:
-                actions_data.append(json.load(x))
+            with open(temp_file, 'r', encoding='utf-8') as temporary:
+                actions_data.append(json.load(temporary))
     except FileNotFoundError:
-        print(f"File not found. Please, check if the file is located in the same folder as this script.")
+        print("File not found. Please, check if the file is located in the same folder as this script.")
 
     actions_data.append(loaded_data)
 
@@ -72,16 +77,16 @@ def market_growing_over_time(p_category: str = None) -> None:
         show_bar_plots(grow_keys, values, "v", f"Growing of \"{p_category}\"")
 
 
-def show_bar_plots(x: list, y: list, orient: str, title: str) -> None:
+def show_bar_plots(x_axis: list, y_axis: list, orient: str, title: str) -> None:
     """
     Show a bar plot.
 
-    :param x: The list of values for the x axis.
-    :param y: The list of values for the y axis.
+    :param x_axis: The list of values for the x axis.
+    :param y_axis: The list of values for the y axis.
     :param orient: The plot orientation.
     :param title: The title of the plot.
     """
-    bar_plot = seaborn.barplot(x=x, y=y, orient=orient)
+    bar_plot = seaborn.barplot(x=x_axis, y=y_axis, orient=orient)
     bar_plot.bar_label(bar_plot.containers[0])
     bar_plot.set(title=title)
     plt.show()
@@ -185,16 +190,16 @@ def actions_technical_lag() -> None:
             micro_updates.append(first_key)
         for version_date in item:
             try:
-                a = packaging_version.parse(item[version_date])
-                if a.micro != last_micro:
+                current_version = packaging_version.parse(item[version_date])
+                if current_version.micro != last_micro:
                     micro_updates.append(version_date)
-                    last_micro = a.micro
-                if a.minor != last_minor:
+                    last_micro = current_version.micro
+                if current_version.minor != last_minor:
                     minor_updates.append(version_date)
-                    last_minor = a.minor
-                if a.major != last_major:
+                    last_minor = current_version.minor
+                if current_version.major != last_major:
                     major_updates.append(version_date)
-                    last_major = a.major
+                    last_major = current_version.major
             except AttributeError:
                 continue
 
@@ -309,8 +314,8 @@ def determine_actions_popularity() -> dict:
     # print(popular_actions_dictionary)
     # print(f"The {sample_size} most popular actions has been writen in the 'popular_actions.json' file.")
 
-    with open('popular_actions.json', 'w') as f2:
-        json.dump(popular_actions_dictionary, f2, indent=4)
+    with open('popular_actions.json', 'w', encoding='utf-8') as json_file:
+        json.dump(popular_actions_dictionary, json_file, indent=4)
 
     return popular_actions_dictionary
 
@@ -353,10 +358,10 @@ def multiple_actions_start_threads() -> tuple[dict, dict]:
     yml_per_repository = [files[0] for files in multiple_results if files is not None]
     yml_files = {key: value for dictionary in yml_files for key, value in dictionary.items()}
     yml_per_repository = {key: value for dictionary in yml_per_repository for key, value in dictionary.items()}
-    with open("yml_files.json", 'w') as f2:
-        json.dump(yml_files, f2, indent=4)
-    with open("yml_per_repository.json", 'w') as f2:
-        json.dump(yml_per_repository, f2, indent=4)
+    with open("yml_files.json", 'w', encoding="utf-8") as json_file:
+        json.dump(yml_files, json_file, indent=4)
+    with open("yml_per_repository.json", 'w', encoding="utf-8") as json_file:
+        json.dump(yml_per_repository, json_file, indent=4)
 
     return yml_per_repository, yml_files
 
@@ -400,7 +405,7 @@ def multiple_actions(p_elements: dict, p_results: list, index: int) -> None:
                 tree_json = tree_response.json()
                 tree_sha = tree_json["commit"]["tree"]["sha"]
                 break
-            elif tree_response.status_code == 403:
+            if tree_response.status_code == 403:
                 tree_response, i = deal_with_api_403(tree_response, i, api_branch_url)
             else:
                 no_tree = True
@@ -425,7 +430,7 @@ def multiple_actions(p_elements: dict, p_results: list, index: int) -> None:
                         github_sha = element["sha"]
                         github_url = f"https://api.github.com/repos/{owner}/{repository}/git/trees/{github_sha}"
                 break
-            elif files_response.status_code == 403:
+            if files_response.status_code == 403:
                 files_response, i = deal_with_api_403(files_response, i, api_files_main_url)
             else:
                 break
@@ -443,7 +448,7 @@ def multiple_actions(p_elements: dict, p_results: list, index: int) -> None:
                             yml_files[f"{owner}/{repository}/{action}"] = element["url"]
                             actions += 1
                     break
-                elif github_response.status_code == 403:
+                if github_response.status_code == 403:
                     github_response, i = deal_with_api_403(github_response, i, github_url)
                 else:
                     break
@@ -458,7 +463,7 @@ def multiple_actions(p_elements: dict, p_results: list, index: int) -> None:
                             yml_files[f"{owner}/{repository}/{action}"] = element["url"]
                             actions += 1
                     break
-                elif workflow_response.status_code == 403:
+                if workflow_response.status_code == 403:
                     workflow_response, i = deal_with_api_403(workflow_response, i, workflow_url)
                 else:
                     break
@@ -491,8 +496,7 @@ def deal_with_api_403(api_response: requests.Response, i: int, url: str) -> tupl
         if time_for_reset > 0:
             while not get_remaining_api_calls():
                 time.sleep(30)
-            else:
-                i = (i + 1) % len(GITHUB_TOKENS)
+            i = (i + 1) % len(GITHUB_TOKENS)
 
     tree_response = request_to_api(url, i)
 
@@ -523,7 +527,8 @@ def check_issues() -> None:
         if number_of_open_issues > 0:
             open_issues += 1
 
-            dates = [key for key in loaded_data[action]["versions"]]
+            # dates = [key for key in loaded_data[action]["versions"]]
+            dates = list(loaded_data[action]["versions"])
             dates = [datetime.strptime(date, "%d/%m/%Y") for date in dates]
             dates.sort()
             sorted_dates = [datetime.strftime(date, "%d/%m/%Y") for date in dates]
@@ -598,7 +603,7 @@ def is_actions_developed_by_officials() -> None:
     while total_number_sample < sample_size:
         for action in loaded_data:
             random_number = random.random()
-            if random_number < probability and action not in sample.keys():
+            if random_number < probability and action not in sample:
                 sample[action] = loaded_data[action]
                 total_number_sample = len(sample)
                 if total_number_sample == sample_size:
@@ -624,16 +629,16 @@ def how_popular_actions_triggered() -> None:
     actions.
     """
 
-    """Representative sample of popular actions"""
+    # Representative sample of popular actions
     try:
-        with open("popular_actions.json", 'r') as f2:
-            popular_actions = json.load(f2)
+        with open("popular_actions.json", 'r', encoding='utf-8') as json_file:
+            popular_actions = json.load(json_file)
     except FileNotFoundError:
         popular_actions = determine_actions_popularity()
 
     try:
-        with open("yml_files.json", 'r') as f2:
-            yml_files = json.load(f2)
+        with open("yml_files.json", 'r', encoding='utf-8') as json_file:
+            yml_files = json.load(json_file)
     except FileNotFoundError:
         multiple_results = multiple_actions_start_threads()
         yml_files = multiple_results[1]
@@ -655,7 +660,7 @@ def how_popular_actions_triggered() -> None:
                 api_json = api_response.json()
                 action_content_encoded = api_json["content"]
                 break
-            elif api_response.status_code == 403:
+            if api_response.status_code == 403:
                 api_response, i = deal_with_api_403(api_response, i, api_url)
             else:
                 no_content = True
@@ -673,7 +678,7 @@ def how_popular_actions_triggered() -> None:
             continue
         except TypeError:
             continue
-        if type(triggered_by) == str:
+        if isinstance(triggered_by, str):
             if triggered_by not in trigger:
                 trigger[triggered_by] = 1
             elif triggered_by in trigger:
@@ -707,7 +712,7 @@ def compare_number_of_versions() -> None:
     while total_number_not_popular_actions < sample_size:
         for action in loaded_data:
             random_number = random.random()
-            if random_number < probability and action not in popular_actions.keys():
+            if random_number < probability and action not in popular_actions:
                 versions = loaded_data[action]["versions"]
                 not_popular_actions[action] = versions
                 total_number_not_popular_actions = len(not_popular_actions)
@@ -739,14 +744,13 @@ def compare_contributors_popular_not_popular() -> None:
 
     total_number_actions = len(loaded_data)
     sample_size = compute_sample_size(total_number_actions)
-
     not_popular_actions = {}
     probability = round(sample_size / total_number_actions, 16)
     total_number_not_popular_actions = len(not_popular_actions)
     while total_number_not_popular_actions < sample_size:
         for action in loaded_data:
             random_number = random.random()
-            if random_number < probability and action not in popular_actions.keys():
+            if random_number < probability and action not in popular_actions:
                 not_popular_actions[action] = loaded_data[action]
                 total_number_not_popular_actions = len(not_popular_actions)
                 if total_number_not_popular_actions == sample_size:
@@ -761,10 +765,49 @@ def compare_contributors_popular_not_popular() -> None:
     print(round(statistics.mean(not_popular_actions_contributors), 2))
 
 
+def do_actions_use_dependabot() -> None:
+    """
+    Show the number of actions that use dependabot.
+    """
+    popular_actions = determine_actions_popularity()
+    popular_use_dependabot = 0
+
+    for action in popular_actions:
+        action_name = action.split("/")[2]
+        contributors = loaded_data[action_name]["contributors"]
+        if "dependabot[bot]" in contributors:
+            popular_use_dependabot += 1
+
+    total_number_actions = len(loaded_data)
+    sample_size = compute_sample_size(total_number_actions)
+
+    not_popular_actions = {}
+    probability = round(sample_size / total_number_actions, 16)
+    total_number_not_popular_actions = len(not_popular_actions)
+    while total_number_not_popular_actions < sample_size:
+        for action in loaded_data:
+            random_number = random.random()
+            if random_number < probability and action not in popular_actions:
+                not_popular_actions[action] = loaded_data[action]
+                total_number_not_popular_actions = len(not_popular_actions)
+                if total_number_not_popular_actions == sample_size:
+                    break
+
+    not_popular_use_dependabot = 0
+    for action in not_popular_actions:
+        contributors = loaded_data[action]["contributors"]
+        if "dependabot[bot]" in contributors:
+            not_popular_use_dependabot += 1
+
+    total_popular_actions = len(popular_actions)
+    print(f"{popular_use_dependabot}/{total_popular_actions} popular actions are using dependabot.")
+    print(f"{not_popular_use_dependabot}/{sample_size} not popular actions are using dependabot.")
+
+
 if __name__ == "__main__":
     file = config.file_name
     try:
-        with open(file, 'r') as f:
+        with open(file, 'r', encoding='utf-8') as f:
             loaded_data = json.load(f)
     except FileNotFoundError:
         print("File not found. Please, check if the file is located in the same folder as this script.")
@@ -824,3 +867,6 @@ if __name__ == "__main__":
 
     if config.compare_contributors_popular_not_popular:
         compare_contributors_popular_not_popular()
+
+    if config.do_actions_use_dependabot:
+        do_actions_use_dependabot()
