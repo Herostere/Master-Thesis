@@ -568,14 +568,14 @@ def actions_issues() -> None:
           f"Actions with the newest open issue that is less than 182 days old: {open_up_to_date}.")
 
 
-def check_contributors_activity() -> tuple[list, list]:
+def most_active_contributors() -> tuple[list, list]:
     """
     Retrieve the most active contributors.
 
     :return: A tuple with the list of most common contributor with bots, and without bots.
     """
     contributors = {}
-    for action in loaded_data.keys():
+    for action in loaded_data:
         action_contributors = loaded_data[action]["contributors"]
         for contributor in action_contributors:
             if contributor not in contributors:
@@ -583,11 +583,8 @@ def check_contributors_activity() -> tuple[list, list]:
             else:
                 contributors[contributor] += 1
 
-    contributors_counter = Counter(contributors)
-
     sample_size = compute_sample_size(len(contributors))
-
-    # most_active_with_bots = heapq.nlargest(20, contributors.items(), key=lambda i: i[1])
+    contributors_counter = Counter(contributors)
     most_common_with_bots = contributors_counter.most_common(sample_size)
 
     contributors_to_delete = [contributor for contributor in contributors
@@ -596,10 +593,6 @@ def check_contributors_activity() -> tuple[list, list]:
         del contributors[contributor]
 
     contributors_counter = Counter(contributors)
-
-    sample_size = compute_sample_size(len(contributors))
-
-    # most_active_without_bots = heapq.nlargest(20, contributors.items(), key=lambda i: i[1])
     most_common_without_bots = contributors_counter.most_common(sample_size)
 
     return most_common_with_bots, most_common_without_bots
@@ -872,8 +865,8 @@ if __name__ == "__main__":
     if config.actions_issues:
         actions_issues()
 
-    if config.contributors_activity:
-        check_contributors_activity()
+    if config.most_active_contributors:
+        most_active_contributors()
 
     if config.is_actions_developed_by_officials:
         is_actions_developed_by_officials()

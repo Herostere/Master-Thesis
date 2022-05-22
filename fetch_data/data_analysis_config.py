@@ -12,14 +12,14 @@ old_files_names = [
 
 debug_multiple_actions = False
 
-market_growing_over_time = False
-actions_diversity = False
-most_commonly_proposed = False
-actions_technical_lag = False
-actions_popularity = False
+market_growing_over_time = False  # Done
+actions_diversity = False  # Done
+most_commonly_proposed = False  # Done
+actions_technical_lag = False  # Done
+actions_popularity = False  # Done
 multiple_actions = False
-actions_issues = False
-contributors_activity = False
+actions_issues = False  # Done
+most_active_contributors = True
 is_actions_developed_by_officials = False
 how_actions_triggered = False
 compare_number_of_versions = False
