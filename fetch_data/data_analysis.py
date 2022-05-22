@@ -700,51 +700,23 @@ def how_actions_triggered() -> None:
         print(f"{element}: {int(round(trigger[element] / total_triggers, 2) * 100)}%")
 
 
-def get_actions_sample(popular: bool = True) -> dict:
-    """
-    Get a representative sample of the actions.
-
-    :param popular:
-    :return:
-    """
-    pass
-
-
 def compare_number_of_versions() -> None:
     """
     Compare the number of versions for popular and not popular actions.
     """
     popular_actions = actions_popularity()
-    total_number_actions = len(loaded_data)
-    sample_size = compute_sample_size(total_number_actions)
+    not_popular_actions = get_actions_sample(True)
 
-    not_popular_actions = {}
-    probability = round(sample_size / total_number_actions, 16)
-    total_number_not_popular_actions = len(not_popular_actions)
-    while total_number_not_popular_actions < sample_size:
-        for action in loaded_data:
-            random_number = random.random()
-            if random_number < probability and action not in popular_actions:
-                versions = loaded_data[action]["versions"]
-                not_popular_actions[action] = versions
-                total_number_not_popular_actions = len(not_popular_actions)
-                if total_number_not_popular_actions == sample_size:
-                    break
-
-    popular_versions = []
-    for popular_action in popular_actions:
-        name = popular_action.split("/")[2]
-        for action in loaded_data:
-            if name == action:
-                versions = len(loaded_data[name]["versions"])
-                popular_versions.append(versions)
-                break
-    not_popular_versions = [len(not_popular_actions[action]) for action in not_popular_actions]
+    popular_versions = [len(loaded_data[action.split("/")[2]]["versions"]) for action in popular_actions]
+    not_popular_versions = [len(not_popular_actions[action]["versions"]) for action in not_popular_actions]
+    actions_versions = [len(loaded_data[action]["versions"]) for action in loaded_data]
 
     mean_popular_versions = round(statistics.mean(popular_versions), 2)
     mean_not_popular_versions = round(statistics.mean(not_popular_versions), 2)
+    mean_versions = round(statistics.mean(actions_versions), 2)
     print(f"Mean for popular actions: {mean_popular_versions}")
     print(f"Mean for not popular actions: {mean_not_popular_versions}")
+    print(f"Mean for actions: {mean_versions}")
 
 
 def compare_contributors_popular_not_popular() -> None:
@@ -790,7 +762,7 @@ def do_actions_use_dependabot() -> None:
         if "dependabot[bot]" in contributors:
             popular_use_dependabot += 1
 
-    sample_not_popular_actions = get_sample_not_popular_actions()
+    sample_not_popular_actions = get_actions_sample()
 
     not_popular_use_dependabot = 0
     for action in sample_not_popular_actions:
@@ -813,10 +785,11 @@ def do_actions_use_dependabot() -> None:
     print(f"{actions_using_dependabot}/{len(loaded_data)} actions are using dependabot.")
 
 
-def get_sample_not_popular_actions() -> dict:
+def get_actions_sample(not_popular: bool) -> dict:
     """
-    Get a representative sample of the Actions. Those Actions are not in the most popular Actions.
+    Get a representative sample of the Actions.
 
+    :param not_popular: If true, the sample does not contains popular actions.
     :return: The representative sample of the Actions.
     """
     popular_actions = actions_popularity()
@@ -824,20 +797,22 @@ def get_sample_not_popular_actions() -> dict:
     total_number_actions = len(loaded_data)
     sample_size = compute_sample_size(total_number_actions)
 
-    not_popular_actions = {}
+    sample = {}
     probability = round(sample_size / total_number_actions, 16)
-    total_number_not_popular_actions = len(not_popular_actions)
+    total_sample = len(sample)
 
-    while total_number_not_popular_actions < sample_size:
+    while total_sample < sample_size:
         for action in loaded_data:
             random_number = random.random()
-            if random_number < probability and action not in popular_actions:
-                not_popular_actions[action] = loaded_data[action]
-                total_number_not_popular_actions = len(not_popular_actions)
-                if total_number_not_popular_actions == sample_size:
-                    break
+            if not_popular and random_number < probability and action not in popular_actions:
+                sample[action] = loaded_data[action]
+            elif random_number < probability:
+                sample[action] = loaded_data[action]
+            total_sample = len(sample)
+            if total_sample == sample_size:
+                break
 
-    return not_popular_actions
+    return sample
 
 
 if __name__ == "__main__":
