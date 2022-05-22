@@ -3,7 +3,7 @@ This script is used to generate plots in order to analyse the data previously re
 """
 from collections import Counter
 from datetime import datetime
-from fetch_data import (
+from fetch_data.fetch_data import (
     request_to_api,
     get_request,
     beautiful_html,
@@ -328,7 +328,7 @@ def multiple_actions_start_threads() -> tuple[dict, dict]:
     """
     threads = 10
     run_threads = []
-    multiple_results = [None] * threads
+    multiple_results = [[]] * threads
 
     data = loaded_data
     full = int(len(data) / (threads-1))
