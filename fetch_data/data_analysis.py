@@ -292,7 +292,7 @@ def actions_popularity(printing: bool = False) -> dict:
     The popularity is computed as the number of stars + number of dependents + number of forks + number of watching.
 
     :param printing: True if the function should print the output. Otherwise False.
-    :return: The list of most popular Actions for a representative sample.
+    :return: The list of most popular Actions.
     """
     scores = {}
     for action in loaded_data:
@@ -506,7 +506,7 @@ def deal_with_api_403(api_response: requests.Response, i: int, url: str) -> tupl
     return tree_response, i
 
 
-def check_issues() -> None:
+def actions_issues() -> None:
     """
     Check the number of repositories with open and closed issues.
     """
@@ -519,18 +519,25 @@ def check_issues() -> None:
     open_up_to_date = 0
     open_not_up_to_date = 0
 
+    open_ones = []
+    closed_ones = []
+
     for action in loaded_data:
         number_of_open_issues = loaded_data[action]["issues"]["open"]
         number_of_closed_issues = loaded_data[action]["issues"]["closed"]
+
+        open_ones.append(number_of_open_issues)
+        closed_ones.append(number_of_closed_issues)
 
         if number_of_open_issues > 0 and number_of_closed_issues == 0:
             open_no_close_issues += 1
         elif number_of_closed_issues > 0 and number_of_open_issues == 0:
             closed_no_open_issues += 1
+        elif number_of_open_issues == 0 and number_of_closed_issues == 0:
+            no_issues += 1
+
         if number_of_open_issues > 0:
             open_issues += 1
-
-            # dates = [key for key in loaded_data[action]["versions"]]
             dates = list(loaded_data[action]["versions"])
             dates = [datetime.strptime(date, "%d/%m/%Y") for date in dates]
             dates.sort()
@@ -543,18 +550,22 @@ def check_issues() -> None:
                 open_not_up_to_date += 1
             else:
                 open_up_to_date += 1
+
         if number_of_closed_issues > 0:
             closed_issues += 1
-        if number_of_open_issues == 0 and number_of_closed_issues == 0:
-            no_issues += 1
 
-    no_issues = abs(open_issues - closed_issues)
+    number_of_actions = len(loaded_data)
 
-    print(f"Actions with open issues: {open_issues}.\n"
-          f"Actions with closed issues: {closed_issues}.\n"
-          f"Action without issues: {no_issues}\n")
-    print(f"Actions with the oldest open issue that is more than 182 days old: {open_not_up_to_date}.\n"
-          f"Actions with the oldest open issue that is less than 182 days old: {open_up_to_date}.")
+    print(f"Mean of open issues for actions: {round(statistics.mean(open_ones), 2)}.")
+    print(f"Mean of open issues for actions: {round(statistics.mean(closed_ones), 2)}.\n")
+
+    print(f"Actions with open issues: {open_issues}/{number_of_actions}.\n"
+          f"Actions with closed issues: {closed_issues}/{number_of_actions}.\n"
+          f"Actions without issues: {no_issues}/{number_of_actions}.\n"
+          f"Actions with no issues but open ones: {open_no_close_issues}/{number_of_actions}.\n"
+          f"Actions with no issues but closed ones: {closed_no_open_issues}/{number_of_actions}.\n")
+    print(f"Actions with the newest open issue that is more than 182 days old: {open_not_up_to_date}.\n"
+          f"Actions with the newest open issue that is less than 182 days old: {open_up_to_date}.")
 
 
 def check_contributors_activity() -> tuple[list, list]:
@@ -859,7 +870,7 @@ if __name__ == "__main__":
         multiple_actions_start_threads()
 
     if config.actions_issues:
-        check_issues()
+        actions_issues()
 
     if config.contributors_activity:
         check_contributors_activity()
