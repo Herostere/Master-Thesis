@@ -112,9 +112,7 @@ def actions_diversity() -> None:
     """
     Show the plot that represent the diversity of the actions.
     """
-    values = compute_actions_per_categories()
-
-    show_bar_plots(values, categories, "h", "Actions Diversity")
+    show_bar_plots(actions_per_categories, categories, "h", "Actions Diversity")
 
 
 def most_commonly_proposed() -> None:
