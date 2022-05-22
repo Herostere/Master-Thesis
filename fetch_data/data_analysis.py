@@ -598,36 +598,49 @@ def most_active_contributors() -> tuple[list, list]:
     return most_common_with_bots, most_common_without_bots
 
 
-def is_actions_developed_by_officials() -> None:
+def compare_number_actions_officials_not_officials() -> None:
     """
-    Take a sample of all actions and check if the actions are developed by official users.
+    Check the number of actions developed by official and not officials users.
     """
-    sample = {}
-    total_number_actions = len(loaded_data)
-    sample_size = compute_sample_size(total_number_actions)
-    probability = round(sample_size / total_number_actions, 16)
-    total_number_sample = len(sample)
-    while total_number_sample < sample_size:
-        for action in loaded_data:
-            random_number = random.random()
-            if random_number < probability and action not in sample:
-                sample[action] = loaded_data[action]
-                total_number_sample = len(sample)
-                if total_number_sample == sample_size:
-                    break
+    popular_actions_ = actions_popularity()
+    popular_actions = {}
+    for action in popular_actions_:
+        name = action.split("/")[2]
+        popular_actions[name] = loaded_data[name]
 
+    not_popular_officials = []
+    not_popular_not_officials = []
+    for i in range(500):
+        not_popular_actions = get_actions_sample(True)
+        not_popular_official_or_not = compute_official_or_not(not_popular_actions)
+        not_popular_officials.append(not_popular_official_or_not["official"])
+        not_popular_not_officials.append(not_popular_official_or_not["unofficial"])
+
+    full_official_or_not = compute_official_or_not(loaded_data)
+    popular_official_or_not = compute_official_or_not(popular_actions)
+    not_popular_officials = math.ceil(statistics.mean(not_popular_officials))
+    not_popular_not_officials = math.ceil(statistics.mean(not_popular_not_officials))
+
+    print(f'Full: {full_official_or_not["official"]} officials - {full_official_or_not["unofficial"]} unofficial.')
+    print(f'Popular: {popular_official_or_not["official"]} officials - '
+          f'{popular_official_or_not["unofficial"]} unofficial.')
+    print(f'Not popular: {not_popular_officials} officials - '
+          f'{not_popular_not_officials} unofficial.')
+
+
+def compute_official_or_not(data: dict) -> dict:
     official_or_not = {
         "official": 0,
         "unofficial": 0,
     }
 
-    for action in sample:
-        if not sample[action]["verified"]:
+    for action in data:
+        if not data[action]["verified"]:
             official_or_not["official"] += 1
         else:
             official_or_not["unofficial"] += 1
 
-    print(official_or_not)
+    return official_or_not
 
 
 def how_actions_triggered() -> None:
@@ -864,8 +877,8 @@ if __name__ == "__main__":
     if config.most_active_contributors:
         most_active_contributors()
 
-    if config.is_actions_developed_by_officials:
-        is_actions_developed_by_officials()
+    if config.compare_number_actions_officials_not_officials:
+        compare_number_actions_officials_not_officials()
 
     if config.how_actions_triggered:
         how_actions_triggered()
