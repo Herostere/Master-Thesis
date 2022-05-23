@@ -860,6 +860,19 @@ if __name__ == "__main__":
 
     samples_to_make = config.samples_to_make
 
+    # TODO delete
+    file = 'outputs/actions_data_17_05_2022.json'
+    count = 0
+    with open(file, 'r', encoding='utf-8') as f:
+        loaded_data = json.load(f)
+    new = {}
+    for element in loaded_data:
+        if loaded_data[element]["category"] == 'api-management':
+            new[element] = loaded_data[element]
+    loaded_data = new
+    print(len(loaded_data))
+    exit()
+
     if config.market_growing_over_time:
         for category in categories:
             market_growing_over_time(category)

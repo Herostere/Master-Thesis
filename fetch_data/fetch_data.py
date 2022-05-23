@@ -243,15 +243,16 @@ def thread_data(pages: list, category: str, save_data: dict) -> None:
 
         # Below is used to format the name as in the marketplace urls.
         for j in range(0, len(actions_names_ugly)):
-            pretty_name = format_action_name(actions_names_ugly[j])
+            action_name = format_action_name(actions_names_ugly[j])
+            mp_page, url = test_mp_page(action_name)
+            owner = get_owner(url)
+            repo_name = get_repo_name(url)
+            pretty_name = f'{owner}/{repo_name}'
             already_fetched = save_data.keys()
-            if pretty_name in already_fetched:
-                print(pretty_name)  # TODO delete with line above.
             if pretty_name in already_fetched and save_data[pretty_name]["category"] == "recently-added":
                 if category != "recently-added":
                     save_data[pretty_name]["category"] = category
             elif pretty_name not in already_fetched:
-                mp_page, url = test_mp_page(pretty_name)
                 if mp_page:
                     data = test_link(url)
                     if data:
@@ -259,10 +260,9 @@ def thread_data(pages: list, category: str, save_data: dict) -> None:
                         save_data[pretty_name]['category'] = category
                         verified = get_verified(mp_page)
                         save_data[pretty_name]['verified'] = verified
-                        owner = get_owner(url)
                         save_data[pretty_name]['owner'] = owner
-                        repo_name = get_repo_name(url)
                         save_data[pretty_name]['repository'] = repo_name
+                        save_data[pretty_name]['name'] = format_action_name(actions_names_ugly[j])
 
                         if config.fetch_categories["versions"]:
                             versions, index = get_api('versions', owner, repo_name, index)
