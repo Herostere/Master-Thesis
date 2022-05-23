@@ -334,12 +334,12 @@ def multiple_actions_start_threads() -> tuple[dict, dict]:
     multiple_results = [[]] * threads
 
     data = loaded_data
-    full = int(len(data) / (threads-1))
+    full = int(len(data) / (threads-1))  # How much data must be handled by each thread but the last one.
     elements = {}
 
     index = 0
-
     count = 0
+
     for element in data:
         if count == full:
             run_threads.append(threading.Thread(target=multiple_actions, args=(elements, multiple_results, index,)))
@@ -371,109 +371,120 @@ def multiple_actions_start_threads() -> tuple[dict, dict]:
 
 def multiple_actions(p_elements: dict, p_results: list, index: int) -> None:
     """
-    Check the number of actions per repository. Safe the links to yml files on a JSON.
+    Check if actions are using other actions.
 
     :param p_elements: The dictionary with the Actions in it.
     :param p_results: The list in which the data must be saved.
     :param index: The position in the list where the data must be saved.
     """
-    actions_in_repos = {}
-    yml_files = {}
+    workflow_actions_used = {}
 
-    i = 0
-    for action in p_elements:
-        actions = 0
+    # i = 0
+    # for action in p_elements:
+    #     owner = p_elements[action]["owner"]
+    #     repository = p_elements[action]["repository"]
+    #     url = f'https://github.com/{owner}/{repository}'
+    #
+    #     request = get_request("multiple_actions", url)
+    #     xpath_branch = '//span[@class="css-truncate-target"]/text()'
+    #
+    #     try:
+    #         root = beautiful_html(request.text)
+    #     except AttributeError:
+    #         continue
+    #
+    #     space_pattern = re.compile(r'\s+')
+    #     main_branch = re.sub(space_pattern, "", root.xpath(xpath_branch)[0])
+    #
+    #     api_branch_url = f'https://api.github.com/repos/{owner}/{repository}/commits/{main_branch}'
+    #     tree_response, i = deal_with_api(api_branch_url, i)
+    #     if tree_response:
+    #         tree_sha = tree_response.json()["commit"]["tree"]["sha"]
+    #     else:
+    #         continue
+    #
+    #     api_files_main_url = f'https://api.github.com/repos/{owner}/{repository}/git/trees/{tree_sha}'
+    #     files_response, i = deal_with_api(api_files_main_url, i)
+    #     if files_response:
+    #         files = files_response.json()['tree']
+    #         for p_file in files:
+    #             if 'action.yml' in p_file['path']:
+    #
+    #
+    #     api_files_main_url = f"https://api.github.com/repos/{owner}/{repository}/git/trees/{tree_sha}"
+    #     files_response = request_to_api(api_files_main_url, i)
+    #     github_url = ""
+    #     while True:
+    #         if files_response.status_code == 200:
+    #             files_json = files_response.json()
+    #             files = files_json["tree"]
+    #             for element in files:
+    #                 if ".yml" in element["path"]:
+    #                     yml_files[f"{owner}/{repository}/{action}"] = element["url"]
+    #                     actions += 1
+    #                 elif ".github" == element["path"]:
+    #                     github_sha = element["sha"]
+    #                     github_url = f"https://api.github.com/repos/{owner}/{repository}/git/trees/{github_sha}"
+    #             break
+    #         if files_response.status_code == 403:
+    #             files_response, i = deal_with_api_403(files_response, i, api_files_main_url)
+    #         else:
+    #             break
+    #
+    #     workflow_url = ""
+    #     if github_url:
+    #         github_response = request_to_api(github_url, i)
+    #         while True:
+    #             if github_response.status_code == 200:
+    #                 github_json = github_response.json()
+    #                 for element in github_json["tree"]:
+    #                     if element["path"] == "workflows":
+    #                         workflow_url = element["url"]
+    #                     if ".yml" in element["path"]:
+    #                         yml_files[f"{owner}/{repository}/{action}"] = element["url"]
+    #                         actions += 1
+    #                 break
+    #             if github_response.status_code == 403:
+    #                 github_response, i = deal_with_api_403(github_response, i, github_url)
+    #             else:
+    #                 break
+    #
+    #     if workflow_url:
+    #         workflow_response = request_to_api(workflow_url, i)
+    #         while True:
+    #             if workflow_response.status_code == 200:
+    #                 workflow_json = workflow_response.json()
+    #                 for element in workflow_json["tree"]:
+    #                     if ".yml" in element["path"]:
+    #                         yml_files[f"{owner}/{repository}/{action}"] = element["url"]
+    #                         actions += 1
+    #                 break
+    #             if workflow_response.status_code == 403:
+    #                 workflow_response, i = deal_with_api_403(workflow_response, i, workflow_url)
+    #             else:
+    #                 break
+    #
+    #     actions_in_repos[action] = actions
+    #
+    # p_results[index] = (actions_in_repos, yml_files)
 
-        owner = p_elements[action]["owner"]
-        repository = p_elements[action]["repository"]
-        url = f"https://github.com/{owner}/{repository}"
 
-        request = get_request("multiple_actions", url)
+def deal_with_api(url, i) -> tuple[requests.Response, int] | tuple[None, int]:
+    """
+    Make the request to the api and deal with the response.
 
-        xpath_branch = '//span[@class="css-truncate-target"]/text()'
-
-        try:
-            root = beautiful_html(request.text)
-        except AttributeError:
-            continue
-
-        space_pattern = re.compile(r"\s+")
-        main_branch = re.sub(space_pattern, "", root.xpath(xpath_branch)[0])
-
-        api_branch_url = f"https://api.github.com/repos/{owner}/{repository}/commits/{main_branch}"
-        tree_response = request_to_api(api_branch_url, i)
-        no_tree = False
-        while True:
-            if tree_response.status_code == 200:
-                tree_json = tree_response.json()
-                tree_sha = tree_json["commit"]["tree"]["sha"]
-                break
-            if tree_response.status_code == 403:
-                tree_response, i = deal_with_api_403(tree_response, i, api_branch_url)
-            else:
-                no_tree = True
-                tree_sha = ""
-                break
-
-        if no_tree:
-            continue
-
-        api_files_main_url = f"https://api.github.com/repos/{owner}/{repository}/git/trees/{tree_sha}"
-        files_response = request_to_api(api_files_main_url, i)
-        github_url = ""
-        while True:
-            if files_response.status_code == 200:
-                files_json = files_response.json()
-                files = files_json["tree"]
-                for element in files:
-                    if ".yml" in element["path"]:
-                        yml_files[f"{owner}/{repository}/{action}"] = element["url"]
-                        actions += 1
-                    elif ".github" == element["path"]:
-                        github_sha = element["sha"]
-                        github_url = f"https://api.github.com/repos/{owner}/{repository}/git/trees/{github_sha}"
-                break
-            if files_response.status_code == 403:
-                files_response, i = deal_with_api_403(files_response, i, api_files_main_url)
-            else:
-                break
-
-        workflow_url = ""
-        if github_url:
-            github_response = request_to_api(github_url, i)
-            while True:
-                if github_response.status_code == 200:
-                    github_json = github_response.json()
-                    for element in github_json["tree"]:
-                        if element["path"] == "workflows":
-                            workflow_url = element["url"]
-                        if ".yml" in element["path"]:
-                            yml_files[f"{owner}/{repository}/{action}"] = element["url"]
-                            actions += 1
-                    break
-                if github_response.status_code == 403:
-                    github_response, i = deal_with_api_403(github_response, i, github_url)
-                else:
-                    break
-
-        if workflow_url:
-            workflow_response = request_to_api(workflow_url, i)
-            while True:
-                if workflow_response.status_code == 200:
-                    workflow_json = workflow_response.json()
-                    for element in workflow_json["tree"]:
-                        if ".yml" in element["path"]:
-                            yml_files[f"{owner}/{repository}/{action}"] = element["url"]
-                            actions += 1
-                    break
-                if workflow_response.status_code == 403:
-                    workflow_response, i = deal_with_api_403(workflow_response, i, workflow_url)
-                else:
-                    break
-
-        actions_in_repos[action] = actions
-
-    p_results[index] = (actions_in_repos, yml_files)
+    :param url: The url to connect to.
+    :param i: The GITHUB_TOKENS index.
+    :return: The response or none, with the next index for the GITHUB_TOKEN.
+    """
+    response = request_to_api(url, i)
+    while True:
+        if response.status_code == 200:
+            return response, i
+        elif response.status_code == 403:
+            response, i = deal_with_api_403(response, i, url)
+        else:
+            return None, i
 
 
 def deal_with_api_403(api_response: requests.Response, i: int, url: str) -> tuple[requests.Response, int]:
@@ -647,6 +658,7 @@ def how_actions_triggered() -> None:
     """
     Check how the actions are triggered on a general basis. Take a representative sample of the most popular actions.
     """
+    popular_actions = actions_popularity()
 
     popular_actions = actions_popularity()
     actions_sample = get_actions_sample()
@@ -870,16 +882,7 @@ if __name__ == "__main__":
 
     if config.multiple_actions:
         if config.debug_multiple_actions:
-            new_data = {}
-            data_keys = loaded_data.keys()
-            data_in_new = 0
-            for key_1 in data_keys:
-                if data_in_new < 20:
-                    new_data[key_1] = loaded_data[key_1]
-                    data_in_new += 1
-                else:
-                    break
-            loaded_data = new_data
+            loaded_data = get_actions_sample(False)
         multiple_actions_start_threads()
 
     if config.actions_issues:

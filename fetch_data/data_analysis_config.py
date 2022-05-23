@@ -10,7 +10,7 @@ old_files_names = [
     "outputs/actions_data_16_05_2022.json",
 ]
 
-debug_multiple_actions = False
+debug_multiple_actions = True
 
 samples_to_make = 500
 
@@ -19,7 +19,7 @@ actions_diversity = False  # Done
 most_commonly_proposed = False  # Done
 actions_technical_lag = False  # Done
 actions_popularity = False  # Done
-multiple_actions = False
+multiple_actions = True  # TODO
 actions_issues = False  # Done
 most_active_contributors = False  # Done
 compare_number_actions_officials_not_officials = False  # Done
