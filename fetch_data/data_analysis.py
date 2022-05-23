@@ -52,7 +52,7 @@ def market_growing_over_time(p_category: str = None) -> None:
             actions_data[i] = temp
 
     grow = {
-        "10/03/2022": 0,
+        # "10/03/2022": 0,
         "25/03/2022": 0,
         "13/04/2022": 0,
         "29/04/2022": 0,
@@ -305,7 +305,7 @@ def actions_popularity(printing: bool = False) -> dict:
         owner = loaded_data[action]["owner"]
         repository = loaded_data[action]["repository"]
 
-        scores[f"{owner}/{repository}/{action}"] = score
+        scores[f"{owner}/{repository}"] = score
 
     sample_size = compute_sample_size(len(scores))
     popular_actions = Counter(scores).most_common(sample_size)
@@ -316,9 +316,8 @@ def actions_popularity(printing: bool = False) -> dict:
 
     if printing:
         for i, element in enumerate(popular_actions_dictionary):
-            name = element.split("/")[2]
             value = popular_actions_dictionary[element]
-            print(f'{i+1}: "{name}" -> {value}')
+            print(f'{i+1}: "{element}" -> {value}')
 
     return popular_actions_dictionary
 
@@ -606,6 +605,14 @@ def most_active_contributors() -> tuple[list, list]:
     contributors_counter = Counter(contributors)
     most_common_without_bots = contributors_counter.most_common(sample_size)
 
+    print(f"Most active contributors (bots included):")
+    for contributor, contributions in most_common_with_bots:
+        print(f"    - {contributor} - {contributions}")
+
+    print(f"\nMost active contributors (bots excluded):")
+    for contributor, contributions in most_common_without_bots:
+        print(f"    - {contributor} - {contributions}")
+
     return most_common_with_bots, most_common_without_bots
 
 
@@ -616,8 +623,7 @@ def compare_number_actions_officials_not_officials() -> None:
     popular_actions_ = actions_popularity()
     popular_actions = {}
     for action in popular_actions_:
-        name = action.split("/")[2]
-        popular_actions[name] = loaded_data[name]
+        popular_actions[action] = loaded_data[action]
 
     not_popular_officials = []
     not_popular_not_officials = []
@@ -737,7 +743,7 @@ def compare_number_of_versions() -> None:
         not_popular_versions_ = [len(not_popular_actions[action]["versions"]) for action in not_popular_actions]
         not_popular_versions += not_popular_versions_
 
-    popular_versions = [len(loaded_data[action.split("/")[2]]["versions"]) for action in popular_actions]
+    popular_versions = [len(loaded_data[action]["versions"]) for action in popular_actions]
     actions_versions = [len(loaded_data[action]["versions"]) for action in loaded_data]
 
     mean_popular_versions = round(statistics.mean(popular_versions), 2)
@@ -754,8 +760,7 @@ def compare_number_of_contributors() -> None:
     """
     popular_actions = actions_popularity()
 
-    popular_actions_contributors = [len(loaded_data[action.split("/")[2]]["contributors"])
-                                    for action in popular_actions]
+    popular_actions_contributors = [len(loaded_data[action]["contributors"]) for action in popular_actions]
     not_popular_actions_contributors = []
 
     for i in range(samples_to_make):
@@ -783,8 +788,7 @@ def do_actions_use_dependabot() -> None:
     popular_use_dependabot = 0
 
     for action in popular_actions:
-        action_name = action.split("/")[2]
-        contributors = loaded_data[action_name]["contributors"]
+        contributors = loaded_data[action]["contributors"]
         if "dependabot[bot]" in contributors:
             popular_use_dependabot += 1
 
@@ -859,19 +863,6 @@ if __name__ == "__main__":
                   'project-management', 'publishing', 'recently-added', 'security', 'support', 'testing', 'utilities']
 
     samples_to_make = config.samples_to_make
-
-    # TODO delete
-    file = 'outputs/actions_data_17_05_2022.json'
-    count = 0
-    with open(file, 'r', encoding='utf-8') as f:
-        loaded_data = json.load(f)
-    new = {}
-    for element in loaded_data:
-        if loaded_data[element]["category"] == 'api-management':
-            new[element] = loaded_data[element]
-    loaded_data = new
-    print(len(loaded_data))
-    exit()
 
     if config.market_growing_over_time:
         for category in categories:

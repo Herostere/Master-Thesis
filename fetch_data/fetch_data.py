@@ -245,15 +245,15 @@ def thread_data(pages: list, category: str, save_data: dict) -> None:
         for j in range(0, len(actions_names_ugly)):
             action_name = format_action_name(actions_names_ugly[j])
             mp_page, url = test_mp_page(action_name)
-            owner = get_owner(url)
-            repo_name = get_repo_name(url)
-            pretty_name = f'{owner}/{repo_name}'
-            already_fetched = save_data.keys()
-            if pretty_name in already_fetched and save_data[pretty_name]["category"] == "recently-added":
-                if category != "recently-added":
-                    save_data[pretty_name]["category"] = category
-            elif pretty_name not in already_fetched:
-                if mp_page:
+            if mp_page:
+                owner = get_owner(url)
+                repo_name = get_repo_name(url)
+                pretty_name = f'{owner}/{repo_name}'
+                already_fetched = save_data.keys()
+                if pretty_name in already_fetched and save_data[pretty_name]["category"] == "recently-added":
+                    if category != "recently-added":
+                        save_data[pretty_name]["category"] = category
+                elif pretty_name not in already_fetched:
                     data = test_link(url)
                     if data:
                         save_data[pretty_name] = {}
@@ -298,8 +298,11 @@ def thread_data(pages: list, category: str, save_data: dict) -> None:
                         if config.fetch_categories["issues"]:
                             issues, index = get_api("issues", owner, repo_name, index)
                             save_data[pretty_name]["issues"] = {}
-                            save_data[pretty_name]["issues"]["open"] = issues["open"]
-                            save_data[pretty_name]["issues"]["closed"] = issues["closed"]
+                            try:
+                                save_data[pretty_name]["issues"]["open"] = issues["open"]
+                                save_data[pretty_name]["issues"]["closed"] = issues["closed"]
+                            except KeyError:
+                                print(pretty_name)
 
 
 def format_action_name(ugly_name: str) -> str:
@@ -541,12 +544,13 @@ def extract(api_call: requests.Response, to_extract: str | tuple | list, url, in
         message = 'message' in api_call.json().keys()
         if 'Retry-After' in api_call.headers.keys():
             while not get_remaining_api_calls():
-                now = datetime.now()
-                finish = now + timedelta(seconds=int(api_call.headers['Retry-After']))
-                finish = finish.strftime('%H:%M:%S')
-
-                logging.info(f"API sleeping {str(int(api_call.headers['Retry-After']))} seconds (finish {finish})")
-                time.sleep(int(api_call.headers['Retry-After']))
+                # now = datetime.now()
+                # finish = now + timedelta(seconds=int(api_call.headers['Retry-After']))
+                # finish = finish.strftime('%H:%M:%S')
+                #
+                # logging.info(f"API sleeping {str(int(api_call.headers['Retry-After']))} seconds (finish {finish})")
+                # time.sleep(int(api_call.headers['Retry-After']))
+                time.sleep(30)
             i = (i + 1) % len(GITHUB_TOKENS)
             logging.info(f"API switching to {i}")
         elif message and "Authenticated requests get a higher rate limit." in api_call.json()['message']:
@@ -557,13 +561,14 @@ def extract(api_call: requests.Response, to_extract: str | tuple | list, url, in
             time_for_reset = reset - current
             if time_for_reset > 0:
                 while not get_remaining_api_calls():
-                    now = datetime.now()
-                    # finish = now + timedelta(seconds=int(api_call.headers['Retry-After']))
-                    finish = now + timedelta(seconds=time_for_reset)
-                    finish = finish.strftime('%H:%M:%S')
-
-                    logging.info(f"API sleeping {str(time_for_reset)} seconds (finish {finish})")
-                    time.sleep(time_for_reset)
+                    # now = datetime.now()
+                    # # finish = now + timedelta(seconds=int(api_call.headers['Retry-After']))
+                    # finish = now + timedelta(seconds=time_for_reset)
+                    # finish = finish.strftime('%H:%M:%S')
+                    #
+                    # logging.info(f"API sleeping {str(time_for_reset)} seconds (finish {finish})")
+                    # time.sleep(time_for_reset)
+                    time.sleep(30)
                 i = (i + 1) % len(GITHUB_TOKENS)
                 logging.info(f"API switching to {i}")
         headers = {
