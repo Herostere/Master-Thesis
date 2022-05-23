@@ -12,6 +12,8 @@ old_files_names = [
 
 debug_multiple_actions = False
 
+samples_to_make = 500
+
 market_growing_over_time = False  # Done
 actions_diversity = False  # Done
 most_commonly_proposed = False  # Done

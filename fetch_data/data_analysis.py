@@ -610,7 +610,7 @@ def compare_number_actions_officials_not_officials() -> None:
 
     not_popular_officials = []
     not_popular_not_officials = []
-    for i in range(500):
+    for i in range(samples_to_make):
         not_popular_actions = get_actions_sample(True)
         not_popular_official_or_not = compute_official_or_not(not_popular_actions)
         not_popular_officials.append(not_popular_official_or_not["official"])
@@ -718,10 +718,14 @@ def compare_number_of_versions() -> None:
     Compare the number of versions for popular and not popular actions.
     """
     popular_actions = actions_popularity()
-    not_popular_actions = get_actions_sample(True)
+
+    not_popular_versions = []
+    for i in range(samples_to_make):
+        not_popular_actions = get_actions_sample(True)
+        not_popular_versions_ = [len(not_popular_actions[action]["versions"]) for action in not_popular_actions]
+        not_popular_versions += not_popular_versions_
 
     popular_versions = [len(loaded_data[action.split("/")[2]]["versions"]) for action in popular_actions]
-    not_popular_versions = [len(not_popular_actions[action]["versions"]) for action in not_popular_actions]
     actions_versions = [len(loaded_data[action]["versions"]) for action in loaded_data]
 
     mean_popular_versions = round(statistics.mean(popular_versions), 2)
@@ -742,7 +746,7 @@ def compare_number_of_contributors() -> None:
                                     for action in popular_actions]
     not_popular_actions_contributors = []
 
-    for i in range(500):
+    for i in range(samples_to_make):
         not_popular_actions = get_actions_sample(True)
         not_popular_actions_contributors_temp = [len(not_popular_actions[action]["contributors"])
                                                  for action in not_popular_actions]
@@ -772,19 +776,24 @@ def do_actions_use_dependabot() -> None:
         if "dependabot[bot]" in contributors:
             popular_use_dependabot += 1
 
-    sample_not_popular_actions = get_actions_sample(True)
+    not_popular_use_dependabot = []
+    for i in range(samples_to_make):
+        sample_not_popular_actions = get_actions_sample(True)
 
-    not_popular_use_dependabot = 0
-    for action in sample_not_popular_actions:
-        contributors = loaded_data[action]["contributors"]
-        if "dependabot[bot]" in contributors:
-            not_popular_use_dependabot += 1
+        not_popular_use_dependabot_ = 0
+        for action in sample_not_popular_actions:
+            contributors = loaded_data[action]["contributors"]
+            if "dependabot[bot]" in contributors:
+                not_popular_use_dependabot_ += 1
 
-    sample_size = compute_sample_size(len(sample_not_popular_actions))
+        not_popular_use_dependabot.append(not_popular_use_dependabot_)
+
+    sample_size = len(not_popular_use_dependabot)
+    mean_not_popular_use_dependabot = math.ceil(statistics.mean(not_popular_use_dependabot))
 
     total_popular_actions = len(popular_actions)
     print(f"{popular_use_dependabot}/{total_popular_actions} popular actions are using dependabot.")
-    print(f"{not_popular_use_dependabot}/{sample_size} not popular actions are using dependabot.")
+    print(f"{mean_not_popular_use_dependabot}/{sample_size} not popular actions are using dependabot.")
 
     actions_using_dependabot = 0
     for action in loaded_data:
@@ -836,6 +845,8 @@ if __name__ == "__main__":
     categories = ['api-management', 'chat', 'code-quality', 'code-review', 'continuous-integration',
                   'dependency-management', 'deployment', 'ides', 'learning', 'localization', 'mobile', 'monitoring',
                   'project-management', 'publishing', 'recently-added', 'security', 'support', 'testing', 'utilities']
+
+    samples_to_make = config.samples_to_make
 
     if config.market_growing_over_time:
         for category in categories:
