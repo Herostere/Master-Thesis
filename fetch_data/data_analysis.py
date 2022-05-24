@@ -24,6 +24,9 @@ import statistics
 import threading
 import time
 import yaml
+import yaml.constructor
+import yaml.parser
+import yaml.scanner
 
 
 def market_growing_over_time(p_category: str = None) -> None:
@@ -738,72 +741,41 @@ def how_actions_triggered() -> None:
     """
     Check how the actions are triggered on a general basis. Take a representative sample of the most popular actions.
     """
-    popular_actions = actions_popularity()
-
-    popular_actions = actions_popularity()
-    actions_sample = get_actions_sample()
-
     try:
-        with open("outputs/yml_files.json", 'r', encoding='utf-8') as json_file:
-            yml_files = json.load(json_file)
+        with open("outputs/ymls_contents.json", 'r', encoding='utf-8') as json_file:
+            ymls_content_json = json.load(json_file)
     except FileNotFoundError:
-        pass
-        # multiple_results = multiple_actions_start_threads()
-        # yml_files = multiple_results[1]
+        print("The file if the content of the yml files is not accessible.")
+        exit()
 
-    trigger = {}
+    how_triggered = {}
 
-    i = 0
-    for action in popular_actions:
-        try:
-            api_url = yml_files[action]
-        except KeyError:
-            continue
-        api_response = request_to_api(api_url, i)
-        no_content = False
-        action_content_encoded = ""
-
-        while True:
-            if api_response.status_code == 200:
-                api_json = api_response.json()
-                action_content_encoded = api_json["content"]
-                break
-            if api_response.status_code == 403:
-                api_response, i = deal_with_api_403(api_response, i, api_url)
+    for sample in ymls_content_json:
+        for content in sample:
+            try:
+                content_decoded = base64.b64decode(content).decode("utf-8").replace("on:", "trigger:")
+                content_decoded = content_decoded.replace('"on":', "trigger:")
+                content_decoded = yaml.safe_load(content_decoded)
+                triggers_on = content_decoded["trigger"]
+            except (yaml.constructor.ConstructorError, yaml.scanner.ScannerError, yaml.parser.ParserError):
+                continue
+            except (TypeError, KeyError, UnicodeDecodeError):
+                continue
+            if isinstance(triggers_on, str):
+                if triggers_on not in how_triggered:
+                    how_triggered[triggers_on] = 1
+                else:
+                    how_triggered[triggers_on] += 1
             else:
-                no_content = True
-                break
+                for trigger in triggers_on:
+                    if trigger not in how_triggered:
+                        how_triggered[trigger] = 1
+                    else:
+                        how_triggered[trigger] += 1
 
-        if no_content:
-            continue
-
-        action_content_decoded = base64.b64decode(action_content_encoded).decode("utf-8").replace("on:", "trigger:")
-        action_content_decoded = action_content_decoded.replace('"on":', "trigger:")
-        yaml_content = yaml.safe_load(action_content_decoded)
-        try:
-            triggered_by = yaml_content["trigger"]
-        except KeyError:
-            continue
-        except TypeError:
-            continue
-        if isinstance(triggered_by, str):
-            if triggered_by not in trigger:
-                trigger[triggered_by] = 1
-            elif triggered_by in trigger:
-                trigger[triggered_by] += 1
-        else:
-            for element in triggered_by:
-                if element not in trigger:
-                    trigger[element] = 1
-                elif element in trigger:
-                    trigger[element] += 1
-
-    total_triggers = 0
-    for element in trigger:
-        total_triggers += trigger[element]
-
-    for element in trigger:
-        print(f"{element}: {int(round(trigger[element] / total_triggers, 2) * 100)}%")
+    keys = list(how_triggered.keys())
+    values = list(how_triggered.values())
+    show_bar_plots(values, keys, 'h', "How Actions are Triggered")
 
 
 def compare_number_of_versions() -> None:
@@ -974,8 +946,8 @@ if __name__ == "__main__":
     if config.compare_number_actions_officials_not_officials:
         compare_number_actions_officials_not_officials()
 
-    # if config.how_actions_triggered:  # TODO
-    #     how_actions_triggered()
+    if config.how_actions_triggered:
+        how_actions_triggered()
 
     if config.compare_number_of_versions:
         compare_number_of_versions()
