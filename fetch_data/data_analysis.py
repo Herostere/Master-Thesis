@@ -322,17 +322,15 @@ def actions_popularity(printing: bool = False) -> dict:
     return popular_actions_dictionary
 
 
-def multiple_actions_start_threads() -> tuple[dict, dict]:
+def ymls_content_start_threads() -> None:
     """
-    Starts the threads for multiple_actions().
-
-    :return: A tuple with the dictionaries that contains the data.
+    Starts the threads for the sample of yml files.
     """
     threads = 10
     run_threads = []
     multiple_results = [[]] * threads
 
-    data = loaded_data
+    data = get_actions_sample(False)
     full = int(len(data) / (threads-1))  # How much data must be handled by each thread but the last one.
     elements = {}
 
@@ -341,7 +339,7 @@ def multiple_actions_start_threads() -> tuple[dict, dict]:
 
     for element in data:
         if count == full:
-            run_threads.append(threading.Thread(target=multiple_actions, args=(elements, multiple_results, index,)))
+            run_threads.append(threading.Thread(target=ymls_content, args=(elements, multiple_results, index,)))
             elements = {}
             count = 0
             index += 1
@@ -349,123 +347,199 @@ def multiple_actions_start_threads() -> tuple[dict, dict]:
             elements[element] = data[element]
             count += 1
 
-    run_threads.append(threading.Thread(target=multiple_actions, args=(elements, multiple_results, index,)))
+    run_threads.append(threading.Thread(target=ymls_content, args=(elements, multiple_results, index,)))
 
     for thread in run_threads:
         thread.start()
     for thread in run_threads:
         thread.join()
 
-    yml_files = [files[1] for files in multiple_results if files is not None]
-    yml_per_repository = [files[0] for files in multiple_results if files is not None]
-    yml_files = {key: value for dictionary in yml_files for key, value in dictionary.items()}
-    yml_per_repository = {key: value for dictionary in yml_per_repository for key, value in dictionary.items()}
-    with open("outputs/yml_files.json", 'w', encoding="utf-8") as json_file:
-        json.dump(yml_files, json_file, indent=4)
-    with open("outputs/yml_per_repository.json", 'w', encoding="utf-8") as json_file:
-        json.dump(yml_per_repository, json_file, indent=4)
+    ymls = []
+    for action in multiple_results:
+        for dependent in action:
+            ymls.append(dependent)
 
-    return yml_per_repository, yml_files
+    with open('outputs/ymls_contents.json', 'w', encoding='utf-8') as yml_file:
+        json.dump(ymls, yml_file, indent=4)
 
 
-def multiple_actions(p_elements: dict, p_results: list, index: int) -> None:
+def ymls_content(p_elements: dict, p_results: list, index: int) -> None:
     """
-    Check if actions are using other actions.
+    Fetch the content of yml files.
 
     :param p_elements: The dictionary with the Actions in it.
     :param p_results: The list in which the data must be saved.
     :param index: The position in the list where the data must be saved.
     """
-    workflow_actions_used = {}
+    ymls_total = []
+    for action in p_elements:
+        dependents_url = p_elements[action]["dependents"]["package_url"]
+        dependents_number = p_elements[action]["dependents"]["number"]
+        if dependents_number != 0:
+            sample_dependents = get_sample_dependents(dependents_url, dependents_number)
+            ymls = get_ymls(sample_dependents)
+            ymls_total += ymls
 
-    # i = 0
-    # for action in p_elements:
-    #     owner = p_elements[action]["owner"]
-    #     repository = p_elements[action]["repository"]
-    #     url = f'https://github.com/{owner}/{repository}'
-    #
-    #     request = get_request("multiple_actions", url)
-    #     xpath_branch = '//span[@class="css-truncate-target"]/text()'
-    #
-    #     try:
-    #         root = beautiful_html(request.text)
-    #     except AttributeError:
-    #         continue
-    #
-    #     space_pattern = re.compile(r'\s+')
-    #     main_branch = re.sub(space_pattern, "", root.xpath(xpath_branch)[0])
-    #
-    #     api_branch_url = f'https://api.github.com/repos/{owner}/{repository}/commits/{main_branch}'
-    #     tree_response, i = deal_with_api(api_branch_url, i)
-    #     if tree_response:
-    #         tree_sha = tree_response.json()["commit"]["tree"]["sha"]
-    #     else:
-    #         continue
-    #
-    #     api_files_main_url = f'https://api.github.com/repos/{owner}/{repository}/git/trees/{tree_sha}'
-    #     files_response, i = deal_with_api(api_files_main_url, i)
-    #     if files_response:
-    #         files = files_response.json()['tree']
-    #         for p_file in files:
-    #             if 'action.yml' in p_file['path']:
-    #
-    #
-    #     api_files_main_url = f"https://api.github.com/repos/{owner}/{repository}/git/trees/{tree_sha}"
-    #     files_response = request_to_api(api_files_main_url, i)
-    #     github_url = ""
-    #     while True:
-    #         if files_response.status_code == 200:
-    #             files_json = files_response.json()
-    #             files = files_json["tree"]
-    #             for element in files:
-    #                 if ".yml" in element["path"]:
-    #                     yml_files[f"{owner}/{repository}/{action}"] = element["url"]
-    #                     actions += 1
-    #                 elif ".github" == element["path"]:
-    #                     github_sha = element["sha"]
-    #                     github_url = f"https://api.github.com/repos/{owner}/{repository}/git/trees/{github_sha}"
-    #             break
-    #         if files_response.status_code == 403:
-    #             files_response, i = deal_with_api_403(files_response, i, api_files_main_url)
-    #         else:
-    #             break
-    #
-    #     workflow_url = ""
-    #     if github_url:
-    #         github_response = request_to_api(github_url, i)
-    #         while True:
-    #             if github_response.status_code == 200:
-    #                 github_json = github_response.json()
-    #                 for element in github_json["tree"]:
-    #                     if element["path"] == "workflows":
-    #                         workflow_url = element["url"]
-    #                     if ".yml" in element["path"]:
-    #                         yml_files[f"{owner}/{repository}/{action}"] = element["url"]
-    #                         actions += 1
-    #                 break
-    #             if github_response.status_code == 403:
-    #                 github_response, i = deal_with_api_403(github_response, i, github_url)
-    #             else:
-    #                 break
-    #
-    #     if workflow_url:
-    #         workflow_response = request_to_api(workflow_url, i)
-    #         while True:
-    #             if workflow_response.status_code == 200:
-    #                 workflow_json = workflow_response.json()
-    #                 for element in workflow_json["tree"]:
-    #                     if ".yml" in element["path"]:
-    #                         yml_files[f"{owner}/{repository}/{action}"] = element["url"]
-    #                         actions += 1
-    #                 break
-    #             if workflow_response.status_code == 403:
-    #                 workflow_response, i = deal_with_api_403(workflow_response, i, workflow_url)
-    #             else:
-    #                 break
-    #
-    #     actions_in_repos[action] = actions
-    #
-    # p_results[index] = (actions_in_repos, yml_files)
+    p_results[index] = ymls_total
+
+
+def get_sample_dependents(url: str, dependents_number: int) -> list:
+    """
+    Go a sample of dependents for an Action.
+
+    :param url: The URL where the dependents can be retrieved.
+    :param dependents_number: The number of dependents on this URL.
+    :return: The sample of dependents.
+    """
+    request = get_request("get_sample_dependents", url)
+
+    try:
+        root = beautiful_html(request.text)
+    except AttributeError:
+        return []
+
+    dependents_xpath = '//div[@class="Box-row d-flex flex-items-center"]//a[@data-hovercard-type="repository"]/@href'
+    next_page_xpath = f'//a[contains("\n             Next\n            ", text()) and @class = "btn btn-outline BtnGroup-item"]//@href'
+    last_page_xpath = f'//div[@class="BtnGroup"]/button[contains("\n             Next\n            ", text())]'
+
+    root_dependents = root.xpath(dependents_xpath)
+    if not root_dependents:
+        return []
+
+    sample_size = dependents_number
+    if dependents_number > 388:
+        sample_size = compute_sample_size(dependents_number)
+
+    probability = sample_size / dependents_number
+
+    sample = []
+    page = root
+    rounds = 25
+    while len(sample) < sample_size and rounds > 0:
+        dependents = page.xpath(dependents_xpath)
+        for dependent in dependents:
+            random_value = random.random()
+            to_add = "https://github.com" + dependent
+            if random_value < probability and to_add not in sample:
+                sample.append(to_add)
+
+        last_page = len(page.xpath(last_page_xpath)) == 1
+        if last_page:
+            page = root
+        else:
+            try:
+                next_page = page.xpath(next_page_xpath)[0]
+                request = get_request("get_dependents_sample", next_page)
+            except IndexError:
+                rounds -= 1
+            try:
+                page = beautiful_html(request.text)
+            except AttributeError:
+                page = root
+
+        rounds -= 1
+
+    return sample
+
+
+def get_ymls(actions: list) -> list:
+    """
+    Get the content of yml files.
+
+    :param actions: The list of actions.
+    :return: A list of lists. Each sub list contains de ymls for a dependent of the action.
+    """
+    to_return = []
+
+    i = 0
+    for element in actions:
+        request = get_request("get_ymls", element)
+        try:
+            root = beautiful_html(request.text)
+        except AttributeError:
+            continue
+
+        owner = element.split("//")[1].split("/")[1]
+        repository = element.split("//")[1].split("/")[2]
+
+        xpath_branch = '//span[@class="css-truncate-target"]/text()'
+        space_pattern = re.compile(r'\s+')
+        main_branch = re.sub(space_pattern, "", root.xpath(xpath_branch)[0])
+
+        api_branch_url = f'https://api.github.com/repos/{owner}/{repository}/commits/{main_branch}'
+        tree_response, i = deal_with_api(api_branch_url, i)
+        if tree_response:
+            tree_sha = tree_response.json()["commit"]["tree"]["sha"]
+        else:
+            continue
+
+        api_files_main_url = f"https://api.github.com/repos/{owner}/{repository}/git/trees/{tree_sha}"
+        files_response = request_to_api(api_files_main_url, i)
+        github_url = ""
+        while True:
+            if files_response.status_code == 200:
+                files_json = files_response.json()
+                files = files_json["tree"]
+                for p_file in files:
+                    if ".github" == p_file["path"]:
+                        github_sha = p_file["sha"]
+                        github_url = f"https://api.github.com/repos/{owner}/{repository}/git/trees/{github_sha}"
+                        break
+                break
+            if files_response.status_code == 403:
+                files_response, i = deal_with_api_403(files_response, i, api_files_main_url)
+            else:
+                break
+
+        workflow_url = ""
+        if github_url:
+            github_response = request_to_api(github_url, i)
+            while True:
+                if github_response.status_code == 200:
+                    github_json = github_response.json()
+                    for p_file in github_json["tree"]:
+                        if p_file["path"] == "workflows":
+                            workflow_url = p_file["url"]
+                            break
+                    break
+                if github_response.status_code == 403:
+                    github_response, i = deal_with_api_403(github_response, i, github_url)
+                else:
+                    break
+
+        ymls_files = []
+        if workflow_url:
+            workflow_response = request_to_api(workflow_url, i)
+            while True:
+                if workflow_response.status_code == 200:
+                    workflow_json = workflow_response.json()
+                    for p_file in workflow_json["tree"]:
+                        if ".yml" in p_file["path"] or ".yaml" in p_file["path"]:
+                            content_response = request_to_api(p_file["url"], i)
+                            while True:
+                                if content_response.status_code == 200:
+                                    content_json = content_response.json()
+                                    tried = 0
+                                    try:
+                                        content = content_json['content']
+                                        ymls_files.append(content)
+                                    except KeyError:
+                                        content_response, i = deal_with_api_403(content_response, i, p_file['url'])
+                                        if tried == 1:
+                                            break
+                                        tried += 1
+                                if content_response.status_code == 403:
+                                    content_response, i = deal_with_api_403(content_response, i, p_file['url'])
+                                else:
+                                    break
+                    break
+                if workflow_response.status_code == 403:
+                    workflow_response, i = deal_with_api_403(workflow_response, i, workflow_url)
+                else:
+                    break
+        to_return.append(ymls_files)
+
+    return to_return
 
 
 def deal_with_api(url, i) -> tuple[requests.Response, int] | tuple[None, int]:
@@ -673,8 +747,9 @@ def how_actions_triggered() -> None:
         with open("outputs/yml_files.json", 'r', encoding='utf-8') as json_file:
             yml_files = json.load(json_file)
     except FileNotFoundError:
-        multiple_results = multiple_actions_start_threads()
-        yml_files = multiple_results[1]
+        pass
+        # multiple_results = multiple_actions_start_threads()
+        # yml_files = multiple_results[1]
 
     trigger = {}
 
@@ -884,10 +959,11 @@ if __name__ == "__main__":
     if config.actions_popularity:
         actions_popularity(True)
 
-    if config.multiple_actions:
-        if config.debug_multiple_actions:
-            loaded_data = get_actions_sample(False)
-        multiple_actions_start_threads()
+    if config.ymls_content:
+        ymls_content_start_threads()
+
+    # if config.multiple_actions:  # TODO
+        # multiple_actions()
 
     if config.actions_issues:
         actions_issues()
@@ -898,8 +974,8 @@ if __name__ == "__main__":
     if config.compare_number_actions_officials_not_officials:
         compare_number_actions_officials_not_officials()
 
-    if config.how_actions_triggered:
-        how_actions_triggered()
+    # if config.how_actions_triggered:  # TODO
+    #     how_actions_triggered()
 
     if config.compare_number_of_versions:
         compare_number_of_versions()
