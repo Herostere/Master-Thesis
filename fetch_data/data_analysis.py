@@ -778,6 +778,40 @@ def how_actions_triggered() -> None:
     show_bar_plots(values, keys, 'h', "How Actions are Triggered")
 
 
+def multiple_actions() -> None:
+    """
+    Get the number of actions used by a project.
+    """
+    try:
+        with open("outputs/ymls_contents.json", 'r', encoding='utf-8') as json_file:
+            ymls_content_json = json.load(json_file)
+    except FileNotFoundError:
+        print("The file if the content of the yml files is not accessible.")
+        exit()
+
+    actions_used_by_projects = []
+    for sample in ymls_content_json:
+        counter = 0
+        uses = []
+        for content in sample:
+            try:
+                decoded_content = base64.b64decode(content).decode("utf-8").replace("on:", "trigger:")
+            except UnicodeDecodeError:
+                continue
+            decoded_content = decoded_content.replace('"on":', "trigger:")
+            list_decoded_content = decoded_content.split('\n')
+            for element in list_decoded_content:
+                stripped_element = element.strip().replace('- uses:', 'uses:')
+                comment = False
+                if stripped_element:
+                    comment = stripped_element[0] == '#'
+                if not comment and "uses" in stripped_element and stripped_element not in uses:
+                    counter += 1
+                    uses.append(stripped_element)
+        actions_used_by_projects.append(counter)
+    print(actions_used_by_projects)
+
+
 def compare_number_of_versions() -> None:
     """
     Compare the number of versions for popular and not popular actions.
@@ -934,8 +968,8 @@ if __name__ == "__main__":
     if config.ymls_content:
         ymls_content_start_threads()
 
-    # if config.multiple_actions:  # TODO
-        # multiple_actions()
+    if config.multiple_actions:
+        multiple_actions()
 
     if config.actions_issues:
         actions_issues()
