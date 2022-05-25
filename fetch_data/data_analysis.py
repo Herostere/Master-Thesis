@@ -780,7 +780,7 @@ def how_actions_triggered() -> None:
 
 def multiple_actions() -> None:
     """
-    Get the number of actions used by a project.
+    Get the number of actions used by a sample of projects.
     """
     try:
         with open("outputs/ymls_contents.json", 'r', encoding='utf-8') as json_file:
