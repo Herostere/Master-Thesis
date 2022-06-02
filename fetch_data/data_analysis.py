@@ -16,6 +16,7 @@ import data_analysis_config as config
 import json
 import math
 import matplotlib.pyplot as plt
+import numpy
 import random
 import re
 import requests
@@ -54,14 +55,6 @@ def market_growing_over_time(p_category: str = None) -> None:
                     temp[action] = data_set[action]
             actions_data[i] = temp
 
-    grow = {
-        # "10/03/2022": 0,
-        "25/03/2022": 0,
-        "13/04/2022": 0,
-        "29/04/2022": 0,
-        "16/05/2022": 0,
-        "17/05/2022": 0,
-    }
     grow_keys = list(grow.keys())
 
     for i, action_data in enumerate(actions_data):
@@ -115,6 +108,8 @@ def actions_diversity() -> None:
     """
     Show the plot that represent the diversity of the actions.
     """
+    print(max(actions_per_categories))
+    print(round(statistics.mean(actions_per_categories)))
     show_bar_plots(actions_per_categories, categories, "h", "Actions Diversity")
 
 
@@ -208,15 +203,18 @@ def actions_technical_lag() -> None:
         for version_date in item:
             try:
                 current_version = packaging_version.parse(item[version_date])
-                if current_version.micro != last_micro:
-                    micro_updates.append(version_date)
-                    last_micro = current_version.micro
-                if current_version.minor != last_minor:
-                    minor_updates.append(version_date)
-                    last_minor = current_version.minor
                 if current_version.major != last_major:
                     major_updates.append(version_date)
                     last_major = current_version.major
+                    last_minor = current_version.minor
+                    last_micro = current_version.micro
+                elif current_version.minor != last_minor:
+                    minor_updates.append(version_date)
+                    last_minor = current_version.minor
+                    last_micro = current_version.micro
+                elif current_version.micro != last_micro:
+                    micro_updates.append(version_date)
+                    last_micro = current_version.micro
             except AttributeError:
                 continue
 
@@ -231,9 +229,21 @@ def actions_technical_lag() -> None:
         for element in micro:
             micro_mean_days.append(element)
 
-    print(f"Number of days between major versions (mean): {round(statistics.mean(major_mean_days), 2)}")
-    print(f"Number of days between minor versions (mean): {round(statistics.mean(minor_mean_days), 2)}")
-    print(f"Number of days between patch versions (mean): {round(statistics.mean(micro_mean_days), 2)}")
+    print(statistics.median(major_mean_days))
+    print(f"Number of days between major versions (mean): {round(statistics.mean(major_mean_days))}")
+    print(numpy.percentile(major_mean_days, 25))
+    print(numpy.percentile(major_mean_days, 75))
+    print("-" * 10)
+    print(statistics.median(minor_mean_days))
+    print(f"Number of days between minor versions (mean): {round(statistics.mean(minor_mean_days))}")
+    print(numpy.percentile(minor_mean_days, 25))
+    print(numpy.percentile(minor_mean_days, 75))
+    print("-" * 10)
+    print(statistics.median(micro_mean_days))
+    print(f"Number of days between patch versions (mean): {round(statistics.mean(micro_mean_days))}")
+    print(numpy.percentile(micro_mean_days, 25))
+    print(numpy.percentile(micro_mean_days, 75))
+    print("-" * 10)
 
 
 def compute_sample_size(population_size: int) -> int:
@@ -609,6 +619,12 @@ def actions_issues() -> None:
     open_ones = []
     closed_ones = []
 
+    open_but_closed = []
+    closed_but_open = []
+
+    open_more_182 = []
+    open_less_182 = []
+
     for action in loaded_data:
         number_of_open_issues = loaded_data[action]["issues"]["open"]
         number_of_closed_issues = loaded_data[action]["issues"]["closed"]
@@ -618,8 +634,10 @@ def actions_issues() -> None:
 
         if number_of_open_issues > 0 and number_of_closed_issues == 0:
             open_no_close_issues += 1
+            open_but_closed.append(number_of_open_issues)
         elif number_of_closed_issues > 0 and number_of_open_issues == 0:
             closed_no_open_issues += 1
+            closed_but_open.append(number_of_closed_issues)
         elif number_of_open_issues == 0 and number_of_closed_issues == 0:
             no_issues += 1
 
@@ -629,30 +647,72 @@ def actions_issues() -> None:
             dates = [datetime.strptime(date, "%d/%m/%Y") for date in dates]
             dates.sort()
             sorted_dates = [datetime.strftime(date, "%d/%m/%Y") for date in dates]
-            last_date = sorted_dates[-1]
+            last_update = sorted_dates[-1]
             now = datetime.strftime(datetime.now(), "%d/%m/%Y")
-            difference = datetime.strptime(now, "%d/%m/%Y") - datetime.strptime(last_date, "%d/%m/%Y")
+            difference = datetime.strptime(now, "%d/%m/%Y") - datetime.strptime(last_update, "%d/%m/%Y")
             days_since_update = difference.days
             if days_since_update > 182:
                 open_not_up_to_date += 1
+                open_more_182.append(number_of_open_issues)
             else:
                 open_up_to_date += 1
+                open_less_182.append(number_of_open_issues)
 
         if number_of_closed_issues > 0:
             closed_issues += 1
 
     number_of_actions = len(loaded_data)
 
-    print(f"Mean of open issues for actions: {round(statistics.mean(open_ones), 2)}.")
-    print(f"Mean of open issues for actions: {round(statistics.mean(closed_ones), 2)}.\n")
+    print('-' * 10 + " Open")
+    print(f"Actions with open issues: {open_issues}/{number_of_actions}.")
+    print(f"Median of open issues for actions: {statistics.median(open_ones)}.")
+    print(f"Mean of open issues for actions: {round(statistics.mean(open_ones))}.")
+    print(f"q1 of open issues for actions: {numpy.percentile(open_ones, 25)}.")
+    print(f"q3 of open issues for actions: {numpy.percentile(open_ones, 75)}.")
+    print()
 
-    print(f"Actions with open issues: {open_issues}/{number_of_actions}.\n"
-          f"Actions with closed issues: {closed_issues}/{number_of_actions}.\n"
-          f"Actions without issues: {no_issues}/{number_of_actions}.\n"
-          f"Actions with no issues but open ones: {open_no_close_issues}/{number_of_actions}.\n"
-          f"Actions with no issues but closed ones: {closed_no_open_issues}/{number_of_actions}.\n")
-    print(f"Actions with the newest open issue that is more than 182 days old: {open_not_up_to_date}.\n"
-          f"Actions with the newest open issue that is less than 182 days old: {open_up_to_date}.")
+    print('-' * 10 + " Only open")
+    print(f"Actions with only open ones: {open_no_close_issues}/{number_of_actions}.")
+    print(f"Median Actions with only open: {statistics.median(open_but_closed)}.")
+    print(f"Mean Actions with only open: {round(statistics.mean(open_but_closed))}.")
+    print(f"q1 Actions with only open: {numpy.percentile(open_but_closed, 25)}.")
+    print(f"q3 Actions with only open: {numpy.percentile(open_but_closed, 75)}.")
+    print()
+
+    print('-' * 10 + " Close")
+    print(f"Actions with closed issues: {closed_issues}/{number_of_actions}.")
+    print(f"Median of closed issues for actions: {statistics.median(closed_ones)}.")
+    print(f"Mean of closed issues for actions: {round(statistics.mean(closed_ones))}.")
+    print(f"q1 of closed issues for actions: {numpy.percentile(closed_ones, 25)}.")
+    print(f"q3 of closed issues for actions: {numpy.percentile(closed_ones, 75)}.")
+    print()
+
+    print('-' * 10 + " Only closed")
+    print(f"Actions with only closed ones: {closed_no_open_issues}/{number_of_actions}.")
+    print(f"Median Actions with only closed: {statistics.median(closed_but_open)}.")
+    print(f"Mean Actions with only closed: {round(statistics.mean(closed_but_open))}.")
+    print(f"q1 Actions with only closed: {numpy.percentile(closed_but_open, 25)}.")
+    print(f"q3 Actions with only closed: {numpy.percentile(closed_but_open, 75)}.")
+    print()
+
+    print('-' * 10 + " No issues")
+    print(f"Actions without issues: {no_issues}/{number_of_actions}.")
+    print()
+
+    print('-' * 10 + " > 182")
+    print(f"Actions with the first open issue that is more than 182 days old: {open_not_up_to_date}.")
+    print(f"Median Actions with only closed: {statistics.median(open_more_182)}.")
+    print(f"Mean Actions with only closed: {round(statistics.mean(open_more_182))}.")
+    print(f"q1 Actions with only closed: {numpy.percentile(open_more_182, 25)}.")
+    print(f"q3 Actions with only closed: {numpy.percentile(open_more_182, 75)}.")
+    print()
+
+    print('-' * 10 + " < 182")
+    print(f"Actions with the first open issue that is less than 182 days old: {open_up_to_date}.")
+    print(f"Median Actions with only closed: {statistics.median(open_less_182)}.")
+    print(f"Mean Actions with only closed: {round(statistics.mean(open_less_182))}.")
+    print(f"q1 Actions with only closed: {numpy.percentile(open_less_182, 25)}.")
+    print(f"q3 Actions with only closed: {numpy.percentile(open_less_182, 75)}.")
 
 
 def most_active_contributors() -> tuple[list, list]:
@@ -672,7 +732,7 @@ def most_active_contributors() -> tuple[list, list]:
 
     sample_size = compute_sample_size(len(contributors))
     contributors_counter = Counter(contributors)
-    most_common_with_bots = contributors_counter.most_common(sample_size)
+    most_common_with_bots = contributors_counter.most_common(10)
 
     contributors_to_delete = [contributor for contributor in contributors
                               if "-bot" in contributor or "[bot]" in contributor]
@@ -680,7 +740,7 @@ def most_active_contributors() -> tuple[list, list]:
         del contributors[contributor]
 
     contributors_counter = Counter(contributors)
-    most_common_without_bots = contributors_counter.most_common(sample_size)
+    most_common_without_bots = contributors_counter.most_common(10)
 
     print(f"Most active contributors (bots included):")
     for contributor, contributions in most_common_with_bots:
@@ -689,6 +749,16 @@ def most_active_contributors() -> tuple[list, list]:
     print(f"\nMost active contributors (bots excluded):")
     for contributor, contributions in most_common_without_bots:
         print(f"    - {contributor} - {contributions}")
+
+    popular = actions_popularity()
+    for contributor, _ in most_common_without_bots:
+        in_it = False
+        count = 0
+        for action in popular:
+            if contributor in loaded_data[action]['contributors']:
+                in_it = True
+                count += 1
+        print(in_it, count)
 
     return most_common_with_bots, most_common_without_bots
 
@@ -775,7 +845,20 @@ def how_actions_triggered() -> None:
 
     keys = list(how_triggered.keys())
     values = list(how_triggered.values())
-    show_bar_plots(values, keys, 'h', "How Actions are Triggered")
+    # show_bar_plots(values, keys, 'h', "How Actions are Triggered")
+
+    print(sum(values))
+    print(len(how_triggered))
+    most_common = Counter(how_triggered).most_common()
+    triggered_times = []
+    for element in most_common:
+        print(element)
+        triggered_times.append(element[1])
+
+    print(statistics.median(triggered_times))
+    print(round(statistics.mean(triggered_times)))
+    print(numpy.percentile(triggered_times, 25))
+    print(numpy.percentile(triggered_times, 75))
 
 
 def multiple_actions() -> None:
@@ -789,6 +872,7 @@ def multiple_actions() -> None:
         print("The file if the content of the yml files is not accessible.")
         exit()
 
+    used = {}
     actions_used_by_projects = []
     for sample in ymls_content_json:
         counter = 0
@@ -801,15 +885,33 @@ def multiple_actions() -> None:
             decoded_content = decoded_content.replace('"on":', "trigger:")
             list_decoded_content = decoded_content.split('\n')
             for element in list_decoded_content:
-                stripped_element = element.strip().replace('- uses:', 'uses:')
+                stripped_element = element.replace('uses : ', 'uses: ')
+                stripped_element = stripped_element.strip().replace('- uses:', 'uses:')
                 comment = False
                 if stripped_element:
                     comment = stripped_element[0] == '#'
-                if not comment and "uses" in stripped_element and stripped_element not in uses:
+                if not comment and "uses" in stripped_element[:4] and stripped_element not in uses:
+                    use = stripped_element.split("uses: ")[1]
+                    if "@" in use:
+                        use = use.split('@')[0]
                     counter += 1
-                    uses.append(stripped_element)
+                    uses.append(use)
         actions_used_by_projects.append(counter)
-    print(actions_used_by_projects)
+        for using in uses:
+            if using not in used:
+                used[using] = 1
+            else:
+                used[using] += 1
+
+    most_used = Counter(used).most_common(10)
+    for action in most_used:
+        print(f'{action[0]}: {action[1]}')
+        print(loaded_data[action[0]]['verified'])
+
+    print(f'Median: {statistics.median(actions_used_by_projects)}')
+    print(f'Mean: {round(statistics.mean(actions_used_by_projects), 2)}')
+    print(f'q1: {numpy.percentile(actions_used_by_projects, 25)}')
+    print(f'q3: {numpy.percentile(actions_used_by_projects, 75)}')
 
 
 def compare_number_of_versions() -> None:
@@ -827,12 +929,23 @@ def compare_number_of_versions() -> None:
     popular_versions = [len(loaded_data[action]["versions"]) for action in popular_actions]
     actions_versions = [len(loaded_data[action]["versions"]) for action in loaded_data]
 
-    mean_popular_versions = round(statistics.mean(popular_versions), 2)
-    mean_not_popular_versions = round(statistics.mean(not_popular_versions), 2)
-    mean_versions = round(statistics.mean(actions_versions), 2)
-    print(f"Mean for popular actions: {mean_popular_versions}")
-    print(f"Mean for not popular actions: {mean_not_popular_versions}")
-    print(f"Mean for actions: {mean_versions}")
+    print('-' * 10 + ' popular')
+    print(statistics.median(popular_versions))
+    print(round(statistics.mean(popular_versions)))
+    print(numpy.percentile(popular_versions, 25))
+    print(numpy.percentile(popular_versions, 75))
+
+    print('-' * 10 + ' not popular')
+    print(statistics.median(not_popular_versions))
+    print(round(statistics.mean(not_popular_versions)))
+    print(numpy.percentile(not_popular_versions, 25))
+    print(numpy.percentile(not_popular_versions, 75))
+
+    print('-' * 10 + ' overall')
+    print(statistics.median(actions_versions))
+    print(round(statistics.mean(actions_versions)))
+    print(numpy.percentile(actions_versions, 25))
+    print(numpy.percentile(actions_versions, 75))
 
 
 def compare_number_of_contributors() -> None:
@@ -852,13 +965,23 @@ def compare_number_of_contributors() -> None:
 
     actions_contributors = [len(loaded_data[action]["contributors"]) for action in loaded_data]
 
-    mean_contributors_popular = round(statistics.mean(popular_actions_contributors), 2)
-    mean_contributors_not_popular = round(statistics.mean(not_popular_actions_contributors), 2)
-    mean_actions = round(statistics.mean(actions_contributors), 2)
+    print('-' * 10 + ' popular')
+    print(statistics.median(popular_actions_contributors))
+    print(round(statistics.mean(popular_actions_contributors)))
+    print(numpy.percentile(popular_actions_contributors, 25))
+    print(numpy.percentile(popular_actions_contributors, 75))
 
-    print(f'Popular actions have a mean of {mean_contributors_popular} contributors.')
-    print(f'Not popular actions have a mean of {mean_contributors_not_popular} contributors.')
-    print(f'Actions have a mean of {mean_actions} contributors.')
+    print('-' * 10 + ' not popular')
+    print(statistics.median(not_popular_actions_contributors))
+    print(round(statistics.mean(not_popular_actions_contributors)))
+    print(numpy.percentile(not_popular_actions_contributors, 25))
+    print(numpy.percentile(not_popular_actions_contributors, 75))
+
+    print('-' * 10 + ' overall')
+    print(statistics.median(actions_contributors))
+    print(round(statistics.mean(actions_contributors)))
+    print(numpy.percentile(actions_contributors, 25))
+    print(numpy.percentile(actions_contributors, 75))
 
 
 def do_actions_use_dependabot() -> None:
@@ -946,6 +1069,8 @@ if __name__ == "__main__":
     samples_to_make = config.samples_to_make
 
     if config.market_growing_over_time:
+        grow = config.grow
+
         for category in categories:
             market_growing_over_time(category)
         market_growing_over_time()

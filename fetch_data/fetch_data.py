@@ -4,7 +4,7 @@ This script identify the actions with a valid marketplace page.
 You will need to use Python3.10.
 """
 from bs4 import BeautifulSoup
-from datetime import datetime, timedelta
+from datetime import datetime
 from html import unescape
 from lxml import html, etree
 from ratelimit import limits, sleep_and_retry
