@@ -651,7 +651,7 @@ def actions_issues() -> None:
             now = datetime.strftime(datetime.now(), "%d/%m/%Y")
             difference = datetime.strptime(now, "%d/%m/%Y") - datetime.strptime(last_update, "%d/%m/%Y")
             days_since_update = difference.days
-            if days_since_update > 182:
+            if days_since_update > 223:
                 open_not_up_to_date += 1
                 open_more_182.append(number_of_open_issues)
             else:
@@ -699,20 +699,12 @@ def actions_issues() -> None:
     print(f"Actions without issues: {no_issues}/{number_of_actions}.")
     print()
 
-    print('-' * 10 + " > 182")
-    print(f"Actions with the first open issue that is more than 182 days old: {open_not_up_to_date}.")
-    print(f"Median Actions with only closed: {statistics.median(open_more_182)}.")
-    print(f"Mean Actions with only closed: {round(statistics.mean(open_more_182))}.")
-    print(f"q1 Actions with only closed: {numpy.percentile(open_more_182, 25)}.")
-    print(f"q3 Actions with only closed: {numpy.percentile(open_more_182, 75)}.")
+    print('-' * 10 + " > 223")
+    print(f"Actions with open issue and last update more than 223 days ago: {open_not_up_to_date}.")
     print()
 
-    print('-' * 10 + " < 182")
-    print(f"Actions with the first open issue that is less than 182 days old: {open_up_to_date}.")
-    print(f"Median Actions with only closed: {statistics.median(open_less_182)}.")
-    print(f"Mean Actions with only closed: {round(statistics.mean(open_less_182))}.")
-    print(f"q1 Actions with only closed: {numpy.percentile(open_less_182, 25)}.")
-    print(f"q3 Actions with only closed: {numpy.percentile(open_less_182, 75)}.")
+    print('-' * 10 + " < 223")
+    print(f"Actions with open issue and last update less than 223 days ago: {open_up_to_date}.")
 
 
 def most_active_contributors() -> tuple[list, list]:
