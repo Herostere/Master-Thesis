@@ -407,26 +407,30 @@ def get_api(key: str | list, owner: str, repo_name: str):
     :return: A tuple with an integer, a list or a dictionary, depending of the nature of the needed information and
              the index for the next API call.
     """
-    queries = {"versions": "releases(first: 100) { totalCount edges { cursor node { tag { name } createdAt } } }"}
-    query = {'query': f'''
+    queries = {"versions": "releases(first: 100) { totalCount edges { cursor node { tag { name } publishedAt } } } "}
+
+    query = {'query': f"""
     {{
       repositoryOwner(login: "{owner}") {{
+        login
         repository(name: "{repo_name}") {{
-          {queries[key]}
+          name
+          {queries["versions"]}
         }}
       }}
     }}
-    '''}
+    """}
 
     api_answer = request_to_api(query)
-    print(api_answer.json())
 
-    exit()
+    needed_data = extract(api_answer, key)
+
+    return needed_data
 
 
 def request_to_api(query: dict) -> requests.Response:
     """
-    Make a request to the GitHub's API.
+    Make a request to the GitHub's GraphQL API.
 
     :param query: The query to get the information.
     :return: The API response.
@@ -436,86 +440,64 @@ def request_to_api(query: dict) -> requests.Response:
         'Authorization': f'token {CURRENT_TOKEN}',
     }
 
-    while True:
-        try:
-            api_call = requests.post(url, json=query, headers=headers)
-            break
-        except requests.exceptions.ConnectionError:
+    try:
+        while not get_remaining_api_calls():
             time.sleep(60)
-
+        api_call = requests.post(url, json=query, headers=headers)
+    except requests.exceptions.ConnectionError:
+        time.sleep(60)
+        return request_to_api(query)
     return api_call
 
 
-def extract(api_call: requests.Response, to_extract: str | tuple | list, url):
+def extract(api_answer: requests.Response, key: str):
     """
     Extract the information from the API.
 
-    :param api_call: The call to the API.
-    :param to_extract: The information we need to extract.
-    :param url: The URL of the API.
+    :param api_answer: The answer from the API.
+    :param key: The information we need to extract.
     :return: The extracted information in a list or dictionary and the index for the API.
-    :rtype: tuple[list | dict | requests.Response, int]
     """
-    is_tuple = type(to_extract) is tuple
-    if is_tuple:
-        extracted = {}
-    else:
-        extracted = []
+    queries = {"versions": "releases(first: 100, after:{after}) {{ totalCount edges {{ cursor node {{ tag {{ name }} publishedAt }} }} }} "}
 
-    if api_call.status_code == 200:
-        if ('open', 'closed') == to_extract:
-            extracted["open"] = 0
-            extracted["closed"] = 0
-        for needed in api_call.json():
-            if type(to_extract) is list:
-                return api_call
-            if is_tuple:
-                if ('open', 'closed') == to_extract:
-                    if needed['state'] == "closed":
-                        extracted["closed"] += 1
-                    else:
-                        extracted["open"] += 1
-                else:
-                    key = datetime.strptime(needed[to_extract[1]], '%Y-%m-%dT%H:%M:%SZ').strftime('%d/%m/%Y')
-                    value = needed[to_extract[0]]
-                    extracted[key] = value
-            else:
-                extracted.append(needed[to_extract])
-    elif api_call.status_code == 403:
-        message = 'message' in api_call.json().keys()
-        if 'Retry-After' in api_call.headers.keys():
-            while not get_remaining_api_calls():
-                # now = datetime.now()
-                # finish = now + timedelta(seconds=int(api_call.headers['Retry-After']))
-                # finish = finish.strftime('%H:%M:%S')
-                #
-                # logging.info(f"API sleeping {str(int(api_call.headers['Retry-After']))} seconds (finish {finish})")
-                # time.sleep(int(api_call.headers['Retry-After']))
-                time.sleep(30)
-        elif message and "Authenticated requests get a higher rate limit." in api_call.json()['message']:
-            pass
-        else:
-            reset = int(api_call.headers['X-RateLimit-Reset'])
-            current = int(time.time())
-            time_for_reset = reset - current
-            if time_for_reset > 0:
-                while not get_remaining_api_calls():
-                    # now = datetime.now()
-                    # # finish = now + timedelta(seconds=int(api_call.headers['Retry-After']))
-                    # finish = now + timedelta(seconds=time_for_reset)
-                    # finish = finish.strftime('%H:%M:%S')
-                    #
-                    # logging.info(f"API sleeping {str(time_for_reset)} seconds (finish {finish})")
-                    # time.sleep(time_for_reset)
-                    time.sleep(30)
-        headers = {
-            'Authorization': f'token {CURRENT_TOKEN}',
-            'accept': 'application/vnd.github.v3+json',
-        }
-        api_call = requests.get(url, headers=headers)
-        return extract(api_call, to_extract, url)
+    owner = api_answer.json()["data"]["repositoryOwner"]["login"]
+    repository_name = api_answer.json()["data"]["repositoryOwner"]["repository"]["name"]
+    data = api_answer.json()["data"]["repositoryOwner"]["repository"]
 
-    return extracted
+    if key == "versions":
+        final_releases = {}
+        releases = data["releases"]
+        total_count = releases["totalCount"]
+        gathered_releases = releases["edges"]
+        total_gathered = len(gathered_releases)
+        while total_gathered < total_count:
+            last_gathered_cursor = f'"{releases["edges"][-1]["cursor"]}"'
+            query = {'query': f"""
+            {{
+              repositoryOwner(login: "{owner}") {{
+                login
+                repository(name: "{repository_name}") {{
+                  name
+                  {queries["versions"].format(after=last_gathered_cursor)}
+                }}
+              }}
+            }}
+            """}
+            new_api_answer = request_to_api(query)
+            gathered_releases += new_api_answer.json()["data"]["repositoryOwner"]["repository"]["releases"]["edges"]
+
+            total_gathered = len(gathered_releases)
+
+        for release in gathered_releases:
+            try:
+                tag = release["node"]["tag"]["name"]
+            except TypeError:
+                tag = None
+            date = datetime.strptime(release["node"]["publishedAt"], "%Y-%m-%dT%H:%M:%SZ")
+            date = date.strftime("%Y-%m-%d %H:%M:%S")
+            final_releases[date] = tag
+
+        return final_releases
 
 
 def get_remaining_api_calls() -> bool:
