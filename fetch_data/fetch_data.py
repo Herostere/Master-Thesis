@@ -246,8 +246,8 @@ def thread_data(pages: list, category: str, save_data: dict) -> None:
             mp_page, url = test_mp_page(action_name)
             if mp_page:
                 owner = get_owner(url)
-                repo_name = get_repo_name(url)
-                pretty_name = f'{owner}/{repo_name}'
+                repository_name = get_repo_name(url)
+                pretty_name = f'{owner}/{repository_name}'
                 already_fetched = save_data.keys()
                 if pretty_name in already_fetched and save_data[pretty_name]["category"] == "recently-added":
                     if category != "recently-added":
@@ -260,42 +260,38 @@ def thread_data(pages: list, category: str, save_data: dict) -> None:
                         verified = get_verified(mp_page)
                         save_data[pretty_name]['verified'] = verified
                         save_data[pretty_name]['owner'] = owner
-                        save_data[pretty_name]['repository'] = repo_name
+                        save_data[pretty_name]['repository'] = repository_name
                         save_data[pretty_name]['name'] = format_action_name(actions_names_ugly[j])
 
                         if config.fetch_categories["versions"]:
-                            versions = get_api('versions', owner, repo_name)
+                            versions = get_api('versions', owner, repository_name)
                             save_data[pretty_name]['versions'] = versions
 
                         if config.fetch_categories["dependents"]:
-                            dependents = get_dependents(owner, repo_name)
+                            dependents = get_dependents(owner, repository_name)
                             save_data[pretty_name]['dependents'] = {}
                             save_data[pretty_name]['dependents']['number'] = dependents[0]
                             save_data[pretty_name]['dependents']['package_url'] = dependents[1]
 
                         if config.fetch_categories["contributors"]:
-                            contributors = get_api('contributors', owner, repo_name)
+                            contributors = get_api('contributors', owner, repository_name)
                             contributors.sort()
                             save_data[pretty_name]['contributors'] = contributors
 
-                        stars = config.fetch_categories["stars"]
-                        watchers = config.fetch_categories["watchers"]
-                        forks = config.fetch_categories["forks"]
-                        if stars or watchers or forks:
-                            get_from_repo_api = ['stargazers_count', 'subscribers_count', 'forks_count']
-                            stars_watching_forks = get_api(get_from_repo_api, owner, repo_name)
-                            if stars:
-                                stars = int(stars_watching_forks['stargazers_count'])
-                                save_data[pretty_name]['stars'] = stars
-                            if watchers:
-                                watching = int(stars_watching_forks['subscribers_count'])
-                                save_data[pretty_name]['watching'] = watching
-                            if forks:
-                                forks = int(stars_watching_forks['forks_count'])
-                                save_data[pretty_name]['forks'] = forks
+                        if config.fetch_categories["stars"]:
+                            stars = get_api("stars", owner, repository_name)
+                            save_data[pretty_name]["stars"] = stars
+
+                        if config.fetch_categories["watchers"]:
+                            watchers = get_api("watchers", owner, repository_name)
+                            save_data[pretty_name]["watchers"] = watchers
+
+                        if config.fetch_categories["forks"]:
+                            forks = get_api("forks", owner, repository_name)
+                            save_data[pretty_name]["forks"] = forks
 
                         if config.fetch_categories["issues"]:
-                            issues = get_api("issues", owner, repo_name)
+                            issues = get_api("issues", owner, repository_name)
                             save_data[pretty_name]["issues"] = {}
                             try:
                                 save_data[pretty_name]["issues"]["open"] = issues["open"]
@@ -407,7 +403,11 @@ def get_api(key: str | list, owner: str, repo_name: str):
     :return: A tuple with an integer, a list or a dictionary, depending of the nature of the needed information and
              the index for the next API call.
     """
-    queries = {"versions": "releases(first: 100) { totalCount edges { cursor node { tag { name } publishedAt } } } "}
+    queries = {"versions": "releases(first: 100) { totalCount edges { cursor node { tag { name } publishedAt } } } ",
+               "stars": "stargazerCount",
+               "watchers": "watchers { totalCount }",
+               "forks": "forks { totalCount }",
+               }
 
     query = {'query': f"""
     {{
@@ -415,7 +415,7 @@ def get_api(key: str | list, owner: str, repo_name: str):
         login
         repository(name: "{repo_name}") {{
           name
-          {queries["versions"]}
+          {queries[key]}
         }}
       }}
     }}
@@ -498,6 +498,18 @@ def extract(api_answer: requests.Response, key: str):
             final_releases[date] = tag
 
         return final_releases
+
+    elif key == "stars":
+        stars = data["stargazerCount"]
+        return stars
+
+    elif key == "watchers":
+        watchers = data["watchers"]["totalCount"]
+        return watchers
+
+    elif key == "forks":
+        forks = data["forks"]["totalCount"]
+        return forks
 
 
 def get_remaining_api_calls() -> bool:

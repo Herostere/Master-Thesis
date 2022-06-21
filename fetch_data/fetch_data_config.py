@@ -6,7 +6,7 @@ import os
 run = True
 
 fetch_categories = {
-    "versions": True,
+    "versions": False,
     "dependents": False,
     "contributors": False,
     "stars": False,
@@ -18,7 +18,7 @@ fetch_categories = {
 # used for debugging
 override_save_categories = {
     "run": True,
-    "categories": ["dependency-management"],
+    "categories": ["privacy", "dependency-management"],
 }
 
 get_categories = {
