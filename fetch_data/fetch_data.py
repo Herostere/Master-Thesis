@@ -397,14 +397,13 @@ def get_repo_name(url: str) -> str:
     return url.split('https://github.com/')[1].split('/')[1]
 
 
-def get_api(key: str | list, owner: str, repo_name: str) -> int | list | dict:
+def get_api(key: str | list, owner: str, repo_name: str):
     """
     Contact the API to fetch information.
 
     :param key: The kind of data to retrieve.
     :param owner: The owner of the repository.
     :param repo_name: The name of the repository.
-    :param index: The index for the list of Tokens.
     :return: A tuple with an integer, a list or a dictionary, depending of the nature of the needed information and
              the index for the next API call.
     """
@@ -429,8 +428,7 @@ def request_to_api(query: dict) -> requests.Response:
     """
     Make a request to the GitHub's API.
 
-    :param url: The URL where the information is located.
-    :param i: The index for the GitHub Tokens.
+    :param query: The query to get the information.
     :return: The API response.
     """
     url = "https://api.github.com/graphql"
@@ -455,7 +453,6 @@ def extract(api_call: requests.Response, to_extract: str | tuple | list, url):
     :param api_call: The call to the API.
     :param to_extract: The information we need to extract.
     :param url: The URL of the API.
-    :param index: The index in the list of Tokens.
     :return: The extracted information in a list or dictionary and the index for the API.
     :rtype: tuple[list | dict | requests.Response, int]
     """
@@ -524,6 +521,7 @@ def extract(api_call: requests.Response, to_extract: str | tuple | list, url):
 def get_remaining_api_calls() -> bool:
     """
     Tells if API calls can be made or not.
+    Always switch to the first token with remaining calls.
 
     :return: True if there can be API requests. Otherwise, False.
     """
