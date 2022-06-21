@@ -410,6 +410,26 @@ def get_api(key: str | list, owner: str, repo_name: str, index: int) -> tuple[in
              the index for the next API call.
     """
     i = index
+    queries = {"versions": "releases(first: 100) { totalCount edges { cursor node { tag { name } createdAt } } }"}
+    query = {'query': f'''
+    {{
+      repositoryOwner(login: "{owner}") {{
+        repository(name: "{repo_name}") {{
+          {queries[key]}
+        }}
+      }}
+    }}
+    '''}
+
+    api_answer = request_to_api(query, i)
+    print(api_answer.json())
+
+    exit()
+
+
+
+
+
     url = f"https://api.github.com/repos/{owner}/{repo_name}"
     urls = {
         'versions': f"{url}/releases?per_page=100&page=1",
@@ -479,7 +499,7 @@ def get_api(key: str | list, owner: str, repo_name: str, index: int) -> tuple[in
     return final, i
 
 
-def request_to_api(url: str, i: int) -> requests.Response:
+def request_to_api(query: dict, i: int) -> requests.Response:
     """
     Make a request to the GitHub's API.
 
@@ -487,14 +507,14 @@ def request_to_api(url: str, i: int) -> requests.Response:
     :param i: The index for the GitHub Tokens.
     :return: The API response.
     """
+    url = "https://api.github.com/graphql"
     headers = {
         'Authorization': f'token {GITHUB_TOKENS[i]}',
-        'accept': 'application/vnd.github.v3+json',
     }
 
     while True:
         try:
-            api_call = requests.get(url, headers=headers)
+            api_call = requests.post(url, json=query, headers=headers)
             break
         except requests.exceptions.ConnectionError:
             time.sleep(60)

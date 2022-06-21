@@ -1,0 +1,653 @@
+{
+    "13rac1/block-fixup-merge-action": {
+        "category": "code-quality",
+        "name": "block-fixup-commit-merge",
+        "owner": "13rac1",
+        "repository": "block-fixup-merge-action",
+        "verified": false
+    },
+    "84codes/action-haml-lint": {
+        "category": "code-quality",
+        "name": "run-haml-lint-with-reviewdog",
+        "owner": "84codes",
+        "repository": "action-haml-lint",
+        "verified": false
+    },
+    "AllexVeldman/graphql-convert-introspection-schema": {
+        "category": "api-management",
+        "name": "graphql-convert-introspection-schema",
+        "owner": "AllexVeldman",
+        "repository": "graphql-convert-introspection-schema",
+        "verified": false
+    },
+    "BetaHuhn/ifttt-status": {
+        "category": "chat",
+        "name": "ifttt-status",
+        "owner": "BetaHuhn",
+        "repository": "ifttt-status",
+        "verified": false
+    },
+    "BigTows/yc-lockbox": {
+        "category": "api-management",
+        "name": "yandex-lockbox-secret-vault",
+        "owner": "BigTows",
+        "repository": "yc-lockbox",
+        "verified": false
+    },
+    "Brymastr/slack-action": {
+        "category": "chat",
+        "name": "custom-slack-action",
+        "owner": "Brymastr",
+        "repository": "slack-action",
+        "verified": false
+    },
+    "GaboFDC/brakeman-linter-action": {
+        "category": "code-quality",
+        "name": "brakeman-linter-action",
+        "owner": "GaboFDC",
+        "repository": "brakeman-linter-action",
+        "verified": false
+    },
+    "GoatG33k/fivem-lua-lint-action": {
+        "category": "code-quality",
+        "name": "luacheck-for-fivem",
+        "owner": "GoatG33k",
+        "repository": "fivem-lua-lint-action",
+        "verified": false
+    },
+    "IvanLudvig/clang-format-action": {
+        "category": "code-quality",
+        "name": "clang-format-code-formatter",
+        "owner": "IvanLudvig",
+        "repository": "clang-format-action",
+        "verified": false
+    },
+    "Jerome1337/gofmt-action": {
+        "category": "code-quality",
+        "name": "check-code-formatting-using-gofmt",
+        "owner": "Jerome1337",
+        "repository": "gofmt-action",
+        "verified": false
+    },
+    "KTibow/ha-blueprint": {
+        "category": "code-quality",
+        "name": "ha-component-ci",
+        "owner": "KTibow",
+        "repository": "ha-blueprint",
+        "verified": false
+    },
+    "Nevvulo/upsert-json": {
+        "category": "code-quality",
+        "name": "upsert-json-object-or-array",
+        "owner": "Nevvulo",
+        "repository": "upsert-json",
+        "verified": false
+    },
+    "PurpleBooth/gfmfmt-action": {
+        "category": "code-quality",
+        "name": "gfmfmt-action",
+        "owner": "PurpleBooth",
+        "repository": "gfmfmt-action",
+        "verified": false
+    },
+    "RapidAPI/gh-api-testing-trigger": {
+        "category": "api-management",
+        "name": "rapidapi-testing-trigger",
+        "owner": "RapidAPI",
+        "repository": "gh-api-testing-trigger",
+        "verified": true
+    },
+    "SecureStackCo/actions-secrets": {
+        "category": "code-quality",
+        "name": "securestack-secrets-analysis",
+        "owner": "SecureStackCo",
+        "repository": "actions-secrets",
+        "verified": true
+    },
+    "TobiasOlofsson88/github-action-validate-json-request-result": {
+        "category": "api-management",
+        "name": "validate-json-request-response",
+        "owner": "TobiasOlofsson88",
+        "repository": "github-action-validate-json-request-result",
+        "verified": false
+    },
+    "abelfodil/protoc-action": {
+        "category": "api-management",
+        "name": "grpc-s-protoc-action",
+        "owner": "abelfodil",
+        "repository": "protoc-action",
+        "verified": false
+    },
+    "ably-labs/ably-control-api-action": {
+        "category": "api-management",
+        "name": "ably-control-api",
+        "owner": "ably-labs",
+        "repository": "ably-control-api-action",
+        "verified": false
+    },
+    "algorithmiaio/test-algo-action": {
+        "category": "api-management",
+        "name": "algorithmia-test-algo",
+        "owner": "algorithmiaio",
+        "repository": "test-algo-action",
+        "verified": false
+    },
+    "antfu/export-size-action": {
+        "category": "code-quality",
+        "name": "export-size-action",
+        "owner": "antfu",
+        "repository": "export-size-action",
+        "verified": false
+    },
+    "antoninklopp/cs-to-ts-action": {
+        "category": "code-quality",
+        "name": "cs-to-ts",
+        "owner": "antoninklopp",
+        "repository": "cs-to-ts-action",
+        "verified": false
+    },
+    "articulate/actions-markdownlint": {
+        "category": "code-quality",
+        "name": "markdown-lint",
+        "owner": "articulate",
+        "repository": "actions-markdownlint",
+        "verified": false
+    },
+    "austenstone/get-org-repos": {
+        "category": "api-management",
+        "name": "get-organization-repository-names",
+        "owner": "austenstone",
+        "repository": "get-org-repos",
+        "verified": false
+    },
+    "baijunyao/action-slack-notify": {
+        "category": "chat",
+        "name": "slack-notify-action",
+        "owner": "baijunyao",
+        "repository": "action-slack-notify",
+        "verified": false
+    },
+    "choreo-templates/build-deploy-action": {
+        "category": "api-management",
+        "name": "choreo-deployer",
+        "owner": "choreo-templates",
+        "repository": "build-deploy-action",
+        "verified": false
+    },
+    "cloudposse/github-action-pre-commit": {
+        "category": "code-quality",
+        "name": "cloudposse-pre-commit",
+        "owner": "cloudposse",
+        "repository": "github-action-pre-commit",
+        "verified": false
+    },
+    "congnguyendinh0/node-yarn-telegram-action": {
+        "category": "chat",
+        "name": "node-yarn-telegram-action",
+        "owner": "congnguyendinh0",
+        "repository": "node-yarn-telegram-action",
+        "verified": false
+    },
+    "containrrr/shoutrrr-action": {
+        "category": "chat",
+        "name": "shoutrrr-action",
+        "owner": "containrrr",
+        "repository": "shoutrrr-action",
+        "verified": false
+    },
+    "cybervoid/ga-twilio-check-sms": {
+        "category": "chat",
+        "name": "get-sms-list",
+        "owner": "cybervoid",
+        "repository": "ga-twilio-check-sms",
+        "verified": false
+    },
+    "devmasx/coverage-check-action": {
+        "category": "code-quality",
+        "name": "coverage-check",
+        "owner": "devmasx",
+        "repository": "coverage-check-action",
+        "verified": false
+    },
+    "erevear/snowsql-formatter-action": {
+        "category": "code-quality",
+        "name": "snowsql-formatter-action",
+        "owner": "erevear",
+        "repository": "snowsql-formatter-action",
+        "verified": false
+    },
+    "fal-ai/dbt-cloud-action": {
+        "category": "api-management",
+        "name": "dbt-cloud-action",
+        "owner": "fal-ai",
+        "repository": "dbt-cloud-action",
+        "verified": false
+    },
+    "fateyan/action-discord-notifier": {
+        "category": "chat",
+        "name": "discord-notifier",
+        "owner": "fateyan",
+        "repository": "action-discord-notifier",
+        "verified": false
+    },
+    "florianmarkusse/jsPerformoBot": {
+        "category": "code-quality",
+        "name": "jsperformobot",
+        "owner": "florianmarkusse",
+        "repository": "jsPerformoBot",
+        "verified": false
+    },
+    "frogobox/frogo-animation": {
+        "category": "code-quality",
+        "name": "frogo-animation",
+        "owner": "frogobox",
+        "repository": "frogo-animation",
+        "verified": false
+    },
+    "getsentry/action-git-diff-suggestions": {
+        "category": "code-quality",
+        "name": "action-git-diff-suggestions",
+        "owner": "getsentry",
+        "repository": "action-git-diff-suggestions",
+        "verified": true
+    },
+    "getsentry/action-github-app-token": {
+        "category": "api-management",
+        "name": "action-github-app-token",
+        "owner": "getsentry",
+        "repository": "action-github-app-token",
+        "verified": true
+    },
+    "golfzaptw/action-commit-push-pr": {
+        "category": "code-quality",
+        "name": "commit-push-and-pr",
+        "owner": "golfzaptw",
+        "repository": "action-commit-push-pr",
+        "verified": false
+    },
+    "ilyalehchylin/appstore-connect-app-version": {
+        "category": "api-management",
+        "name": "app-store-connect-application-version",
+        "owner": "ilyalehchylin",
+        "repository": "appstore-connect-app-version",
+        "verified": false
+    },
+    "integraldx/UnityLinter": {
+        "category": "code-quality",
+        "name": "unity-linter",
+        "owner": "integraldx",
+        "repository": "UnityLinter",
+        "verified": false
+    },
+    "jackfirth/racket-package-resyntax-action": {
+        "category": "code-quality",
+        "name": "racket-package-resyntax",
+        "owner": "jackfirth",
+        "repository": "racket-package-resyntax-action",
+        "verified": false
+    },
+    "jidicula/go-fuzz-action": {
+        "category": "code-quality",
+        "name": "go-fuzz-test",
+        "owner": "jidicula",
+        "repository": "go-fuzz-action",
+        "verified": false
+    },
+    "jonasrk/flake8-action": {
+        "category": "code-quality",
+        "name": "flake8-with-args",
+        "owner": "jonasrk",
+        "repository": "flake8-action",
+        "verified": false
+    },
+    "jun3453/slack-pr-open-notification-action": {
+        "category": "chat",
+        "name": "slack-pr-open-notification",
+        "owner": "jun3453",
+        "repository": "slack-pr-open-notification-action",
+        "verified": false
+    },
+    "jwgmeligmeyling/checkstyle-github-action": {
+        "category": "code-quality",
+        "name": "push-checkstyle-report",
+        "owner": "jwgmeligmeyling",
+        "repository": "checkstyle-github-action",
+        "verified": false
+    },
+    "kuju63/coverage-comment": {
+        "category": "code-quality",
+        "name": "coverage-commentator",
+        "owner": "kuju63",
+        "repository": "coverage-comment",
+        "verified": false
+    },
+    "litencatt/notion-db-auto-relator": {
+        "category": "api-management",
+        "name": "notion-db-auto-relator",
+        "owner": "litencatt",
+        "repository": "notion-db-auto-relator",
+        "verified": false
+    },
+    "luminsports/github-action-php-cs-fixer": {
+        "category": "code-quality",
+        "name": "luminsports-php-cs-fixer",
+        "owner": "luminsports",
+        "repository": "github-action-php-cs-fixer",
+        "verified": false
+    },
+    "maxkomarychev/oction-create-deployment": {
+        "category": "api-management",
+        "name": "oction-create-deployment",
+        "owner": "maxkomarychev",
+        "repository": "oction-create-deployment",
+        "verified": false
+    },
+    "maxkomarychev/oction-create-deployment-status": {
+        "category": "api-management",
+        "name": "oction-create-deployment-status",
+        "owner": "maxkomarychev",
+        "repository": "oction-create-deployment-status",
+        "verified": false
+    },
+    "morigs/lint-api-docs-action": {
+        "category": "code-quality",
+        "name": "lint-openapi-and-asyncapi-spectral",
+        "owner": "morigs",
+        "repository": "lint-api-docs-action",
+        "verified": false
+    },
+    "mpoc/yaml-validation-action": {
+        "category": "api-management",
+        "name": "remote-yaml-file-validation",
+        "owner": "mpoc",
+        "repository": "yaml-validation-action",
+        "verified": false
+    },
+    "nnichols/clojure-lint-action": {
+        "category": "code-quality",
+        "name": "clojure-lint-action",
+        "owner": "nnichols",
+        "repository": "clojure-lint-action",
+        "verified": false
+    },
+    "norio-nomura/action-swiftlint": {
+        "category": "code-quality",
+        "name": "github-action-for-swiftlint",
+        "owner": "norio-nomura",
+        "repository": "action-swiftlint",
+        "verified": false
+    },
+    "ocular-d/trailing-spaces": {
+        "category": "code-quality",
+        "name": "find-trailing-whitespace-in-markdown",
+        "owner": "ocular-d",
+        "repository": "trailing-spaces",
+        "verified": false
+    },
+    "olivernybroe/action-conflict-finder": {
+        "category": "code-quality",
+        "name": "merge-conflict-finder",
+        "owner": "olivernybroe",
+        "repository": "action-conflict-finder",
+        "verified": false
+    },
+    "peixin/serverchan-action": {
+        "category": "chat",
+        "name": "serverchan-turbo-notify",
+        "owner": "peixin",
+        "repository": "serverchan-action",
+        "verified": false
+    },
+    "pipeline-components/php-codesniffer": {
+        "category": "code-quality",
+        "name": "php-codesniffer",
+        "owner": "pipeline-components",
+        "repository": "php-codesniffer",
+        "verified": false
+    },
+    "pipeline-components/stylelint": {
+        "category": "code-quality",
+        "name": "pipeline-components-stylelint",
+        "owner": "pipeline-components",
+        "repository": "stylelint",
+        "verified": false
+    },
+    "pipeline-components/xmllint": {
+        "category": "code-quality",
+        "name": "pipeline-components-xmllint",
+        "owner": "pipeline-components",
+        "repository": "xmllint",
+        "verified": false
+    },
+    "pipeline-components/yamllint": {
+        "category": "code-quality",
+        "name": "pipeline-components-yamllint",
+        "owner": "pipeline-components",
+        "repository": "yamllint",
+        "verified": false
+    },
+    "pnp/action-cli-runscript": {
+        "category": "api-management",
+        "name": "cli-for-microsoft-365-run-script",
+        "owner": "pnp",
+        "repository": "action-cli-runscript",
+        "verified": false
+    },
+    "pr-annotators/pylint-pr-annotator": {
+        "category": "code-quality",
+        "name": "pylint-pr-annotator",
+        "owner": "pr-annotators",
+        "repository": "pylint-pr-annotator",
+        "verified": false
+    },
+    "pr4k/hugo-to-medium": {
+        "category": "api-management",
+        "name": "hugo-to-medium",
+        "owner": "pr4k",
+        "repository": "hugo-to-medium",
+        "verified": false
+    },
+    "protontypes/continuous-reforestation": {
+        "category": "api-management",
+        "name": "continuous-reforestation",
+        "owner": "protontypes",
+        "repository": "continuous-reforestation",
+        "verified": false
+    },
+    "radiantly/profanity-filter-action": {
+        "category": "chat",
+        "name": "profanity-filter",
+        "owner": "radiantly",
+        "repository": "profanity-filter-action",
+        "verified": false
+    },
+    "rajyraman/powerapps-checker": {
+        "category": "code-quality",
+        "name": "powerapps-checker",
+        "owner": "rajyraman",
+        "repository": "powerapps-checker",
+        "verified": false
+    },
+    "rapdev-io/sn-devops-change-update": {
+        "category": "api-management",
+        "name": "servicenow-devops-change-update",
+        "owner": "rapdev-io",
+        "repository": "sn-devops-change-update",
+        "verified": false
+    },
+    "roycdiscovery/pact-canideployto-action": {
+        "category": "api-management",
+        "name": "can-i-deploy-to-a-tagged-environment",
+        "owner": "roycdiscovery",
+        "repository": "pact-canideployto-action",
+        "verified": false
+    },
+    "samgehret/manageSegmentFunction": {
+        "category": "api-management",
+        "name": "manage-segment-function",
+        "owner": "samgehret",
+        "repository": "manageSegmentFunction",
+        "verified": false
+    },
+    "sasanquaneuf/mypy-github-action": {
+        "category": "code-quality",
+        "name": "mypy-action",
+        "owner": "sasanquaneuf",
+        "repository": "mypy-github-action",
+        "verified": false
+    },
+    "selfagency/slackfeedbot": {
+        "category": "chat",
+        "name": "slackfeedbot",
+        "owner": "selfagency",
+        "repository": "slackfeedbot",
+        "verified": false
+    },
+    "sibiraj-s/action-eslint": {
+        "category": "code-quality",
+        "name": "action-eslint",
+        "owner": "sibiraj-s",
+        "repository": "action-eslint",
+        "verified": false
+    },
+    "spoland/dotnet-sonarcloud-analysis": {
+        "category": "code-quality",
+        "name": "dotnet-sonarcloud-analysis",
+        "owner": "spoland",
+        "repository": "dotnet-sonarcloud-analysis",
+        "verified": false
+    },
+    "stefangeneralao/sinch-actions": {
+        "category": "chat",
+        "name": "sinch-conversation-api",
+        "owner": "stefangeneralao",
+        "repository": "sinch-actions",
+        "verified": false
+    },
+    "steve02081504/disable-autocrlf": {
+        "category": "code-quality",
+        "name": "disable-auto-crlf",
+        "owner": "steve02081504",
+        "repository": "disable-autocrlf",
+        "verified": false
+    },
+    "stoe/xo-action": {
+        "category": "code-quality",
+        "name": "xo-action",
+        "owner": "stoe",
+        "repository": "xo-action",
+        "verified": false
+    },
+    "stoplightio/spectral-action": {
+        "category": "api-management",
+        "name": "spectral-linting",
+        "owner": "stoplightio",
+        "repository": "spectral-action",
+        "verified": false
+    },
+    "swimmwatch/openapi-diff-action": {
+        "category": "api-management",
+        "name": "openapi-diff-action",
+        "owner": "swimmwatch",
+        "repository": "openapi-diff-action",
+        "verified": false
+    },
+    "taylorg198739/workflow-actions": {
+        "category": "api-management",
+        "name": "zenhub-move-card",
+        "owner": "taylorg198739",
+        "repository": "workflow-actions",
+        "verified": false
+    },
+    "terencetcf/github-actions-lcov-minimum-coverage-checker": {
+        "category": "code-quality",
+        "name": "lcov-minimum-test-coverage-checker",
+        "owner": "terencetcf",
+        "repository": "github-actions-lcov-minimum-coverage-checker",
+        "verified": false
+    },
+    "tf-gha/autoplan": {
+        "category": "chat",
+        "name": "autoplan-terraform",
+        "owner": "tf-gha",
+        "repository": "autoplan",
+        "verified": false
+    },
+    "thedave42/generate-dependency-alerts-csv-action": {
+        "category": "code-quality",
+        "name": "generate-vulnerability-alerts-csv-file",
+        "owner": "thedave42",
+        "repository": "generate-dependency-alerts-csv-action",
+        "verified": false
+    },
+    "trybeapp/redocly-openapi-cli-github-action": {
+        "category": "api-management",
+        "name": "openapi-cli-github-action",
+        "owner": "trybeapp",
+        "repository": "redocly-openapi-cli-github-action",
+        "verified": false
+    },
+    "twilio-labs/actions-sms": {
+        "category": "chat",
+        "name": "twilio-sms",
+        "owner": "twilio-labs",
+        "repository": "actions-sms",
+        "verified": true
+    },
+    "umutphp/sensiolabs-security-checker-action": {
+        "category": "code-quality",
+        "name": "sensiolabs-security-checker-action",
+        "owner": "umutphp",
+        "repository": "sensiolabs-security-checker-action",
+        "verified": false
+    },
+    "w33ble/graphql-pluck-action": {
+        "category": "api-management",
+        "name": "graphql-pluck",
+        "owner": "w33ble",
+        "repository": "graphql-pluck-action",
+        "verified": false
+    },
+    "xorilog/twitter-action": {
+        "category": "chat",
+        "name": "twitter-action",
+        "owner": "xorilog",
+        "repository": "twitter-action",
+        "verified": false
+    },
+    "xpowery/covid-api": {
+        "category": "api-management",
+        "name": "covid-19-stats-timeseries",
+        "owner": "xpowery",
+        "repository": "covid-api",
+        "verified": false
+    },
+    "xt0rted/dotnet-format": {
+        "category": "code-quality",
+        "name": "dotnet-format",
+        "owner": "xt0rted",
+        "repository": "dotnet-format",
+        "verified": false
+    },
+    "yoheikikuta/sql-autoformat-action": {
+        "category": "code-quality",
+        "name": "sqlautoformatter",
+        "owner": "yoheikikuta",
+        "repository": "sql-autoformat-action",
+        "verified": false
+    },
+    "zgosalvez/github-actions-report-lcov": {
+        "category": "code-quality",
+        "name": "report-lcov",
+        "owner": "zgosalvez",
+        "repository": "github-actions-report-lcov",
+        "verified": false
+    },
+    "zingimmick/rector-action": {
+        "category": "code-quality",
+        "name": "rector-action",
+        "owner": "zingimmick",
+        "repository": "rector-action",
+        "verified": false
+    }
+}
