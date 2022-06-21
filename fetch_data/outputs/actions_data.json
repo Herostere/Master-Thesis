@@ -97,12 +97,26 @@
         "repository": "gh-api-testing-trigger",
         "verified": true
     },
+    "Rungutan/rungutan-actions": {
+        "category": "api-management",
+        "name": "load-test-your-platform-with-rungutan",
+        "owner": "Rungutan",
+        "repository": "rungutan-actions",
+        "verified": false
+    },
     "SecureStackCo/actions-secrets": {
         "category": "code-quality",
         "name": "securestack-secrets-analysis",
         "owner": "SecureStackCo",
         "repository": "actions-secrets",
         "verified": true
+    },
+    "TheModdingInquisition/actions-team-membership": {
+        "category": "api-management",
+        "name": "team-membership-checker",
+        "owner": "TheModdingInquisition",
+        "repository": "actions-team-membership",
+        "verified": false
     },
     "TobiasOlofsson88/github-action-validate-json-request-result": {
         "category": "api-management",
@@ -195,11 +209,46 @@
         "repository": "shoutrrr-action",
         "verified": false
     },
+    "contributorcoin/contribute-action": {
+        "category": "api-management",
+        "name": "contributorcoin",
+        "owner": "contributorcoin",
+        "repository": "contribute-action",
+        "verified": false
+    },
+    "craicoverflow/openapi-generator-generate-action": {
+        "category": "api-management",
+        "name": "openapi-generator-generate-action",
+        "owner": "craicoverflow",
+        "repository": "openapi-generator-generate-action",
+        "verified": false
+    },
     "cybervoid/ga-twilio-check-sms": {
         "category": "chat",
         "name": "get-sms-list",
         "owner": "cybervoid",
         "repository": "ga-twilio-check-sms",
+        "verified": false
+    },
+    "d4nicoder/kubectl-action": {
+        "category": "api-management",
+        "name": "kubectl-alpine",
+        "owner": "d4nicoder",
+        "repository": "kubectl-action",
+        "verified": false
+    },
+    "databricks/run-notebook": {
+        "category": "api-management",
+        "name": "run-databricks-notebook",
+        "owner": "databricks",
+        "repository": "run-notebook",
+        "verified": true
+    },
+    "ddivanshu/test12": {
+        "category": "api-management",
+        "name": "golang-actionsszdxfcg11v",
+        "owner": "ddivanshu",
+        "repository": "test12",
         "verified": false
     },
     "devmasx/coverage-check-action": {
@@ -214,6 +263,13 @@
         "name": "snowsql-formatter-action",
         "owner": "erevear",
         "repository": "snowsql-formatter-action",
+        "verified": false
+    },
+    "everpcpc/cloudflare-dns-action": {
+        "category": "api-management",
+        "name": "create-update-cloudflare-dns-records",
+        "owner": "everpcpc",
+        "repository": "cloudflare-dns-action",
         "verified": false
     },
     "fal-ai/dbt-cloud-action": {
@@ -263,6 +319,13 @@
         "name": "commit-push-and-pr",
         "owner": "golfzaptw",
         "repository": "action-commit-push-pr",
+        "verified": false
+    },
+    "ikeike443/decK-action": {
+        "category": "api-management",
+        "name": "deck-action",
+        "owner": "ikeike443",
+        "repository": "decK-action",
         "verified": false
     },
     "ilyalehchylin/appstore-connect-app-version": {
@@ -349,11 +412,25 @@
         "repository": "oction-create-deployment-status",
         "verified": false
     },
+    "maxkomarychev/oction-lock-issue": {
+        "category": "api-management",
+        "name": "oction-lock-issue",
+        "owner": "maxkomarychev",
+        "repository": "oction-lock-issue",
+        "verified": false
+    },
     "morigs/lint-api-docs-action": {
         "category": "code-quality",
         "name": "lint-openapi-and-asyncapi-spectral",
         "owner": "morigs",
         "repository": "lint-api-docs-action",
+        "verified": false
+    },
+    "mpoc/nexus-grader-config-test-action": {
+        "category": "api-management",
+        "name": "nexus-grader-config-validation",
+        "owner": "mpoc",
+        "repository": "nexus-grader-config-test-action",
         "verified": false
     },
     "mpoc/yaml-validation-action": {
@@ -482,6 +559,13 @@
         "repository": "pact-canideployto-action",
         "verified": false
     },
+    "roycdiscovery/pact-publish-oas-action": {
+        "category": "api-management",
+        "name": "pact-publish-oas-action",
+        "owner": "roycdiscovery",
+        "repository": "pact-publish-oas-action",
+        "verified": false
+    },
     "samgehret/manageSegmentFunction": {
         "category": "api-management",
         "name": "manage-segment-function",
@@ -578,6 +662,13 @@
         "name": "generate-vulnerability-alerts-csv-file",
         "owner": "thedave42",
         "repository": "generate-dependency-alerts-csv-action",
+        "verified": false
+    },
+    "thijsvtol/create-environments": {
+        "category": "api-management",
+        "name": "create-repository-environments",
+        "owner": "thijsvtol",
+        "repository": "create-environments",
         "verified": false
     },
     "trybeapp/redocly-openapi-cli-github-action": {
