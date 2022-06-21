@@ -80,9 +80,17 @@ def show_bar_plots(x_axis: list, y_axis: list, orient: str, title: str) -> None:
     :param orient: The plot orientation.
     :param title: The title of the plot.
     """
-    bar_plot = seaborn.barplot(x=x_axis, y=y_axis, orient=orient)
+    bar_plot = seaborn.barplot(x=x_axis, y=y_axis, orient=orient, color="steelblue")
     bar_plot.bar_label(bar_plot.containers[0])
     bar_plot.set(title=title)
+    for elem in bar_plot.patches:
+        x_position = elem.get_x()
+        width = elem.get_width()
+        center = x_position + width / 2
+
+        new_width = width / 1.5
+        elem.set_width(new_width)
+        elem.set_x(center - new_width / 2)
     plt.show()
 
 
