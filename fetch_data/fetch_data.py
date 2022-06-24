@@ -68,7 +68,7 @@ def get_categories() -> None:
 @limits(calls=LIMIT, period=60.0)
 def get_request(function: str, url: str) -> requests.Response | None:
     """
-    Get a webpage.
+    Send a request to a webpage and returns the response.
 
     :param function: The name of the calling function.
     :param url: The url to connect to.
@@ -90,7 +90,6 @@ def get_request(function: str, url: str) -> requests.Response | None:
             adapter = requests.adapters.HTTPAdapter(pool_connections=threads, pool_maxsize=threads)
             SESSION.mount("https://", adapter)
             SESSION.mount("http://", adapter)
-            # return get_request(function, url)
     T_R += 1
 
     logging.info(f"request {T_R}")
