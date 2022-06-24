@@ -387,7 +387,7 @@ def get_repo_name(url: str) -> str:
     return url.split('https://github.com/')[1].split('/')[1]
 
 
-def get_api(key: str | list, owner: str, repo_name: str):
+def get_api(key: str, owner: str, repo_name: str) -> int | dict:
     """
     Contact the API to fetch information.
 
@@ -445,7 +445,7 @@ def request_to_api(query: dict) -> requests.Response:
     return api_call
 
 
-def extract(api_answer: requests.Response, key: str):
+def extract(api_answer: requests.Response, key: str) -> int | dict:
     """
     Extract the information from the API.
 
@@ -491,7 +491,7 @@ def extract(api_answer: requests.Response, key: str):
         return final_issues
 
 
-def extract_all(api_answer, key):
+def extract_all(api_answer: requests.Response, key: str) -> list:
     queries = {
         "versions": "releases(first: 100, after:{after}) {{ totalCount edges {{ cursor node {{ tag {{ name }} publishedAt }} }} }} ",
         "issues": "issues(first: 100, after:{after}) {{ totalCount edges {{ cursor node {{ state }} }} }}",
@@ -502,12 +502,12 @@ def extract_all(api_answer, key):
     repository_name = api_answer.json()["data"]["repositoryOwner"]["repository"]["name"]
     data = api_answer.json()["data"]["repositoryOwner"]["repository"]
 
-    releases = data[to_extract[key]]
-    total_count = releases["totalCount"]
-    gathered_releases = releases["edges"]
-    total_gathered = len(gathered_releases)
+    extracted_data = data[to_extract[key]]
+    total_count = extracted_data["totalCount"]
+    gathered_data = extracted_data["edges"]
+    total_gathered = len(gathered_data)
     while total_gathered < total_count:
-        last_gathered_cursor = f'"{releases["edges"][-1]["cursor"]}"'
+        last_gathered_cursor = f'"{extracted_data["edges"][-1]["cursor"]}"'
         query = {'query': f"""
         {{
           repositoryOwner(login: "{owner}") {{
@@ -520,11 +520,11 @@ def extract_all(api_answer, key):
         }}
         """}
         new_api_answer = request_to_api(query)
-        gathered_releases += new_api_answer.json()["data"]["repositoryOwner"]["repository"][to_extract[key]]["edges"]
+        gathered_data += new_api_answer.json()["data"]["repositoryOwner"]["repository"][to_extract[key]]["edges"]
 
-        total_gathered = len(gathered_releases)
+        total_gathered = len(gathered_data)
 
-    return gathered_releases
+    return gathered_data
 
 
 def get_remaining_api_calls() -> bool:
