@@ -110,10 +110,10 @@ def get_request(function: str, url: str) -> requests.Response | None:
 
 def beautiful_html(request_text: str) -> html.document_fromstring:
     """
-    Parse the html response and prettify it.
+    Parse the HTML response and prettify it.
 
-    :param request_text: The html response as text.
-    :return: A prettified version of the html. It is a html.document_fromstring object.
+    :param request_text: The HTML response as text.
+    :return: A prettified version of the HTML. It is a html.document_fromstring object.
     """
     soup = BeautifulSoup(request_text, 'html.parser')
     pretty_soup = soup.prettify()
