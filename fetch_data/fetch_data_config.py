@@ -8,17 +8,17 @@ run = True
 fetch_categories = {
     "versions": False,
     "dependents": False,
-    "contributors": False,
+    "contributors": True,
     "stars": False,
     "watchers": False,
     "forks": False,
-    "issues": True,
+    "issues": False,
 }
 
 # used for debugging
 override_save_categories = {
     "run": True,
-    "categories": ["privacy", "dependency-management"],
+    "categories": ["code-review"],
 }
 
 get_categories = {

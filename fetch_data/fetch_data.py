@@ -387,7 +387,7 @@ def get_repo_name(url: str) -> str:
     return url.split('https://github.com/')[1].split('/')[1]
 
 
-def get_api(key: str, owner: str, repo_name: str) -> int | dict:
+def get_api(key: str, owner: str, repo_name: str) -> int | dict | list:
     """
     Contact the API to fetch information.
 
@@ -397,55 +397,91 @@ def get_api(key: str, owner: str, repo_name: str) -> int | dict:
     :return: A tuple with an integer, a list or a dictionary, depending of the nature of the needed information and
              the index for the next API call.
     """
-    queries = {"versions": "releases(first: 100) { totalCount edges { cursor node { tag { name } publishedAt } } } ",
-               "stars": "stargazerCount",
-               "watchers": "watchers { totalCount }",
-               "forks": "forks { totalCount }",
-               "issues": "issues(first: 100) { totalCount edges { cursor node { state } } }",
-               }
+    if key != "contributors":
+        queries = {"versions": "releases(first: 100) { totalCount edges { cursor node { tag { name } publishedAt } } } ",
+                   "stars": "stargazerCount",
+                   "watchers": "watchers { totalCount }",
+                   "forks": "forks { totalCount }",
+                   "issues": "issues(first: 100) { totalCount edges { cursor node { state } } }",
+                   }
 
-    query = {'query': f"""
-    {{
-      repositoryOwner(login: "{owner}") {{
-        login
-        repository(name: "{repo_name}") {{
-          name
-          {queries[key]}
+        query = {'query': f"""
+        {{
+          repositoryOwner(login: "{owner}") {{
+            login
+            repository(name: "{repo_name}") {{
+              name
+              {queries[key]}
+            }}
+          }}
         }}
-      }}
-    }}
-    """}
+        """}
 
-    api_answer = request_to_api(query)
+        api_answer = request_to_api(query)
 
-    needed_data = extract(api_answer, key)
+        needed_data = extract(api_answer, key)
 
-    return needed_data
+        return needed_data
+    else:
+        url = f"https://api.github.com/repos/{owner}/{repo_name}/contributors?per_page=100&page=1"
+        final = []
+        api_answer = request_to_api(None, url)
+        while 'next' in api_answer.links.keys():
+            temp = extract(api_answer, "contributors")
+            for element in temp:
+                if element not in final:
+                    final.append(element)
+            api_answer = request_to_api(None, api_answer.links['next']['url'])
+        temp = extract(api_answer, "contributors")
+        for element in temp:
+            if element not in final:
+                final.append(element)
+        return final
 
 
-def request_to_api(query: dict) -> requests.Response:
+def request_to_api(query: dict | None, url: str = None) -> requests.Response:
     """
     Make a request to the GitHub's GraphQL API.
 
     :param query: The query to get the information.
+    :param url: The url to use for REST API issues.
     :return: The API response.
     """
-    url = "https://api.github.com/graphql"
-    headers = {
-        'Authorization': f'token {CURRENT_TOKEN}',
-    }
+    if query:
+        url = "https://api.github.com/graphql"
+        headers = {
+            'Authorization': f'token {CURRENT_TOKEN}',
+        }
 
-    try:
-        while not get_remaining_api_calls():
+        try:
+            while not get_remaining_api_calls():
+                time.sleep(60)
+            api_call = requests.post(url, json=query, headers=headers)
+        except requests.exceptions.ConnectionError:
             time.sleep(60)
-        api_call = requests.post(url, json=query, headers=headers)
-    except requests.exceptions.ConnectionError:
-        time.sleep(60)
-        return request_to_api(query)
+            return request_to_api(query)
+
+    else:
+        headers = {
+            'Authorization': f'token {CURRENT_TOKEN}',
+            'accept': 'application/vnd.github.v3+json',
+        }
+        try:
+            while not get_remaining_api_calls(True):
+                time.sleep(60)
+                headers = {
+                    'Authorization': f'token {CURRENT_TOKEN}',
+                    'accept': 'application/vnd.github.v3+json',
+                }
+            api_call = requests.get(url, headers=headers)
+        except requests.exceptions.ConnectionError:
+            time.sleep(60)
+            return request_to_api(None, url)
+
     return api_call
 
 
-def extract(api_answer: requests.Response, key: str) -> int | dict:
+def extract(api_answer: requests.Response, key: str) -> int | dict | list:
     """
     Extract the information from the API.
 
@@ -453,42 +489,52 @@ def extract(api_answer: requests.Response, key: str) -> int | dict:
     :param key: The information we need to extract.
     :return: The extracted information in a list or dictionary and the index for the API.
     """
-    data = api_answer.json()["data"]["repositoryOwner"]["repository"]
+    if key != "contributors":
+        data = api_answer.json()["data"]["repositoryOwner"]["repository"]
 
-    if key == "versions":
-        final_releases = {}
-        gathered_releases = extract_all(api_answer, key)
-        for release in gathered_releases:
+        if key == "versions":
+            final_releases = {}
+            gathered_releases = extract_all(api_answer, key)
+            for release in gathered_releases:
+                try:
+                    tag = release["node"]["tag"]["name"]
+                except TypeError:
+                    tag = None
+                date = datetime.strptime(release["node"]["publishedAt"], "%Y-%m-%dT%H:%M:%SZ")
+                date = date.strftime("%Y-%m-%d %H:%M:%S")
+                final_releases[date] = tag
+            return final_releases
+
+        elif key == "stars":
+            stars = data["stargazerCount"]
+            return stars
+
+        elif key == "watchers":
+            watchers = data["watchers"]["totalCount"]
+            return watchers
+
+        elif key == "forks":
+            forks = data["forks"]["totalCount"]
+            return forks
+
+        elif key == "issues":
+            final_issues = {"open": 0, "closed": 0}
+            gathered_issues = extract_all(api_answer, key)
+            for issue in gathered_issues:
+                if issue["node"]["state"] == "CLOSED":
+                    final_issues["closed"] += 1
+                elif issue["node"]["state"] == "OPEN":
+                    final_issues["open"] += 1
+            return final_issues
+
+    else:
+        extracted = []
+        for needed in api_answer.json():
             try:
-                tag = release["node"]["tag"]["name"]
-            except TypeError:
-                tag = None
-            date = datetime.strptime(release["node"]["publishedAt"], "%Y-%m-%dT%H:%M:%SZ")
-            date = date.strftime("%Y-%m-%d %H:%M:%S")
-            final_releases[date] = tag
-        return final_releases
-
-    elif key == "stars":
-        stars = data["stargazerCount"]
-        return stars
-
-    elif key == "watchers":
-        watchers = data["watchers"]["totalCount"]
-        return watchers
-
-    elif key == "forks":
-        forks = data["forks"]["totalCount"]
-        return forks
-
-    elif key == "issues":
-        final_issues = {"open": 0, "closed": 0}
-        gathered_issues = extract_all(api_answer, key)
-        for issue in gathered_issues:
-            if issue["node"]["state"] == "CLOSED":
-                final_issues["closed"] += 1
-            elif issue["node"]["state"] == "OPEN":
-                final_issues["open"] += 1
-        return final_issues
+                extracted.append(needed["login"])
+            except:
+                print("lol")
+        return extracted
 
 
 def extract_all(api_answer: requests.Response, key: str) -> list:
@@ -527,26 +573,39 @@ def extract_all(api_answer: requests.Response, key: str) -> list:
     return gathered_data
 
 
-def get_remaining_api_calls() -> bool:
+def get_remaining_api_calls(rest: bool = False) -> bool:
     """
     Tells if API calls can be made or not.
     Always switch to the first token with remaining calls.
 
+    :param rest: Indicate if we check for the REST of GraphQL API.
     :return: True if there can be API requests. Otherwise, False.
     """
-    url = "https://api.github.com/graphql"
-    for token in GITHUB_TOKENS:
-        headers = {
-            'Authorization': f'token {token}',
-        }
-        query = {"query": "{ rateLimit { remaining resetAt } }"}
-        api_call = requests.post(url, json=query, headers=headers)
-        rate_limit = api_call.json()["data"]["rateLimit"]
+    global CURRENT_TOKEN
 
-        if rate_limit["remaining"] > 0:
-            global CURRENT_TOKEN
-            CURRENT_TOKEN = token
-            return True
+    if not rest:
+        url = "https://api.github.com/graphql"
+        for token in GITHUB_TOKENS:
+            headers = {
+                'Authorization': f'token {token}',
+            }
+            query = {"query": "{ rateLimit { remaining resetAt } }"}
+            api_call = requests.post(url, json=query, headers=headers)
+            rate_limit = api_call.json()["data"]["rateLimit"]
+
+            if rate_limit["remaining"] > 0:
+                CURRENT_TOKEN = token
+                return True
+    else:
+        for token in GITHUB_TOKENS:
+            headers = {
+                'Authorization': f'token {token}',
+                'accept': 'application/vnd.github.v3+json',
+            }
+            api_call = requests.get("http://api.github.com/rate_limit", headers=headers)
+            if int(api_call.headers['X-RateLimit-Remaining']) > 0:
+                CURRENT_TOKEN = token
+                return True
     return False
 
 
