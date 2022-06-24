@@ -4,7 +4,7 @@ This script identify the actions with a valid marketplace page.
 You will need to use Python3.10.
 """
 from bs4 import BeautifulSoup
-from datetime import datetime, timedelta
+from datetime import datetime
 from html import unescape
 from lxml import html, etree
 from ratelimit import limits, sleep_and_retry
@@ -292,12 +292,7 @@ def thread_data(pages: list, category: str, save_data: dict) -> None:
 
                         if config.fetch_categories["issues"]:
                             issues = get_api("issues", owner, repository_name)
-                            save_data[pretty_name]["issues"] = {}
-                            try:
-                                save_data[pretty_name]["issues"]["open"] = issues["open"]
-                                save_data[pretty_name]["issues"]["closed"] = issues["closed"]
-                            except KeyError:
-                                print(pretty_name)
+                            save_data[pretty_name]["issues"] = issues
 
 
 def format_action_name(ugly_name: str) -> str:
@@ -407,6 +402,7 @@ def get_api(key: str | list, owner: str, repo_name: str):
                "stars": "stargazerCount",
                "watchers": "watchers { totalCount }",
                "forks": "forks { totalCount }",
+               "issues": "issues(first: 100) { totalCount edges { cursor node { state } } }",
                }
 
     query = {'query': f"""
@@ -458,36 +454,11 @@ def extract(api_answer: requests.Response, key: str):
     :param key: The information we need to extract.
     :return: The extracted information in a list or dictionary and the index for the API.
     """
-    queries = {"versions": "releases(first: 100, after:{after}) {{ totalCount edges {{ cursor node {{ tag {{ name }} publishedAt }} }} }} "}
-
-    owner = api_answer.json()["data"]["repositoryOwner"]["login"]
-    repository_name = api_answer.json()["data"]["repositoryOwner"]["repository"]["name"]
     data = api_answer.json()["data"]["repositoryOwner"]["repository"]
 
     if key == "versions":
         final_releases = {}
-        releases = data["releases"]
-        total_count = releases["totalCount"]
-        gathered_releases = releases["edges"]
-        total_gathered = len(gathered_releases)
-        while total_gathered < total_count:
-            last_gathered_cursor = f'"{releases["edges"][-1]["cursor"]}"'
-            query = {'query': f"""
-            {{
-              repositoryOwner(login: "{owner}") {{
-                login
-                repository(name: "{repository_name}") {{
-                  name
-                  {queries["versions"].format(after=last_gathered_cursor)}
-                }}
-              }}
-            }}
-            """}
-            new_api_answer = request_to_api(query)
-            gathered_releases += new_api_answer.json()["data"]["repositoryOwner"]["repository"]["releases"]["edges"]
-
-            total_gathered = len(gathered_releases)
-
+        gathered_releases = extract_all(api_answer, key)
         for release in gathered_releases:
             try:
                 tag = release["node"]["tag"]["name"]
@@ -496,7 +467,6 @@ def extract(api_answer: requests.Response, key: str):
             date = datetime.strptime(release["node"]["publishedAt"], "%Y-%m-%dT%H:%M:%SZ")
             date = date.strftime("%Y-%m-%d %H:%M:%S")
             final_releases[date] = tag
-
         return final_releases
 
     elif key == "stars":
@@ -510,6 +480,52 @@ def extract(api_answer: requests.Response, key: str):
     elif key == "forks":
         forks = data["forks"]["totalCount"]
         return forks
+
+    elif key == "issues":
+        final_issues = {"open": 0, "closed": 0}
+        gathered_issues = extract_all(api_answer, key)
+        for issue in gathered_issues:
+            if issue["node"]["state"] == "CLOSED":
+                final_issues["closed"] += 1
+            elif issue["node"]["state"] == "OPEN":
+                final_issues["open"] += 1
+        return final_issues
+
+
+def extract_all(api_answer, key):
+    queries = {
+        "versions": "releases(first: 100, after:{after}) {{ totalCount edges {{ cursor node {{ tag {{ name }} publishedAt }} }} }} ",
+        "issues": "issues(first: 100, after:{after}) {{ totalCount edges {{ cursor node {{ state }} }} }}",
+    }
+    to_extract = {"versions": "releases", "issues": "issues"}
+
+    owner = api_answer.json()["data"]["repositoryOwner"]["login"]
+    repository_name = api_answer.json()["data"]["repositoryOwner"]["repository"]["name"]
+    data = api_answer.json()["data"]["repositoryOwner"]["repository"]
+
+    releases = data[to_extract[key]]
+    total_count = releases["totalCount"]
+    gathered_releases = releases["edges"]
+    total_gathered = len(gathered_releases)
+    while total_gathered < total_count:
+        last_gathered_cursor = f'"{releases["edges"][-1]["cursor"]}"'
+        query = {'query': f"""
+        {{
+          repositoryOwner(login: "{owner}") {{
+            login
+            repository(name: "{repository_name}") {{
+              name
+              {queries[to_extract[key]].format(after=last_gathered_cursor)}
+            }}
+          }}
+        }}
+        """}
+        new_api_answer = request_to_api(query)
+        gathered_releases += new_api_answer.json()["data"]["repositoryOwner"]["repository"][to_extract[key]]["edges"]
+
+        total_gathered = len(gathered_releases)
+
+    return gathered_releases
 
 
 def get_remaining_api_calls() -> bool:

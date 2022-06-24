@@ -12,7 +12,7 @@ fetch_categories = {
     "stars": False,
     "watchers": False,
     "forks": False,
-    "issues": False,
+    "issues": True,
 }
 
 # used for debugging
