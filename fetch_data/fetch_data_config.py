@@ -6,19 +6,19 @@ import os
 run = True
 
 fetch_categories = {
-    "versions": True,
-    "dependents": True,
+    "versions": False,
+    "dependents": False,
     "contributors": True,
-    "stars": True,
-    "watchers": True,
-    "forks": True,
-    "issues": True,
+    "stars": False,
+    "watchers": False,
+    "forks": False,
+    "issues": False,
 }
 
 # used for debugging
 override_save_categories = {
-    "run": False,
-    "categories": ["recently-added", "security"],
+    "run": True,
+    "categories": ["code-review"],
 }
 
 get_categories = {
@@ -35,9 +35,6 @@ tokens = [
     os.getenv("GITHUB_TOKEN2"),
     os.getenv("GITHUB_TOKEN3"),
     os.getenv("GITHUB_TOKEN4"),
-    os.getenv("GITHUB_TOKEN5"),
-    os.getenv("GITHUB_TOKEN6"),
-    os.getenv("GITHUB_TOKEN7"),
 ]
 
 limit_requests = 350

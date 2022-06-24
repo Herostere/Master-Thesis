@@ -22,6 +22,7 @@ import time
 
 
 GITHUB_TOKENS = config.tokens
+CURRENT_TOKEN = GITHUB_TOKENS[0]
 LIMIT = config.limit_requests
 SESSION = requests.Session()
 SESSION.cookies['user_session'] = os.getenv("CONNECTION_COOKIE")
@@ -67,7 +68,7 @@ def get_categories() -> None:
 @limits(calls=LIMIT, period=60.0)
 def get_request(function: str, url: str) -> requests.Response | None:
     """
-    Get a webpage.
+    Send a request to a webpage and returns the response.
 
     :param function: The name of the calling function.
     :param url: The url to connect to.
@@ -89,7 +90,6 @@ def get_request(function: str, url: str) -> requests.Response | None:
             adapter = requests.adapters.HTTPAdapter(pool_connections=threads, pool_maxsize=threads)
             SESSION.mount("https://", adapter)
             SESSION.mount("http://", adapter)
-            # return get_request(function, url)
     T_R += 1
 
     logging.info(f"request {T_R}")
@@ -110,10 +110,10 @@ def get_request(function: str, url: str) -> requests.Response | None:
 
 def beautiful_html(request_text: str) -> html.document_fromstring:
     """
-    Parse the html response and prettify it.
+    Parse the HTML response and prettify it.
 
-    :param request_text: The html response as text.
-    :return: A prettified version of the html. It is a html.document_fromstring object.
+    :param request_text: The HTML response as text.
+    :return: A prettified version of the HTML. It is a html.document_fromstring object.
     """
     soup = BeautifulSoup(request_text, 'html.parser')
     pretty_soup = soup.prettify()
@@ -232,8 +232,6 @@ def thread_data(pages: list, category: str, save_data: dict) -> None:
     actions_names_pattern = '<h3 class="h4">.*</h3>'
     actions_names_pattern_compiled = re.compile(actions_names_pattern)
 
-    index = 0
-
     for page in pages:
         url = f"https://github.com/marketplace?category={category}&page={page}&query=&type=actions"
 
@@ -247,8 +245,8 @@ def thread_data(pages: list, category: str, save_data: dict) -> None:
             mp_page, url = test_mp_page(action_name)
             if mp_page:
                 owner = get_owner(url)
-                repo_name = get_repo_name(url)
-                pretty_name = f'{owner}/{repo_name}'
+                repository_name = get_repo_name(url)
+                pretty_name = f'{owner}/{repository_name}'
                 already_fetched = save_data.keys()
                 if pretty_name in already_fetched and save_data[pretty_name]["category"] == "recently-added":
                     if category != "recently-added":
@@ -261,48 +259,39 @@ def thread_data(pages: list, category: str, save_data: dict) -> None:
                         verified = get_verified(mp_page)
                         save_data[pretty_name]['verified'] = verified
                         save_data[pretty_name]['owner'] = owner
-                        save_data[pretty_name]['repository'] = repo_name
+                        save_data[pretty_name]['repository'] = repository_name
                         save_data[pretty_name]['name'] = format_action_name(actions_names_ugly[j])
 
                         if config.fetch_categories["versions"]:
-                            versions, index = get_api('versions', owner, repo_name, index)
+                            versions = get_api('versions', owner, repository_name)
                             save_data[pretty_name]['versions'] = versions
 
                         if config.fetch_categories["dependents"]:
-                            dependents = get_dependents(owner, repo_name)
+                            dependents = get_dependents(owner, repository_name)
                             save_data[pretty_name]['dependents'] = {}
                             save_data[pretty_name]['dependents']['number'] = dependents[0]
                             save_data[pretty_name]['dependents']['package_url'] = dependents[1]
 
                         if config.fetch_categories["contributors"]:
-                            contributors, index = get_api('contributors', owner, repo_name, index)
+                            contributors = get_api('contributors', owner, repository_name)
                             contributors.sort()
                             save_data[pretty_name]['contributors'] = contributors
 
-                        stars = config.fetch_categories["stars"]
-                        watchers = config.fetch_categories["watchers"]
-                        forks = config.fetch_categories["forks"]
-                        if stars or watchers or forks:
-                            get_from_repo_api = ['stargazers_count', 'subscribers_count', 'forks_count']
-                            stars_watching_forks, index = get_api(get_from_repo_api, owner, repo_name, index)
-                            if stars:
-                                stars = int(stars_watching_forks['stargazers_count'])
-                                save_data[pretty_name]['stars'] = stars
-                            if watchers:
-                                watching = int(stars_watching_forks['subscribers_count'])
-                                save_data[pretty_name]['watching'] = watching
-                            if forks:
-                                forks = int(stars_watching_forks['forks_count'])
-                                save_data[pretty_name]['forks'] = forks
+                        if config.fetch_categories["stars"]:
+                            stars = get_api("stars", owner, repository_name)
+                            save_data[pretty_name]["stars"] = stars
+
+                        if config.fetch_categories["watchers"]:
+                            watchers = get_api("watchers", owner, repository_name)
+                            save_data[pretty_name]["watchers"] = watchers
+
+                        if config.fetch_categories["forks"]:
+                            forks = get_api("forks", owner, repository_name)
+                            save_data[pretty_name]["forks"] = forks
 
                         if config.fetch_categories["issues"]:
-                            issues, index = get_api("issues", owner, repo_name, index)
-                            save_data[pretty_name]["issues"] = {}
-                            try:
-                                save_data[pretty_name]["issues"]["open"] = issues["open"]
-                                save_data[pretty_name]["issues"]["closed"] = issues["closed"]
-                            except KeyError:
-                                print(pretty_name)
+                            issues = get_api("issues", owner, repository_name)
+                            save_data[pretty_name]["issues"] = issues
 
 
 def format_action_name(ugly_name: str) -> str:
@@ -398,203 +387,225 @@ def get_repo_name(url: str) -> str:
     return url.split('https://github.com/')[1].split('/')[1]
 
 
-def get_api(key: str | list, owner: str, repo_name: str, index: int) -> tuple[int | list | dict, int]:
+def get_api(key: str, owner: str, repo_name: str) -> int | dict | list:
     """
     Contact the API to fetch information.
 
     :param key: The kind of data to retrieve.
     :param owner: The owner of the repository.
     :param repo_name: The name of the repository.
-    :param index: The index for the list of Tokens.
     :return: A tuple with an integer, a list or a dictionary, depending of the nature of the needed information and
              the index for the next API call.
     """
-    i = index
-    url = f"https://api.github.com/repos/{owner}/{repo_name}"
-    urls = {
-        'versions': f"{url}/releases?per_page=100&page=1",
-        'stars': f"{url}/stargazers?per_page=100&page=1",
-        'contributors': f"{url}/contributors?per_page=100&page=1",
-        'forks': f"{url}/forks?per_page=100&page=1",
-        'watching': f"{url}/subscribers?per_page=100&page=1",
-        'issues': f"{url}/issues?state=all&per_page=100",
-        'files': f"{url}/commits?per_page=100&page=1",
-    }
-    to_extract = {
-        'versions': ('tag_name', 'published_at'),
-        'stars': 'login',
-        'contributors': 'login',
-        'forks': 'id',
-        'watching': 'login',
-        'issues': ('open', 'closed')
-    }
+    if key != "contributors":
+        queries = {"versions": "releases(first: 100) { totalCount edges { cursor node { tag { name } publishedAt } } } ",
+                   "stars": "stargazerCount",
+                   "watchers": "watchers { totalCount }",
+                   "forks": "forks { totalCount }",
+                   "issues": "issues(first: 100) { totalCount edges { cursor node { state } } }",
+                   }
 
-    try:
-        is_tuple = type(to_extract[key]) is tuple
-    except TypeError:
-        is_tuple = False
+        query = {'query': f"""
+        {{
+          repositoryOwner(login: "{owner}") {{
+            login
+            repository(name: "{repo_name}") {{
+              name
+              {queries[key]}
+            }}
+          }}
+        }}
+        """}
 
-    if is_tuple:
-        final = {}
+        api_answer = request_to_api(query)
+
+        needed_data = extract(api_answer, key)
+
+        return needed_data
     else:
+        url = f"https://api.github.com/repos/{owner}/{repo_name}/contributors?per_page=100&page=1"
         final = []
-
-    if type(key) is list:
-        api_call = request_to_api(url, i)
-    else:
-        api_call = request_to_api(urls[key], i)
-
-    if type(key) is list:
-        to_return, i = extract(api_call, key, url, i)
-        return to_return.json(), i
-
-    if 'next' not in api_call.links.keys():
-        temp, i = extract(api_call, to_extract[key], urls[key], i)
-        if is_tuple:
-            final = final | temp
-        else:
-            for extracted in temp:
-                final.append(extracted)
-    elif 'next' in api_call.links.keys():
-        while 'next' in api_call.links.keys():
-            temp, i = extract(api_call, to_extract[key], urls[key], i)
-            if is_tuple:
-                final = final | temp
-            else:
-                for extracted in temp:
-                    final.append(extracted)
-
-            api_call = request_to_api(api_call.links['next']['url'], i)
-
-        temp, i = extract(api_call, to_extract[key], urls[key], i)
-        if is_tuple:
-            final = final | temp
-        else:
-            for extracted in temp:
-                final.append(extracted)
-
-    if key in ['stars', 'forks', 'watching']:
-        return len(final), i
-
-    return final, i
+        api_answer = request_to_api(None, url)
+        while 'next' in api_answer.links.keys():
+            temp = extract(api_answer, "contributors")
+            for element in temp:
+                if element not in final:
+                    final.append(element)
+            api_answer = request_to_api(None, api_answer.links['next']['url'])
+        temp = extract(api_answer, "contributors")
+        for element in temp:
+            if element not in final:
+                final.append(element)
+        return final
 
 
-def request_to_api(url: str, i: int) -> requests.Response:
+def request_to_api(query: dict | None, url: str = None) -> requests.Response:
     """
-    Make a request to the GitHub's API.
+    Make a request to the GitHub's GraphQL API.
 
-    :param url: The URL where the information is located.
-    :param i: The index for the GitHub Tokens.
+    :param query: The query to get the information.
+    :param url: The url to use for REST API issues.
     :return: The API response.
     """
-    headers = {
-        'Authorization': f'token {GITHUB_TOKENS[i]}',
-        'accept': 'application/vnd.github.v3+json',
-    }
+    if query:
+        url = "https://api.github.com/graphql"
+        headers = {
+            'Authorization': f'token {CURRENT_TOKEN}',
+        }
 
-    while True:
         try:
-            api_call = requests.get(url, headers=headers)
-            break
+            while not get_remaining_api_calls():
+                time.sleep(60)
+            api_call = requests.post(url, json=query, headers=headers)
         except requests.exceptions.ConnectionError:
             time.sleep(60)
+            return request_to_api(query)
+
+    else:
+        headers = {
+            'Authorization': f'token {CURRENT_TOKEN}',
+            'accept': 'application/vnd.github.v3+json',
+        }
+        try:
+            while not get_remaining_api_calls(True):
+                time.sleep(60)
+                headers = {
+                    'Authorization': f'token {CURRENT_TOKEN}',
+                    'accept': 'application/vnd.github.v3+json',
+                }
+            api_call = requests.get(url, headers=headers)
+        except requests.exceptions.ConnectionError:
+            time.sleep(60)
+            return request_to_api(None, url)
 
     return api_call
 
 
-def extract(api_call: requests.Response, to_extract: str | tuple | list, url, index):
+def extract(api_answer: requests.Response, key: str) -> int | dict | list:
     """
     Extract the information from the API.
 
-    :param api_call: The call to the API.
-    :param to_extract: The information we need to extract.
-    :param url: The URL of the API.
-    :param index: The index in the list of Tokens.
+    :param api_answer: The answer from the API.
+    :param key: The information we need to extract.
     :return: The extracted information in a list or dictionary and the index for the API.
-    :rtype: tuple[list | dict | requests.Response, int]
     """
-    i = index
+    if key != "contributors":
+        data = api_answer.json()["data"]["repositoryOwner"]["repository"]
 
-    is_tuple = type(to_extract) is tuple
-    if is_tuple:
-        extracted = {}
+        if key == "versions":
+            final_releases = {}
+            gathered_releases = extract_all(api_answer, key)
+            for release in gathered_releases:
+                try:
+                    tag = release["node"]["tag"]["name"]
+                except TypeError:
+                    tag = None
+                date = datetime.strptime(release["node"]["publishedAt"], "%Y-%m-%dT%H:%M:%SZ")
+                date = date.strftime("%Y-%m-%d %H:%M:%S")
+                final_releases[date] = tag
+            return final_releases
+
+        elif key == "stars":
+            stars = data["stargazerCount"]
+            return stars
+
+        elif key == "watchers":
+            watchers = data["watchers"]["totalCount"]
+            return watchers
+
+        elif key == "forks":
+            forks = data["forks"]["totalCount"]
+            return forks
+
+        elif key == "issues":
+            final_issues = {"open": 0, "closed": 0}
+            gathered_issues = extract_all(api_answer, key)
+            for issue in gathered_issues:
+                if issue["node"]["state"] == "CLOSED":
+                    final_issues["closed"] += 1
+                elif issue["node"]["state"] == "OPEN":
+                    final_issues["open"] += 1
+            return final_issues
+
     else:
         extracted = []
-
-    if api_call.status_code == 200:
-        if ('open', 'closed') == to_extract:
-            extracted["open"] = 0
-            extracted["closed"] = 0
-        for needed in api_call.json():
-            if type(to_extract) is list:
-                return api_call, i
-            if is_tuple:
-                if ('open', 'closed') == to_extract:
-                    if needed['state'] == "closed":
-                        extracted["closed"] += 1
-                    else:
-                        extracted["open"] += 1
-                else:
-                    key = datetime.strptime(needed[to_extract[1]], '%Y-%m-%dT%H:%M:%SZ').strftime('%d/%m/%Y')
-                    value = needed[to_extract[0]]
-                    extracted[key] = value
-            else:
-                extracted.append(needed[to_extract])
-    elif api_call.status_code == 403:
-        message = 'message' in api_call.json().keys()
-        if 'Retry-After' in api_call.headers.keys():
-            while not get_remaining_api_calls():
-                # now = datetime.now()
-                # finish = now + timedelta(seconds=int(api_call.headers['Retry-After']))
-                # finish = finish.strftime('%H:%M:%S')
-                #
-                # logging.info(f"API sleeping {str(int(api_call.headers['Retry-After']))} seconds (finish {finish})")
-                # time.sleep(int(api_call.headers['Retry-After']))
-                time.sleep(30)
-            i = (i + 1) % len(GITHUB_TOKENS)
-            logging.info(f"API switching to {i}")
-        elif message and "Authenticated requests get a higher rate limit." in api_call.json()['message']:
-            pass
-        else:
-            reset = int(api_call.headers['X-RateLimit-Reset'])
-            current = int(time.time())
-            time_for_reset = reset - current
-            if time_for_reset > 0:
-                while not get_remaining_api_calls():
-                    # now = datetime.now()
-                    # # finish = now + timedelta(seconds=int(api_call.headers['Retry-After']))
-                    # finish = now + timedelta(seconds=time_for_reset)
-                    # finish = finish.strftime('%H:%M:%S')
-                    #
-                    # logging.info(f"API sleeping {str(time_for_reset)} seconds (finish {finish})")
-                    # time.sleep(time_for_reset)
-                    time.sleep(30)
-                i = (i + 1) % len(GITHUB_TOKENS)
-                logging.info(f"API switching to {i}")
-        headers = {
-            'Authorization': f'token {GITHUB_TOKENS[i]}',
-            'accept': 'application/vnd.github.v3+json',
-        }
-        api_call = requests.get(url, headers=headers)
-        return extract(api_call, to_extract, url, i)
-
-    return extracted, i
+        for needed in api_answer.json():
+            try:
+                extracted.append(needed["login"])
+            except:
+                print("lol")
+        return extracted
 
 
-def get_remaining_api_calls() -> bool:
+def extract_all(api_answer: requests.Response, key: str) -> list:
+    queries = {
+        "versions": "releases(first: 100, after:{after}) {{ totalCount edges {{ cursor node {{ tag {{ name }} publishedAt }} }} }} ",
+        "issues": "issues(first: 100, after:{after}) {{ totalCount edges {{ cursor node {{ state }} }} }}",
+    }
+    to_extract = {"versions": "releases", "issues": "issues"}
+
+    owner = api_answer.json()["data"]["repositoryOwner"]["login"]
+    repository_name = api_answer.json()["data"]["repositoryOwner"]["repository"]["name"]
+    data = api_answer.json()["data"]["repositoryOwner"]["repository"]
+
+    extracted_data = data[to_extract[key]]
+    total_count = extracted_data["totalCount"]
+    gathered_data = extracted_data["edges"]
+    total_gathered = len(gathered_data)
+    while total_gathered < total_count:
+        last_gathered_cursor = f'"{extracted_data["edges"][-1]["cursor"]}"'
+        query = {'query': f"""
+        {{
+          repositoryOwner(login: "{owner}") {{
+            login
+            repository(name: "{repository_name}") {{
+              name
+              {queries[to_extract[key]].format(after=last_gathered_cursor)}
+            }}
+          }}
+        }}
+        """}
+        new_api_answer = request_to_api(query)
+        gathered_data += new_api_answer.json()["data"]["repositoryOwner"]["repository"][to_extract[key]]["edges"]
+
+        total_gathered = len(gathered_data)
+
+    return gathered_data
+
+
+def get_remaining_api_calls(rest: bool = False) -> bool:
     """
     Tells if API calls can be made or not.
+    Always switch to the first token with remaining calls.
 
+    :param rest: Indicate if we check for the REST of GraphQL API.
     :return: True if there can be API requests. Otherwise, False.
     """
-    for token in GITHUB_TOKENS:
-        headers = {
-            'Authorization': f'token {token}',
-            'accept': 'application/vnd.github.v3+json',
-        }
-        api_call = requests.get("http://api.github.com/rate_limit", headers=headers)
-        if int(api_call.headers['X-RateLimit-Remaining']) > 0:
-            return True
+    global CURRENT_TOKEN
+
+    if not rest:
+        url = "https://api.github.com/graphql"
+        for token in GITHUB_TOKENS:
+            headers = {
+                'Authorization': f'token {token}',
+            }
+            query = {"query": "{ rateLimit { remaining resetAt } }"}
+            api_call = requests.post(url, json=query, headers=headers)
+            rate_limit = api_call.json()["data"]["rateLimit"]
+
+            if rate_limit["remaining"] > 0:
+                CURRENT_TOKEN = token
+                return True
+    else:
+        for token in GITHUB_TOKENS:
+            headers = {
+                'Authorization': f'token {token}',
+                'accept': 'application/vnd.github.v3+json',
+            }
+            api_call = requests.get("http://api.github.com/rate_limit", headers=headers)
+            if int(api_call.headers['X-RateLimit-Remaining']) > 0:
+                CURRENT_TOKEN = token
+                return True
     return False
 
 
