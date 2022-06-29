@@ -6,18 +6,18 @@ import os
 run = True
 
 fetch_categories = {
-    "versions": False,
-    "dependents": False,
+    "versions": True,
+    "dependents": True,
     "contributors": True,
-    "stars": False,
-    "watchers": False,
-    "forks": False,
-    "issues": False,
+    "stars": True,
+    "watchers": True,
+    "forks": True,
+    "issues": True,
 }
 
 # used for debugging
 override_save_categories = {
-    "run": True,
+    "run": False,
     "categories": ["code-review"],
 }
 
