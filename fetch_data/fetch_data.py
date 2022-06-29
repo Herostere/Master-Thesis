@@ -261,7 +261,10 @@ def insert_actions(action_data: dict, cursor: sqlite3.Cursor, owner: str, reposi
     INSERT INTO actions (category, forks, name, owner, repository, stars, verified, watchers)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?);
     """
-    cursor.execute(insert_main, (category, forks, name, owner, repository, stars, verified, watchers))
+    try:
+        cursor.execute(insert_main, (category, forks, name, owner, repository, stars, verified, watchers))
+    except sqlite3.IntegrityError:
+        pass
 
 
 def insert_contributors(action_data: dict, cursor: sqlite3.Cursor, owner: str, repository: str) -> None:
@@ -279,7 +282,10 @@ def insert_contributors(action_data: dict, cursor: sqlite3.Cursor, owner: str, r
         INSERT INTO contributors (owner, repository, contributor)
         VALUES (?, ?, ?);
         """
-        cursor.execute(insert_contributor, (owner, repository, contributor))
+        try:
+            cursor.execute(insert_contributor, (owner, repository, contributor))
+        except sqlite3.IntegrityError:
+            pass
 
 
 def insert_dependents(action_data: dict, cursor: sqlite3.Cursor, owner: str, repository: str) -> None:
@@ -298,7 +304,10 @@ def insert_dependents(action_data: dict, cursor: sqlite3.Cursor, owner: str, rep
     INSERT INTO dependents (owner, repository, number, package_url)
     VALUES (?, ?, ?, ?);
     """
-    cursor.execute(insert_dependent, (owner, repository, number, package_url))
+    try:
+        cursor.execute(insert_dependent, (owner, repository, number, package_url))
+    except sqlite3.IntegrityError:
+        pass
 
 
 def insert_issues(action_data: dict, cursor: sqlite3.Cursor, owner: str, repository: str) -> None:
@@ -317,7 +326,10 @@ def insert_issues(action_data: dict, cursor: sqlite3.Cursor, owner: str, reposit
     INSERT INTO issues (owner, repository, closed, open)
     VALUES (?, ?, ?, ?);
     """
-    cursor.execute(insert_issue, (owner, repository, closed_issues, open_issues))
+    try:
+        cursor.execute(insert_issue, (owner, repository, closed_issues, open_issues))
+    except sqlite3.IntegrityError:
+        pass
 
 
 def insert_versions(action_data: dict, cursor: sqlite3.Cursor, owner: str, repository: str) -> None:
@@ -331,18 +343,16 @@ def insert_versions(action_data: dict, cursor: sqlite3.Cursor, owner: str, repos
     """
     versions = action_data["versions"]
     for version in versions:
-        check_already_in = """
-        SELECT owner, repository, date, version FROM versions 
-        WHERE owner=? AND repository=? AND date=? AND version=?;
-        """
         date = version[0]
         tag = version[1]
-        if not cursor.execute(check_already_in, (owner, repository, date, tag)).fetchall():
-            insert_version = """
-            INSERT INTO versions (owner, repository, date, version)
-            VALUES (?, ?, ?, ?);
-            """
+        insert_version = """
+        INSERT INTO versions (owner, repository, date, version)
+        VALUES (?, ?, ?, ?);
+        """
+        try:
             cursor.execute(insert_version, (owner, repository, date, tag))
+        except sqlite3.IntegrityError:
+            pass
 
 
 def get_max_page(category: str) -> int:
