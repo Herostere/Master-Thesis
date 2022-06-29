@@ -10,13 +10,13 @@ from lxml import html, etree
 from ratelimit import limits, sleep_and_retry
 
 import fetch_data_config as config
+import json
 import logging
 import numpy
 import os
 import re
 import requests
 import requests.adapters
-import sqlite3
 import threading
 import time
 
@@ -80,24 +80,6 @@ def get_request(function: str, url: str) -> requests.Response | None:
     while True:
         try:
             request = SESSION.get(url)
-            T_R += 1
-            counter = 10
-            while counter > 0:
-                if request.status_code != 200:
-                    if request.status_code == 429:
-                        logging.info(">" + str(T_R))
-                        logging.info(
-                            f"{function} - sleeping " + str(int(request.headers["Retry-After"]) + 0.3) + " seconds")
-                        time.sleep(int(request.headers["Retry-After"]) + 0.3)
-                        logging.info(f"{function} - sleeping finished")
-                        request = SESSION.get(url)
-                        T_R += 1
-                    if request.status_code == 404 and counter == 1:
-                        return None
-                    else:
-                        request = SESSION.get(url)
-                        T_R += 1
-                counter -= 1
             break
         except requests.ConnectionError:
             SESSION.close()
@@ -108,9 +90,20 @@ def get_request(function: str, url: str) -> requests.Response | None:
             adapter = requests.adapters.HTTPAdapter(pool_connections=threads, pool_maxsize=threads)
             SESSION.mount("https://", adapter)
             SESSION.mount("http://", adapter)
+    T_R += 1
 
-    if T_R % 350 == 0:
-        logging.info(f"request {T_R}")
+    logging.info(f"request {T_R}")
+
+    if request.status_code != 200:
+        if request.status_code == 429:
+            logging.info(">" + str(T_R))
+            logging.info(f"{function} - sleeping " + str(int(request.headers["Retry-After"]) + 0.3) + " seconds")
+            time.sleep(int(request.headers["Retry-After"]) + 0.3)
+            logging.info(f"{function} - sleeping finished")
+            return get_request(function, url)
+        if request.status_code == 404:
+            return None
+        T_R += 1
 
     return request
 
@@ -136,71 +129,15 @@ def fetch_data_multithread() -> None:
     global number_of_threads
     categories = numpy.load("categories.npy")
 
-    sqlite_connection = sqlite3.connect("outputs/actions_data.db")
-    sqlite_cursor = sqlite_connection.cursor()
-
-    sqlite_create_main_table = """
-    CREATE TABLE IF NOT EXISTS actions (
-        category TEXT,
-        forks INTEGER,
-        name TEXT,
-        owner TEXT,
-        repository TEXT,
-        stars INTEGER,
-        verified INTEGER,
-        watchers INTEGER,
-        PRIMARY KEY (owner, repository)
-    );
-    """
-    sqlite_create_contributors_table = """
-    CREATE TABLE IF NOT EXISTS contributors (
-        owner TEXT,
-        repository TEXT,
-        contributor TEXT,
-        PRIMARY KEY (owner, repository, contributor),
-        FOREIGN KEY (owner, repository) REFERENCES actions (owner, repository)
-    );
-    """
-    sqlite_create_dependents_table = """
-    CREATE TABLE IF NOT EXISTS dependents (
-        owner TEXT,
-        repository TEXT,
-        number INTEGER,
-        package_url TEXT,
-        PRIMARY KEY (owner, repository),
-        FOREIGN KEY (owner, repository) REFERENCES actions (owner, repository)
-    );
-    """
-    sqlite_create_issues_table = """
-    CREATE TABLE IF NOT EXISTS issues (
-        owner TEXT,
-        repository TEXT,
-        closed INTEGER,
-        open INTEGER,
-        PRIMARY KEY (owner, repository),
-        FOREIGN KEY (owner, repository) REFERENCES actions (owner, repository)
-    );
-    """
-    sqlite_create_versions_table = """
-    CREATE TABLE IF NOT EXISTS versions (
-        owner TEXT,
-        repository TEXT,
-        date TEXT,
-        version TEXT,
-        PRIMARY KEY (owner, repository, date, version),
-        FOREIGN KEY (owner, repository) REFERENCES actions (owner, repository)
-    );
-    """
-
-    sqlite_commands = [sqlite_create_main_table, sqlite_create_contributors_table, sqlite_create_dependents_table,
-                       sqlite_create_issues_table, sqlite_create_versions_table]
-    for command in sqlite_commands:
-        sqlite_cursor.execute(command)
-
-    sqlite_connection.commit()
-
     logging.info("Fetching the data")
+
     for category in categories:
+        try:
+            with open("outputs/actions_data.json", 'r') as f1:
+                save_data = json.load(f1)
+        except FileNotFoundError:
+            save_data = json.loads('{}')
+
         logging.info(f"***** {category} *****")
 
         max_page_number = get_max_page(category)
@@ -213,14 +150,11 @@ def fetch_data_multithread() -> None:
 
         threads = []
 
-        already_fetched = sqlite_cursor.execute("SELECT owner, repository, category FROM actions;").fetchall()
-        save_data = {}
-
         if number_of_threads > 0:
             for i in range(0, number_of_threads):
                 list_of_pages = [x for x in range(1, max_page_number + 1) if x % number_of_threads == i]
                 threads.append(threading.Thread(target=thread_data,
-                                                args=(list_of_pages, category, save_data, already_fetched),
+                                                args=(list_of_pages, category, save_data,),
                                                 name=f"thread_{i}"))
 
             for thread in threads:
@@ -229,130 +163,8 @@ def fetch_data_multithread() -> None:
             for thread in threads:
                 thread.join()
 
-        for action in save_data:
-            owner = save_data[action]["owner"]
-            repository = save_data[action]["repository"]
-            insert_actions(save_data[action], sqlite_cursor, owner, repository)
-            insert_contributors(save_data[action], sqlite_cursor, owner, repository)
-            insert_dependents(save_data[action], sqlite_cursor, owner, repository)
-            insert_issues(save_data[action], sqlite_cursor, owner, repository)
-            insert_versions(save_data[action], sqlite_cursor, owner, repository)
-            sqlite_connection.commit()
-
-    sqlite_connection.close()
-
-
-def insert_actions(action_data: dict, cursor: sqlite3.Cursor, owner: str, repository: str) -> None:
-    """
-    Insert basic information in the database.
-
-    :param action_data: The data to insert.
-    :param cursor: The cursor used to add the data.
-    :param owner: The name of the owner.
-    :param repository: The name of the repository.
-    """
-    category = action_data["category"]
-    forks = action_data["forks"]
-    name = action_data["name"]
-    stars = action_data["stars"]
-    verified = 1 if action_data["verified"] else 0
-    watchers = action_data["watchers"]
-    insert_main = """
-    INSERT INTO actions (category, forks, name, owner, repository, stars, verified, watchers)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?);
-    """
-    try:
-        cursor.execute(insert_main, (category, forks, name, owner, repository, stars, verified, watchers))
-    except sqlite3.IntegrityError:
-        pass
-
-
-def insert_contributors(action_data: dict, cursor: sqlite3.Cursor, owner: str, repository: str) -> None:
-    """
-    Insert the contributors data in the database.
-
-    :param action_data: The data to insert.
-    :param cursor: The cursor used to add the data.
-    :param owner: The name of the owner.
-    :param repository: The name of the repository.
-    """
-    contributors = action_data["contributors"]
-    for contributor in contributors:
-        insert_contributor = """
-        INSERT INTO contributors (owner, repository, contributor)
-        VALUES (?, ?, ?);
-        """
-        try:
-            cursor.execute(insert_contributor, (owner, repository, contributor))
-        except sqlite3.IntegrityError:
-            pass
-
-
-def insert_dependents(action_data: dict, cursor: sqlite3.Cursor, owner: str, repository: str) -> None:
-    """
-    Insert dependents data in the database.
-
-    :param action_data: The data to insert.
-    :param cursor: The cursor used to add the data.
-    :param owner: The name of the owner.
-    :param repository: The name of the repository.
-    """
-    dependents = action_data["dependents"]
-    number = dependents["number"]
-    package_url = dependents["package_url"]
-    insert_dependent = """
-    INSERT INTO dependents (owner, repository, number, package_url)
-    VALUES (?, ?, ?, ?);
-    """
-    try:
-        cursor.execute(insert_dependent, (owner, repository, number, package_url))
-    except sqlite3.IntegrityError:
-        pass
-
-
-def insert_issues(action_data: dict, cursor: sqlite3.Cursor, owner: str, repository: str) -> None:
-    """
-    Insert issues data in the database.
-
-    :param action_data: The data to insert.
-    :param cursor: The cursor used to add the data.
-    :param owner: The name of the owner.
-    :param repository: The name of the repository.
-    """
-    issues = action_data["issues"]
-    closed_issues = issues["closed"]
-    open_issues = issues["open"]
-    insert_issue = """
-    INSERT INTO issues (owner, repository, closed, open)
-    VALUES (?, ?, ?, ?);
-    """
-    try:
-        cursor.execute(insert_issue, (owner, repository, closed_issues, open_issues))
-    except sqlite3.IntegrityError:
-        pass
-
-
-def insert_versions(action_data: dict, cursor: sqlite3.Cursor, owner: str, repository: str) -> None:
-    """
-    Insert versions data in the database.
-
-    :param action_data: The data to insert.
-    :param cursor: The cursor used to add the data.
-    :param owner: The name of the owner.
-    :param repository: The name of the repository.
-    """
-    versions = action_data["versions"]
-    for version in versions:
-        date = version[0]
-        tag = version[1]
-        insert_version = """
-        INSERT INTO versions (owner, repository, date, version)
-        VALUES (?, ?, ?, ?);
-        """
-        try:
-            cursor.execute(insert_version, (owner, repository, date, tag))
-        except sqlite3.IntegrityError:
-            pass
+        with open("outputs/actions_data.json", 'w') as f2:
+            json.dump(save_data, f2, sort_keys=True, indent=4)
 
 
 def get_max_page(category: str) -> int:
@@ -396,7 +208,7 @@ def get_number_of_threads(max_page_number: int) -> int:
         # the point here is not to allow more threads then the number of pages
         if num_of_threads > max_page_number:
             num_of_threads = max_page_number
-        if num_of_threads < 1:
+        elif num_of_threads < 1:
             num_of_threads = 1
     except ValueError:
         logging.error("Bad number of threads in configuration file.\nBad value is " + num_of_threads)
@@ -406,7 +218,7 @@ def get_number_of_threads(max_page_number: int) -> int:
     return num_of_threads
 
 
-def thread_data(pages: list, category: str, save_data: dict, already_fetched: list) -> None:
+def thread_data(pages: list, category: str, save_data: dict) -> None:
     """
     For each Action on a category:
         - Check if it has a valid MP page.
@@ -415,8 +227,7 @@ def thread_data(pages: list, category: str, save_data: dict, already_fetched: li
 
     :param pages: The list of pages on which fetch the actions names.
     :param category: The category of GitHub Actions.
-    :param save_data: The data to save in the database.
-    :param already_fetched: The already fetched data.
+    :param save_data: The JSON data.
     """
     actions_names_pattern = '<h3 class="h4">.*</h3>'
     actions_names_pattern_compiled = re.compile(actions_names_pattern)
@@ -428,6 +239,7 @@ def thread_data(pages: list, category: str, save_data: dict, already_fetched: li
 
         actions_names_ugly = actions_names_pattern_compiled.findall(request.text)
 
+        # Below is used to format the name as in the marketplace urls.
         for j in range(0, len(actions_names_ugly)):
             action_name = format_action_name(actions_names_ugly[j])
             mp_page, url = test_mp_page(action_name)
@@ -435,7 +247,11 @@ def thread_data(pages: list, category: str, save_data: dict, already_fetched: li
                 owner = get_owner(url)
                 repository_name = get_repo_name(url)
                 pretty_name = f'{owner}/{repository_name}'
-                if (owner, repository_name, category) not in already_fetched:
+                already_fetched = save_data.keys()
+                if pretty_name in already_fetched and save_data[pretty_name]["category"] == "recently-added":
+                    if category != "recently-added":
+                        save_data[pretty_name]["category"] = category
+                elif pretty_name not in already_fetched:
                     data = test_link(url)
                     if data:
                         save_data[pretty_name] = {}
@@ -582,7 +398,7 @@ def get_api(key: str, owner: str, repo_name: str) -> int | dict | list:
              the index for the next API call.
     """
     if key != "contributors":
-        queries = {"versions": "releases(first: 100) { totalCount edges { cursor node { tag { name } publishedAt } } }",
+        queries = {"versions": "releases(first: 100) { totalCount edges { cursor node { tag { name } publishedAt } } } ",
                    "stars": "stargazerCount",
                    "watchers": "watchers { totalCount }",
                    "forks": "forks { totalCount }",
@@ -633,29 +449,30 @@ def request_to_api(query: dict | None, url: str = None) -> requests.Response:
     """
     if query:
         url = "https://api.github.com/graphql"
+        headers = {
+            'Authorization': f'token {CURRENT_TOKEN}',
+        }
 
         try:
             while not get_remaining_api_calls():
                 time.sleep(60)
-            headers = {
-                'Authorization': f'token {CURRENT_TOKEN}',
-            }
             api_call = requests.post(url, json=query, headers=headers)
-            if "errors" in api_call.json().keys():
-                return request_to_api(query, url)
-
         except requests.exceptions.ConnectionError:
             time.sleep(60)
             return request_to_api(query)
 
     else:
+        headers = {
+            'Authorization': f'token {CURRENT_TOKEN}',
+            'accept': 'application/vnd.github.v3+json',
+        }
         try:
             while not get_remaining_api_calls(True):
                 time.sleep(60)
-            headers = {
-                'Authorization': f'token {CURRENT_TOKEN}',
-                'accept': 'application/vnd.github.v3+json',
-            }
+                headers = {
+                    'Authorization': f'token {CURRENT_TOKEN}',
+                    'accept': 'application/vnd.github.v3+json',
+                }
             api_call = requests.get(url, headers=headers)
         except requests.exceptions.ConnectionError:
             time.sleep(60)
@@ -676,7 +493,7 @@ def extract(api_answer: requests.Response, key: str) -> int | dict | list:
         data = api_answer.json()["data"]["repositoryOwner"]["repository"]
 
         if key == "versions":
-            final_releases = []
+            final_releases = {}
             gathered_releases = extract_all(api_answer, key)
             for release in gathered_releases:
                 try:
@@ -685,7 +502,7 @@ def extract(api_answer: requests.Response, key: str) -> int | dict | list:
                     tag = None
                 date = datetime.strptime(release["node"]["publishedAt"], "%Y-%m-%dT%H:%M:%SZ")
                 date = date.strftime("%Y-%m-%d %H:%M:%S")
-                final_releases.append((date, tag))
+                final_releases[date] = tag
             return final_releases
 
         elif key == "stars":
@@ -713,22 +530,16 @@ def extract(api_answer: requests.Response, key: str) -> int | dict | list:
     else:
         extracted = []
         for needed in api_answer.json():
-            extracted.append(needed["login"])
+            try:
+                extracted.append(needed["login"])
+            except:
+                print("lol")
         return extracted
 
 
 def extract_all(api_answer: requests.Response, key: str) -> list:
-    """
-    Extract the data when there is possibly multiple pages of answer.
-
-    :param api_answer: The answer of the API call.
-    :param key: The key for the wanted data.
-    """
-    version_query = """
-    releases(first: 100, after:{after}) {{ totalCount edges {{ cursor node {{ tag {{ name }} publishedAt }} }} }}
-    """
     queries = {
-        "versions": version_query,
+        "versions": "releases(first: 100, after:{after}) {{ totalCount edges {{ cursor node {{ tag {{ name }} publishedAt }} }} }} ",
         "issues": "issues(first: 100, after:{after}) {{ totalCount edges {{ cursor node {{ state }} }} }}",
     }
     to_extract = {"versions": "releases", "issues": "issues"}
@@ -749,7 +560,7 @@ def extract_all(api_answer: requests.Response, key: str) -> list:
             login
             repository(name: "{repository_name}") {{
               name
-              {queries[key].format(after=last_gathered_cursor)}
+              {queries[to_extract[key]].format(after=last_gathered_cursor)}
             }}
           }}
         }}
@@ -907,10 +718,13 @@ if __name__ == "__main__":
         if run_fetch_data:
             fetch_data_multithread()
 
-            sqlite_connection_main = sqlite3.connect("outputs/actions_data.db")
-            sqlite_cursor_main = sqlite_connection_main.cursor()
-            number_of_actions = sqlite_cursor_main.execute("SELECT COUNT(DISTINCT owner) FROM actions;").fetchone()[0]
-            sqlite_connection_main.close()
+            try:
+                with open("outputs/actions_data.json", 'r') as f:
+                    load_data = json.load(f)
+            except FileNotFoundError:
+                load_data = json.loads('{}')
+
+            number_of_actions = len(load_data.keys())
 
             logging.info(f"Number of fetched actions: {number_of_actions}")
         else:
