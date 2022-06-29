@@ -80,6 +80,24 @@ def get_request(function: str, url: str) -> requests.Response | None:
     while True:
         try:
             request = SESSION.get(url)
+            T_R += 1
+            counter = 10
+            while counter > 0:
+                if request.status_code != 200:
+                    if request.status_code == 429:
+                        logging.info(">" + str(T_R))
+                        logging.info(
+                            f"{function} - sleeping " + str(int(request.headers["Retry-After"]) + 0.3) + " seconds")
+                        time.sleep(int(request.headers["Retry-After"]) + 0.3)
+                        logging.info(f"{function} - sleeping finished")
+                        request = SESSION.get(url)
+                        T_R += 1
+                    if request.status_code == 404 and counter == 1:
+                        return None
+                    else:
+                        request = SESSION.get(url)
+                        T_R += 1
+                counter -= 1
             break
         except requests.ConnectionError:
             SESSION.close()
@@ -90,21 +108,9 @@ def get_request(function: str, url: str) -> requests.Response | None:
             adapter = requests.adapters.HTTPAdapter(pool_connections=threads, pool_maxsize=threads)
             SESSION.mount("https://", adapter)
             SESSION.mount("http://", adapter)
-    T_R += 1
 
     if T_R % 350 == 0:
         logging.info(f"request {T_R}")
-
-    if request.status_code != 200:
-        if request.status_code == 429:
-            logging.info(">" + str(T_R))
-            logging.info(f"{function} - sleeping " + str(int(request.headers["Retry-After"]) + 0.3) + " seconds")
-            time.sleep(int(request.headers["Retry-After"]) + 0.3)
-            logging.info(f"{function} - sleeping finished")
-            return get_request(function, url)
-        if request.status_code == 404:
-            return None
-        T_R += 1
 
     return request
 
