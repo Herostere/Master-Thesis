@@ -396,7 +396,7 @@ def get_number_of_threads(max_page_number: int) -> int:
         # the point here is not to allow more threads then the number of pages
         if num_of_threads > max_page_number:
             num_of_threads = max_page_number
-        elif num_of_threads < 1:
+        if num_of_threads < 1:
             num_of_threads = 1
     except ValueError:
         logging.error("Bad number of threads in configuration file.\nBad value is " + num_of_threads)
