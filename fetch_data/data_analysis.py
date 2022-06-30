@@ -49,7 +49,7 @@ def market_growing_over_time(category: str = None) -> None:
         plot_values = []
         for file_name in files_names_main:
             query = """
-            SELECT COUNT(owner) FROM actions WHERE category=?;
+            SELECT COUNT(repository) FROM actions WHERE category=?;
             """
             sqlite_connection = sqlite3.connect(f"{files_path_main}/{file_name}")
             sqlite_cursor = sqlite_connection.cursor()
@@ -74,7 +74,7 @@ def market_growing_over_time(category: str = None) -> None:
         show_bar_plots(plot_keys, plot_values, "v", "Growing of All Categories")
 
 
-def show_bar_plots(x_axis: list, y_axis: list, orient: str, title: str) -> None:
+def show_bar_plots(x_axis: list, y_axis: list, orient: str, title: str, text_orient: bool = None) -> None:
     """
     Show a bar plot.
 
@@ -82,6 +82,7 @@ def show_bar_plots(x_axis: list, y_axis: list, orient: str, title: str) -> None:
     :param y_axis: The list of values for the y axis.
     :param orient: The plot orientation.
     :param title: The title of the plot.
+    :param text_orient: True if the x axis text should be vertical.
     """
     bar_plot = seaborn.barplot(x=x_axis, y=y_axis, orient=orient, color="steelblue")
     bar_plot.bar_label(bar_plot.containers[0])
@@ -94,6 +95,8 @@ def show_bar_plots(x_axis: list, y_axis: list, orient: str, title: str) -> None:
     #     new_width = width / 1.5
     #     elem.set_width(new_width)
     #     elem.set_x(center - new_width / 2)
+    if text_orient:
+        plt.xticks(rotation=90)
     plt.show()
 
 
@@ -105,12 +108,15 @@ def compute_actions_per_categories() -> list:
     categories.
     """
     actions_per_categories_list = []
-    for p_category in categories_main:
-        number = 0
-        for action in loaded_data:
-            if loaded_data[action]["category"] == p_category:
-                number += 1
-        actions_per_categories_list.append(number)
+    for category in categories_main:
+        query = """
+        SELECT COUNT(repository) FROM actions WHERE category=?;
+        """
+        last_file_name = files_names_main[-1]
+        sqlite_connection = sqlite3.connect(f"{files_path_main}/{last_file_name}")
+        sqlite_cursor = sqlite_connection.cursor()
+        number_of_actions = sqlite_cursor.execute(query, (category,)).fetchone()[0]
+        actions_per_categories_list.append(number_of_actions)
 
     return actions_per_categories_list
 
@@ -119,9 +125,10 @@ def actions_diversity() -> None:
     """
     Show the plot that represent the diversity of the actions.
     """
-    print(max(actions_per_categories))
-    print(round(statistics.mean(actions_per_categories)))
-    show_bar_plots(actions_per_categories, categories_main, "h", "Actions Diversity")
+    print(max(actions_per_categories_main))
+    print(statistics.median(actions_per_categories_main))
+    print(round(statistics.mean(actions_per_categories_main)))
+    show_bar_plots(categories_main, actions_per_categories_main, "v", "Actions Diversity", True)
 
 
 def most_commonly_proposed() -> None:
@@ -151,7 +158,7 @@ def most_commonly_proposed() -> None:
     categories_100 = ""
     categories_0 = ""
 
-    for i, number in enumerate(actions_per_categories):
+    for i, number in enumerate(actions_per_categories_main):
         if number > 700:
             sections_categories["> 700"] += 1
             categories_700 += f"{categories_main[i]}, "
@@ -1062,9 +1069,27 @@ if __name__ == "__main__":
     files_names_main = [file for file in os.listdir(files_path_main) if ".db" in file]
     files_names_main.sort()
 
-    categories_main = ['api-management', 'chat', 'code-quality', 'code-review', 'continuous-integration',
-                  'dependency-management', 'deployment', 'ides', 'learning', 'localization', 'mobile', 'monitoring',
-                  'project-management', 'publishing', 'recently-added', 'security', 'support', 'testing', 'utilities']
+    categories_main = [
+        'api-management',
+        'chat',
+        'code-quality',
+        'code-review',
+        'continuous-integration',
+        'dependency-management',
+        'deployment',
+        'ides',
+        'learning',
+        'localization',
+        'mobile',
+        'monitoring',
+        'project-management',
+        'publishing',
+        # 'recently-added',
+        'security',
+        'support',
+        'testing',
+        'utilities'
+    ]
 
     samples_to_make = config.samples_to_make
 
@@ -1074,13 +1099,15 @@ if __name__ == "__main__":
         market_growing_over_time()
 
     if config.actions_diversity or config.most_commonly_proposed:
-        actions_per_categories = compute_actions_per_categories()
+        actions_per_categories_main = compute_actions_per_categories()
 
     if config.actions_diversity:
         actions_diversity()
 
     if config.most_commonly_proposed:
         most_commonly_proposed()
+
+    # ------------------------------------------------------------------------------------------------------------------
 
     if config.actions_technical_lag:
         actions_technical_lag()
