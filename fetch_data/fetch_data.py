@@ -81,7 +81,7 @@ def get_request(function: str, url: str) -> requests.Response | None:
         try:
             request = SESSION.get(url)
             T_R += 1
-            counter = 10
+            counter = 50
             while counter > 0:
                 if request.status_code != 200:
                     if request.status_code == 429:
@@ -95,6 +95,7 @@ def get_request(function: str, url: str) -> requests.Response | None:
                     if request.status_code == 404 and counter == 1:
                         return None
                     else:
+                        time.sleep(1)
                         request = SESSION.get(url)
                         T_R += 1
                 counter -= 1
@@ -919,14 +920,3 @@ if __name__ == "__main__":
         SESSION.close()
 
     logging.info(f"--- {time.time() - start_time} seconds ---")
-
-"""
-To compute the sample size:
-    1) compute the sample size for an infinite population
-    2) adjust the sample size for the finite population
-    
-    1) s = (z**2) * p * (1 - p) / (m**2) with z = 1.96, p = 0.5 and m = 0.05
-    2) s2 = s / (1 + ((s - 1) / population_size))
-    
-    return math.ceil(s2)
-"""
