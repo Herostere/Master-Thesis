@@ -1,7 +1,7 @@
 """
 Configuration file for "data_analysis.py"
 """
-files_path = "/home/samsepiol/Documents/Master-Thesis/fetch_data/outputs"
+files_path = r"D:\Master-Thesis\fetch_data\outputs"
 
 samples_to_make = 500
 
@@ -10,7 +10,7 @@ ymls_content = False
 market_growing_over_time = False  # DONE
 actions_diversity = False  # DONE
 most_commonly_proposed = False  # DONE
-actions_technical_lag = True  # TODO
+actions_technical_lag = False  # DONE  WARNING SOME REPO START AT VERSION (EXAMPLE) 6.0.0
 actions_popularity = False  # TODO
 multiple_actions = False  # TODO
 actions_issues = False  # TODO

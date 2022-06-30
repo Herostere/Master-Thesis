@@ -189,6 +189,7 @@ def most_commonly_proposed() -> None:
     print(f'The categories "{", ".join(categories_0)}" ({len(categories_0)}) have more than 0 actions.')
 
 
+# TODO check this function
 def actions_technical_lag() -> None:
     """
     Determine the technical lag of the Actions.
@@ -215,57 +216,62 @@ def actions_technical_lag() -> None:
         minor_updates_lag = []
         patch_updates_lag = []
 
-        previous_date = datetime.strptime(repository_date_and_versions[0][0], "%Y-%m-%d %H:%M:%S")
-        previous_version = packaging_version.parse(repository_date_and_versions[0][1])
-        previous_major = previous_version.major
-        previous_minor = previous_version.minor
-        previous_patch = previous_version.micro
+        previous_major_date = datetime.strptime(repository_date_and_versions[0][0], "%Y-%m-%d %H:%M:%S")
+        previous_minor_date = datetime.strptime(repository_date_and_versions[0][0], "%Y-%m-%d %H:%M:%S")
+        previous_patch_date = datetime.strptime(repository_date_and_versions[0][0], "%Y-%m-%d %H:%M:%S")
+        previous_version = packaging_version.parse(str(repository_date_and_versions[0][1]))
+        try:
+            previous_major = previous_version.major
+            previous_minor = previous_version.minor
+            previous_patch = previous_version.micro
+        except AttributeError:
+            continue
 
         for date_version in repository_date_and_versions[1:]:
             current_date = datetime.strptime(date_version[0], "%Y-%m-%d %H:%M:%S")
-            current_version = packaging_version.parse(date_version[1])
-            current_major = current_version.major
-            current_minor = current_version.minor
-            current_patch = current_version.micro
+            current_version = packaging_version.parse(str(date_version[1]))
+            try:
+                current_major = current_version.major
+                current_minor = current_version.minor
+                current_patch = current_version.micro
+            except AttributeError:
+                continue
 
-            seconds_elapsed = (current_date - previous_date).total_seconds()
             if current_major > previous_major:
+                seconds_elapsed = (current_date - previous_major_date).days
                 major_updates_lag.append(seconds_elapsed)
-                previous_date = current_date
+                previous_major_date = current_date
                 previous_major = current_major
                 previous_minor = current_minor
                 previous_patch = current_patch
             elif current_major == previous_major and current_minor > previous_minor:
+                seconds_elapsed = (current_date - previous_minor_date).days
                 minor_updates_lag.append(seconds_elapsed)
-                previous_date = current_date
+                previous_minor_date = current_date
                 previous_minor = current_minor
                 previous_patch = current_patch
             elif current_major == previous_major and current_minor == previous_minor and current_patch > previous_patch:
+                seconds_elapsed = (current_date - previous_patch_date).days
                 patch_updates_lag.append(seconds_elapsed)
-                previous_date = current_date
+                previous_patch_date = current_date
                 previous_patch = current_patch
 
-        overall_major_updates_lag.append(major_updates_lag)
-        overall_minor_updates_lag.append(minor_updates_lag)
-        overall_patch_updates_lag.append(patch_updates_lag)
+        for element in major_updates_lag:
+            overall_major_updates_lag.append(element)
+        for element in minor_updates_lag:
+            overall_minor_updates_lag.append(element)
+        for element in patch_updates_lag:
+            overall_patch_updates_lag.append(element)
 
     sqlite_connection.close()
 
-    # print(statistics.median(major_mean_days))
-    # print(f"Number of days between major versions (mean): {round(statistics.mean(major_mean_days))}")
-    # print(numpy.percentile(major_mean_days, 25))
-    # print(numpy.percentile(major_mean_days, 75))
-    # print("-" * 10)
-    # print(statistics.median(minor_mean_days))
-    # print(f"Number of days between minor versions (mean): {round(statistics.mean(minor_mean_days))}")
-    # print(numpy.percentile(minor_mean_days, 25))
-    # print(numpy.percentile(minor_mean_days, 75))
-    # print("-" * 10)
-    # print(statistics.median(micro_mean_days))
-    # print(f"Number of days between patch versions (mean): {round(statistics.mean(micro_mean_days))}")
-    # print(numpy.percentile(micro_mean_days, 25))
-    # print(numpy.percentile(micro_mean_days, 75))
-    # print("-" * 10)
+    overall_median_major_updates_lag = statistics.median(overall_major_updates_lag)
+    overall_median_minor_updates_lag = statistics.median(overall_minor_updates_lag)
+    overall_median_patch_updates_lag = statistics.median(overall_patch_updates_lag)
+
+    print(overall_median_major_updates_lag)
+    print(overall_median_minor_updates_lag)
+    print(overall_median_patch_updates_lag)
 
 
 def compute_sample_size(population_size: int) -> int:
