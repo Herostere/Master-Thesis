@@ -192,10 +192,10 @@ def fetch_data_multithread() -> None:
     );
     """
 
-    sqlite_commands = [sqlite_create_main_table, sqlite_create_contributors_table, sqlite_create_dependents_table,
-                       sqlite_create_issues_table, sqlite_create_versions_table]
-    for command in sqlite_commands:
-        sqlite_cursor.execute(command)
+    sqlite_queries = [sqlite_create_main_table, sqlite_create_contributors_table, sqlite_create_dependents_table,
+                      sqlite_create_issues_table, sqlite_create_versions_table]
+    for query in sqlite_queries:
+        sqlite_cursor.execute(query)
 
     sqlite_connection.commit()
 
