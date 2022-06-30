@@ -909,7 +909,7 @@ if __name__ == "__main__":
 
             sqlite_connection_main = sqlite3.connect("outputs/actions_data.db")
             sqlite_cursor_main = sqlite_connection_main.cursor()
-            number_of_actions = sqlite_cursor_main.execute("SELECT COUNT(DISTINCT owner) FROM actions;").fetchone()[0]
+            number_of_actions = sqlite_cursor_main.execute("SELECT COUNT(owner) FROM actions;").fetchone()[0]
             sqlite_connection_main.close()
 
             logging.info(f"Number of fetched actions: {number_of_actions}")

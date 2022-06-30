@@ -1,25 +1,7 @@
 """
 Configuration file for "data_analysis.py"
 """
-file_name = "outputs/actions_data_30_05_2022.json"
-old_files_names = [
-    # "outputs/actions_data_10_03_2022.json",
-    # "outputs/actions_data_16_05_2022.json",
-    "outputs/actions_data_25_03_2022.json",
-    "outputs/actions_data_13_04_2022.json",
-    "outputs/actions_data_29_04_2022.json",
-    "outputs/actions_data_17_05_2022.json",
-]
-
-grow = {
-    # "10/03/2022": 0,
-    "25/03/2022": 0,
-    "13/04/2022": 0,
-    "29/04/2022": 0,
-    # "16/05/2022": 0,
-    "17/05/2022": 0,
-    "30/05/2022": 0,
-}
+files_path = "/home/samsepiol/Documents/Master-Thesis/fetch_data/outputs"
 
 samples_to_make = 500
 

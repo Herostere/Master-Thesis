@@ -13,14 +13,15 @@ from packaging import version as packaging_version
 
 import base64
 import data_analysis_config as config
-import json
 import math
 import matplotlib.pyplot as plt
 import numpy
+import os
 import random
 import re
 import requests
 import seaborn
+import sqlite3
 import statistics
 import threading
 import time
@@ -30,45 +31,47 @@ import yaml.parser
 import yaml.scanner
 
 
-def market_growing_over_time(p_category: str = None) -> None:
+def market_growing_over_time(category: str = None) -> None:
     """
     Shows the plots for the number of actions for each category. The last plot show the global number of actions.
 
-    :param p_category: The category for to be plotted.
+    :param category: The category for to be plotted.
     """
-    old_files = config.old_files_names
-    actions_data = []
-    try:
-        for temp_file in old_files:
-            with open(temp_file, 'r', encoding='utf-8') as old_data:
-                actions_data.append(json.load(old_data))
-    except FileNotFoundError:
-        print("File not found. Please, check if the path.")
+    plot_keys = []
+    for file_name in files_names_main:
+        key_name = file_name.split("actions_data_")[1]
+        key_name = key_name.split(".db")[0]
+        key_name = key_name.split("_")
+        key_name = f"{key_name[2]}/{key_name[1]}/{key_name[0]}"
+        plot_keys.append(key_name)
 
-    actions_data.append(loaded_data)
+    if category:
+        plot_values = []
+        for file_name in files_names_main:
+            query = """
+            SELECT COUNT(owner) FROM actions WHERE category=?;
+            """
+            sqlite_connection = sqlite3.connect(f"{files_path_main}/{file_name}")
+            sqlite_cursor = sqlite_connection.cursor()
+            number_of_actions = sqlite_cursor.execute(query, (category,)).fetchone()[0]
+            plot_values.append(number_of_actions)
+            sqlite_connection.close()
 
-    if p_category:
-        for i, data_set in enumerate(actions_data):
-            temp = {}
-            for action in data_set:
-                if data_set[action]["category"] == p_category:
-                    temp[action] = data_set[action]
-            actions_data[i] = temp
+        show_bar_plots(plot_keys, plot_values, "v", f"Growing of \"{category}\"")
 
-    grow_keys = list(grow.keys())
+    if not category:
+        plot_values = []
+        for file_name in files_names_main:
+            query = """
+            SELECT COUNT(owner) FROM actions;
+            """
+            sqlite_connection = sqlite3.connect(f"{files_path_main}/{file_name}")
+            sqlite_cursor = sqlite_connection.cursor()
+            number_of_actions = sqlite_cursor.execute(query).fetchone()[0]
+            plot_values.append(number_of_actions)
+            sqlite_connection.close()
 
-    for i, action_data in enumerate(actions_data):
-        key = grow_keys[i]
-        data = action_data
-        grow[key] = len(data)
-
-    values = [grow[k] for k in grow_keys]
-
-    if not p_category:
-        show_bar_plots(grow_keys, values, "v", "Growing of All Categories")
-
-    else:
-        show_bar_plots(grow_keys, values, "v", f"Growing of \"{p_category}\"")
+        show_bar_plots(plot_keys, plot_values, "v", "Growing of All Categories")
 
 
 def show_bar_plots(x_axis: list, y_axis: list, orient: str, title: str) -> None:
@@ -83,14 +86,14 @@ def show_bar_plots(x_axis: list, y_axis: list, orient: str, title: str) -> None:
     bar_plot = seaborn.barplot(x=x_axis, y=y_axis, orient=orient, color="steelblue")
     bar_plot.bar_label(bar_plot.containers[0])
     bar_plot.set(title=title)
-    for elem in bar_plot.patches:
-        x_position = elem.get_x()
-        width = elem.get_width()
-        center = x_position + width / 2
-
-        new_width = width / 1.5
-        elem.set_width(new_width)
-        elem.set_x(center - new_width / 2)
+    # for elem in bar_plot.patches:
+    #     x_position = elem.get_x()
+    #     width = elem.get_width()
+    #     center = x_position + width / 2
+    #
+    #     new_width = width / 1.5
+    #     elem.set_width(new_width)
+    #     elem.set_x(center - new_width / 2)
     plt.show()
 
 
@@ -102,7 +105,7 @@ def compute_actions_per_categories() -> list:
     categories.
     """
     actions_per_categories_list = []
-    for p_category in categories:
+    for p_category in categories_main:
         number = 0
         for action in loaded_data:
             if loaded_data[action]["category"] == p_category:
@@ -118,7 +121,7 @@ def actions_diversity() -> None:
     """
     print(max(actions_per_categories))
     print(round(statistics.mean(actions_per_categories)))
-    show_bar_plots(actions_per_categories, categories, "h", "Actions Diversity")
+    show_bar_plots(actions_per_categories, categories_main, "h", "Actions Diversity")
 
 
 def most_commonly_proposed() -> None:
@@ -151,22 +154,22 @@ def most_commonly_proposed() -> None:
     for i, number in enumerate(actions_per_categories):
         if number > 700:
             sections_categories["> 700"] += 1
-            categories_700 += f"{categories[i]}, "
+            categories_700 += f"{categories_main[i]}, "
         elif number > 550:
             sections_categories["> 550"] += 1
-            categories_550 += f"{categories[i]}, "
+            categories_550 += f"{categories_main[i]}, "
         elif number > 400:
             sections_categories["> 400"] += 1
-            categories_400 += f"{categories[i]}, "
+            categories_400 += f"{categories_main[i]}, "
         elif number > 250:
             sections_categories["> 250"] += 1
-            categories_250 += f"{categories[i]}, "
+            categories_250 += f"{categories_main[i]}, "
         elif number > 100:
             sections_categories["> 100"] += 1
-            categories_100 += f"{categories[i]}, "
+            categories_100 += f"{categories_main[i]}, "
         else:
             sections_categories[">= 0"] += 1
-            categories_0 += f"{categories[i]}, "
+            categories_0 += f"{categories_main[i]}, "
 
     show_bar_plots(list(sections_categories.keys()), list(sections_categories.values()), "v",
                    "Number of Actions For the Categories")
@@ -1055,24 +1058,19 @@ def get_actions_sample(exclude_popular: bool) -> dict:
 
 
 if __name__ == "__main__":
-    file = config.file_name
-    try:
-        with open(file, 'r', encoding='utf-8') as f:
-            loaded_data = json.load(f)
-    except FileNotFoundError:
-        print("File not found. Please, check if the file is located in the same folder as this script.")
+    files_path_main = config.files_path
+    files_names_main = [file for file in os.listdir(files_path_main) if ".db" in file]
+    files_names_main.sort()
 
-    categories = ['api-management', 'chat', 'code-quality', 'code-review', 'continuous-integration',
+    categories_main = ['api-management', 'chat', 'code-quality', 'code-review', 'continuous-integration',
                   'dependency-management', 'deployment', 'ides', 'learning', 'localization', 'mobile', 'monitoring',
                   'project-management', 'publishing', 'recently-added', 'security', 'support', 'testing', 'utilities']
 
     samples_to_make = config.samples_to_make
 
     if config.market_growing_over_time:
-        grow = config.grow
-
-        for category in categories:
-            market_growing_over_time(category)
+        for category_main in categories_main:
+            market_growing_over_time(category_main)
         market_growing_over_time()
 
     if config.actions_diversity or config.most_commonly_proposed:
