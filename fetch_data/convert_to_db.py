@@ -13,8 +13,20 @@ def read_json_file(json_file: str):
 
 
 def check_json_content(json_data):
-    required_keys = ["category", "contributors", "dependents", "forks", "issues", "name", "owner", "repository",
-                     "stars", "verified", "versions", "watchers"]
+    required_keys = [
+        "category",
+        "contributors",
+        "dependents",
+        "forks",
+        # "issues",
+        "name",
+        "owner",
+        "repository",
+        "stars",
+        "verified",
+        "versions",
+        "watchers"
+    ]
     json_data_keys = json_data[list(json_data.keys())[0]].keys()
     for required_key in required_keys:
         if required_key not in json_data_keys:
@@ -98,7 +110,7 @@ def create_database(json_data, database_file):
         insert_actions(json_data[action], sqlite_cursor, owner, repository)
         insert_contributors(json_data[action], sqlite_cursor, owner, repository)
         insert_dependents(json_data[action], sqlite_cursor, owner, repository)
-        insert_issues(json_data[action], sqlite_cursor, owner, repository)
+        # insert_issues(json_data[action], sqlite_cursor, owner, repository)
         insert_versions(json_data[action], sqlite_cursor, owner, repository)
         sqlite_connection.commit()
 
@@ -161,8 +173,12 @@ def insert_dependents(action_data: dict, cursor: sqlite3.Cursor, owner: str, rep
     :param repository: The name of the repository.
     """
     dependents = action_data["dependents"]
-    number = dependents["number"]
-    package_url = dependents["package_url"]
+    if not isinstance(dependents, int):
+        number = dependents["number"]
+        package_url = dependents["package_url"]
+    else:
+        number = dependents
+        package_url = None
     insert_dependent = """
     INSERT INTO dependents (owner, repository, number, package_url)
     VALUES (?, ?, ?, ?);
@@ -225,3 +241,4 @@ if __name__ == "__main__":
         if json_data_main:
             database_file_main = convert_json_name(json_file_main)
             create_database(json_data_main, database_file_main)
+            print(database_file_main + " completed")
