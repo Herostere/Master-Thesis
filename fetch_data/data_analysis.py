@@ -193,13 +193,6 @@ def actions_technical_lag() -> None:
     """
     Determine the technical lag of the Actions.
     """
-    versions = list(loaded_data[action]["versions"] for action in loaded_data)
-    versions = sort_dates_keys(versions)
-
-    major_mean_days = []
-    minor_mean_days = []
-    micro_mean_days = []
-    for item in versions:
         first_key = list(item.keys())[0]
         try:
             last_major = packaging_version.parse(item[first_key]).major
