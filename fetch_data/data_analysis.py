@@ -193,68 +193,79 @@ def actions_technical_lag() -> None:
     """
     Determine the technical lag of the Actions.
     """
-        first_key = list(item.keys())[0]
-        try:
-            last_major = packaging_version.parse(item[first_key]).major
-            last_minor = packaging_version.parse(item[first_key]).minor
-            last_micro = packaging_version.parse(item[first_key]).micro
-        except AttributeError:
-            continue
+    fetch_repositories_query = """
+    SELECT DISTINCT(repository) FROM versions;
+    """
+    last_file_name = files_names_main[-1]
+    sqlite_connection = sqlite3.connect(f"{files_path_main}/{last_file_name}")
+    sqlite_cursor = sqlite_connection.cursor()
+    repositories = sqlite_cursor.execute(fetch_repositories_query).fetchall()
+    repositories = [repository[0] for repository in repositories]
 
-        major_updates = []
-        minor_updates = []
-        micro_updates = []
+    overall_major_updates_lag = []
+    overall_minor_updates_lag = []
+    overall_patch_updates_lag = []
+    for repository in repositories:
+        fetch_date_and_versions_query = """
+        SELECT date, version FROM versions WHERE repository=?;
+        """
+        repository_date_and_versions = sqlite_cursor.execute(fetch_date_and_versions_query, (repository, )).fetchall()
+        repository_date_and_versions.sort(key=lambda tup: tup[0])
+        major_updates_lag = []
+        minor_updates_lag = []
+        patch_updates_lag = []
 
-        if last_major > 0:
-            major_updates.append(first_key)
-        if last_minor > 0:
-            minor_updates.append(first_key)
-        if last_micro > 0:
-            micro_updates.append(first_key)
-        for version_date in item:
-            try:
-                current_version = packaging_version.parse(item[version_date])
-                if current_version.major != last_major:
-                    major_updates.append(version_date)
-                    last_major = current_version.major
-                    last_minor = current_version.minor
-                    last_micro = current_version.micro
-                elif current_version.minor != last_minor:
-                    minor_updates.append(version_date)
-                    last_minor = current_version.minor
-                    last_micro = current_version.micro
-                elif current_version.micro != last_micro:
-                    micro_updates.append(version_date)
-                    last_micro = current_version.micro
-            except AttributeError:
-                continue
+        previous_date = datetime.strptime(repository_date_and_versions[0][0], "%Y-%m-%d %H:%M:%S")
+        previous_version = packaging_version.parse(repository_date_and_versions[0][1])
+        previous_major = previous_version.major
+        previous_minor = previous_version.minor
+        previous_patch = previous_version.micro
 
-        major = days_between_dates(major_updates)
-        minor = days_between_dates(minor_updates)
-        micro = days_between_dates(micro_updates)
+        for date_version in repository_date_and_versions[1:]:
+            current_date = datetime.strptime(date_version[0], "%Y-%m-%d %H:%M:%S")
+            current_version = packaging_version.parse(date_version[1])
+            current_major = current_version.major
+            current_minor = current_version.minor
+            current_patch = current_version.micro
 
-        for element in major:
-            major_mean_days.append(element)
-        for element in minor:
-            minor_mean_days.append(element)
-        for element in micro:
-            micro_mean_days.append(element)
+            seconds_elapsed = (current_date - previous_date).total_seconds()
+            if current_major > previous_major:
+                major_updates_lag.append(seconds_elapsed)
+                previous_date = current_date
+                previous_major = current_major
+                previous_minor = current_minor
+                previous_patch = current_patch
+            elif current_major == previous_major and current_minor > previous_minor:
+                minor_updates_lag.append(seconds_elapsed)
+                previous_date = current_date
+                previous_minor = current_minor
+                previous_patch = current_patch
+            elif current_major == previous_major and current_minor == previous_minor and current_patch > previous_patch:
+                patch_updates_lag.append(seconds_elapsed)
+                previous_date = current_date
+                previous_patch = current_patch
 
-    print(statistics.median(major_mean_days))
-    print(f"Number of days between major versions (mean): {round(statistics.mean(major_mean_days))}")
-    print(numpy.percentile(major_mean_days, 25))
-    print(numpy.percentile(major_mean_days, 75))
-    print("-" * 10)
-    print(statistics.median(minor_mean_days))
-    print(f"Number of days between minor versions (mean): {round(statistics.mean(minor_mean_days))}")
-    print(numpy.percentile(minor_mean_days, 25))
-    print(numpy.percentile(minor_mean_days, 75))
-    print("-" * 10)
-    print(statistics.median(micro_mean_days))
-    print(f"Number of days between patch versions (mean): {round(statistics.mean(micro_mean_days))}")
-    print(numpy.percentile(micro_mean_days, 25))
-    print(numpy.percentile(micro_mean_days, 75))
-    print("-" * 10)
+        overall_major_updates_lag.append(major_updates_lag)
+        overall_minor_updates_lag.append(minor_updates_lag)
+        overall_patch_updates_lag.append(patch_updates_lag)
+
+    sqlite_connection.close()
+
+    # print(statistics.median(major_mean_days))
+    # print(f"Number of days between major versions (mean): {round(statistics.mean(major_mean_days))}")
+    # print(numpy.percentile(major_mean_days, 25))
+    # print(numpy.percentile(major_mean_days, 75))
+    # print("-" * 10)
+    # print(statistics.median(minor_mean_days))
+    # print(f"Number of days between minor versions (mean): {round(statistics.mean(minor_mean_days))}")
+    # print(numpy.percentile(minor_mean_days, 25))
+    # print(numpy.percentile(minor_mean_days, 75))
+    # print("-" * 10)
+    # print(statistics.median(micro_mean_days))
+    # print(f"Number of days between patch versions (mean): {round(statistics.mean(micro_mean_days))}")
+    # print(numpy.percentile(micro_mean_days, 25))
+    # print(numpy.percentile(micro_mean_days, 75))
+    # print("-" * 10)
 
 
 def compute_sample_size(population_size: int) -> int:
