@@ -151,42 +151,42 @@ def most_commonly_proposed() -> None:
         ">= 0": 0,
     }
 
-    categories_700 = ""
-    categories_550 = ""
-    categories_400 = ""
-    categories_250 = ""
-    categories_100 = ""
-    categories_0 = ""
+    categories_700 = []
+    categories_550 = []
+    categories_400 = []
+    categories_250 = []
+    categories_100 = []
+    categories_0 = []
 
     for i, number in enumerate(actions_per_categories_main):
         if number > 700:
             sections_categories["> 700"] += 1
-            categories_700 += f"{categories_main[i]}, "
+            categories_700.append(categories_main[i])
         elif number > 550:
             sections_categories["> 550"] += 1
-            categories_550 += f"{categories_main[i]}, "
+            categories_550.append(categories_main[i])
         elif number > 400:
             sections_categories["> 400"] += 1
-            categories_400 += f"{categories_main[i]}, "
+            categories_400.append(categories_main[i])
         elif number > 250:
             sections_categories["> 250"] += 1
-            categories_250 += f"{categories_main[i]}, "
+            categories_250.append(categories_main[i])
         elif number > 100:
             sections_categories["> 100"] += 1
-            categories_100 += f"{categories_main[i]}, "
+            categories_100.append(categories_main[i])
         else:
             sections_categories[">= 0"] += 1
-            categories_0 += f"{categories_main[i]}, "
+            categories_0.append(categories_main[i])
 
-    show_bar_plots(list(sections_categories.keys()), list(sections_categories.values()), "v",
-                   "Number of Actions For the Categories")
+    # show_bar_plots(list(sections_categories.keys()), list(sections_categories.values()), "v",
+    #                "Number of Actions For the Categories")
 
-    print(f'The categories "{categories_700[:-2]}" have more than 700 actions.')
-    print(f'The categories "{categories_550[:-2]}" have more than 550 actions.')
-    print(f'The categories "{categories_400[:-2]}" have more than 400 actions.')
-    print(f'The categories "{categories_250[:-2]}" have more than 250 actions.')
-    print(f'The categories "{categories_100[:-2]}" have more than 100 actions.')
-    print(f'The categories "{categories_0[:-2]}" have more than 0 actions.')
+    print(f'The categories "{", ".join(categories_700)}" ({len(categories_700)}) have more than 700 actions.')
+    print(f'The categories "{", ".join(categories_550)}" ({len(categories_550)}) have more than 550 actions.')
+    print(f'The categories "{", ".join(categories_400)}" ({len(categories_400)}) have more than 400 actions.')
+    print(f'The categories "{", ".join(categories_250)}" ({len(categories_250)}) have more than 250 actions.')
+    print(f'The categories "{", ".join(categories_100)}" ({len(categories_100)}) have more than 100 actions.')
+    print(f'The categories "{", ".join(categories_0)}" ({len(categories_0)}) have more than 0 actions.')
 
 
 def actions_technical_lag() -> None:
@@ -1107,10 +1107,10 @@ if __name__ == "__main__":
     if config.most_commonly_proposed:
         most_commonly_proposed()
 
-    # ------------------------------------------------------------------------------------------------------------------
-
     if config.actions_technical_lag:
         actions_technical_lag()
+
+    # ------------------------------------------------------------------------------------------------------------------
 
     if config.actions_popularity:
         actions_popularity(True)

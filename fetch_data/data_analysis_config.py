@@ -9,7 +9,7 @@ ymls_content = False
 
 market_growing_over_time = False  # DONE
 actions_diversity = False  # DONE
-most_commonly_proposed = False  # TODO
+most_commonly_proposed = False  # DONE
 actions_technical_lag = False  # TODO
 actions_popularity = False  # TODO
 multiple_actions = False  # TODO
