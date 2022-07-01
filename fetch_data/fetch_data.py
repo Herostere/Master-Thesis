@@ -228,7 +228,7 @@ def fetch_data_multithread() -> None:
 
         threads = []
 
-        already_fetched = sqlite_cursor.execute("SELECT owner, repository, category FROM actions;").fetchall()
+        already_fetched = sqlite_cursor.execute("SELECT owner, repository, category FROM categories;").fetchall()
         save_data = {}
 
         if number_of_threads > 0:
