@@ -81,30 +81,36 @@ def get_request(function: str, url: str) -> requests.Response | None:
         try:
             request = SESSION.get(url)
             T_R += 1
-            counter = 50
-            while counter > 0:
-                if request.status_code != 200:
-                    if request.status_code == 429:
-                        logging.info(">" + str(T_R))
-                        logging.info(
-                            f"{function} - sleeping " + str(int(request.headers["Retry-After"]) + 0.3) + " seconds")
-                        time.sleep(int(request.headers["Retry-After"]) + 0.3)
-                        logging.info(f"{function} - sleeping finished")
-                        request = SESSION.get(url)
-                        T_R += 1
-                    if request.status_code == 404 and counter == 1:
-                        return None
-                    else:
-                        time.sleep(1)
-                        request = SESSION.get(url)
-                        T_R += 1
+            counter = 10
+            while counter > 0 and request.status_code != 200:
+                print(request.status_code)
+                if request.status_code == 429:
+                    logging.info(">" + str(T_R))
+                    logging.info(
+                        f"{function} - sleeping " + str(int(request.headers["Retry-After"]) + 0.3) + " seconds")
+                    time.sleep(int(request.headers["Retry-After"]) + 0.3)
+                    logging.info(f"{function} - sleeping finished")
+                    request = SESSION.get(url)
+                    T_R += 1
+                if request.status_code == 404 and counter == 1:
+                    return None
+                time.sleep(5)
+                SESSION.close()
+                SESSION = requests.Session()
+                SESSION.cookies['user_session'] = os.getenv("CONNECTION_COOKIE")
+                threads = max(10, number_of_threads)
+                adapter = requests.adapters.HTTPAdapter(pool_connections=threads, pool_maxsize=threads)
+                SESSION.mount("https://", adapter)
+                SESSION.mount("http://", adapter)
+
+                request = SESSION.get(url)
+                T_R += 1
                 counter -= 1
             break
         except requests.ConnectionError:
             SESSION.close()
             SESSION = requests.Session()
             SESSION.cookies['user_session'] = os.getenv("CONNECTION_COOKIE")
-
             threads = max(10, number_of_threads)
             adapter = requests.adapters.HTTPAdapter(pool_connections=threads, pool_maxsize=threads)
             SESSION.mount("https://", adapter)
@@ -142,7 +148,6 @@ def fetch_data_multithread() -> None:
 
     sqlite_create_main_table = """
     CREATE TABLE IF NOT EXISTS actions (
-        category TEXT,
         forks INTEGER,
         name TEXT,
         owner TEXT,
@@ -151,6 +156,15 @@ def fetch_data_multithread() -> None:
         verified INTEGER,
         watchers INTEGER,
         PRIMARY KEY (owner, repository)
+    );
+    """
+    sqlite_create_categories_table = """
+    CREATE TABLE IF NOT EXISTS categories (
+        owner TEXT,
+        repository TEXT,
+        category TEXT,
+        PRIMARY KEY (owner, repository, category),
+        FOREIGN KEY (owner, repository) REFERENCES actions (owner, repository)
     );
     """
     sqlite_create_contributors_table = """
@@ -193,8 +207,8 @@ def fetch_data_multithread() -> None:
     );
     """
 
-    sqlite_queries = [sqlite_create_main_table, sqlite_create_contributors_table, sqlite_create_dependents_table,
-                      sqlite_create_issues_table, sqlite_create_versions_table]
+    sqlite_queries = [sqlite_create_main_table, sqlite_create_categories_table, sqlite_create_contributors_table,
+                      sqlite_create_dependents_table, sqlite_create_issues_table, sqlite_create_versions_table]
     for query in sqlite_queries:
         sqlite_cursor.execute(query)
 
@@ -252,18 +266,37 @@ def insert_actions(action_data: dict, cursor: sqlite3.Cursor, owner: str, reposi
     :param owner: The name of the owner.
     :param repository: The name of the repository.
     """
-    category = action_data["category"]
     forks = action_data["forks"]
     name = action_data["name"]
     stars = action_data["stars"]
     verified = 1 if action_data["verified"] else 0
     watchers = action_data["watchers"]
     insert_main = """
-    INSERT INTO actions (category, forks, name, owner, repository, stars, verified, watchers)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+    INSERT INTO actions (forks, name, owner, repository, stars, verified, watchers)
+    VALUES (?, ?, ?, ?, ?, ?, ?);
     """
     try:
-        cursor.execute(insert_main, (category, forks, name, owner, repository, stars, verified, watchers))
+        cursor.execute(insert_main, (forks, name, owner, repository, stars, verified, watchers))
+    except sqlite3.IntegrityError:
+        pass
+
+
+def insert_categories(action_data: dict, cursor: sqlite3.Cursor, owner: str, repository: str) -> None:
+    """
+    Insert categories information in the database.
+
+    :param action_data: The data to insert.
+    :param cursor: The cursor used to add the data.
+    :param owner: The name of the owner.
+    :param repository: The name of the repository.
+    """
+    category = action_data["category"]
+    insert_category = """
+    INSERT INTO categories (owner, repository, category)
+    VALUES (?, ?, ?);
+    """
+    try:
+        cursor.execute(insert_category, (owner, repository, category))
     except sqlite3.IntegrityError:
         pass
 
@@ -426,12 +459,14 @@ def thread_data(pages: list, category: str, save_data: dict, already_fetched: li
         url = f"https://github.com/marketplace?category={category}&page={page}&query=&type=actions"
 
         request = get_request("fetch_names", url)
+        root = beautiful_html(request.text)
 
         actions_names_ugly = actions_names_pattern_compiled.findall(request.text)
+        actions_urls = root.xpath("//div[@class='d-md-flex flex-wrap mb-4']/a/@href")
 
         for j in range(0, len(actions_names_ugly)):
             action_name = format_action_name(actions_names_ugly[j])
-            mp_page, url = test_mp_page(action_name)
+            mp_page, url = test_mp_page(actions_urls[j])
             if mp_page:
                 owner = get_owner(url)
                 repository_name = get_repo_name(url)
@@ -439,6 +474,7 @@ def thread_data(pages: list, category: str, save_data: dict, already_fetched: li
                 if (owner, repository_name, category) not in already_fetched:
                     data = test_link(url)
                     if data:
+                        print(f"{action_name} accepted.")
                         save_data[pretty_name] = {}
                         save_data[pretty_name]['category'] = category
                         verified = get_verified(mp_page)
@@ -477,6 +513,10 @@ def thread_data(pages: list, category: str, save_data: dict, already_fetched: li
                         if config.fetch_categories["issues"]:
                             issues = get_api("issues", owner, repository_name)
                             save_data[pretty_name]["issues"] = issues
+                    else:
+                        print(f"{action_name} refused 2.")
+            else:
+                print(f"{action_name} refused 1.")
 
 
 def format_action_name(ugly_name: str) -> str:
@@ -502,16 +542,15 @@ def format_action_name(ugly_name: str) -> str:
     return ugly_name
 
 
-def test_mp_page(name: str) -> tuple[requests.Response, str] | tuple[None, None]:
+def test_mp_page(url: str) -> tuple[requests.Response, str] | tuple[None, None]:
     """
     Test if the marketplace page of an Action is accessible and returns the URL for the data if so.
 
-    :param name: The name of the Action to check.
+    :param url: The URL of the Action to check.
     :return: The response and the URL of the GitHub page if the marketplace page is accessible.
              Otherwise returns None, None.
     """
-    url = f"https://github.com/marketplace/actions/{name}"
-
+    url = f"https://github.com{url}"
     request = get_request("test_name", url)
 
     if request:
