@@ -116,7 +116,7 @@ def get_request(function: str, url: str) -> requests.Response | None:
             SESSION.mount("https://", adapter)
             SESSION.mount("http://", adapter)
 
-    if T_R % 350 == 0:
+    if T_R % config.limit_requests == 0:
         logging.info(f"request {T_R}")
 
     return request
@@ -474,7 +474,7 @@ def thread_data(pages: list, category: str, save_data: dict, already_fetched: li
                 if (owner, repository_name, category) not in already_fetched:
                     data = test_link(url)
                     if data:
-                        print(f"{action_name} accepted.")
+                        print(f"{action_name} - {category} accepted.")
                         save_data[pretty_name] = {}
                         save_data[pretty_name]['category'] = category
                         verified = get_verified(mp_page)
