@@ -713,8 +713,12 @@ def extract(api_answer: requests.Response, key: str) -> int | dict | list:
 
     else:
         extracted = []
-        for needed in api_answer.json():
-            extracted.append(needed["login"])
+        try:  # TODO delete this try
+            for needed in api_answer.json():
+                extracted.append(needed["login"])
+        except:
+            print(api_answer)
+            exit()
         return extracted
 
 
