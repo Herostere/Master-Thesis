@@ -81,7 +81,7 @@ def get_request(function: str, url: str) -> requests.Response | None:
         try:
             request = SESSION.get(url)
             T_R += 1
-            counter = 10
+            counter = 5
             while counter > 0 and request.status_code != 200:
                 print(request.status_code)
                 if request.status_code == 429:
@@ -248,6 +248,7 @@ def fetch_data_multithread() -> None:
             owner = save_data[action]["owner"]
             repository = save_data[action]["repository"]
             insert_actions(save_data[action], sqlite_cursor, owner, repository)
+            insert_categories(save_data[action], sqlite_cursor, owner, repository)
             insert_contributors(save_data[action], sqlite_cursor, owner, repository)
             insert_dependents(save_data[action], sqlite_cursor, owner, repository)
             insert_issues(save_data[action], sqlite_cursor, owner, repository)
@@ -456,7 +457,7 @@ def thread_data(pages: list, category: str, save_data: dict, already_fetched: li
     actions_names_pattern_compiled = re.compile(actions_names_pattern)
 
     for page in pages:
-        url = f"https://github.com/marketplace?category={category}&page={page}&query=&type=actions"
+        url = f"https://github.com/marketplace?category={category}&page={page}&type=actions"
 
         request = get_request("fetch_names", url)
         root = beautiful_html(request.text)
