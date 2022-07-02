@@ -27,6 +27,8 @@ LIMIT = config.limit_requests
 SESSION = requests.Session()
 SESSION.cookies['user_session'] = os.getenv("CONNECTION_COOKIE")
 T_R = 0
+ACTION_ACCEPTED = True
+CURRENT_DATE = datetime.strftime(datetime.now(), "%Y_%m_%d")
 
 
 def get_categories() -> None:
@@ -81,32 +83,34 @@ def get_request(function: str, url: str) -> requests.Response | None:
         try:
             request = SESSION.get(url)
             T_R += 1
+
+            if T_R % config.limit_requests == 0:
+                logging.info(f"request {T_R}")
+
             counter = 5
+
             while counter > 0 and request.status_code != 200:
-                print(request.status_code)
                 if request.status_code == 429:
                     logging.info(">" + str(T_R))
                     logging.info(
                         f"{function} - sleeping " + str(int(request.headers["Retry-After"]) + 0.3) + " seconds")
                     time.sleep(int(request.headers["Retry-After"]) + 0.3)
                     logging.info(f"{function} - sleeping finished")
+
+                    time.sleep(3)
                     request = SESSION.get(url)
                     T_R += 1
-                if request.status_code == 404 and counter == 1:
-                    return None
-                time.sleep(5)
-                SESSION.close()
-                SESSION = requests.Session()
-                SESSION.cookies['user_session'] = os.getenv("CONNECTION_COOKIE")
-                threads = max(10, number_of_threads)
-                adapter = requests.adapters.HTTPAdapter(pool_connections=threads, pool_maxsize=threads)
-                SESSION.mount("https://", adapter)
-                SESSION.mount("http://", adapter)
 
-                request = SESSION.get(url)
-                T_R += 1
-                counter -= 1
+                    if T_R % config.limit_requests == 0:
+                        logging.info(f"request {T_R}")
+
+                elif request.status_code == 404 and counter == 1:
+                    return None
+
+                else:
+                    counter -= 1
             break
+
         except requests.ConnectionError:
             SESSION.close()
             SESSION = requests.Session()
@@ -115,9 +119,6 @@ def get_request(function: str, url: str) -> requests.Response | None:
             adapter = requests.adapters.HTTPAdapter(pool_connections=threads, pool_maxsize=threads)
             SESSION.mount("https://", adapter)
             SESSION.mount("http://", adapter)
-
-    if T_R % config.limit_requests == 0:
-        logging.info(f"request {T_R}")
 
     return request
 
@@ -143,7 +144,7 @@ def fetch_data_multithread() -> None:
     global number_of_threads
     categories = numpy.load("categories.npy")
 
-    sqlite_connection = sqlite3.connect("outputs/actions_data.db")
+    sqlite_connection = sqlite3.connect(f"outputs/actions_data_{CURRENT_DATE}.db")
     sqlite_cursor = sqlite_connection.cursor()
 
     sqlite_create_main_table = """
@@ -216,9 +217,14 @@ def fetch_data_multithread() -> None:
 
     logging.info("Fetching the data")
     for category in categories:
+        global ACTION_ACCEPTED
+        ACTION_ACCEPTED = True
         logging.info(f"***** {category} *****")
 
         max_page_number = get_max_page(category)
+
+        if max_page_number == 0:
+            ACTION_ACCEPTED = False
 
         number_of_threads = get_number_of_threads(max_page_number)
 
@@ -226,34 +232,46 @@ def fetch_data_multithread() -> None:
         SESSION.mount("https://", adapter)
         SESSION.mount("http://", adapter)
 
-        threads = []
+        refused_counter = 10
 
-        already_fetched = sqlite_cursor.execute("SELECT owner, repository, category FROM categories;").fetchall()
-        save_data = {}
+        while ACTION_ACCEPTED and refused_counter > 0:
+            print("\n" + "*" * 10 + f" loop {category} / {refused_counter}")
+            ACTION_ACCEPTED = False
+            threads = []
 
-        if number_of_threads > 0:
-            for i in range(0, number_of_threads):
-                list_of_pages = [x for x in range(1, max_page_number + 1) if x % number_of_threads == i]
-                threads.append(threading.Thread(target=thread_data,
-                                                args=(list_of_pages, category, save_data, already_fetched),
-                                                name=f"thread_{i}"))
+            already_fetched = sqlite_cursor.execute("SELECT owner, repository, category FROM categories;").fetchall()
+            save_data = {}
 
-            for thread in threads:
-                thread.start()
+            if number_of_threads > 0:
+                for i in range(0, number_of_threads):
+                    list_of_pages = [x for x in range(1, max_page_number + 1) if x % number_of_threads == i]
+                    list_of_pages.sort()
+                    threads.append(threading.Thread(target=thread_data,
+                                                    args=(list_of_pages, category, save_data, already_fetched),
+                                                    name=f"thread_{i}"))
 
-            for thread in threads:
-                thread.join()
+                for thread in threads:
+                    thread.start()
 
-        for action in save_data:
-            owner = save_data[action]["owner"]
-            repository = save_data[action]["repository"]
-            insert_actions(save_data[action], sqlite_cursor, owner, repository)
-            insert_categories(save_data[action], sqlite_cursor, owner, repository)
-            insert_contributors(save_data[action], sqlite_cursor, owner, repository)
-            insert_dependents(save_data[action], sqlite_cursor, owner, repository)
-            insert_issues(save_data[action], sqlite_cursor, owner, repository)
-            insert_versions(save_data[action], sqlite_cursor, owner, repository)
-            sqlite_connection.commit()
+                for thread in threads:
+                    thread.join()
+
+            for action in save_data:
+                owner = save_data[action]["owner"]
+                repository = save_data[action]["repository"]
+                insert_actions(save_data[action], sqlite_cursor, owner, repository)
+                insert_categories(save_data[action], sqlite_cursor, owner, repository)
+                insert_contributors(save_data[action], sqlite_cursor, owner, repository)
+                insert_dependents(save_data[action], sqlite_cursor, owner, repository)
+                insert_issues(save_data[action], sqlite_cursor, owner, repository)
+                insert_versions(save_data[action], sqlite_cursor, owner, repository)
+                sqlite_connection.commit()
+
+            if not ACTION_ACCEPTED:
+                ACTION_ACCEPTED = True
+                refused_counter -= 1
+            else:
+                refused_counter = 10
 
     sqlite_connection.close()
 
@@ -432,7 +450,7 @@ def get_number_of_threads(max_page_number: int) -> int:
         if num_of_threads > max_page_number:
             num_of_threads = max_page_number
         if num_of_threads < 1:
-            num_of_threads = 1
+            num_of_threads = 0
     except ValueError:
         logging.error("Bad number of threads in configuration file.\nBad value is " + num_of_threads)
         num_of_threads = 19  # this value has been chosen because "trust me".
@@ -467,15 +485,17 @@ def thread_data(pages: list, category: str, save_data: dict, already_fetched: li
 
         for j in range(0, len(actions_names_ugly)):
             action_name = format_action_name(actions_names_ugly[j])
-            mp_page, url = test_mp_page(actions_urls[j])
+            mp_page, action_url = test_mp_page(actions_urls[j])
             if mp_page:
-                owner = get_owner(url)
-                repository_name = get_repo_name(url)
-                pretty_name = f'{owner}/{repository_name}'
+                owner = get_owner(action_url)
+                repository_name = get_repo_name(action_url)
                 if (owner, repository_name, category) not in already_fetched:
-                    data = test_link(url)
+                    pretty_name = f'{owner}/{repository_name}'
+                    data = test_link(action_url)
                     if data:
-                        print(f"{action_name} - {category} accepted.")
+                        print(f"\r{action_name} - {category} accepted.", end='')
+                        global ACTION_ACCEPTED
+                        ACTION_ACCEPTED = True
                         save_data[pretty_name] = {}
                         save_data[pretty_name]['category'] = category
                         verified = get_verified(mp_page)
@@ -515,9 +535,9 @@ def thread_data(pages: list, category: str, save_data: dict, already_fetched: li
                             issues = get_api("issues", owner, repository_name)
                             save_data[pretty_name]["issues"] = issues
                     else:
-                        print(f"{action_name} refused 2.")
+                        print(f"\r{action_name} refused 2.", end="\n")
             else:
-                print(f"{action_name} refused 1.")
+                print(f"\r{action_name} refused 1.", end="\n")
 
 
 def format_action_name(ugly_name: str) -> str:
@@ -753,12 +773,8 @@ def extract(api_answer: requests.Response, key: str) -> int | dict | list:
 
     else:
         extracted = []
-        try:  # TODO delete this try
-            for needed in api_answer.json():
-                extracted.append(needed["login"])
-        except:
-            print(api_answer)
-            exit()
+        for needed in api_answer.json():
+            extracted.append(needed["login"])
         return extracted
 
 
@@ -820,16 +836,22 @@ def get_remaining_api_calls(rest: bool = False) -> bool:
     if not rest:
         url = "https://api.github.com/graphql"
         for token in GITHUB_TOKENS:
-            headers = {
-                'Authorization': f'token {token}',
-            }
-            query = {"query": "{ rateLimit { remaining resetAt } }"}
-            api_call = requests.post(url, json=query, headers=headers)
-            rate_limit = api_call.json()["data"]["rateLimit"]
+            while True:
+                try:
+                    headers = {
+                        'Authorization': f'token {token}',
+                    }
+                    query = {"query": "{ rateLimit { remaining resetAt } }"}
+                    api_call = requests.post(url, json=query, headers=headers)
+                    rate_limit = api_call.json()["data"]["rateLimit"]
 
-            if rate_limit["remaining"] > 0:
-                CURRENT_TOKEN = token
-                return True
+                    if rate_limit["remaining"] > 0:
+                        CURRENT_TOKEN = token
+                        return True
+
+                    break
+                except TypeError:
+                    time.sleep(1)
     else:
         for token in GITHUB_TOKENS:
             headers = {
@@ -952,7 +974,7 @@ if __name__ == "__main__":
         if run_fetch_data:
             fetch_data_multithread()
 
-            sqlite_connection_main = sqlite3.connect("outputs/actions_data.db")
+            sqlite_connection_main = sqlite3.connect(f"outputs/actions_data_{CURRENT_DATE}.db")
             sqlite_cursor_main = sqlite_connection_main.cursor()
             number_of_actions = sqlite_cursor_main.execute("SELECT COUNT(owner) FROM actions;").fetchone()[0]
             sqlite_connection_main.close()
