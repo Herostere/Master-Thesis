@@ -18,7 +18,7 @@ fetch_categories = {
 # used for debugging
 override_save_categories = {
     "run": False,
-    "categories": ["code-review"],
+    "categories": ["ides"],
 }
 
 get_categories = {

@@ -13,14 +13,15 @@ from packaging import version as packaging_version
 
 import base64
 import data_analysis_config as config
-import json
 import math
 import matplotlib.pyplot as plt
 import numpy
+import os
 import random
 import re
 import requests
 import seaborn
+import sqlite3
 import statistics
 import threading
 import time
@@ -30,48 +31,50 @@ import yaml.parser
 import yaml.scanner
 
 
-def market_growing_over_time(p_category: str = None) -> None:
+def market_growing_over_time(category: str = None) -> None:
     """
     Shows the plots for the number of actions for each category. The last plot show the global number of actions.
 
-    :param p_category: The category for to be plotted.
+    :param category: The category for to be plotted.
     """
-    old_files = config.old_files_names
-    actions_data = []
-    try:
-        for temp_file in old_files:
-            with open(temp_file, 'r', encoding='utf-8') as old_data:
-                actions_data.append(json.load(old_data))
-    except FileNotFoundError:
-        print("File not found. Please, check if the path.")
+    plot_keys = []
+    for file_name in files_names_main:
+        key_name = file_name.split("actions_data_")[1]
+        key_name = key_name.split(".db")[0]
+        key_name = key_name.split("_")
+        key_name = f"{key_name[2]}/{key_name[1]}/{key_name[0]}"
+        plot_keys.append(key_name)
 
-    actions_data.append(loaded_data)
+    if category:
+        plot_values = []
+        for file_name in files_names_main:
+            query = """
+            SELECT COUNT(repository) FROM categories WHERE category=?;
+            """
+            sqlite_connection = sqlite3.connect(f"{files_path_main}/{file_name}")
+            sqlite_cursor = sqlite_connection.cursor()
+            number_of_actions = sqlite_cursor.execute(query, (category,)).fetchone()[0]
+            plot_values.append(number_of_actions)
+            sqlite_connection.close()
 
-    if p_category:
-        for i, data_set in enumerate(actions_data):
-            temp = {}
-            for action in data_set:
-                if data_set[action]["category"] == p_category:
-                    temp[action] = data_set[action]
-            actions_data[i] = temp
+        show_bar_plots(plot_keys, plot_values, "v", f"Growing of \"{category}\"")
 
-    grow_keys = list(grow.keys())
+    if not category:
+        plot_values = []
+        for file_name in files_names_main:
+            query = """
+            SELECT COUNT(owner) FROM actions;
+            """
+            sqlite_connection = sqlite3.connect(f"{files_path_main}/{file_name}")
+            sqlite_cursor = sqlite_connection.cursor()
+            number_of_actions = sqlite_cursor.execute(query).fetchone()[0]
+            plot_values.append(number_of_actions)
+            sqlite_connection.close()
 
-    for i, action_data in enumerate(actions_data):
-        key = grow_keys[i]
-        data = action_data
-        grow[key] = len(data)
-
-    values = [grow[k] for k in grow_keys]
-
-    if not p_category:
-        show_bar_plots(grow_keys, values, "v", "Growing of All Categories")
-
-    else:
-        show_bar_plots(grow_keys, values, "v", f"Growing of \"{p_category}\"")
+        show_bar_plots(plot_keys, plot_values, "v", "Growing of All Categories")
 
 
-def show_bar_plots(x_axis: list, y_axis: list, orient: str, title: str) -> None:
+def show_bar_plots(x_axis: list, y_axis: list, orient: str, title: str, text_orient: bool = None) -> None:
     """
     Show a bar plot.
 
@@ -79,18 +82,21 @@ def show_bar_plots(x_axis: list, y_axis: list, orient: str, title: str) -> None:
     :param y_axis: The list of values for the y axis.
     :param orient: The plot orientation.
     :param title: The title of the plot.
+    :param text_orient: True if the x axis text should be vertical.
     """
     bar_plot = seaborn.barplot(x=x_axis, y=y_axis, orient=orient, color="steelblue")
     bar_plot.bar_label(bar_plot.containers[0])
     bar_plot.set(title=title)
-    for elem in bar_plot.patches:
-        x_position = elem.get_x()
-        width = elem.get_width()
-        center = x_position + width / 2
-
-        new_width = width / 1.5
-        elem.set_width(new_width)
-        elem.set_x(center - new_width / 2)
+    # for elem in bar_plot.patches:
+    #     x_position = elem.get_x()
+    #     width = elem.get_width()
+    #     center = x_position + width / 2
+    #
+    #     new_width = width / 1.5
+    #     elem.set_width(new_width)
+    #     elem.set_x(center - new_width / 2)
+    if text_orient:
+        plt.xticks(rotation=90)
     plt.show()
 
 
@@ -102,12 +108,16 @@ def compute_actions_per_categories() -> list:
     categories.
     """
     actions_per_categories_list = []
-    for p_category in categories:
-        number = 0
-        for action in loaded_data:
-            if loaded_data[action]["category"] == p_category:
-                number += 1
-        actions_per_categories_list.append(number)
+    for category in categories_main:
+        query = """
+        SELECT COUNT(repository) FROM categories WHERE category=?;
+        """
+        last_file_name = files_names_main[-1]
+        print(last_file_name)
+        sqlite_connection = sqlite3.connect(f"{files_path_main}/{last_file_name}")
+        sqlite_cursor = sqlite_connection.cursor()
+        number_of_actions = sqlite_cursor.execute(query, (category,)).fetchone()[0]
+        actions_per_categories_list.append(number_of_actions)
 
     return actions_per_categories_list
 
@@ -116,9 +126,10 @@ def actions_diversity() -> None:
     """
     Show the plot that represent the diversity of the actions.
     """
-    print(max(actions_per_categories))
-    print(round(statistics.mean(actions_per_categories)))
-    show_bar_plots(actions_per_categories, categories, "h", "Actions Diversity")
+    print(max(actions_per_categories_main))
+    print(statistics.median(actions_per_categories_main))
+    print(round(statistics.mean(actions_per_categories_main)))
+    show_bar_plots(categories_main, actions_per_categories_main, "v", "Actions Diversity", True)
 
 
 def most_commonly_proposed() -> None:
@@ -141,117 +152,127 @@ def most_commonly_proposed() -> None:
         ">= 0": 0,
     }
 
-    categories_700 = ""
-    categories_550 = ""
-    categories_400 = ""
-    categories_250 = ""
-    categories_100 = ""
-    categories_0 = ""
+    categories_700 = []
+    categories_550 = []
+    categories_400 = []
+    categories_250 = []
+    categories_100 = []
+    categories_0 = []
 
-    for i, number in enumerate(actions_per_categories):
+    for i, number in enumerate(actions_per_categories_main):
         if number > 700:
             sections_categories["> 700"] += 1
-            categories_700 += f"{categories[i]}, "
+            categories_700.append(categories_main[i])
         elif number > 550:
             sections_categories["> 550"] += 1
-            categories_550 += f"{categories[i]}, "
+            categories_550.append(categories_main[i])
         elif number > 400:
             sections_categories["> 400"] += 1
-            categories_400 += f"{categories[i]}, "
+            categories_400.append(categories_main[i])
         elif number > 250:
             sections_categories["> 250"] += 1
-            categories_250 += f"{categories[i]}, "
+            categories_250.append(categories_main[i])
         elif number > 100:
             sections_categories["> 100"] += 1
-            categories_100 += f"{categories[i]}, "
+            categories_100.append(categories_main[i])
         else:
             sections_categories[">= 0"] += 1
-            categories_0 += f"{categories[i]}, "
+            categories_0.append(categories_main[i])
 
-    show_bar_plots(list(sections_categories.keys()), list(sections_categories.values()), "v",
-                   "Number of Actions For the Categories")
+    # show_bar_plots(list(sections_categories.keys()), list(sections_categories.values()), "v",
+    #                "Number of Actions For the Categories")
 
-    print(f'The categories "{categories_700[:-2]}" have more than 700 actions.')
-    print(f'The categories "{categories_550[:-2]}" have more than 550 actions.')
-    print(f'The categories "{categories_400[:-2]}" have more than 400 actions.')
-    print(f'The categories "{categories_250[:-2]}" have more than 250 actions.')
-    print(f'The categories "{categories_100[:-2]}" have more than 100 actions.')
-    print(f'The categories "{categories_0[:-2]}" have more than 0 actions.')
+    print(f'The categories "{", ".join(categories_700)}" ({len(categories_700)}) have more than 700 actions.')
+    print(f'The categories "{", ".join(categories_550)}" ({len(categories_550)}) have more than 550 actions.')
+    print(f'The categories "{", ".join(categories_400)}" ({len(categories_400)}) have more than 400 actions.')
+    print(f'The categories "{", ".join(categories_250)}" ({len(categories_250)}) have more than 250 actions.')
+    print(f'The categories "{", ".join(categories_100)}" ({len(categories_100)}) have more than 100 actions.')
+    print(f'The categories "{", ".join(categories_0)}" ({len(categories_0)}) have more than 0 actions.')
 
 
+# TODO check this function
 def actions_technical_lag() -> None:
     """
     Determine the technical lag of the Actions.
     """
-    versions = list(loaded_data[action]["versions"] for action in loaded_data)
-    versions = sort_dates_keys(versions)
+    fetch_repositories_query = """
+    SELECT DISTINCT(repository) FROM versions;
+    """
+    last_file_name = files_names_main[-1]
+    sqlite_connection = sqlite3.connect(f"{files_path_main}/{last_file_name}")
+    sqlite_cursor = sqlite_connection.cursor()
+    repositories = sqlite_cursor.execute(fetch_repositories_query).fetchall()
+    repositories = [repository[0] for repository in repositories]
 
-    major_mean_days = []
-    minor_mean_days = []
-    micro_mean_days = []
-    for item in versions:
-        first_key = list(item.keys())[0]
+    overall_major_updates_lag = []
+    overall_minor_updates_lag = []
+    overall_patch_updates_lag = []
+    for repository in repositories:
+        fetch_date_and_versions_query = """
+        SELECT date, version FROM versions WHERE repository=?;
+        """
+        repository_date_and_versions = sqlite_cursor.execute(fetch_date_and_versions_query, (repository, )).fetchall()
+        repository_date_and_versions.sort(key=lambda tup: tup[0])
+        major_updates_lag = []
+        minor_updates_lag = []
+        patch_updates_lag = []
+
+        previous_major_date = datetime.strptime(repository_date_and_versions[0][0], "%Y-%m-%d %H:%M:%S")
+        previous_minor_date = datetime.strptime(repository_date_and_versions[0][0], "%Y-%m-%d %H:%M:%S")
+        previous_patch_date = datetime.strptime(repository_date_and_versions[0][0], "%Y-%m-%d %H:%M:%S")
+        previous_version = packaging_version.parse(str(repository_date_and_versions[0][1]))
         try:
-            last_major = packaging_version.parse(item[first_key]).major
-            last_minor = packaging_version.parse(item[first_key]).minor
-            last_micro = packaging_version.parse(item[first_key]).micro
+            previous_major = previous_version.major
+            previous_minor = previous_version.minor
+            previous_patch = previous_version.micro
         except AttributeError:
             continue
 
-        major_updates = []
-        minor_updates = []
-        micro_updates = []
-
-        if last_major > 0:
-            major_updates.append(first_key)
-        if last_minor > 0:
-            minor_updates.append(first_key)
-        if last_micro > 0:
-            micro_updates.append(first_key)
-        for version_date in item:
+        for date_version in repository_date_and_versions[1:]:
+            current_date = datetime.strptime(date_version[0], "%Y-%m-%d %H:%M:%S")
+            current_version = packaging_version.parse(str(date_version[1]))
             try:
-                current_version = packaging_version.parse(item[version_date])
-                if current_version.major != last_major:
-                    major_updates.append(version_date)
-                    last_major = current_version.major
-                    last_minor = current_version.minor
-                    last_micro = current_version.micro
-                elif current_version.minor != last_minor:
-                    minor_updates.append(version_date)
-                    last_minor = current_version.minor
-                    last_micro = current_version.micro
-                elif current_version.micro != last_micro:
-                    micro_updates.append(version_date)
-                    last_micro = current_version.micro
+                current_major = current_version.major
+                current_minor = current_version.minor
+                current_patch = current_version.micro
             except AttributeError:
                 continue
 
-        major = days_between_dates(major_updates)
-        minor = days_between_dates(minor_updates)
-        micro = days_between_dates(micro_updates)
+            if current_major > previous_major:
+                seconds_elapsed = (current_date - previous_major_date).days
+                major_updates_lag.append(seconds_elapsed)
+                previous_major_date = current_date
+                previous_major = current_major
+                previous_minor = current_minor
+                previous_patch = current_patch
+            elif current_major == previous_major and current_minor > previous_minor:
+                seconds_elapsed = (current_date - previous_minor_date).days
+                minor_updates_lag.append(seconds_elapsed)
+                previous_minor_date = current_date
+                previous_minor = current_minor
+                previous_patch = current_patch
+            elif current_major == previous_major and current_minor == previous_minor and current_patch > previous_patch:
+                seconds_elapsed = (current_date - previous_patch_date).days
+                patch_updates_lag.append(seconds_elapsed)
+                previous_patch_date = current_date
+                previous_patch = current_patch
 
-        for element in major:
-            major_mean_days.append(element)
-        for element in minor:
-            minor_mean_days.append(element)
-        for element in micro:
-            micro_mean_days.append(element)
+        for element in major_updates_lag:
+            overall_major_updates_lag.append(element)
+        for element in minor_updates_lag:
+            overall_minor_updates_lag.append(element)
+        for element in patch_updates_lag:
+            overall_patch_updates_lag.append(element)
 
-    print(statistics.median(major_mean_days))
-    print(f"Number of days between major versions (mean): {round(statistics.mean(major_mean_days))}")
-    print(numpy.percentile(major_mean_days, 25))
-    print(numpy.percentile(major_mean_days, 75))
-    print("-" * 10)
-    print(statistics.median(minor_mean_days))
-    print(f"Number of days between minor versions (mean): {round(statistics.mean(minor_mean_days))}")
-    print(numpy.percentile(minor_mean_days, 25))
-    print(numpy.percentile(minor_mean_days, 75))
-    print("-" * 10)
-    print(statistics.median(micro_mean_days))
-    print(f"Number of days between patch versions (mean): {round(statistics.mean(micro_mean_days))}")
-    print(numpy.percentile(micro_mean_days, 25))
-    print(numpy.percentile(micro_mean_days, 75))
-    print("-" * 10)
+    sqlite_connection.close()
+
+    overall_median_major_updates_lag = statistics.median(overall_major_updates_lag)
+    overall_median_minor_updates_lag = statistics.median(overall_minor_updates_lag)
+    overall_median_patch_updates_lag = statistics.median(overall_patch_updates_lag)
+
+    print(overall_median_major_updates_lag)
+    print(overall_median_minor_updates_lag)
+    print(overall_median_patch_updates_lag)
 
 
 def compute_sample_size(population_size: int) -> int:
@@ -1055,28 +1076,41 @@ def get_actions_sample(exclude_popular: bool) -> dict:
 
 
 if __name__ == "__main__":
-    file = config.file_name
-    try:
-        with open(file, 'r', encoding='utf-8') as f:
-            loaded_data = json.load(f)
-    except FileNotFoundError:
-        print("File not found. Please, check if the file is located in the same folder as this script.")
+    files_path_main = config.files_path
+    files_names_main = [file for file in os.listdir(files_path_main) if ".db" in file]
+    files_names_main.sort()
 
-    categories = ['api-management', 'chat', 'code-quality', 'code-review', 'continuous-integration',
-                  'dependency-management', 'deployment', 'ides', 'learning', 'localization', 'mobile', 'monitoring',
-                  'project-management', 'publishing', 'recently-added', 'security', 'support', 'testing', 'utilities']
+    categories_main = [
+        'api-management',
+        'chat',
+        'code-quality',
+        'code-review',
+        'continuous-integration',
+        'dependency-management',
+        'deployment',
+        'ides',
+        'learning',
+        'localization',
+        'mobile',
+        'monitoring',
+        'project-management',
+        'publishing',
+        # 'recently-added',
+        'security',
+        'support',
+        'testing',
+        'utilities'
+    ]
 
     samples_to_make = config.samples_to_make
 
     if config.market_growing_over_time:
-        grow = config.grow
-
-        for category in categories:
-            market_growing_over_time(category)
+        for category_main in categories_main:
+            market_growing_over_time(category_main)
         market_growing_over_time()
 
     if config.actions_diversity or config.most_commonly_proposed:
-        actions_per_categories = compute_actions_per_categories()
+        actions_per_categories_main = compute_actions_per_categories()
 
     if config.actions_diversity:
         actions_diversity()
@@ -1086,6 +1120,8 @@ if __name__ == "__main__":
 
     if config.actions_technical_lag:
         actions_technical_lag()
+
+    # ------------------------------------------------------------------------------------------------------------------
 
     if config.actions_popularity:
         actions_popularity(True)
