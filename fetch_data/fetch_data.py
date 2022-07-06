@@ -29,6 +29,7 @@ SESSION.cookies['user_session'] = os.getenv("CONNECTION_COOKIE")
 T_R = 0
 ACTION_ACCEPTED = True
 CURRENT_DATE = datetime.strftime(datetime.now(), "%Y_%m_%d")
+NUMBER_OF_ACCEPTED_ACTIONS = 0
 
 
 def get_categories() -> None:
@@ -218,7 +219,9 @@ def fetch_data_multithread() -> None:
     logging.info("Fetching the data")
     for category in categories:
         global ACTION_ACCEPTED
+        global NUMBER_OF_ACCEPTED_ACTIONS
         ACTION_ACCEPTED = True
+        NUMBER_OF_ACCEPTED_ACTIONS = 0
         logging.info(f"***** {category} *****")
 
         max_page_number = get_max_page(category)
@@ -494,7 +497,9 @@ def thread_data(pages: list, category: str, save_data: dict, already_fetched: li
                     data = test_link(action_url)
                     if data:
                         global ACTION_ACCEPTED
-                        print(f"\rAction accepted.", end='')
+                        global NUMBER_OF_ACCEPTED_ACTIONS
+                        NUMBER_OF_ACCEPTED_ACTIONS += 1
+                        print(f"\r{NUMBER_OF_ACCEPTED_ACTIONS} actions accepted.", end='')
                         ACTION_ACCEPTED = True
                         save_data[pretty_name] = {}
                         save_data[pretty_name]['category'] = category
