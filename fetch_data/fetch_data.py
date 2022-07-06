@@ -29,6 +29,7 @@ SESSION.cookies['user_session'] = os.getenv("CONNECTION_COOKIE")
 T_R = 0
 ACTION_ACCEPTED = True
 CURRENT_DATE = datetime.strftime(datetime.now(), "%Y_%m_%d")
+LAST_PRINT = 0
 
 
 def get_categories() -> None:
@@ -493,8 +494,11 @@ def thread_data(pages: list, category: str, save_data: dict, already_fetched: li
                     pretty_name = f'{owner}/{repository_name}'
                     data = test_link(action_url)
                     if data:
-                        print(f"\r{action_name} - {category} accepted." + " " * 60, end='')
+                        global LAST_PRINT
                         global ACTION_ACCEPTED
+                        to_print = f"\r{action_name} - {category} accepted."
+                        print(f"\r{action_name} - {category} accepted." + " " * LAST_PRINT, end='')
+                        LAST_PRINT = len(to_print)
                         ACTION_ACCEPTED = True
                         save_data[pretty_name] = {}
                         save_data[pretty_name]['category'] = category
