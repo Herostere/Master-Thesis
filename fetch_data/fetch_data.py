@@ -493,7 +493,7 @@ def thread_data(pages: list, category: str, save_data: dict, already_fetched: li
                     pretty_name = f'{owner}/{repository_name}'
                     data = test_link(action_url)
                     if data:
-                        print(f"\r{action_name} - {category} accepted.", end='')
+                        print(f"\r{action_name} - {category} accepted." + " " * 60, end='')
                         global ACTION_ACCEPTED
                         ACTION_ACCEPTED = True
                         save_data[pretty_name] = {}
