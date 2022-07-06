@@ -49,7 +49,7 @@ def market_growing_over_time(category: str = None) -> None:
         plot_values = []
         for file_name in files_names_main:
             query = """
-            SELECT COUNT(repository) FROM actions WHERE category=?;
+            SELECT COUNT(repository) FROM categories WHERE category=?;
             """
             sqlite_connection = sqlite3.connect(f"{files_path_main}/{file_name}")
             sqlite_cursor = sqlite_connection.cursor()
@@ -110,9 +110,10 @@ def compute_actions_per_categories() -> list:
     actions_per_categories_list = []
     for category in categories_main:
         query = """
-        SELECT COUNT(repository) FROM actions WHERE category=?;
+        SELECT COUNT(repository) FROM categories WHERE category=?;
         """
         last_file_name = files_names_main[-1]
+        print(last_file_name)
         sqlite_connection = sqlite3.connect(f"{files_path_main}/{last_file_name}")
         sqlite_cursor = sqlite_connection.cursor()
         number_of_actions = sqlite_cursor.execute(query, (category,)).fetchone()[0]
