@@ -63,7 +63,7 @@ def market_growing_over_time(category: str = None) -> None:
         plot_values = []
         for file_name in files_names_main:
             query = """
-            SELECT COUNT(owner) FROM actions;
+            select COUNT(*) from (Select DISTINCT owner, repository FROM actions);
             """
             sqlite_connection = sqlite3.connect(f"{files_path_main}/{file_name}")
             sqlite_cursor = sqlite_connection.cursor()
@@ -71,22 +71,22 @@ def market_growing_over_time(category: str = None) -> None:
             plot_values.append(number_of_actions)
             sqlite_connection.close()
 
-        show_bar_plots(plot_keys, plot_values, "v", "Growing of All Categories")
+        # show_bar_plots(plot_keys, plot_values, "v", "Number of Actions", text_orient=True)
+        test_plot = seaborn.lineplot(x=plot_keys, y=plot_values, marker="o")
+        plt.show()
 
 
-def show_bar_plots(x_axis: list, y_axis: list, orient: str, title: str, text_orient: bool = None) -> None:
+def show_bar_plots(x_axis: list, y_axis: list, orient: str, text_orient: bool = None) -> None:
     """
     Show a bar plot.
 
     :param x_axis: The list of values for the x axis.
     :param y_axis: The list of values for the y axis.
     :param orient: The plot orientation.
-    :param title: The title of the plot.
     :param text_orient: True if the x axis text should be vertical.
     """
     bar_plot = seaborn.barplot(x=x_axis, y=y_axis, orient=orient, color="steelblue")
     bar_plot.bar_label(bar_plot.containers[0])
-    bar_plot.set(title=title)
     # for elem in bar_plot.patches:
     #     x_position = elem.get_x()
     #     width = elem.get_width()
@@ -113,7 +113,6 @@ def compute_actions_per_categories() -> list:
         SELECT COUNT(repository) FROM categories WHERE category=?;
         """
         last_file_name = files_names_main[-1]
-        print(last_file_name)
         sqlite_connection = sqlite3.connect(f"{files_path_main}/{last_file_name}")
         sqlite_cursor = sqlite_connection.cursor()
         number_of_actions = sqlite_cursor.execute(query, (category,)).fetchone()[0]
@@ -126,10 +125,52 @@ def actions_diversity() -> None:
     """
     Show the plot that represent the diversity of the actions.
     """
-    print(max(actions_per_categories_main))
-    print(statistics.median(actions_per_categories_main))
-    print(round(statistics.mean(actions_per_categories_main)))
-    show_bar_plots(categories_main, actions_per_categories_main, "v", "Actions Diversity", True)
+    to_sort_by_keys = {}
+    for i in range(len(categories_main)):
+        to_sort_by_keys[categories_main[i]] = actions_per_categories_main[i]
+    sorted_by_keys = {k: to_sort_by_keys[k] for k in sorted(to_sort_by_keys, key=to_sort_by_keys.get)}
+    categories_to_display = list(sorted_by_keys.keys())
+    actions_to_display = list(sorted_by_keys.values())
+    # show_bar_plots(categories_to_display, actions_to_display, "v", True)
+    # seaborn.boxplot(y=actions_to_display)
+    # plt.show()
+    seaborn.histplot(x=actions_per_categories_main)
+    plt.show()
+    # seaborn.displot(x=actions_to_display)
+    # plt.axvline(x=median, color='red')
+    # plt.show()
+    q1 = numpy.percentile(actions_to_display, 25)
+    q3 = numpy.percentile(actions_to_display, 75)
+    median = statistics.median(actions_to_display)
+    iqr = q3 - q1
+    maximum = max(actions_to_display)
+    minimum = min(actions_to_display)
+    mean = statistics.mean(actions_to_display)
+
+    print(f"Total: {sum(actions_to_display)}")
+    # print(f"Median: {median}")
+    # print(f"Mean: {mean}")
+    # print(f"Maximum: {maximum}")
+    # print(f"Minimum: {minimum}")
+    # print(f"Q1: {q1}")
+    # print(f"Q3: {q3}")
+    # print(f"IQR: {iqr}")
+    # print(f"Outliers: {q3 + iqr * 1.5} | {q1 - iqr * 1.5}")
+    # print(f"Upper whisker: {maximum - q3}")
+    # print(f"Lower whisker: {q1 - minimum}")
+    # print(f"Upper tail: {maximum - median}")
+    # print(f"Lower tail: {median - minimum}")
+    # print(f"Top box: {q3 - median}")
+    # print(f"Bottom box: {median - q1}")
+
+    lower_than_median = []
+    greater_than_median = []
+
+    for value in actions_to_display:
+        if value < 600:
+            lower_than_median.append(value)
+        else:
+            greater_than_median.append(value)
 
 
 def most_commonly_proposed() -> None:
@@ -196,7 +237,7 @@ def actions_technical_lag() -> None:
     Determine the technical lag of the Actions.
     """
     fetch_repositories_query = """
-    SELECT DISTINCT(repository) FROM versions;
+    SELECT DISTINCT repository FROM versions;
     """
     last_file_name = files_names_main[-1]
     sqlite_connection = sqlite3.connect(f"{files_path_main}/{last_file_name}")
@@ -1105,8 +1146,8 @@ if __name__ == "__main__":
     samples_to_make = config.samples_to_make
 
     if config.market_growing_over_time:
-        for category_main in categories_main:
-            market_growing_over_time(category_main)
+        # for category_main in categories_main:
+        #     market_growing_over_time(category_main)
         market_growing_over_time()
 
     if config.actions_diversity or config.most_commonly_proposed:

@@ -7,7 +7,7 @@ samples_to_make = 500
 
 ymls_content = False
 
-market_growing_over_time = True  # DONE
+market_growing_over_time = False  # DONE
 actions_diversity = False  # DONE
 most_commonly_proposed = False  # DONE
 actions_technical_lag = False  # DONE  WARNING SOME REPO START AT VERSION (EXAMPLE) 6.0.0
