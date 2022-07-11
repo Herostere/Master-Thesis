@@ -3,6 +3,8 @@ This script identify the actions with a valid marketplace page.
 
 You will need to use Python3.10.
 """
+import json.decoder
+
 from bs4 import BeautifulSoup
 from datetime import datetime
 from html import unescape
@@ -856,6 +858,8 @@ def get_remaining_api_calls(rest: bool = False) -> bool:
 
                     break
                 except TypeError:
+                    time.sleep(1)
+                except json.decoder.JSONDecodeError:
                     time.sleep(1)
     else:
         for token in GITHUB_TOKENS:
