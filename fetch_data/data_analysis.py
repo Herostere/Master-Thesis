@@ -240,8 +240,8 @@ def actions_technical_lag() -> None:
     fetch_repositories_query = """
     SELECT DISTINCT owner, repository FROM versions;
     """
-    last_file_name = files_names_main[-1]
-    sqlite_connection = sqlite3.connect(f"{files_path_main}/{last_file_name}")
+    first_file_name = files_names_main[0]
+    sqlite_connection = sqlite3.connect(f"{files_path_main}/{first_file_name}")
     sqlite_cursor = sqlite_connection.cursor()
     owners_repositories = sqlite_cursor.execute(fetch_repositories_query).fetchall()
 
@@ -1244,6 +1244,13 @@ def get_actions_sample(exclude_popular: bool) -> dict:
     return sample
 
 
+def proportion_of_verified_users() -> None:
+    """
+    Check the proportion of verified users on the Marketplace, the total number of users and the proportion of
+    verified ones.
+    """
+
+
 if __name__ == "__main__":
     files_path_main = config.files_path
     files_names_main = [file for file in os.listdir(files_path_main) if ".db" in file]
@@ -1289,6 +1296,9 @@ if __name__ == "__main__":
 
     if config.actions_technical_lag:
         actions_technical_lag()
+
+    if config.proportion_of_verified_users:
+        proportion_of_verified_users()
 
     # ------------------------------------------------------------------------------------------------------------------
 
