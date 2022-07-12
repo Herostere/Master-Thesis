@@ -1244,11 +1244,138 @@ def get_actions_sample(exclude_popular: bool) -> dict:
     return sample
 
 
-def proportion_of_verified_users() -> None:
+def rq7() -> None:
     """
     Check the proportion of verified users on the Marketplace, the total number of users and the proportion of
     verified ones.
     """
+    first_file_name = files_names_main[0]
+
+    sqlite_connection = sqlite3.connect(f"{files_path_main}/{first_file_name}")
+    sqlite_cursor = sqlite_connection.cursor()
+
+    separator = "-" * 10
+
+    count_number_of_actions(sqlite_cursor)
+    print(separator)
+
+    count_number_of_owners(sqlite_cursor)
+    print(separator)
+
+    count_verified_users(sqlite_cursor)
+    print(separator)
+
+    count_verified_actions(sqlite_cursor)
+    print(separator)
+
+    sqlite_connection.close()
+
+
+def count_number_of_actions(sqlite_cursor: sqlite3.Cursor) -> None:
+    """
+    Print the number of Actions in the database.
+    :param sqlite_cursor: The cursor used on the database.
+    """
+    count_actions_query = """
+    SELECT COUNT(*) FROM (SELECT DISTINCT owner, repository FROM actions);
+    """
+    number_of_actions = sqlite_cursor.execute(count_actions_query).fetchone()[0]
+    print(f"Number of actions: {number_of_actions}")
+
+
+def count_number_of_owners(sqlite_cursor: sqlite3.Cursor) -> None:
+    """
+    Print the number of owners in the database.
+    :param sqlite_cursor: The cursor used on the database.
+    """
+    count_owners_query = """
+    SELECT COUNT(*) FROM (SELECT DISTINCT owner FROM actions);
+    """
+    number_of_owners = sqlite_cursor.execute(count_owners_query).fetchone()[0]
+    print(f"Number of owners: {number_of_owners}")
+
+
+def count_actions_per_owner(sqlite_cursor: sqlite3.Cursor) -> list:
+    """
+    Count the number of Actions per owners.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    :return: A list with the number of Actions per owner.
+    """
+    owners = get_owners(sqlite_cursor)
+    number_of_actions_per_owner = []
+    for owner in owners:
+        actions_per_owner_query = """
+        SELECT COUNT(*) FROM (SELECT DISTINCT owner, repository FROM actions WHERE owner=?);
+        """
+        actions_per_owner = sqlite_cursor.execute(actions_per_owner_query, (owner,)).fetchone()[0]
+        number_of_actions_per_owner.append(actions_per_owner)
+    number_of_actions_per_owner.sort()
+
+    return number_of_actions_per_owner
+
+
+def get_owners(sqlite_cursor: sqlite3.Cursor) -> list:
+    """
+    Get the list of owners.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    :return: The list of owners.
+    """
+    owners_query = """
+    SELECT DISTINCT owner FROM actions;
+    """
+    owners = sqlite_cursor.execute(owners_query).fetchall()
+    owners = [owner[0] for owner in owners]
+
+    return owners
+
+
+def compute_statistics(values_list: list, end_of_sentence: str) -> None:
+    """
+    Print the median, maximum, minimum, q1, q3 of a list.
+    :param values_list: The list with the values.
+    :param end_of_sentence: The end of the sentence that will be printed.
+    """
+    median = statistics.median(values_list)
+    maximum = max(values_list)
+    minimum = min(values_list)
+    q1 = numpy.percentile(values_list, 25)
+    q3 = numpy.percentile(values_list, 75)
+    iqr = q3 - q1
+
+    print(f"Median {end_of_sentence}: {median}")
+    print(f"Maximum {end_of_sentence}: {maximum}")
+    print(f"Minimum {end_of_sentence}: {minimum}")
+    print(f"Q1 {end_of_sentence}: {q1}")
+    print(f"Q3 {end_of_sentence}: {q3}")
+    print(f"IQR {end_of_sentence}: {iqr}")
+
+
+def count_verified_users(sqlite_cursor: sqlite3.Cursor) -> None:
+    """
+    Print the number of verified users.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    """
+    number_of_verified_owners_query = """
+    SELECT COUNT(DISTINCT owner) FROM actions WHERE verified=1;
+    """
+    number_of_verified_owners = sqlite_cursor.execute(number_of_verified_owners_query).fetchone()[0]
+    print(f"Number of verified owners: {number_of_verified_owners}")
+
+
+def count_verified_actions(sqlite_cursor: sqlite3.Cursor) -> None:
+    """
+    Print the number of Actions published by verified users.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    """
+    number_of_verified_actions_query = """
+    SELECT COUNT(name) FROM actions WHERE verified=1;
+    """
+    number_of_verified_actions = sqlite_cursor.execute(number_of_verified_actions_query).fetchone()[0]
+    print(f"Number of verified Actions: {number_of_verified_actions}")
 
 
 if __name__ == "__main__":
@@ -1297,8 +1424,8 @@ if __name__ == "__main__":
     if config.actions_technical_lag:
         actions_technical_lag()
 
-    if config.proportion_of_verified_users:
-        proportion_of_verified_users()
+    if config.rq7:
+        rq7()
 
     # ------------------------------------------------------------------------------------------------------------------
 
