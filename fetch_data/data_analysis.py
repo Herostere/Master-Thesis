@@ -1281,7 +1281,7 @@ def get_dependents(sqlite_cursor: sqlite3.Cursor) -> list:
 
 def correlation_between_metrics(sqlite_cursor: sqlite3.Cursor) -> None:
     """
-    show the correlation between metrics.
+    Show the correlation between metrics.
 
     :param sqlite_cursor: The cursor for the database connection.
     """
