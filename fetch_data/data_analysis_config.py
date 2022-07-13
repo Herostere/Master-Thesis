@@ -11,8 +11,7 @@ market_growing_over_time = False  # DONE
 actions_diversity = False  # DONE
 most_commonly_proposed = False  # DONE
 actions_technical_lag = False  # DONE
-rq5 = False  # TODO
-
+rq5 = True
 rq7 = False
 
 multiple_actions = False  # TODO

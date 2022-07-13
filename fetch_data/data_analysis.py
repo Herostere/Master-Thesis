@@ -9,8 +9,9 @@ from fetch_data import (
     beautiful_html,
     get_remaining_api_calls,
     GITHUB_TOKENS)
+from itertools import combinations
 from packaging import version as packaging_version
-from scipy.stats import mannwhitneyu
+from scipy.stats import mannwhitneyu, pearsonr, spearmanr
 
 import base64
 import data_analysis_config as config
@@ -495,42 +496,6 @@ def days_between_dates(dates: list) -> list:
         j += 1
 
     return days
-
-
-def actions_popularity(printing: bool = False) -> dict:
-    """
-    Determine the popularity of the Actions.
-    The popularity is computed as the number of stars + number of dependents + number of forks + number of watching.
-
-    :param printing: True if the function should print the output. Otherwise False.
-    :return: The list of most popular Actions.
-    """
-    scores = {}
-    for action in loaded_data:
-        stars = loaded_data[action]["stars"]
-        dependents = loaded_data[action]["dependents"]["number"]
-        forks = loaded_data[action]["forks"]
-        watching = loaded_data[action]["watching"]
-        score = stars + dependents + forks + watching
-
-        owner = loaded_data[action]["owner"]
-        repository = loaded_data[action]["repository"]
-
-        scores[f"{owner}/{repository}"] = score
-
-    sample_size = compute_sample_size(len(scores))
-    popular_actions = Counter(scores).most_common(sample_size)
-
-    popular_actions_dictionary = {}
-    for key, value in popular_actions:
-        popular_actions_dictionary[key] = value
-
-    if printing:
-        for i, element in enumerate(popular_actions_dictionary):
-            value = popular_actions_dictionary[element]
-            print(f'{i+1}: "{element}" -> {value}')
-
-    return popular_actions_dictionary
 
 
 def ymls_content_start_threads() -> None:
@@ -1244,14 +1209,130 @@ def get_actions_sample(exclude_popular: bool) -> dict:
     return sample
 
 
+def rq5() -> None:
+    """
+    Determine the popularity of the Actions.
+    """
+    sqlite_connection = sqlite3.connect(f"{files_path_main}/{first_file_name_main}")
+    sqlite_cursor = sqlite_connection.cursor()
+
+    correlation_between_metrics(sqlite_cursor)
+
+
+def get_stars(sqlite_cursor: sqlite3.Cursor) -> list:
+    """
+    Get the number of stars for all Actions.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    :return: A list containing the number of stars for all Actions.
+    """
+    number_of_stars_query = """
+    SELECT stars FROM actions;
+    """
+    list_of_number_of_stars = sqlite_cursor.execute(number_of_stars_query).fetchall()
+    list_of_number_of_stars = [stars[0] for stars in list_of_number_of_stars]
+    return list_of_number_of_stars
+
+
+def get_forks(sqlite_cursor: sqlite3.Cursor) -> list:
+    """
+    Get the number of forks for all Actions.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    :return: A list containing the number of forks for all Actions.
+    """
+    number_of_forks_query = """
+    SELECT forks FROM actions;
+    """
+    list_of_number_of_forks = sqlite_cursor.execute(number_of_forks_query).fetchall()
+    list_of_number_of_forks = [stars[0] for stars in list_of_number_of_forks]
+    return list_of_number_of_forks
+
+
+def get_watchers(sqlite_cursor: sqlite3.Cursor) -> list:
+    """
+    Get the number of watchers for all Actions.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    :return: A list containing the number of watchers for all Actions.
+    """
+    number_of_watchers_query = """
+    SELECT watchers FROM actions;
+    """
+    list_of_number_of_watchers = sqlite_cursor.execute(number_of_watchers_query).fetchall()
+    list_of_number_of_watchers = [stars[0] for stars in list_of_number_of_watchers]
+    return list_of_number_of_watchers
+
+
+def get_dependents(sqlite_cursor: sqlite3.Cursor) -> list:
+    """
+    Get the number of dependents for all Actions.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    :return: A list containing the number of dependents for all Actions.
+    """
+    number_of_dependents_query = """
+    SELECT number FROM dependents;
+    """
+    list_of_number_of_dependents = sqlite_cursor.execute(number_of_dependents_query).fetchall()
+    list_of_number_of_dependents = [stars[0] for stars in list_of_number_of_dependents]
+    return list_of_number_of_dependents
+
+
+def correlation_between_metrics(sqlite_cursor: sqlite3.Cursor) -> None:
+    """
+    show the correlation between metrics.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    """
+    stars = get_stars(sqlite_cursor)
+    forks = get_forks(sqlite_cursor)
+    watchers = get_watchers(sqlite_cursor)
+    dependents = get_dependents(sqlite_cursor)
+
+    list_of_metrics = [stars, forks, watchers, dependents]
+
+    possible_pairs = list(combinations(list_of_metrics, 2))
+    number_of_possible_pairs = len(possible_pairs)
+
+    number_of_rows = number_of_possible_pairs / 3
+    number_of_rows = math.ceil(number_of_rows)
+
+    figures, axes = plt.subplots(number_of_rows, 3)
+
+    pair_index = 0
+    for row in range(number_of_rows):
+        for column in range(3):
+            x_metric = possible_pairs[pair_index][0]
+            y_metric = possible_pairs[pair_index][1]
+            print(spearman_correlation_test(x_metric, y_metric))
+            seaborn.scatterplot(x=x_metric, y=y_metric, ax=axes[row, column])
+            pair_index += 1
+
+    plt.show()
+
+
+def spearman_correlation_test(list_x: list, list_y: list) -> tuple:
+    """
+    Compute the Spearman's correlation test for two metrics.
+
+    :param list_x: The first list of values.
+    :param list_y: The second list of values.
+    :return: The correlation coefficient and the p-value.
+    """
+    spearman_test = spearmanr(list_x, list_y)
+    correlation_coefficient = round(spearman_test[0], 5)
+    p_value = round(spearman_test[1], 5)
+
+    return correlation_coefficient, p_value
+
+
 def rq7() -> None:
     """
     Check the proportion of verified users on the Marketplace, the total number of users and the proportion of
     verified ones.
     """
-    first_file_name = files_names_main[0]
-
-    sqlite_connection = sqlite3.connect(f"{files_path_main}/{first_file_name}")
+    sqlite_connection = sqlite3.connect(f"{files_path_main}/{first_file_name_main}")
     sqlite_cursor = sqlite_connection.cursor()
 
     separator = "-" * 10
@@ -1274,7 +1355,7 @@ def rq7() -> None:
 def count_number_of_actions(sqlite_cursor: sqlite3.Cursor) -> None:
     """
     Print the number of Actions in the database.
-    :param sqlite_cursor: The cursor used on the database.
+    :param sqlite_cursor: The cursor for the database connection.
     """
     count_actions_query = """
     SELECT COUNT(*) FROM (SELECT DISTINCT owner, repository FROM actions);
@@ -1286,7 +1367,7 @@ def count_number_of_actions(sqlite_cursor: sqlite3.Cursor) -> None:
 def count_number_of_owners(sqlite_cursor: sqlite3.Cursor) -> None:
     """
     Print the number of owners in the database.
-    :param sqlite_cursor: The cursor used on the database.
+    :param sqlite_cursor: The cursor for the database connection.
     """
     count_owners_query = """
     SELECT COUNT(*) FROM (SELECT DISTINCT owner FROM actions);
@@ -1383,6 +1464,8 @@ if __name__ == "__main__":
     files_names_main = [file for file in os.listdir(files_path_main) if ".db" in file]
     files_names_main.sort()
 
+    first_file_name_main = files_names_main[0]
+
     categories_main = [
         'api-management',
         'chat',
@@ -1424,13 +1507,13 @@ if __name__ == "__main__":
     if config.actions_technical_lag:
         actions_technical_lag()
 
+    if config.rq5:
+        rq5()
+
     if config.rq7:
         rq7()
 
     # ------------------------------------------------------------------------------------------------------------------
-
-    if config.actions_popularity:
-        actions_popularity(True)
 
     if config.ymls_content:
         ymls_content_start_threads()
