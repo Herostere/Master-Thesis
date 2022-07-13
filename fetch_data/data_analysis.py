@@ -1218,6 +1218,11 @@ def rq5() -> None:
 
     correlation_between_metrics(sqlite_cursor)
 
+    actions_with_metrics = get_actions_with_metrics(sqlite_cursor)
+
+    top_n = 10
+    n_most_popular_actions(actions_with_metrics, top_n)
+
 
 def get_stars(sqlite_cursor: sqlite3.Cursor) -> list:
     """
@@ -1312,7 +1317,7 @@ def correlation_between_metrics(sqlite_cursor: sqlite3.Cursor) -> None:
     plt.show()
 
 
-def spearman_correlation_test(list_x: list, list_y: list) -> tuple:
+def spearman_correlation_test(list_x: list, list_y: list) -> tuple[float, float]:
     """
     Compute the Spearman's correlation test for two metrics.
 
@@ -1325,6 +1330,118 @@ def spearman_correlation_test(list_x: list, list_y: list) -> tuple:
     p_value = round(spearman_test[1], 5)
 
     return correlation_coefficient, p_value
+
+
+def get_actions_with_metrics(sqlite_cursor: sqlite3.Cursor) -> list:
+    """
+    Get the Actions with their metrics to answer RQ5.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    :return: The dictionary with the metrics for all Actions.
+    """
+    actions_with_metrics = {}
+
+    names_of_actions = get_all_actions_names(sqlite_cursor)
+    for action in names_of_actions:
+        stars = get_specific_action_stars(sqlite_cursor, action)
+        forks = get_specific_action_forks(sqlite_cursor, action)
+        watchers = get_specific_action_watchers(sqlite_cursor, action)
+        dependents = get_specific_action_dependents(sqlite_cursor, action)
+        actions_with_metrics[action] = {}
+        actions_with_metrics[action]["stars"] = stars
+        actions_with_metrics[action]["forks"] = forks
+        actions_with_metrics[action]["watchers"] = watchers
+        actions_with_metrics[action]["dependents"] = dependents
+
+    return actions_with_metrics
+
+
+def get_all_actions_names(sqlite_cursor: sqlite3.Cursor) -> list:
+    """
+    Get the names of all Actions within the database.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    :return: List containing the owner, repository, and the name of an Action, as tuple.
+    """
+    get_actions_names_query = """
+    SELECT owner, repository, name FROM actions; 
+    """
+    actions_names = sqlite_cursor.execute(get_actions_names_query).fetchall()
+    return actions_names
+
+
+def get_specific_action_stars(sqlite_cursor: sqlite3.Cursor, action: tuple[str, str, str]) -> int:
+    """
+    Get the number of stars for a specific Action.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    :param action: The specific Action (owner, repository, name).
+    :return: The number of stars for the specific Action.
+    """
+    get_stars_of_action_query = """
+    SELECT stars FROM actions WHERE owner=? AND repository=? AND name=?;
+    """
+    stars_of_action = sqlite_cursor.execute(get_stars_of_action_query, action).fetchone()[0]
+    return stars_of_action
+
+
+def get_specific_action_forks(sqlite_cursor: sqlite3.Cursor, action: tuple[str, str, str]) -> int:
+    """
+    Get the number of forks for a specific Action.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    :param action: The specific Action (owner, repository, name).
+    :return: The number of forks for the specific Action.
+    """
+    get_forks_of_action_query = """
+    SELECT forks FROM actions WHERE owner=? AND repository=? AND name=?;
+    """
+    forks_of_action = sqlite_cursor.execute(get_forks_of_action_query, action).fetchone()[0]
+    return forks_of_action
+
+
+def get_specific_action_watchers(sqlite_cursor: sqlite3.Cursor, action: tuple[str, str, str]) -> int:
+    """
+    Get the number of watchers for a specific Action.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    :param action: The specific Action (owner, repository, name).
+    :return: The number of watchers for the specific Action.
+    """
+    get_watchers_of_action_query = """
+    SELECT watchers FROM actions WHERE owner=? AND repository=? AND name=?;
+    """
+    watchers_of_action = sqlite_cursor.execute(get_watchers_of_action_query, action).fetchone()[0]
+    return watchers_of_action
+
+
+def get_specific_action_dependents(sqlite_cursor: sqlite3.Cursor, action: tuple[str, str, str]) -> int:
+    """
+    Get the number of dependents for a specific Action.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    :param action: The specific Action (owner, repository, name).
+    :return: The number of dependents for the specific Action.
+    """
+    get_dependents_of_action_query = """
+    SELECT number FROM dependents WHERE owner=? AND repository=?;
+    """
+    dependents_of_action = sqlite_cursor.execute(get_dependents_of_action_query, (action[0], action[1])).fetchone()[0]
+    return dependents_of_action
+
+
+def n_most_popular_actions(actions_with_metrics, n):
+    actions_with_scores = []
+    for action in actions_with_metrics:
+        stars = actions_with_metrics[action]["stars"]
+        forks = actions_with_metrics[action]["stars"]
+        watchers = actions_with_metrics[action]["watchers"]
+        dependents = actions_with_metrics[action]["dependents"]
+        score = stars + forks + watchers + dependents
+        actions_with_scores.append((action, score))
+
+    actions_with_scores.sort(key=lambda x: x[1], reverse=True)
+    print(actions_with_scores[:n])
 
 
 def rq7() -> None:
