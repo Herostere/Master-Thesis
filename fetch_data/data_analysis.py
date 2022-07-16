@@ -1347,8 +1347,9 @@ def n_most_popular_actions(actions_with_metrics, n):
         forks = actions_with_metrics[action]["forks"]
         watchers = actions_with_metrics[action]["watchers"]
         dependents = actions_with_metrics[action]["dependents"]
+        contributors = actions_with_metrics[action]["contributors"]
         overall_dependents += dependents
-        score = stars + forks + watchers + dependents
+        score = stars + forks + watchers + dependents + contributors
         actions_with_scores.append((action, score))
 
     actions_with_scores.sort(key=lambda x: x[1], reverse=True)
