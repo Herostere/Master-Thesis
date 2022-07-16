@@ -1341,15 +1341,13 @@ def get_specific_action_contributors(sqlite_cursor: sqlite3.Cursor, action: tupl
 
 def n_most_popular_actions(actions_with_metrics, n):
     actions_with_scores = []
-    overall_dependents = 0
     for action in actions_with_metrics:
         stars = actions_with_metrics[action]["stars"]
         forks = actions_with_metrics[action]["forks"]
         watchers = actions_with_metrics[action]["watchers"]
         dependents = actions_with_metrics[action]["dependents"]
         contributors = actions_with_metrics[action]["contributors"]
-        overall_dependents += dependents
-        score = stars + forks + watchers + dependents + contributors
+        score = 1 * stars + 2 * forks + 3 * watchers + 4 * contributors + 0.5 * dependents
         actions_with_scores.append((action, score))
 
     actions_with_scores.sort(key=lambda x: x[1], reverse=True)
