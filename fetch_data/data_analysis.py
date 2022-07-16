@@ -1237,11 +1237,13 @@ def get_actions_with_metrics(sqlite_cursor: sqlite3.Cursor) -> dict:
         forks = get_specific_action_forks(sqlite_cursor, action)
         watchers = get_specific_action_watchers(sqlite_cursor, action)
         dependents = get_specific_action_dependents(sqlite_cursor, action)
+        contributors = get_specific_action_contributors(sqlite_cursor, action)
         actions_with_metrics[action] = {}
         actions_with_metrics[action]["stars"] = stars
         actions_with_metrics[action]["forks"] = forks
         actions_with_metrics[action]["watchers"] = watchers
         actions_with_metrics[action]["dependents"] = dependents
+        actions_with_metrics[action]["contributors"] = contributors
 
     return actions_with_metrics
 
