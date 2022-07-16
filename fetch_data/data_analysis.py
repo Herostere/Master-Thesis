@@ -1398,6 +1398,23 @@ def get_specific_action_dependents(sqlite_cursor: sqlite3.Cursor, action: tuple[
     return dependents_of_action
 
 
+def get_specific_action_contributors(sqlite_cursor: sqlite3.Cursor, action: tuple[str, str, str]) -> int:
+    """
+    Get the number of contributors for a specific Action.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    :param action: The specific Action (owner, repository, name).
+    :return: The number of contributors for the specific Action.
+    """
+    get_contributors_of_action_query = """
+    SELECT COUNT(*) FROM (SELECT owner, repository, contributor FROM contributors WHERE owner=? AND repository=?);
+    """
+    owner = action[0]
+    repo = action[1]
+    contributors_of_action = sqlite_cursor.execute(get_contributors_of_action_query, (owner, repo)).fetchone()[0]
+    return contributors_of_action
+
+
 def n_most_popular_actions(actions_with_metrics, n):
     actions_with_scores = []
     overall_dependents = 0
