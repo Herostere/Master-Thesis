@@ -1222,6 +1222,30 @@ def rq5() -> None:
     n_most_popular_actions(actions_with_metrics, top_n)
 
 
+def get_actions_with_metrics(sqlite_cursor: sqlite3.Cursor) -> dict:
+    """
+    Get the Actions with their metrics to answer RQ5.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    :return: The dictionary with the metrics for all Actions.
+    """
+    actions_with_metrics = {}
+
+    names_of_actions = get_all_actions_names(sqlite_cursor)
+    for action in names_of_actions:
+        stars = get_specific_action_stars(sqlite_cursor, action)
+        forks = get_specific_action_forks(sqlite_cursor, action)
+        watchers = get_specific_action_watchers(sqlite_cursor, action)
+        dependents = get_specific_action_dependents(sqlite_cursor, action)
+        actions_with_metrics[action] = {}
+        actions_with_metrics[action]["stars"] = stars
+        actions_with_metrics[action]["forks"] = forks
+        actions_with_metrics[action]["watchers"] = watchers
+        actions_with_metrics[action]["dependents"] = dependents
+
+    return actions_with_metrics
+
+
 def get_stars(sqlite_cursor: sqlite3.Cursor) -> list:
     """
     Get the number of stars for all Actions.
@@ -1298,30 +1322,6 @@ def get_contributors(sqlite_cursor) -> list:
         contributors = sqlite_cursor.execute(number_of_contributors_query, (action[0], action[1])).fetchone()[0]
         contributors_per_actions.append(contributors)
     return contributors_per_actions
-
-
-def get_actions_with_metrics(sqlite_cursor: sqlite3.Cursor) -> dict:
-    """
-    Get the Actions with their metrics to answer RQ5.
-
-    :param sqlite_cursor: The cursor for the database connection.
-    :return: The dictionary with the metrics for all Actions.
-    """
-    actions_with_metrics = {}
-
-    names_of_actions = get_all_actions_names(sqlite_cursor)
-    for action in names_of_actions:
-        stars = get_specific_action_stars(sqlite_cursor, action)
-        forks = get_specific_action_forks(sqlite_cursor, action)
-        watchers = get_specific_action_watchers(sqlite_cursor, action)
-        dependents = get_specific_action_dependents(sqlite_cursor, action)
-        actions_with_metrics[action] = {}
-        actions_with_metrics[action]["stars"] = stars
-        actions_with_metrics[action]["forks"] = forks
-        actions_with_metrics[action]["watchers"] = watchers
-        actions_with_metrics[action]["dependents"] = dependents
-
-    return actions_with_metrics
 
 
 def get_all_actions_names(sqlite_cursor: sqlite3.Cursor) -> list:
