@@ -1222,41 +1222,6 @@ def rq5() -> None:
     n_most_popular_actions(actions_with_metrics, top_n)
 
 
-def correlation_between_metrics(sqlite_cursor: sqlite3.Cursor) -> None:
-    """
-    Show the correlation between metrics.
-
-    :param sqlite_cursor: The cursor for the database connection.
-    """
-    stars = get_stars(sqlite_cursor)
-    forks = get_forks(sqlite_cursor)
-    watchers = get_watchers(sqlite_cursor)
-    dependents = get_dependents(sqlite_cursor)
-
-    list_of_metrics = [stars, forks, watchers, dependents]
-    metrics_names = ["stars", "forks", "watchers", "dependents"]
-
-    possible_pairs = list(combinations(list_of_metrics, 2))
-    number_of_possible_pairs = len(possible_pairs)
-    possible_pairs_names = list(combinations(metrics_names, 2))
-
-    number_of_rows = number_of_possible_pairs / 3
-    number_of_rows = math.ceil(number_of_rows)
-
-    figures, axes = plt.subplots(number_of_rows, 3)
-
-    pair_index = 0
-    for row in range(number_of_rows):
-        for column in range(3):
-            x_metric = possible_pairs[pair_index][0]
-            y_metric = possible_pairs[pair_index][1]
-            print(f"{possible_pairs_names[pair_index][0]} - {possible_pairs_names[pair_index][1]} {spearman_correlation_test(x_metric, y_metric)}")
-            seaborn.scatterplot(x=x_metric, y=y_metric, ax=axes[row, column])
-            pair_index += 1
-
-    plt.show()
-
-
 def get_stars(sqlite_cursor: sqlite3.Cursor) -> list:
     """
     Get the number of stars for all Actions.
