@@ -11,7 +11,7 @@ from fetch_data import (
     GITHUB_TOKENS)
 from itertools import combinations
 from packaging import version as packaging_version
-from scipy.stats import mannwhitneyu, pearsonr, spearmanr
+from scipy.stats import mannwhitneyu, spearmanr
 
 import base64
 import data_analysis_config as config
@@ -1216,12 +1216,45 @@ def rq5() -> None:
     sqlite_connection = sqlite3.connect(f"{files_path_main}/{first_file_name_main}")
     sqlite_cursor = sqlite_connection.cursor()
 
-    correlation_between_metrics(sqlite_cursor)
-
     actions_with_metrics = get_actions_with_metrics(sqlite_cursor)
 
     top_n = 10
     n_most_popular_actions(actions_with_metrics, top_n)
+
+
+def correlation_between_metrics(sqlite_cursor: sqlite3.Cursor) -> None:
+    """
+    Show the correlation between metrics.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    """
+    stars = get_stars(sqlite_cursor)
+    forks = get_forks(sqlite_cursor)
+    watchers = get_watchers(sqlite_cursor)
+    dependents = get_dependents(sqlite_cursor)
+
+    list_of_metrics = [stars, forks, watchers, dependents]
+    metrics_names = ["stars", "forks", "watchers", "dependents"]
+
+    possible_pairs = list(combinations(list_of_metrics, 2))
+    number_of_possible_pairs = len(possible_pairs)
+    possible_pairs_names = list(combinations(metrics_names, 2))
+
+    number_of_rows = number_of_possible_pairs / 3
+    number_of_rows = math.ceil(number_of_rows)
+
+    figures, axes = plt.subplots(number_of_rows, 3)
+
+    pair_index = 0
+    for row in range(number_of_rows):
+        for column in range(3):
+            x_metric = possible_pairs[pair_index][0]
+            y_metric = possible_pairs[pair_index][1]
+            print(f"{possible_pairs_names[pair_index][0]} - {possible_pairs_names[pair_index][1]} {spearman_correlation_test(x_metric, y_metric)}")
+            seaborn.scatterplot(x=x_metric, y=y_metric, ax=axes[row, column])
+            pair_index += 1
+
+    plt.show()
 
 
 def get_stars(sqlite_cursor: sqlite3.Cursor) -> list:
@@ -1284,55 +1317,25 @@ def get_dependents(sqlite_cursor: sqlite3.Cursor) -> list:
     return list_of_number_of_dependents
 
 
-def correlation_between_metrics(sqlite_cursor: sqlite3.Cursor) -> None:
+def get_contributors(sqlite_cursor) -> list:
     """
-    Show the correlation between metrics.
+    Get the number of contributors for all Actions.
 
     :param sqlite_cursor: The cursor for the database connection.
+    :return: A list containing the number of contributors for all Actions.
     """
-    stars = get_stars(sqlite_cursor)
-    forks = get_forks(sqlite_cursor)
-    watchers = get_watchers(sqlite_cursor)
-    dependents = get_dependents(sqlite_cursor)
-
-    list_of_metrics = [stars, forks, watchers, dependents]
-
-    possible_pairs = list(combinations(list_of_metrics, 2))
-    number_of_possible_pairs = len(possible_pairs)
-
-    number_of_rows = number_of_possible_pairs / 3
-    number_of_rows = math.ceil(number_of_rows)
-
-    figures, axes = plt.subplots(number_of_rows, 3)
-
-    pair_index = 0
-    for row in range(number_of_rows):
-        for column in range(3):
-            x_metric = possible_pairs[pair_index][0]
-            y_metric = possible_pairs[pair_index][1]
-            print(spearman_correlation_test(x_metric, y_metric))
-            seaborn.scatterplot(x=x_metric, y=y_metric, ax=axes[row, column])
-            pair_index += 1
-
-    plt.show()
-
-
-def spearman_correlation_test(list_x: list, list_y: list) -> tuple[float, float]:
+    number_of_contributors_query = """
+    SELECT COUNT(*) FROM (SELECT owner, repository, contributor FROM contributors WHERE owner=? AND repository=?);
     """
-    Compute the Spearman's correlation test for two metrics.
-
-    :param list_x: The first list of values.
-    :param list_y: The second list of values.
-    :return: The correlation coefficient and the p-value.
-    """
-    spearman_test = spearmanr(list_x, list_y)
-    correlation_coefficient = round(spearman_test[0], 5)
-    p_value = round(spearman_test[1], 5)
-
-    return correlation_coefficient, p_value
+    all_actions_names = get_all_actions_names(sqlite_cursor)
+    contributors_per_actions = []
+    for action in all_actions_names:
+        contributors = sqlite_cursor.execute(number_of_contributors_query, (action[0], action[1])).fetchone()[0]
+        contributors_per_actions.append(contributors)
+    return contributors_per_actions
 
 
-def get_actions_with_metrics(sqlite_cursor: sqlite3.Cursor) -> list:
+def get_actions_with_metrics(sqlite_cursor: sqlite3.Cursor) -> dict:
     """
     Get the Actions with their metrics to answer RQ5.
 
@@ -1432,11 +1435,13 @@ def get_specific_action_dependents(sqlite_cursor: sqlite3.Cursor, action: tuple[
 
 def n_most_popular_actions(actions_with_metrics, n):
     actions_with_scores = []
+    overall_dependents = 0
     for action in actions_with_metrics:
         stars = actions_with_metrics[action]["stars"]
-        forks = actions_with_metrics[action]["stars"]
+        forks = actions_with_metrics[action]["forks"]
         watchers = actions_with_metrics[action]["watchers"]
         dependents = actions_with_metrics[action]["dependents"]
+        overall_dependents += dependents
         score = stars + forks + watchers + dependents
         actions_with_scores.append((action, score))
 
