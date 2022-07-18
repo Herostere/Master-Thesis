@@ -114,7 +114,7 @@ def get_request(function: str, url: str) -> requests.Response | None:
                     counter -= 1
             break
 
-        except requests.ConnectionError:
+        except (requests.ConnectionError, requests.exceptions.ReadTimeout):
             SESSION.close()
             SESSION = requests.Session()
             SESSION.cookies['user_session'] = os.getenv("CONNECTION_COOKIE")

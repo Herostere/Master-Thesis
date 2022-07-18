@@ -1346,27 +1346,12 @@ def n_most_popular_actions(actions_with_metrics, n):
         watchers = actions_with_metrics[action]["watchers"]
         dependents = actions_with_metrics[action]["dependents"]
         contributors = actions_with_metrics[action]["contributors"]
-        score_stars = lower_bound_wilson_score(stars, dependents, 0.99)
-        score_forks = lower_bound_wilson_score(forks, dependents, 0.99)
-        score_watchers = lower_bound_wilson_score(watchers, dependents, 0.99)
-        score_contributors = lower_bound_wilson_score(contributors, dependents, 0.99)
-        score = score_stars + score_forks + score_watchers + score_contributors
+
+        score = 25 * stars + 75 * forks + 50 * watchers + 100 * contributors + dependents
         actions_with_scores.append((action, score))
 
     actions_with_scores.sort(key=lambda x: x[1], reverse=True)
     print(actions_with_scores[:n])
-
-
-def lower_bound_wilson_score(score, dependents, confidence):
-    if dependents == 0:
-        return 0
-    z = norm.ppf(1 - (1 - confidence) / 2)
-    phat = 1.0 * score / dependents
-    square_root_content = (phat * (1 - phat) + z * z / (4 * dependents)) / dependents
-    if square_root_content < 0:
-        return 0
-    square_root = math.sqrt(square_root_content)
-    return (phat + z * z / (2 * dependents) - z * square_root) / (1 + z * z / dependents)
 
 
 def rq7() -> None:
