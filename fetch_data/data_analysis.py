@@ -1208,6 +1208,9 @@ def get_actions_sample(exclude_popular: bool) -> dict:
     return sample
 
 
+def rq4():
+
+
 def rq5() -> None:
     """
     Determine the popularity of the Actions.
@@ -1338,7 +1341,14 @@ def get_specific_action_contributors(sqlite_cursor: sqlite3.Cursor, action: tupl
     return contributors_of_action
 
 
-def n_most_popular_actions(actions_with_metrics, n, sqlite_cursor):
+def n_most_popular_actions(actions_with_metrics: dict, n: int, sqlite_cursor: sqlite3.Cursor) -> None:
+    """
+    Show the list of most popular owners, categories, and Actions.
+
+    :param actions_with_metrics: The dictionary of Actions along with their number of stars, forks, ...
+    :param n: The n top Actions to show.
+    :param sqlite_cursor: The cursor for the database connection.
+    """
     actions_with_scores = []
     for action in actions_with_metrics:
         stars = actions_with_metrics[action]["stars"]
@@ -1386,7 +1396,14 @@ def n_most_popular_actions(actions_with_metrics, n, sqlite_cursor):
     print(top_n)
 
 
-def get_categories_of_action(sqlite_cursor, action):
+def get_categories_of_action(sqlite_cursor: sqlite3.Cursor, action: tuple[str, str, str]) -> list:
+    """
+    Get the list of categories (max len = 2) for an Action.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    :param action: The specific Action (owner, repository, name).
+    :return: The categories for an Action.
+    """
     get_category_of_action_query = """
     SELECT category FROM categories WHERE owner = ? AND repository = ?;
     """
@@ -1578,6 +1595,9 @@ if __name__ == "__main__":
 
     if config.actions_technical_lag:
         actions_technical_lag()
+
+    if config.rq4:
+        rq4()
 
     if config.rq5:
         rq5()
