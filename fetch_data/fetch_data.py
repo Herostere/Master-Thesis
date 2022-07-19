@@ -114,7 +114,7 @@ def get_request(function: str, url: str) -> requests.Response | None:
                     counter -= 1
             break
 
-        except requests.ConnectionError:
+        except (requests.ConnectionError, requests.exceptions.ReadTimeout):
             SESSION.close()
             SESSION = requests.Session()
             SESSION.cookies['user_session'] = os.getenv("CONNECTION_COOKIE")
@@ -293,7 +293,7 @@ def insert_actions(action_data: dict, cursor: sqlite3.Cursor, owner: str, reposi
     forks = action_data["forks"]
     name = action_data["name"]
     stars = action_data["stars"]
-    verified = 1 if action_data["verified"] else 0
+    verified = 0 if action_data["verified"] else 1
     watchers = action_data["watchers"]
     insert_main = """
     INSERT INTO actions (forks, name, owner, repository, stars, verified, watchers)

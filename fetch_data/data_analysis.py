@@ -10,7 +10,7 @@ from fetch_data import (
     get_remaining_api_calls,
     GITHUB_TOKENS)
 from packaging import version as packaging_version
-from scipy.stats import mannwhitneyu
+from scipy.stats import mannwhitneyu, norm
 
 import base64
 import data_analysis_config as config
@@ -240,8 +240,8 @@ def actions_technical_lag() -> None:
     fetch_repositories_query = """
     SELECT DISTINCT owner, repository FROM versions;
     """
-    last_file_name = files_names_main[-1]
-    sqlite_connection = sqlite3.connect(f"{files_path_main}/{last_file_name}")
+    first_file_name = files_names_main[0]
+    sqlite_connection = sqlite3.connect(f"{files_path_main}/{first_file_name}")
     sqlite_cursor = sqlite_connection.cursor()
     owners_repositories = sqlite_cursor.execute(fetch_repositories_query).fetchall()
 
@@ -495,42 +495,6 @@ def days_between_dates(dates: list) -> list:
         j += 1
 
     return days
-
-
-def actions_popularity(printing: bool = False) -> dict:
-    """
-    Determine the popularity of the Actions.
-    The popularity is computed as the number of stars + number of dependents + number of forks + number of watching.
-
-    :param printing: True if the function should print the output. Otherwise False.
-    :return: The list of most popular Actions.
-    """
-    scores = {}
-    for action in loaded_data:
-        stars = loaded_data[action]["stars"]
-        dependents = loaded_data[action]["dependents"]["number"]
-        forks = loaded_data[action]["forks"]
-        watching = loaded_data[action]["watching"]
-        score = stars + dependents + forks + watching
-
-        owner = loaded_data[action]["owner"]
-        repository = loaded_data[action]["repository"]
-
-        scores[f"{owner}/{repository}"] = score
-
-    sample_size = compute_sample_size(len(scores))
-    popular_actions = Counter(scores).most_common(sample_size)
-
-    popular_actions_dictionary = {}
-    for key, value in popular_actions:
-        popular_actions_dictionary[key] = value
-
-    if printing:
-        for i, element in enumerate(popular_actions_dictionary):
-            value = popular_actions_dictionary[element]
-            print(f'{i+1}: "{element}" -> {value}')
-
-    return popular_actions_dictionary
 
 
 def ymls_content_start_threads() -> None:
@@ -1244,10 +1208,335 @@ def get_actions_sample(exclude_popular: bool) -> dict:
     return sample
 
 
+def rq5() -> None:
+    """
+    Determine the popularity of the Actions.
+    """
+    sqlite_connection = sqlite3.connect(f"{files_path_main}/{first_file_name_main}")
+    sqlite_cursor = sqlite_connection.cursor()
+
+    actions_with_metrics = get_actions_with_metrics(sqlite_cursor)
+
+    top_n = 1000
+    n_most_popular_actions(actions_with_metrics, top_n, sqlite_cursor)
+
+
+def get_actions_with_metrics(sqlite_cursor: sqlite3.Cursor) -> dict:
+    """
+    Get the Actions with their metrics to answer RQ5.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    :return: The dictionary with the metrics for all Actions.
+    """
+    actions_with_metrics = {}
+
+    names_of_actions = get_all_actions_names(sqlite_cursor)
+    for action in names_of_actions:
+        stars = get_specific_action_stars(sqlite_cursor, action)
+        forks = get_specific_action_forks(sqlite_cursor, action)
+        watchers = get_specific_action_watchers(sqlite_cursor, action)
+        dependents = get_specific_action_dependents(sqlite_cursor, action)
+        contributors = get_specific_action_contributors(sqlite_cursor, action)
+        actions_with_metrics[action] = {}
+        actions_with_metrics[action]["stars"] = stars
+        actions_with_metrics[action]["forks"] = forks
+        actions_with_metrics[action]["watchers"] = watchers
+        actions_with_metrics[action]["dependents"] = dependents
+        actions_with_metrics[action]["contributors"] = contributors
+
+    return actions_with_metrics
+
+
+def get_all_actions_names(sqlite_cursor: sqlite3.Cursor) -> list:
+    """
+    Get the names of all Actions within the database.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    :return: List containing the owner, repository, and the name of an Action, as tuple.
+    """
+    get_actions_names_query = """
+    SELECT owner, repository, name FROM actions; 
+    """
+    actions_names = sqlite_cursor.execute(get_actions_names_query).fetchall()
+    return actions_names
+
+
+def get_specific_action_stars(sqlite_cursor: sqlite3.Cursor, action: tuple[str, str, str]) -> int:
+    """
+    Get the number of stars for a specific Action.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    :param action: The specific Action (owner, repository, name).
+    :return: The number of stars for the specific Action.
+    """
+    get_stars_of_action_query = """
+    SELECT stars FROM actions WHERE owner=? AND repository=? AND name=?;
+    """
+    stars_of_action = sqlite_cursor.execute(get_stars_of_action_query, action).fetchone()[0]
+    return stars_of_action
+
+
+def get_specific_action_forks(sqlite_cursor: sqlite3.Cursor, action: tuple[str, str, str]) -> int:
+    """
+    Get the number of forks for a specific Action.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    :param action: The specific Action (owner, repository, name).
+    :return: The number of forks for the specific Action.
+    """
+    get_forks_of_action_query = """
+    SELECT forks FROM actions WHERE owner=? AND repository=? AND name=?;
+    """
+    forks_of_action = sqlite_cursor.execute(get_forks_of_action_query, action).fetchone()[0]
+    return forks_of_action
+
+
+def get_specific_action_watchers(sqlite_cursor: sqlite3.Cursor, action: tuple[str, str, str]) -> int:
+    """
+    Get the number of watchers for a specific Action.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    :param action: The specific Action (owner, repository, name).
+    :return: The number of watchers for the specific Action.
+    """
+    get_watchers_of_action_query = """
+    SELECT watchers FROM actions WHERE owner=? AND repository=? AND name=?;
+    """
+    watchers_of_action = sqlite_cursor.execute(get_watchers_of_action_query, action).fetchone()[0]
+    return watchers_of_action
+
+
+def get_specific_action_dependents(sqlite_cursor: sqlite3.Cursor, action: tuple[str, str, str]) -> int:
+    """
+    Get the number of dependents for a specific Action.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    :param action: The specific Action (owner, repository, name).
+    :return: The number of dependents for the specific Action.
+    """
+    get_dependents_of_action_query = """
+    SELECT number FROM dependents WHERE owner=? AND repository=?;
+    """
+    dependents_of_action = sqlite_cursor.execute(get_dependents_of_action_query, (action[0], action[1])).fetchone()[0]
+    return dependents_of_action
+
+
+def get_specific_action_contributors(sqlite_cursor: sqlite3.Cursor, action: tuple[str, str, str]) -> int:
+    """
+    Get the number of contributors for a specific Action.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    :param action: The specific Action (owner, repository, name).
+    :return: The number of contributors for the specific Action.
+    """
+    get_contributors_of_action_query = """
+    SELECT COUNT(*) FROM (SELECT owner, repository, contributor FROM contributors WHERE owner=? AND repository=?);
+    """
+    owner = action[0]
+    repo = action[1]
+    contributors_of_action = sqlite_cursor.execute(get_contributors_of_action_query, (owner, repo)).fetchone()[0]
+    return contributors_of_action
+
+
+def n_most_popular_actions(actions_with_metrics, n, sqlite_cursor):
+    actions_with_scores = []
+    for action in actions_with_metrics:
+        stars = actions_with_metrics[action]["stars"]
+        forks = actions_with_metrics[action]["forks"]
+        watchers = actions_with_metrics[action]["watchers"]
+        dependents = actions_with_metrics[action]["dependents"]
+        contributors = actions_with_metrics[action]["contributors"]
+
+        score = 25 * stars + 75 * forks + 50 * watchers + 100 * contributors + dependents
+        actions_with_scores.append((action, score))
+
+    actions_with_scores.sort(key=lambda x: x[1], reverse=True)
+    top_n = actions_with_scores[:n]
+    for i in range(len(top_n)):
+        action = top_n[i][0]
+        score = top_n[i][1]
+        categories = get_categories_of_action(sqlite_cursor, action)
+        top_n[i] = (action, score, categories)
+
+    categories_counter = {}
+    owners_counter = {}
+    for action in top_n:
+        categories = action[2]
+        owner = action[0][0]
+        if owner not in owners_counter:
+            owners_counter[owner] = 1
+        else:
+            owners_counter[owner] += 1
+        for category in categories:
+            if category not in categories_counter:
+                categories_counter[category] = 1
+            else:
+                categories_counter[category] += 1
+    owners_counter = sorted(owners_counter.items(), key=lambda x: x[1], reverse=True)
+    owners_counter = dict(owners_counter)
+    print(owners_counter)
+    categories_counter = sorted(categories_counter.items(), key=lambda x: x[1], reverse=True)
+    categories_counter = dict(categories_counter)
+    one_action = 0
+    for owner in owners_counter:
+        if owners_counter[owner] == 1:
+            one_action += 1
+    print(f"Owner with only one Action: {one_action} / {len(owners_counter)}")
+    print(categories_counter)
+    print(top_n)
+
+
+def get_categories_of_action(sqlite_cursor, action):
+    get_category_of_action_query = """
+    SELECT category FROM categories WHERE owner = ? AND repository = ?;
+    """
+    owner = action[0]
+    repo = action[1]
+    categories_tuples = sqlite_cursor.execute(get_category_of_action_query, (owner, repo)).fetchall()
+    categories = []
+    for category_tuple in categories_tuples:
+        categories.append(category_tuple[0])
+    return categories
+
+
+def rq7() -> None:
+    """
+    Check the proportion of verified users on the Marketplace, the total number of users and the proportion of
+    verified ones.
+    """
+    sqlite_connection = sqlite3.connect(f"{files_path_main}/{first_file_name_main}")
+    sqlite_cursor = sqlite_connection.cursor()
+
+    separator = "-" * 10
+
+    count_number_of_actions(sqlite_cursor)
+    print(separator)
+
+    count_number_of_owners(sqlite_cursor)
+    print(separator)
+
+    count_verified_users(sqlite_cursor)
+    print(separator)
+
+    count_verified_actions(sqlite_cursor)
+    print(separator)
+
+    sqlite_connection.close()
+
+
+def count_number_of_actions(sqlite_cursor: sqlite3.Cursor) -> None:
+    """
+    Print the number of Actions in the database.
+    :param sqlite_cursor: The cursor for the database connection.
+    """
+    count_actions_query = """
+    SELECT COUNT(*) FROM (SELECT DISTINCT owner, repository FROM actions);
+    """
+    number_of_actions = sqlite_cursor.execute(count_actions_query).fetchone()[0]
+    print(f"Number of actions: {number_of_actions}")
+
+
+def count_number_of_owners(sqlite_cursor: sqlite3.Cursor) -> None:
+    """
+    Print the number of owners in the database.
+    :param sqlite_cursor: The cursor for the database connection.
+    """
+    count_owners_query = """
+    SELECT COUNT(*) FROM (SELECT DISTINCT owner FROM actions);
+    """
+    number_of_owners = sqlite_cursor.execute(count_owners_query).fetchone()[0]
+    print(f"Number of owners: {number_of_owners}")
+
+
+def count_actions_per_owner(sqlite_cursor: sqlite3.Cursor) -> list:
+    """
+    Count the number of Actions per owners.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    :return: A list with the number of Actions per owner.
+    """
+    owners = get_owners(sqlite_cursor)
+    number_of_actions_per_owner = []
+    for owner in owners:
+        actions_per_owner_query = """
+        SELECT COUNT(*) FROM (SELECT DISTINCT owner, repository FROM actions WHERE owner=?);
+        """
+        actions_per_owner = sqlite_cursor.execute(actions_per_owner_query, (owner,)).fetchone()[0]
+        number_of_actions_per_owner.append(actions_per_owner)
+    number_of_actions_per_owner.sort()
+
+    return number_of_actions_per_owner
+
+
+def get_owners(sqlite_cursor: sqlite3.Cursor) -> list:
+    """
+    Get the list of owners.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    :return: The list of owners.
+    """
+    owners_query = """
+    SELECT DISTINCT owner FROM actions;
+    """
+    owners = sqlite_cursor.execute(owners_query).fetchall()
+    owners = [owner[0] for owner in owners]
+
+    return owners
+
+
+def compute_statistics(values_list: list, end_of_sentence: str) -> None:
+    """
+    Print the median, maximum, minimum, q1, q3 of a list.
+    :param values_list: The list with the values.
+    :param end_of_sentence: The end of the sentence that will be printed.
+    """
+    median = statistics.median(values_list)
+    maximum = max(values_list)
+    minimum = min(values_list)
+    q1 = numpy.percentile(values_list, 25)
+    q3 = numpy.percentile(values_list, 75)
+    iqr = q3 - q1
+
+    print(f"Median {end_of_sentence}: {median}")
+    print(f"Maximum {end_of_sentence}: {maximum}")
+    print(f"Minimum {end_of_sentence}: {minimum}")
+    print(f"Q1 {end_of_sentence}: {q1}")
+    print(f"Q3 {end_of_sentence}: {q3}")
+    print(f"IQR {end_of_sentence}: {iqr}")
+
+
+def count_verified_users(sqlite_cursor: sqlite3.Cursor) -> None:
+    """
+    Print the number of verified users.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    """
+    number_of_verified_owners_query = """
+    SELECT COUNT(DISTINCT owner) FROM actions WHERE verified=1;
+    """
+    number_of_verified_owners = sqlite_cursor.execute(number_of_verified_owners_query).fetchone()[0]
+    print(f"Number of verified owners: {number_of_verified_owners}")
+
+
+def count_verified_actions(sqlite_cursor: sqlite3.Cursor) -> None:
+    """
+    Print the number of Actions published by verified users.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    """
+    number_of_verified_actions_query = """
+    SELECT COUNT(name) FROM actions WHERE verified=1;
+    """
+    number_of_verified_actions = sqlite_cursor.execute(number_of_verified_actions_query).fetchone()[0]
+    print(f"Number of verified Actions: {number_of_verified_actions}")
+
+
 if __name__ == "__main__":
     files_path_main = config.files_path
     files_names_main = [file for file in os.listdir(files_path_main) if ".db" in file]
     files_names_main.sort()
+
+    first_file_name_main = files_names_main[0]
 
     categories_main = [
         'api-management',
@@ -1290,10 +1579,13 @@ if __name__ == "__main__":
     if config.actions_technical_lag:
         actions_technical_lag()
 
-    # ------------------------------------------------------------------------------------------------------------------
+    if config.rq5:
+        rq5()
 
-    if config.actions_popularity:
-        actions_popularity(True)
+    if config.rq7:
+        rq7()
+
+    # ------------------------------------------------------------------------------------------------------------------
 
     if config.ymls_content:
         ymls_content_start_threads()
