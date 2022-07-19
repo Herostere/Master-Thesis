@@ -1217,8 +1217,8 @@ def rq5() -> None:
 
     actions_with_metrics = get_actions_with_metrics(sqlite_cursor)
 
-    top_n = 10
-    n_most_popular_actions(actions_with_metrics, top_n)
+    top_n = 1000
+    n_most_popular_actions(actions_with_metrics, top_n, sqlite_cursor)
 
 
 def get_actions_with_metrics(sqlite_cursor: sqlite3.Cursor) -> dict:
@@ -1338,7 +1338,7 @@ def get_specific_action_contributors(sqlite_cursor: sqlite3.Cursor, action: tupl
     return contributors_of_action
 
 
-def n_most_popular_actions(actions_with_metrics, n):
+def n_most_popular_actions(actions_with_metrics, n, sqlite_cursor):
     actions_with_scores = []
     for action in actions_with_metrics:
         stars = actions_with_metrics[action]["stars"]
@@ -1351,7 +1351,52 @@ def n_most_popular_actions(actions_with_metrics, n):
         actions_with_scores.append((action, score))
 
     actions_with_scores.sort(key=lambda x: x[1], reverse=True)
-    print(actions_with_scores[:n])
+    top_n = actions_with_scores[:n]
+    for i in range(len(top_n)):
+        action = top_n[i][0]
+        score = top_n[i][1]
+        categories = get_categories_of_action(sqlite_cursor, action)
+        top_n[i] = (action, score, categories)
+
+    categories_counter = {}
+    owners_counter = {}
+    for action in top_n:
+        categories = action[2]
+        owner = action[0][0]
+        if owner not in owners_counter:
+            owners_counter[owner] = 1
+        else:
+            owners_counter[owner] += 1
+        for category in categories:
+            if category not in categories_counter:
+                categories_counter[category] = 1
+            else:
+                categories_counter[category] += 1
+    owners_counter = sorted(owners_counter.items(), key=lambda x: x[1], reverse=True)
+    owners_counter = dict(owners_counter)
+    print(owners_counter)
+    categories_counter = sorted(categories_counter.items(), key=lambda x: x[1], reverse=True)
+    categories_counter = dict(categories_counter)
+    one_action = 0
+    for owner in owners_counter:
+        if owners_counter[owner] == 1:
+            one_action += 1
+    print(f"Owner with only one Action: {one_action} / {len(owners_counter)}")
+    print(categories_counter)
+    print(top_n)
+
+
+def get_categories_of_action(sqlite_cursor, action):
+    get_category_of_action_query = """
+    SELECT category FROM categories WHERE owner = ? AND repository = ?;
+    """
+    owner = action[0]
+    repo = action[1]
+    categories_tuples = sqlite_cursor.execute(get_category_of_action_query, (owner, repo)).fetchall()
+    categories = []
+    for category_tuple in categories_tuples:
+        categories.append(category_tuple[0])
+    return categories
 
 
 def rq7() -> None:
