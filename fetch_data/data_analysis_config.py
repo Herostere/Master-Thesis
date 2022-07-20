@@ -12,6 +12,7 @@ actions_diversity = False  # DONE
 most_commonly_proposed = False  # DONE
 actions_technical_lag = False  # DONE
 rq4 = True
+rq4_number_of_repositories = 1000
 rq5 = False
 rq7 = False
 
