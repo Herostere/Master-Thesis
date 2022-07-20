@@ -1224,8 +1224,6 @@ def rq4():
     print(no_actions)
 
 
-
-
 def get_workflow_files(number_of_repositories):
     workflow_files_contents = []
     end_cursor = None
