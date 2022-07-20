@@ -1214,10 +1214,16 @@ def rq4():
     if not already_fetch_yml_files:
         list_of_workflow_files_contents = get_workflow_files(config.rq4_number_of_repositories)
         numpy.save("outputs/yml_files.npy", list_of_workflow_files_contents)
-    else:
-        list_of_workflow_files_contents = numpy.load("outputs/yml_files.npy")
+    list_of_workflow_files_contents = numpy.load("outputs/yml_files.npy")
+    total_of_actions, actions_counters, no_actions = actions_per_workflow_file(list_of_workflow_files_contents)
+    actions_counters = sorted(actions_counters.items(), key=lambda x: x[1], reverse=True)
+    actions_counters = dict(actions_counters)
 
-    print()
+    compute_statistics(total_of_actions, "of Actions per workflow file")
+    print(actions_counters)
+    print(no_actions)
+
+
 
 
 def get_workflow_files(number_of_repositories):
@@ -1356,6 +1362,46 @@ def filter_repositories_workflow_files(repositories):
                     content = json_content["object"]["text"]
                     yml_content.append(content)
     return yml_content
+
+
+def actions_per_workflow_file(list_of_workflow_files_contents):
+    sqlite_connection = sqlite3.connect(f"{files_path_main}/{first_file_name_main}")
+    sqlite_cursor = sqlite_connection.cursor()
+
+    list_of_actions_on_marketplace = get_all_actions_names(sqlite_cursor)
+    list_of_actions_on_marketplace = [f"{action[0]}/{action[1]}" for action in list_of_actions_on_marketplace]
+
+    total_of_actions = []
+    actions_counters = {}
+    no_actions = 0
+    for workflow_content in list_of_workflow_files_contents:
+        actions_counter = 0
+        pre_content = workflow_content.replace("on:", "trigger:")
+        pre_content = re.sub(r"\n+", "\n", pre_content)
+        content = yaml.safe_load(pre_content)
+        at_least_one_action = False
+        if content and "jobs" in content.keys():
+            jobs = content["jobs"]
+            for job in jobs:
+                if "steps" in jobs[job].keys():
+                    steps = jobs[job]["steps"]
+                    for step in steps:
+                        step_keys = step.keys()
+                        for key in step_keys:
+                            if key == "uses":
+                                use = step[key]
+                                if "@" in use:
+                                    use = use.split("@")[0]
+                                    if use in list_of_actions_on_marketplace:
+                                        at_least_one_action = True
+                                        actions_counter += 1
+                                        if use not in actions_counters:
+                                            actions_counters[use] = 1
+                                        else:
+                                            actions_counters[use] += 1
+        total_of_actions.append(actions_counter)
+        no_actions = no_actions + 1 if not at_least_one_action else no_actions
+    return total_of_actions, actions_counters, no_actions
 
 
 def rq5() -> None:
