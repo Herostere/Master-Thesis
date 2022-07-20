@@ -82,6 +82,8 @@ def get_request(function: str, url: str) -> requests.Response | None:
     global T_R
     global SESSION
 
+    sleep_time = 10
+
     while True:
         try:
             request = SESSION.get(url)
@@ -114,14 +116,19 @@ def get_request(function: str, url: str) -> requests.Response | None:
                     counter -= 1
             break
 
-        except (requests.ConnectionError, requests.exceptions.ReadTimeout):
+        except (requests.ConnectionError, requests.exceptions.ReadTimeout, KeyError):
             SESSION.close()
             SESSION = requests.Session()
             SESSION.cookies['user_session'] = os.getenv("CONNECTION_COOKIE")
-            threads = max(10, number_of_threads)
+            try:
+                threads = max(10, number_of_threads)
+            except NameError:
+                threads = 10
             adapter = requests.adapters.HTTPAdapter(pool_connections=threads, pool_maxsize=threads)
             SESSION.mount("https://", adapter)
             SESSION.mount("http://", adapter)
+            time.sleep(sleep_time)
+            sleep_time += 10
 
     return request
 
