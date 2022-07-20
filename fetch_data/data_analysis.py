@@ -9,8 +9,9 @@ from fetch_data import (
     beautiful_html,
     get_remaining_api_calls,
     GITHUB_TOKENS)
+from json import loads as json_loads
 from packaging import version as packaging_version
-from scipy.stats import mannwhitneyu, norm
+from scipy.stats import mannwhitneyu
 
 import base64
 import data_analysis_config as config
@@ -1209,6 +1210,152 @@ def get_actions_sample(exclude_popular: bool) -> dict:
 
 
 def rq4():
+    already_fetch_yml_files = os.path.exists("outputs/yml_files.npy")
+    if not already_fetch_yml_files:
+        list_of_workflow_files_contents = get_workflow_files(config.rq4_number_of_repositories)
+        numpy.save("outputs/yml_files.npy", list_of_workflow_files_contents)
+    else:
+        list_of_workflow_files_contents = numpy.load("outputs/yml_files.npy")
+
+    print()
+
+
+def get_workflow_files(number_of_repositories):
+    workflow_files_contents = []
+    end_cursor = None
+    number_of_workflow_files = 0
+
+    while number_of_workflow_files < number_of_repositories:
+        if not end_cursor:
+            api_answer_json = get_api("repositories")
+        else:
+            api_answer_json = get_api("repositories", end_cursor)
+
+        end_cursor = api_answer_json["pageInfo"]["endCursor"]
+        repositories = api_answer_json["edges"]
+        repositories_workflow_ymls = filter_repositories_workflow_files(repositories)
+        for file in repositories_workflow_ymls:
+            workflow_files_contents.append(file)
+        number_of_workflow_files = len(workflow_files_contents)
+
+    return workflow_files_contents[:number_of_repositories]
+
+
+def get_api(key_word, name=None, owner=None, expression=None, end_cursor=None) -> dict:
+    """
+    Contact the API to fetch information.
+
+    :return: The JSON with the requested data
+    """
+    if key_word == "repositories" and not end_cursor:
+        query = {'query': f"""
+    {{
+      search(query: "is:public pushed:>=2021-07-20", type: REPOSITORY, first: 100) {{
+        repositoryCount
+        pageInfo {{
+          endCursor
+          startCursor
+        }}
+        edges {{
+          node {{
+            ... on Repository {{
+              url
+              owner {{
+                login
+              }}
+              name
+              defaultBranchRef {{
+                name
+              }}
+            }}
+          }}
+        }}
+      }}
+    }}
+    """}
+        api_response_keyword = "search"
+    elif key_word == "repositories":
+        query = {'query': f"""
+            {{
+              search(query: "is:public pushed:>=2021-07-20", type: REPOSITORY, first: 100, after: "{end_cursor}") {{
+                repositoryCount
+                pageInfo {{
+                  endCursor
+                  startCursor
+                }}
+                edges {{
+                  node {{
+                    ... on Repository {{
+                      url
+                      owner {{
+                        login
+                      }}
+                      name
+                      defaultBranchRef {{
+                        name
+                      }}
+                    }}
+                  }}
+                }}
+              }}
+            }}
+            """}
+        api_response_keyword = "search"
+    elif key_word == "file_content":
+        query = {'query': f"""
+            {{
+              repository(name: "{name}", owner: "{owner}") {{
+                object(expression: "{expression}") {{
+                  ... on Blob {{
+                    text
+                  }}
+                }}
+              }}
+            }}            
+            """}
+        api_response_keyword = "repository"
+    else:
+        query = {'query': f"""
+    {{
+      repository(name: "{name}", owner: "{owner}") {{
+        object(expression: "{expression}") {{
+          ... on Tree {{
+            entries {{
+              name
+              path
+            }}
+          }}
+        }}
+      }}
+    }}
+    """}
+        api_response_keyword = "repository"
+
+    api_response = request_to_api(query)
+    api_response_json = api_response.json()["data"][api_response_keyword]
+
+    return api_response_json
+
+
+def filter_repositories_workflow_files(repositories):
+    yml_content = []
+    for node in repositories:
+        repository = node["node"]
+        owner = repository["owner"]["login"]
+        repo_name = repository["name"]
+        branch = repository["defaultBranchRef"]["name"]
+        expression = f"{branch}:.github/workflows"
+        api_response_json = get_api("content_of_repo", repo_name, owner, expression)
+        if api_response_json["object"]:
+            entries = api_response_json["object"]["entries"]
+            for entry in entries:
+                path = entry["path"]
+                if ".yml" in path or ".yaml" in path:
+                    expression = f"{branch}:{path}"
+                    json_content = get_api("file_content", owner=owner, name=repo_name, expression=expression)
+                    content = json_content["object"]["text"]
+                    yml_content.append(content)
+    return yml_content
 
 
 def rq5() -> None:

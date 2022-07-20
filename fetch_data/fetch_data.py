@@ -716,7 +716,8 @@ def request_to_api(query: dict | None, url: str = None) -> requests.Response:
                 'Authorization': f'token {CURRENT_TOKEN}',
             }
             api_call = requests.post(url, json=query, headers=headers)
-            if "errors" in api_call.json().keys():
+            api_call_json = api_call.json()
+            if "errors" in api_call_json:
                 return request_to_api(query, url)
 
         except requests.exceptions.ConnectionError:
