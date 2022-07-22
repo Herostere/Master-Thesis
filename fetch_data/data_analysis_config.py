@@ -11,8 +11,9 @@ market_growing_over_time = False  # DONE
 actions_diversity = False  # DONE
 most_commonly_proposed = False  # DONE
 actions_technical_lag = False  # DONE
-rq4 = True
-rq4_number_of_repositories = 1000
+rq4 = False
+rq4_number_of_repositories = 50000
+rq4_number_of_threads = 10
 rq5 = False
 rq7 = False
 

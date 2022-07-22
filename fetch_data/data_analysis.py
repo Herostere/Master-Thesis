@@ -9,7 +9,6 @@ from fetch_data import (
     beautiful_html,
     get_remaining_api_calls,
     GITHUB_TOKENS)
-from json import loads as json_loads
 from packaging import version as packaging_version
 from scipy.stats import mannwhitneyu
 
@@ -1210,18 +1209,23 @@ def get_actions_sample(exclude_popular: bool) -> dict:
 
 
 def rq4():
-    already_fetch_yml_files = os.path.exists("outputs/yml_files.npy")
+    number_of_repositories = config.rq4_number_of_repositories
+
+    already_fetch_yml_files = os.path.exists(f"outputs/yml_files_{number_of_repositories}.npy")
     if not already_fetch_yml_files:
-        list_of_workflow_files_contents = get_workflow_files(config.rq4_number_of_repositories)
-        numpy.save("outputs/yml_files.npy", list_of_workflow_files_contents)
-    list_of_workflow_files_contents = numpy.load("outputs/yml_files.npy")
+        list_of_workflow_files_contents = get_workflow_files(number_of_repositories)
+        numpy.save(f"outputs/yml_files_{number_of_repositories}.npy", list_of_workflow_files_contents)
+    list_of_workflow_files_contents = numpy.load(f"outputs/yml_files_{number_of_repositories}.npy")
     total_of_actions, actions_counters, no_actions = actions_per_workflow_file(list_of_workflow_files_contents)
     actions_counters = sorted(actions_counters.items(), key=lambda x: x[1], reverse=True)
     actions_counters = dict(actions_counters)
 
     compute_statistics(total_of_actions, "of Actions per workflow file")
     print(actions_counters)
-    print(no_actions)
+    print(f"Overall distinct Actions: {len(actions_counters)}")
+    print(f"Not using Actions available on marketplace: {no_actions}")
+    seaborn.boxplot(y=total_of_actions)
+    plt.show()
 
 
 def get_workflow_files(number_of_repositories):
@@ -1241,6 +1245,7 @@ def get_workflow_files(number_of_repositories):
         for file in repositories_workflow_ymls:
             workflow_files_contents.append(file)
         number_of_workflow_files = len(workflow_files_contents)
+        print("-"*10 + " " + str(number_of_workflow_files))
 
     return workflow_files_contents[:number_of_repositories]
 
@@ -1342,7 +1347,27 @@ def get_api(key_word, name=None, owner=None, expression=None, end_cursor=None) -
 
 
 def filter_repositories_workflow_files(repositories):
+    number_of_threads = config.rq4_number_of_threads
+    number_of_threads = number_of_threads if number_of_threads > 0 else 4
+    number_of_threads = number_of_threads if number_of_threads < 11 else 4
+
+    threads = []
     yml_content = []
+
+    lists_of_repositories = numpy.array_split(repositories, number_of_threads)
+    for array in lists_of_repositories:
+        threads.append(threading.Thread(target=thread_filter_repositories_workflow_files, args=(yml_content, array)))
+
+    for thread in threads:
+        thread.start()
+
+    for thread in threads:
+        thread.join()
+
+    return yml_content
+
+
+def thread_filter_repositories_workflow_files(yml_content, repositories):
     for node in repositories:
         repository = node["node"]
         owner = repository["owner"]["login"]
@@ -1359,7 +1384,6 @@ def filter_repositories_workflow_files(repositories):
                     json_content = get_api("file_content", owner=owner, name=repo_name, expression=expression)
                     content = json_content["object"]["text"]
                     yml_content.append(content)
-    return yml_content
 
 
 def actions_per_workflow_file(list_of_workflow_files_contents):
@@ -1374,7 +1398,7 @@ def actions_per_workflow_file(list_of_workflow_files_contents):
     no_actions = 0
     for workflow_content in list_of_workflow_files_contents:
         actions_counter = 0
-        pre_content = workflow_content.replace("on:", "trigger:")
+        pre_content = workflow_content.replace("on:", "trigger:").replace("\t", "    ")
         pre_content = re.sub(r"\n+", "\n", pre_content)
         content = yaml.safe_load(pre_content)
         at_least_one_action = False
