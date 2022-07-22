@@ -1208,7 +1208,10 @@ def get_actions_sample(exclude_popular: bool) -> dict:
     return sample
 
 
-def rq4():
+def rq4() -> None:
+    """
+    Determine the number of Actions used by workflow files.
+    """
     number_of_repositories = config.rq4_number_of_repositories
 
     already_fetch_yml_files = os.path.exists(f"outputs/yml_files_{number_of_repositories}.npy")
@@ -1228,12 +1231,18 @@ def rq4():
     plt.show()
 
 
-def get_workflow_files(number_of_repositories):
+def get_workflow_files(number_of_files: int) -> list:
+    """
+    Get a list of workflow files contents.
+
+    :param number_of_files: The number of files needed.
+    :return: List containing the content of workflow files.
+    """
     workflow_files_contents = []
     end_cursor = None
     number_of_workflow_files = 0
 
-    while number_of_workflow_files < number_of_repositories:
+    while number_of_workflow_files < number_of_files:
         if not end_cursor:
             api_answer_json = get_api("repositories")
         else:
@@ -1247,13 +1256,23 @@ def get_workflow_files(number_of_repositories):
         number_of_workflow_files = len(workflow_files_contents)
         print("-"*10 + " " + str(number_of_workflow_files))
 
-    return workflow_files_contents[:number_of_repositories]
+    return workflow_files_contents[:number_of_files]
 
 
 def get_api(key_word, name=None, owner=None, expression=None, end_cursor=None) -> dict:
     """
     Contact the API to fetch information.
 
+    :param key_word: The keyword used to determine the query for the API.
+    :param name: The name of the repository.
+    :param owner: The owner of the repository.
+    :param expression: The expression to use in the query.
+    :param end_cursor: The cursor to get the next page in the query.
+    :type key_word: str
+    :type name: str
+    :type owner: str
+    :type expression: str
+    :type end_cursor: str
     :return: The JSON with the requested data
     """
     if key_word == "repositories" and not end_cursor:
@@ -1346,7 +1365,13 @@ def get_api(key_word, name=None, owner=None, expression=None, end_cursor=None) -
     return api_response_json
 
 
-def filter_repositories_workflow_files(repositories):
+def filter_repositories_workflow_files(repositories: list) -> list:
+    """
+    Get the workflow files from repositories using GitHub Actions.
+
+    :param repositories: A list of repositories.
+    :return: A list a workflow files contents.
+    """
     number_of_threads = config.rq4_number_of_threads
     number_of_threads = number_of_threads if number_of_threads > 0 else 4
     number_of_threads = number_of_threads if number_of_threads < 11 else 4
@@ -1367,7 +1392,13 @@ def filter_repositories_workflow_files(repositories):
     return yml_content
 
 
-def thread_filter_repositories_workflow_files(yml_content, repositories):
+def thread_filter_repositories_workflow_files(yml_content: list, repositories: list) -> None:
+    """
+    Filter repositories and extract the content of workflow files.
+
+    :param yml_content: List with the content of workflow files. Will be populated by threads, should be empty at first.
+    :param repositories: The list of repositories that will be analyzed by a thread.
+    """
     for node in repositories:
         repository = node["node"]
         owner = repository["owner"]["login"]
@@ -1386,7 +1417,14 @@ def thread_filter_repositories_workflow_files(yml_content, repositories):
                     yml_content.append(content)
 
 
-def actions_per_workflow_file(list_of_workflow_files_contents):
+def actions_per_workflow_file(list_of_workflow_files_contents: numpy.ndarray) -> tuple[list, dict, int]:
+    """
+    Count the number of Actions per workflow files.
+
+    :param list_of_workflow_files_contents: List with the content of workflow files.
+    :return: A tuple with the number of Actions per workflow files, a dictionary with the count of each Action usage,
+    and the number of workflow files not using Actions available on the Marketplace.
+    """
     sqlite_connection = sqlite3.connect(f"{files_path_main}/{first_file_name_main}")
     sqlite_cursor = sqlite_connection.cursor()
 
