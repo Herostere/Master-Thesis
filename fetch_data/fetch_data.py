@@ -82,7 +82,7 @@ def get_request(function: str, url: str) -> requests.Response | None:
     global T_R
     global SESSION
 
-    sleep_time = 10
+    sleep_time = 30
 
     while True:
         try:
@@ -128,7 +128,6 @@ def get_request(function: str, url: str) -> requests.Response | None:
             SESSION.mount("https://", adapter)
             SESSION.mount("http://", adapter)
             time.sleep(sleep_time)
-            sleep_time += 10
 
     return request
 
