@@ -15,6 +15,7 @@ rq4 = False
 rq4_number_of_repositories = 1000
 rq4_number_of_threads = 10
 rq5 = False
+rq6 = True
 rq7 = False
 
 multiple_actions = False  # TODO

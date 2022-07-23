@@ -1669,6 +1669,32 @@ def get_categories_of_action(sqlite_cursor: sqlite3.Cursor, action: tuple[str, s
     return categories
 
 
+def rq6() -> None:
+    sqlite_connection = sqlite3.connect(f"{files_path_main}/{first_file_name_main}")
+    sqlite_cursor = sqlite_connection.cursor()
+
+    number_of_actions_with_issues(sqlite_cursor)
+    number_of_actions_with_open_issues(sqlite_cursor)
+    number_of_actions_with_closed_issues(sqlite_cursor)
+    number_of_obselete_actions(sqlite_cursor)
+
+
+def number_of_actions_with_issues(sqlite_cursor):
+    pass
+
+
+def number_of_actions_with_open_issues(sqlite_cursor):
+    pass
+
+
+def number_of_actions_with_closed_issues(sqlite_cursor):
+    pass
+
+
+def number_of_obselete_actions(sqlite_cursor):
+    pass
+
+
 def rq7() -> None:
     """
     Check the proportion of verified users on the Marketplace, the total number of users and the proportion of
@@ -1854,6 +1880,9 @@ if __name__ == "__main__":
 
     if config.rq5:
         rq5()
+
+    if config.rq6:
+        rq6()
 
     if config.rq7:
         rq7()

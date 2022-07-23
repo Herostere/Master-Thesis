@@ -697,13 +697,13 @@ def get_api(key: str, owner: str, repo_name: str) -> int | dict | list:
         return final
 
 
-def request_to_api(query: dict | None, url: str = None) -> requests.Response:
+def request_to_api(query: dict | None, url: str = None) -> requests.Response | None:
     """
     Make a request to the GitHub's GraphQL API.
 
     :param query: The query to get the information.
     :param url: The url to use for REST API issues.
-    :return: The API response.
+    :return: The API response or None.
     """
     if query:
         url = "https://api.github.com/graphql"
@@ -717,7 +717,7 @@ def request_to_api(query: dict | None, url: str = None) -> requests.Response:
             api_call = requests.post(url, json=query, headers=headers)
             api_call_json = api_call.json()
             if "errors" in api_call_json:
-                return request_to_api(query, url)
+                return None
 
         except requests.exceptions.ConnectionError:
             time.sleep(60)
