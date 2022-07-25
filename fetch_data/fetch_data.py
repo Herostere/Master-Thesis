@@ -703,7 +703,7 @@ def request_to_api(query: dict | None, url: str = None) -> requests.Response | N
 
     :param query: The query to get the information.
     :param url: The url to use for REST API issues.
-    :return: The API response or None.
+    :return: The API response or None if error in response.
     """
     if query:
         url = "https://api.github.com/graphql"

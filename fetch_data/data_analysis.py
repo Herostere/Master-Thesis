@@ -88,7 +88,7 @@ def show_bar_plots(x_axis: list, y_axis: list, orient: str, text_orient: bool = 
     :param text_orient: True if the x axis text should be vertical.
     """
     bar_plot = seaborn.barplot(x=x_axis, y=y_axis, orient=orient, color="steelblue")
-    bar_plot.bar_label(bar_plot.containers[0])
+    # bar_plot.bar_label(bar_plot.containers[0])
     # for elem in bar_plot.patches:
     #     x_position = elem.get_x()
     #     width = elem.get_width()
@@ -1229,6 +1229,10 @@ def rq4() -> None:
     print(f"Not using Actions available on marketplace: {no_actions}")
     seaborn.boxplot(y=total_of_actions)
     plt.show()
+    actions_uses = [actions_counters[action] for action in actions_counters]
+    compute_statistics(actions_uses, "of uses for Actions")
+    seaborn.boxplot(y=actions_uses)
+    plt.show()
 
 
 def get_workflow_files(number_of_files: int) -> list:
@@ -1248,18 +1252,19 @@ def get_workflow_files(number_of_files: int) -> list:
         else:
             api_answer_json = get_api("repositories", end_cursor)
 
-        end_cursor = api_answer_json["pageInfo"]["endCursor"]
-        repositories = api_answer_json["edges"]
-        repositories_workflow_ymls = filter_repositories_workflow_files(repositories)
-        for file in repositories_workflow_ymls:
-            workflow_files_contents.append(file)
-        number_of_workflow_files = len(workflow_files_contents)
-        print("-"*10 + " " + str(number_of_workflow_files))
+        if api_answer_json:
+            end_cursor = api_answer_json["pageInfo"]["endCursor"]
+            repositories = api_answer_json["edges"]
+            repositories_workflow_ymls = filter_repositories_workflow_files(repositories)
+            for file in repositories_workflow_ymls:
+                workflow_files_contents.append(file)
+            number_of_workflow_files = len(workflow_files_contents)
+            print("-"*10 + " " + str(number_of_workflow_files))
 
     return workflow_files_contents[:number_of_files]
 
 
-def get_api(key_word, name=None, owner=None, expression=None, end_cursor=None) -> dict:
+def get_api(key_word, name=None, owner=None, expression=None, end_cursor=None) -> dict | None:
     """
     Contact the API to fetch information.
 
@@ -1273,7 +1278,7 @@ def get_api(key_word, name=None, owner=None, expression=None, end_cursor=None) -
     :type owner: str
     :type expression: str
     :type end_cursor: str
-    :return: The JSON with the requested data
+    :return: The JSON with the requested data or None if error in the response.
     """
     if key_word == "repositories" and not end_cursor:
         query = {'query': f"""
@@ -1360,7 +1365,7 @@ def get_api(key_word, name=None, owner=None, expression=None, end_cursor=None) -
         api_response_keyword = "repository"
 
     api_response = request_to_api(query)
-    api_response_json = api_response.json()["data"][api_response_keyword]
+    api_response_json = api_response.json()["data"][api_response_keyword] if api_response else None
 
     return api_response_json
 
@@ -1406,15 +1411,16 @@ def thread_filter_repositories_workflow_files(yml_content: list, repositories: l
         branch = repository["defaultBranchRef"]["name"]
         expression = f"{branch}:.github/workflows"
         api_response_json = get_api("content_of_repo", repo_name, owner, expression)
-        if api_response_json["object"]:
+        if api_response_json and api_response_json["object"]:
             entries = api_response_json["object"]["entries"]
             for entry in entries:
                 path = entry["path"]
                 if ".yml" in path or ".yaml" in path:
                     expression = f"{branch}:{path}"
                     json_content = get_api("file_content", owner=owner, name=repo_name, expression=expression)
-                    content = json_content["object"]["text"]
-                    yml_content.append(content)
+                    content = json_content["object"]["text"] if json_content else ""
+                    if content:
+                        yml_content.append(content)
 
 
 def actions_per_workflow_file(list_of_workflow_files_contents: numpy.ndarray) -> tuple[list, dict, int]:
@@ -1676,11 +1682,13 @@ def rq6() -> None:
     number_of_actions_with_issues(sqlite_cursor)
     number_of_actions_with_open_issues(sqlite_cursor)
     number_of_actions_with_closed_issues(sqlite_cursor)
-    number_of_obselete_actions(sqlite_cursor)
+    number_of_obsolete_actions(sqlite_cursor)
 
 
 def number_of_actions_with_issues(sqlite_cursor):
-    pass
+    actions_with_issues_query = """
+    SELECT COUNT(*) FROM (SELECT DISTINCT owner, repository FROM issues);
+    """
 
 
 def number_of_actions_with_open_issues(sqlite_cursor):
@@ -1691,7 +1699,7 @@ def number_of_actions_with_closed_issues(sqlite_cursor):
     pass
 
 
-def number_of_obselete_actions(sqlite_cursor):
+def number_of_obsolete_actions(sqlite_cursor):
     pass
 
 
