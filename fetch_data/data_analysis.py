@@ -1264,17 +1264,17 @@ def get_workflow_files(number_of_files: int) -> list:
     return workflow_files_contents[:number_of_files]
 
 
-def get_api(key_word, name=None, owner=None, expression=None, end_cursor=None) -> dict | None:
+def get_api(key_word, repository=None, owner=None, expression=None, end_cursor=None) -> dict | None:
     """
     Contact the API to fetch information.
 
     :param key_word: The keyword used to determine the query for the API.
-    :param name: The name of the repository.
+    :param repository: The name of the repository.
     :param owner: The owner of the repository.
     :param expression: The expression to use in the query.
     :param end_cursor: The cursor to get the next page in the query.
     :type key_word: str
-    :type name: str
+    :type repository: str
     :type owner: str
     :type expression: str
     :type end_cursor: str
@@ -1337,7 +1337,7 @@ def get_api(key_word, name=None, owner=None, expression=None, end_cursor=None) -
     elif key_word == "file_content":
         query = {'query': f"""
             {{
-              repository(name: "{name}", owner: "{owner}") {{
+              repository(name: "{repository}", owner: "{owner}") {{
                 object(expression: "{expression}") {{
                   ... on Blob {{
                     text
@@ -1347,10 +1347,40 @@ def get_api(key_word, name=None, owner=None, expression=None, end_cursor=None) -
             }}            
             """}
         api_response_keyword = "repository"
+    elif key_word == "last_open_issue":
+        query = {'query': f"""
+            {{
+              repository(name: "{repository}", owner: "{owner}") {{
+                issues(last: 1, states: OPEN) {{
+                  edges {{
+                    node {{
+                      createdAt
+                    }}
+                  }}
+                }}
+              }}
+            }}            
+            """}
+        api_response_keyword = "repository"
+    elif key_word == "last_closed_issue":
+        query = {'query': f"""
+            {{
+              repository(name: "{repository}", owner: "{owner}") {{
+                issues(last: 1, states: CLOSED) {{
+                  edges {{
+                    node {{
+                      createdAt
+                    }}
+                  }}
+                }}
+              }}
+            }}            
+            """}
+        api_response_keyword = "repository"
     else:
         query = {'query': f"""
     {{
-      repository(name: "{name}", owner: "{owner}") {{
+      repository(name: "{repository}", owner: "{owner}") {{
         object(expression: "{expression}") {{
           ... on Tree {{
             entries {{
@@ -1417,7 +1447,7 @@ def thread_filter_repositories_workflow_files(yml_content: list, repositories: l
                 path = entry["path"]
                 if ".yml" in path or ".yaml" in path:
                     expression = f"{branch}:{path}"
-                    json_content = get_api("file_content", owner=owner, name=repo_name, expression=expression)
+                    json_content = get_api("file_content", owner=owner, repository=repo_name, expression=expression)
                     content = json_content["object"]["text"] if json_content else ""
                     if content:
                         yml_content.append(content)
@@ -1679,28 +1709,97 @@ def rq6() -> None:
     sqlite_connection = sqlite3.connect(f"{files_path_main}/{first_file_name_main}")
     sqlite_cursor = sqlite_connection.cursor()
 
+    well_maintained_actions, not_well_maintained_actions = number_of_well_not_well_maintained_actions(sqlite_cursor)
+    print("-" * 10)
+    number_of_issues(sqlite_cursor, well_maintained_actions)
+    print("-" * 10)
+    number_of_issues(sqlite_cursor, not_well_maintained_actions)
+    print("-" * 10)
     number_of_actions_with_issues(sqlite_cursor)
+    print("-" * 10)
     number_of_actions_with_open_issues(sqlite_cursor)
+    print("-" * 10)
     number_of_actions_with_closed_issues(sqlite_cursor)
-    number_of_obsolete_actions(sqlite_cursor)
+
+
+def number_of_well_not_well_maintained_actions(sqlite_cursor):
+    actions = get_all_actions_names(sqlite_cursor)
+    open_closed_query = """
+    SELECT open, closed FROM issues WHERE owner=? AND repository=?;
+    """
+
+    not_well_maintained_actions = []
+    one_open_issue = 0
+    no_issues = 0
+    well_maintained = []
+    for owner, repository, _ in actions:
+        open_issues, closed_issues = sqlite_cursor.execute(open_closed_query, (owner, repository)).fetchone()
+        issues = open_issues + closed_issues
+        if issues == 1 and open_issues == 1:
+            one_open_issue += 1
+        more_open_issues = open_issues > closed_issues
+        if more_open_issues and closed_issues != 0:
+            percentage = (open_issues / issues) * 100
+            if percentage > 70:
+                not_well_maintained_actions.append((owner, repository))
+            else:
+                well_maintained.append((owner, repository))
+        elif more_open_issues:
+            not_well_maintained_actions.append((owner, repository))
+        elif issues == 0:
+            no_issues += 1
+        else:
+            well_maintained.append((owner, repository))
+
+    print(f"Number of obsolete Actions: {len(not_well_maintained_actions)}")
+    print(f"Number of Actions with one open issue: {one_open_issue}")
+    print(f"Number of Actions without issue: {no_issues}")
+    return well_maintained, not_well_maintained_actions
+
+
+def number_of_issues(sqlite_cursor, well_maintained_actions):
+    number_of_issues_query = """
+    SELECT open, closed FROM issues WHERE owner=? AND repository=?;
+    """
+    open_issues_list = []
+    closed_issues_list = []
+    for owner, repository in well_maintained_actions:
+        open_closed = sqlite_cursor.execute(number_of_issues_query, (owner, repository)).fetchone()
+        open_issues = open_closed[0]
+        closed_issues = open_closed[1]
+        open_issues_list.append(open_issues)
+        closed_issues_list.append(closed_issues)
+
+    compute_statistics(open_issues_list, "of open issues")
+    seaborn.boxplot(y=open_issues_list)
+    plt.show()
+    compute_statistics(closed_issues_list, "of closed issues")
+    seaborn.boxplot(y=closed_issues_list)
+    plt.show()
 
 
 def number_of_actions_with_issues(sqlite_cursor):
     actions_with_issues_query = """
-    SELECT COUNT(*) FROM (SELECT DISTINCT owner, repository FROM issues);
+    SELECT COUNT(*) FROM issues WHERE closed <> 0 OR open <> 0;
     """
+    actions_with_issues = sqlite_cursor.execute(actions_with_issues_query).fetchone()[0]
+    print(f"There is {actions_with_issues} Actions with issues (open or closed or both).")
 
 
 def number_of_actions_with_open_issues(sqlite_cursor):
-    pass
+    actions_with_only_open_issues_query = """
+    SELECT COUNT(*) FROM issues WHERE closed = 0 AND open <> 0;
+    """
+    actions_with_open_issues = sqlite_cursor.execute(actions_with_only_open_issues_query).fetchone()[0]
+    print(f"There is {actions_with_open_issues} Actions with open issues and no closed ones.")
 
 
 def number_of_actions_with_closed_issues(sqlite_cursor):
-    pass
-
-
-def number_of_obsolete_actions(sqlite_cursor):
-    pass
+    actions_with_only_closed_issues_query = """
+    SELECT COUNT(*) FROM issues WHERE closed <> 0 AND open = 0;
+    """
+    actions_with_closed_issues = sqlite_cursor.execute(actions_with_only_closed_issues_query).fetchone()[0]
+    print(f"There is {actions_with_closed_issues} Actions with closed issues and no open ones.")
 
 
 def rq7() -> None:
@@ -1841,6 +1940,7 @@ if __name__ == "__main__":
     files_names_main.sort()
 
     first_file_name_main = files_names_main[0]
+    last_file_name_main = files_names_main[-1]
 
     categories_main = [
         'api-management',

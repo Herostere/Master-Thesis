@@ -705,23 +705,29 @@ def request_to_api(query: dict | None, url: str = None) -> requests.Response | N
     :param url: The url to use for REST API issues.
     :return: The API response or None if error in response.
     """
+    tries = 10
+    api_call = None
     if query:
-        url = "https://api.github.com/graphql"
+        while tries > 0:
+            url = "https://api.github.com/graphql"
 
-        try:
-            while not get_remaining_api_calls():
+            try:
+                while not get_remaining_api_calls():
+                    time.sleep(60)
+                headers = {
+                    'Authorization': f'token {CURRENT_TOKEN}',
+                }
+                api_call = requests.post(url, json=query, headers=headers)
+                api_call_json = api_call.json()
+                if "errors" in api_call_json:
+                    tries -= 1
+                    api_call = None
+                else:
+                    return api_call
+
+            except requests.exceptions.ConnectionError:
                 time.sleep(60)
-            headers = {
-                'Authorization': f'token {CURRENT_TOKEN}',
-            }
-            api_call = requests.post(url, json=query, headers=headers)
-            api_call_json = api_call.json()
-            if "errors" in api_call_json:
-                return None
-
-        except requests.exceptions.ConnectionError:
-            time.sleep(60)
-            return request_to_api(query)
+                return request_to_api(query)
 
     else:
         try:
