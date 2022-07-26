@@ -1467,6 +1467,8 @@ def actions_per_workflow_file(list_of_workflow_files_contents: numpy.ndarray) ->
     list_of_actions_on_marketplace = get_all_actions_names(sqlite_cursor)
     list_of_actions_on_marketplace = [f"{action[0]}/{action[1]}" for action in list_of_actions_on_marketplace]
 
+    sqlite_connection.close()
+
     total_of_actions = []
     actions_counters = {}
     no_actions = 0
@@ -1510,7 +1512,9 @@ def rq5() -> None:
     actions_with_metrics = get_actions_with_metrics(sqlite_cursor)
 
     top_n = 1000
-    n_most_popular_actions(actions_with_metrics, top_n, sqlite_cursor)
+    most_popular = n_most_popular_actions(actions_with_metrics, top_n, sqlite_cursor)
+    sqlite_connection.close()
+    print(most_popular)
 
 
 def get_actions_with_metrics(sqlite_cursor: sqlite3.Cursor) -> dict:
@@ -1630,13 +1634,14 @@ def get_specific_action_contributors(sqlite_cursor: sqlite3.Cursor, action: tupl
     return contributors_of_action
 
 
-def n_most_popular_actions(actions_with_metrics: dict, n: int, sqlite_cursor: sqlite3.Cursor) -> None:
+def n_most_popular_actions(actions_with_metrics: dict, n: int, sqlite_cursor: sqlite3.Cursor) -> list:
     """
     Show the list of most popular owners, categories, and Actions.
 
     :param actions_with_metrics: The dictionary of Actions along with their number of stars, forks, ...
     :param n: The n top Actions to show.
     :param sqlite_cursor: The cursor for the database connection.
+    :return: The most popular Actions.
     """
     actions_with_scores = []
     for action in actions_with_metrics:
@@ -1682,7 +1687,7 @@ def n_most_popular_actions(actions_with_metrics: dict, n: int, sqlite_cursor: sq
             one_action += 1
     print(f"Owner with only one Action: {one_action} / {len(owners_counter)}")
     print(categories_counter)
-    print(top_n)
+    return top_n
 
 
 def get_categories_of_action(sqlite_cursor: sqlite3.Cursor, action: tuple[str, str, str]) -> list:
@@ -1723,6 +1728,8 @@ def rq6() -> None:
     number_of_actions_with_open_issues(sqlite_cursor)
     print("-" * 10)
     number_of_actions_with_closed_issues(sqlite_cursor)
+
+    sqlite_connection.close()
 
 
 def number_of_well_not_well_maintained_actions(sqlite_cursor: sqlite3.Cursor) -> tuple[list, list]:
@@ -1855,6 +1862,14 @@ def rq7() -> None:
     count_verified_actions(sqlite_cursor)
     print(separator)
 
+    actions_with_metrics = get_actions_with_metrics(sqlite_cursor)
+    popular_actions = n_most_popular_actions(actions_with_metrics, 1000, sqlite_cursor)
+    n_most_popular_verified(sqlite_cursor, popular_actions)
+    print(separator)
+
+    count_verified_categories = verified_per_categories(sqlite_cursor)
+    print(count_verified_categories)
+
     sqlite_connection.close()
 
 
@@ -1946,7 +1961,7 @@ def count_verified_users(sqlite_cursor: sqlite3.Cursor) -> None:
     :param sqlite_cursor: The cursor for the database connection.
     """
     number_of_verified_owners_query = """
-    SELECT COUNT(DISTINCT owner) FROM actions WHERE verified=1;
+    SELECT COUNT(DISTINCT owner) FROM actions WHERE verified=0;
     """
     number_of_verified_owners = sqlite_cursor.execute(number_of_verified_owners_query).fetchone()[0]
     print(f"Number of verified owners: {number_of_verified_owners}")
@@ -1963,6 +1978,50 @@ def count_verified_actions(sqlite_cursor: sqlite3.Cursor) -> None:
     """
     number_of_verified_actions = sqlite_cursor.execute(number_of_verified_actions_query).fetchone()[0]
     print(f"Number of verified Actions: {number_of_verified_actions}")
+
+
+def n_most_popular_verified(sqlite_cursor, popular_actions):
+    check_verified_query = """
+    SELECT verified FROM actions WHERE owner=? AND repository=?;
+    """
+    number_of_verified = 0
+    number_of_unverified = 0
+    for action_tuple in popular_actions:
+        owner, repository, _ = action_tuple[0]
+        verified = sqlite_cursor.execute(check_verified_query, (owner, repository)).fetchone()[0]
+        # well, I chose 0 as "verified"... I leave it like this.
+        is_verified = verified == 0
+        if is_verified:
+            number_of_verified += 1
+        else:
+            number_of_unverified += 1
+
+    print(f"Verified popular Actions: {number_of_verified} / {len(popular_actions)}")
+    print(f"Unverified popular Actions: {number_of_unverified} / {len(popular_actions)}")
+
+
+def verified_per_categories(sqlite_cursor):
+    verified_in_category = """
+    SELECT COUNT(*) FROM
+    (SELECT actions.owner, actions.repository, actions.verified, categories.category
+    FROM actions, categories 
+    WHERE actions.owner=categories.owner AND actions.repository=categories.repository
+    AND actions.verified=0 AND categories.category=?);
+    """
+    categories_verified_total = []
+    for category in categories_main:
+        number_of_verified = sqlite_cursor.execute(verified_in_category, (category,)).fetchone()[0]
+        total_actions = count_actions_per_categories(sqlite_cursor, category)
+        categories_verified_total.append((category, number_of_verified, total_actions))
+    return categories_verified_total
+
+
+def count_actions_per_categories(sqlite_cursor, category):
+    count_actions_category = """
+    SELECT COUNT(*) FROM categories WHERE category=?;
+    """
+    number_of_actions = sqlite_cursor.execute(count_actions_category, (category,)).fetchone()[0]
+    return number_of_actions
 
 
 if __name__ == "__main__":
