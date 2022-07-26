@@ -1706,6 +1706,9 @@ def get_categories_of_action(sqlite_cursor: sqlite3.Cursor, action: tuple[str, s
 
 
 def rq6() -> None:
+    """
+    Determine the number of issues per Action.
+    """
     sqlite_connection = sqlite3.connect(f"{files_path_main}/{first_file_name_main}")
     sqlite_cursor = sqlite_connection.cursor()
 
@@ -1722,7 +1725,14 @@ def rq6() -> None:
     number_of_actions_with_closed_issues(sqlite_cursor)
 
 
-def number_of_well_not_well_maintained_actions(sqlite_cursor):
+def number_of_well_not_well_maintained_actions(sqlite_cursor: sqlite3.Cursor) -> tuple[list, list]:
+    """
+    Get the number of not well maintained Actions, Actions with one open issues, and Actions without issues.
+    Also get the list of well/not well maintained Actions.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    :return: The list of well and the list of not well maintained Actions.
+    """
     actions = get_all_actions_names(sqlite_cursor)
     open_closed_query = """
     SELECT open, closed FROM issues WHERE owner=? AND repository=?;
@@ -1751,19 +1761,25 @@ def number_of_well_not_well_maintained_actions(sqlite_cursor):
         else:
             well_maintained.append((owner, repository))
 
-    print(f"Number of obsolete Actions: {len(not_well_maintained_actions)}")
+    print(f"Number of not well maintained Actions: {len(not_well_maintained_actions)}")
     print(f"Number of Actions with one open issue: {one_open_issue}")
     print(f"Number of Actions without issue: {no_issues}")
     return well_maintained, not_well_maintained_actions
 
 
-def number_of_issues(sqlite_cursor, well_maintained_actions):
+def number_of_issues(sqlite_cursor: sqlite3.Cursor, actions) -> None:
+    """
+    Print the number of issues for a list of Actions.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    :param actions: The list of Actions for which printing issues. List is constituted of tuples(owner, repository)
+    """
     number_of_issues_query = """
     SELECT open, closed FROM issues WHERE owner=? AND repository=?;
     """
     open_issues_list = []
     closed_issues_list = []
-    for owner, repository in well_maintained_actions:
+    for owner, repository in actions:
         open_closed = sqlite_cursor.execute(number_of_issues_query, (owner, repository)).fetchone()
         open_issues = open_closed[0]
         closed_issues = open_closed[1]
@@ -1778,7 +1794,12 @@ def number_of_issues(sqlite_cursor, well_maintained_actions):
     plt.show()
 
 
-def number_of_actions_with_issues(sqlite_cursor):
+def number_of_actions_with_issues(sqlite_cursor: sqlite3.Cursor) -> None:
+    """
+    Print the number of Actions with issues.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    """
     actions_with_issues_query = """
     SELECT COUNT(*) FROM issues WHERE closed <> 0 OR open <> 0;
     """
@@ -1786,7 +1807,12 @@ def number_of_actions_with_issues(sqlite_cursor):
     print(f"There is {actions_with_issues} Actions with issues (open or closed or both).")
 
 
-def number_of_actions_with_open_issues(sqlite_cursor):
+def number_of_actions_with_open_issues(sqlite_cursor: sqlite3.Cursor) -> None:
+    """
+    Print the number of Actions with only open issues.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    """
     actions_with_only_open_issues_query = """
     SELECT COUNT(*) FROM issues WHERE closed = 0 AND open <> 0;
     """
@@ -1794,7 +1820,12 @@ def number_of_actions_with_open_issues(sqlite_cursor):
     print(f"There is {actions_with_open_issues} Actions with open issues and no closed ones.")
 
 
-def number_of_actions_with_closed_issues(sqlite_cursor):
+def number_of_actions_with_closed_issues(sqlite_cursor: sqlite3.Cursor) -> None:
+    """
+    Print the number of Actions with only closed issues.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    """
     actions_with_only_closed_issues_query = """
     SELECT COUNT(*) FROM issues WHERE closed <> 0 AND open = 0;
     """
