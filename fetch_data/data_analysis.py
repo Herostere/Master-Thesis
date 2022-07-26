@@ -1863,14 +1863,20 @@ def rq7() -> None:
     print(separator)
 
     actions_with_metrics = get_actions_with_metrics(sqlite_cursor)
-    popular_actions = n_most_popular_actions(actions_with_metrics, 1000, sqlite_cursor)
+    popular_actions = n_most_popular_actions(actions_with_metrics, 10, sqlite_cursor)
     n_most_popular_verified(sqlite_cursor, popular_actions)
     print(separator)
 
     count_verified_categories = verified_per_categories(sqlite_cursor)
-    print(count_verified_categories)
+    percentages = []
+    for category, verified, total in count_verified_categories:
+        percent = round(verified / total * 100, 2)
+        percentages.append((category, percent))
+    print(percentages)
 
     sqlite_connection.close()
+
+
 
 
 def count_number_of_actions(sqlite_cursor: sqlite3.Cursor) -> None:
@@ -1974,7 +1980,7 @@ def count_verified_actions(sqlite_cursor: sqlite3.Cursor) -> None:
     :param sqlite_cursor: The cursor for the database connection.
     """
     number_of_verified_actions_query = """
-    SELECT COUNT(name) FROM actions WHERE verified=1;
+    SELECT COUNT(name) FROM actions WHERE verified=0;
     """
     number_of_verified_actions = sqlite_cursor.execute(number_of_verified_actions_query).fetchone()[0]
     print(f"Number of verified Actions: {number_of_verified_actions}")
