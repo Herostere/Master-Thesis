@@ -15,8 +15,10 @@ rq4 = False
 rq4_number_of_repositories = 50000
 rq4_number_of_threads = 10
 rq5 = False
-rq6 = True
+rq6 = False
 rq7 = False
+rq8 = True
+rq8_number_of_repositories = 50000
 
 multiple_actions = False  # TODO
 actions_issues = False  # TODO
