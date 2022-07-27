@@ -1871,12 +1871,11 @@ def rq7() -> None:
     percentages = []
     for category, verified, total in count_verified_categories:
         percent = round(verified / total * 100, 2)
-        percentages.append((category, percent))
+        percentages.append((category, verified, total, percent))
+    percentages.sort(key=lambda x: x[3], reverse=True)
     print(percentages)
 
     sqlite_connection.close()
-
-
 
 
 def count_number_of_actions(sqlite_cursor: sqlite3.Cursor) -> None:
@@ -1986,7 +1985,13 @@ def count_verified_actions(sqlite_cursor: sqlite3.Cursor) -> None:
     print(f"Number of verified Actions: {number_of_verified_actions}")
 
 
-def n_most_popular_verified(sqlite_cursor, popular_actions):
+def n_most_popular_verified(sqlite_cursor: sqlite3.Cursor, popular_actions: list) -> None:
+    """
+    Print the number of verified Actions among the list of most popular ones.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    :param popular_actions: List of most popular Actions
+    """
     check_verified_query = """
     SELECT verified FROM actions WHERE owner=? AND repository=?;
     """
@@ -2006,7 +2011,13 @@ def n_most_popular_verified(sqlite_cursor, popular_actions):
     print(f"Unverified popular Actions: {number_of_unverified} / {len(popular_actions)}")
 
 
-def verified_per_categories(sqlite_cursor):
+def verified_per_categories(sqlite_cursor: sqlite3.Cursor) -> list:
+    """
+    Get the list with the number of verified Actions per categories.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    :return: List of categories with their number of verified Actions.
+    """
     verified_in_category = """
     SELECT COUNT(*) FROM
     (SELECT actions.owner, actions.repository, actions.verified, categories.category
@@ -2017,12 +2028,19 @@ def verified_per_categories(sqlite_cursor):
     categories_verified_total = []
     for category in categories_main:
         number_of_verified = sqlite_cursor.execute(verified_in_category, (category,)).fetchone()[0]
-        total_actions = count_actions_per_categories(sqlite_cursor, category)
+        total_actions = count_actions_for_category(sqlite_cursor, category)
         categories_verified_total.append((category, number_of_verified, total_actions))
     return categories_verified_total
 
 
-def count_actions_per_categories(sqlite_cursor, category):
+def count_actions_for_category(sqlite_cursor: sqlite3.Cursor, category: str) -> int:
+    """
+    Get the number of Actions for a category.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    :param category: The category.
+    :return: The number of Actions in the category.
+    """
     count_actions_category = """
     SELECT COUNT(*) FROM categories WHERE category=?;
     """
