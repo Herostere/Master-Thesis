@@ -2048,6 +2048,10 @@ def count_actions_for_category(sqlite_cursor: sqlite3.Cursor, category: str) -> 
     return number_of_actions
 
 
+def rq8():
+
+
+
 if __name__ == "__main__":
     files_path_main = config.files_path
     files_names_main = [file for file in os.listdir(files_path_main) if ".db" in file]
@@ -2108,6 +2112,9 @@ if __name__ == "__main__":
 
     if config.rq7:
         rq7()
+
+    if config.rq8:
+        rq8()
 
     # ------------------------------------------------------------------------------------------------------------------
 
