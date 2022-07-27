@@ -1690,12 +1690,12 @@ def n_most_popular_actions(actions_with_metrics: dict, n: int, sqlite_cursor: sq
     return top_n
 
 
-def get_categories_of_action(sqlite_cursor: sqlite3.Cursor, action: tuple[str, str, str]) -> list:
+def get_categories_of_action(sqlite_cursor: sqlite3.Cursor, action: tuple[str, str, str] | tuple[str, str]) -> list:
     """
     Get the list of categories (max len = 2) for an Action.
 
     :param sqlite_cursor: The cursor for the database connection.
-    :param action: The specific Action (owner, repository, name).
+    :param action: The specific Action (owner, repository, name) | (owner, repository).
     :return: The categories for an Action.
     """
     get_category_of_action_query = """
@@ -2049,7 +2049,101 @@ def count_actions_for_category(sqlite_cursor: sqlite3.Cursor, category: str) -> 
 
 
 def rq8():
+    """
+    Observe the triggers used in workflow files.
+    """
+    number_of_repositories = config.rq8_number_of_repositories
+    yml_file = f"outputs/yml_files_{number_of_repositories}.npy"
 
+    already_fetch_yml_files = os.path.exists(yml_file)
+    if not already_fetch_yml_files:
+        print("You should get YML files with RQ4 first.")
+        exit()
+
+    list_of_workflow_files_contents = numpy.load(yml_file)
+    actions_triggers_in_workflows = get_actions_triggers_in_workflows(list_of_workflow_files_contents)
+    actions_triggers_in_workflows = sorted(actions_triggers_in_workflows.items(), key=lambda x: x[1], reverse=True)
+    actions_triggers_in_workflows = dict(actions_triggers_in_workflows)
+    number_of_triggers = get_triggers(actions_triggers_in_workflows)
+    print(actions_triggers_in_workflows)
+    print(number_of_triggers)
+    total_triggers = 0
+    for trigger in number_of_triggers:
+        total_triggers += number_of_triggers[trigger]
+    print(f"Total number of triggers: {total_triggers}")
+
+
+def get_actions_triggers_in_workflows(workflow_files: numpy.ndarray) -> dict:
+    """
+    Get the list of workflow files and returns the times each Action has been triggered and the kind of trigger.
+    The key of the returned dictionary is a tuple (trigger, category) and the key is an int representing the times
+    triggered.
+
+    :param workflow_files: The list of workflow files.
+    :return: The times each Action has been triggered and the kind of trigger in a dictionary.
+    """
+    sqlite_connection = sqlite3.connect(f"{files_path_main}/{first_file_name_main}")
+    sqlite_cursor = sqlite_connection.cursor()
+
+    list_of_actions_on_marketplace = get_all_actions_names(sqlite_cursor)
+    list_of_actions_on_marketplace = [f"{action[0]}/{action[1]}" for action in list_of_actions_on_marketplace]
+
+    triggers_categories_counter = {}
+    for workflow_content in workflow_files:
+        pre_content = workflow_content.replace("on:", "trigger:").replace("\t", "    ")
+        pre_content = re.sub(r"\n+", "\n", pre_content)
+        content = yaml.safe_load(pre_content)
+        if content and "jobs" in content.keys() and "trigger" in content.keys():
+            triggers = []
+            if type(content["trigger"]) is dict:
+                triggers = content["trigger"].keys()
+            elif type(content["trigger"]) is list:
+                triggers = content["trigger"]
+            elif type(content["trigger"]) is str:
+                triggers = [content["trigger"]]
+            jobs = content["jobs"]
+            for job in jobs:
+                if "steps" in jobs[job].keys():
+                    steps = jobs[job]["steps"]
+                    for step in steps:
+                        step_keys = step.keys()
+                        for key in step_keys:
+                            if key == "uses":
+                                use = step[key]
+                                if "@" in use:
+                                    use = use.split("@")[0]
+                                    if use in list_of_actions_on_marketplace:
+                                        for trigger in triggers:
+                                            owner, repository = use.split("/")
+                                            categories = get_categories_of_action(sqlite_cursor, (owner, repository))
+                                            for category in categories:
+                                                dictionary_key = (trigger, category)
+                                                if dictionary_key not in triggers_categories_counter:
+                                                    triggers_categories_counter[dictionary_key] = 1
+                                                else:
+                                                    triggers_categories_counter[dictionary_key] += 1
+
+    sqlite_connection.close()
+
+    return triggers_categories_counter
+
+
+def get_triggers(actions_triggers_in_workflows: dict) -> dict:
+    """
+    Get the times a trigger has been set.
+
+    :param actions_triggers_in_workflows: The dictionary with the number of times an Action has been triggered.
+    :return: The times each trigger has been set.
+    """
+    triggers_counters = {}
+    for key in actions_triggers_in_workflows:
+        trigger = key[0]
+        number = actions_triggers_in_workflows[key]
+        if trigger not in triggers_counters:
+            triggers_counters[trigger] = number
+        else:
+            triggers_counters[trigger] += number
+    return triggers_counters
 
 
 if __name__ == "__main__":

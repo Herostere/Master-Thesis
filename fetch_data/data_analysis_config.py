@@ -18,7 +18,7 @@ rq5 = False
 rq6 = False
 rq7 = False
 rq8 = True
-rq8
+rq8_number_of_repositories = 50000
 
 multiple_actions = False  # TODO
 actions_issues = False  # TODO
