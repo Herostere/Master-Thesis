@@ -82,6 +82,8 @@ def get_request(function: str, url: str) -> requests.Response | None:
     global T_R
     global SESSION
 
+    sleep_time = 30
+
     while True:
         try:
             request = SESSION.get(url)
@@ -114,14 +116,18 @@ def get_request(function: str, url: str) -> requests.Response | None:
                     counter -= 1
             break
 
-        except (requests.ConnectionError, requests.exceptions.ReadTimeout):
+        except (requests.ConnectionError, requests.exceptions.ReadTimeout, KeyError):
             SESSION.close()
             SESSION = requests.Session()
             SESSION.cookies['user_session'] = os.getenv("CONNECTION_COOKIE")
-            threads = max(10, number_of_threads)
+            try:
+                threads = max(10, number_of_threads)
+            except NameError:
+                threads = 10
             adapter = requests.adapters.HTTPAdapter(pool_connections=threads, pool_maxsize=threads)
             SESSION.mount("https://", adapter)
             SESSION.mount("http://", adapter)
+            time.sleep(sleep_time)
 
     return request
 
@@ -691,30 +697,37 @@ def get_api(key: str, owner: str, repo_name: str) -> int | dict | list:
         return final
 
 
-def request_to_api(query: dict | None, url: str = None) -> requests.Response:
+def request_to_api(query: dict | None, url: str = None) -> requests.Response | None:
     """
     Make a request to the GitHub's GraphQL API.
 
     :param query: The query to get the information.
     :param url: The url to use for REST API issues.
-    :return: The API response.
+    :return: The API response or None if error in response.
     """
+    tries = 10
+    api_call = None
     if query:
-        url = "https://api.github.com/graphql"
+        while tries > 0:
+            url = "https://api.github.com/graphql"
 
-        try:
-            while not get_remaining_api_calls():
+            try:
+                while not get_remaining_api_calls():
+                    time.sleep(60)
+                headers = {
+                    'Authorization': f'token {CURRENT_TOKEN}',
+                }
+                api_call = requests.post(url, json=query, headers=headers)
+                api_call_json = api_call.json()
+                if "errors" in api_call_json:
+                    tries -= 1
+                    api_call = None
+                else:
+                    return api_call
+
+            except requests.exceptions.ConnectionError:
                 time.sleep(60)
-            headers = {
-                'Authorization': f'token {CURRENT_TOKEN}',
-            }
-            api_call = requests.post(url, json=query, headers=headers)
-            if "errors" in api_call.json().keys():
-                return request_to_api(query, url)
-
-        except requests.exceptions.ConnectionError:
-            time.sleep(60)
-            return request_to_api(query)
+                return request_to_api(query)
 
     else:
         try:

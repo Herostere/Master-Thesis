@@ -10,7 +10,7 @@ from fetch_data import (
     get_remaining_api_calls,
     GITHUB_TOKENS)
 from packaging import version as packaging_version
-from scipy.stats import mannwhitneyu, norm
+from scipy.stats import mannwhitneyu
 
 import base64
 import data_analysis_config as config
@@ -88,7 +88,7 @@ def show_bar_plots(x_axis: list, y_axis: list, orient: str, text_orient: bool = 
     :param text_orient: True if the x axis text should be vertical.
     """
     bar_plot = seaborn.barplot(x=x_axis, y=y_axis, orient=orient, color="steelblue")
-    bar_plot.bar_label(bar_plot.containers[0])
+    # bar_plot.bar_label(bar_plot.containers[0])
     # for elem in bar_plot.patches:
     #     x_position = elem.get_x()
     #     width = elem.get_width()
@@ -1208,6 +1208,300 @@ def get_actions_sample(exclude_popular: bool) -> dict:
     return sample
 
 
+def rq4() -> None:
+    """
+    Determine the number of Actions used by workflow files.
+    """
+    number_of_repositories = config.rq4_number_of_repositories
+
+    already_fetch_yml_files = os.path.exists(f"outputs/yml_files_{number_of_repositories}.npy")
+    if not already_fetch_yml_files:
+        list_of_workflow_files_contents = get_workflow_files(number_of_repositories)
+        numpy.save(f"outputs/yml_files_{number_of_repositories}.npy", list_of_workflow_files_contents)
+    list_of_workflow_files_contents = numpy.load(f"outputs/yml_files_{number_of_repositories}.npy")
+    total_of_actions, actions_counters, no_actions = actions_per_workflow_file(list_of_workflow_files_contents)
+    actions_counters = sorted(actions_counters.items(), key=lambda x: x[1], reverse=True)
+    actions_counters = dict(actions_counters)
+
+    compute_statistics(total_of_actions, "of Actions per workflow file")
+    print(actions_counters)
+    print(f"Overall distinct Actions: {len(actions_counters)}")
+    print(f"Not using Actions available on marketplace: {no_actions}")
+    seaborn.boxplot(y=total_of_actions)
+    plt.show()
+    actions_uses = [actions_counters[action] for action in actions_counters]
+    compute_statistics(actions_uses, "of uses for Actions")
+    seaborn.boxplot(y=actions_uses)
+    plt.show()
+
+
+def get_workflow_files(number_of_files: int) -> list:
+    """
+    Get a list of workflow files contents.
+
+    :param number_of_files: The number of files needed.
+    :return: List containing the content of workflow files.
+    """
+    workflow_files_contents = []
+    end_cursor = None
+    number_of_workflow_files = 0
+
+    while number_of_workflow_files < number_of_files:
+        if not end_cursor:
+            api_answer_json = get_api("repositories")
+        else:
+            api_answer_json = get_api("repositories", end_cursor)
+
+        if api_answer_json:
+            end_cursor = api_answer_json["pageInfo"]["endCursor"]
+            repositories = api_answer_json["edges"]
+            repositories_workflow_ymls = filter_repositories_workflow_files(repositories)
+            for file in repositories_workflow_ymls:
+                workflow_files_contents.append(file)
+            number_of_workflow_files = len(workflow_files_contents)
+            print("-"*10 + " " + str(number_of_workflow_files))
+
+    return workflow_files_contents[:number_of_files]
+
+
+def get_api(key_word, repository=None, owner=None, expression=None, end_cursor=None) -> dict | None:
+    """
+    Contact the API to fetch information.
+
+    :param key_word: The keyword used to determine the query for the API.
+    :param repository: The name of the repository.
+    :param owner: The owner of the repository.
+    :param expression: The expression to use in the query.
+    :param end_cursor: The cursor to get the next page in the query.
+    :type key_word: str
+    :type repository: str
+    :type owner: str
+    :type expression: str
+    :type end_cursor: str
+    :return: The JSON with the requested data or None if error in the response.
+    """
+    if key_word == "repositories" and not end_cursor:
+        query = {'query': f"""
+    {{
+      search(query: "is:public pushed:>=2021-07-20", type: REPOSITORY, first: 100) {{
+        repositoryCount
+        pageInfo {{
+          endCursor
+          startCursor
+        }}
+        edges {{
+          node {{
+            ... on Repository {{
+              url
+              owner {{
+                login
+              }}
+              name
+              defaultBranchRef {{
+                name
+              }}
+            }}
+          }}
+        }}
+      }}
+    }}
+    """}
+        api_response_keyword = "search"
+    elif key_word == "repositories":
+        query = {'query': f"""
+            {{
+              search(query: "is:public pushed:>=2021-07-20", type: REPOSITORY, first: 100, after: "{end_cursor}") {{
+                repositoryCount
+                pageInfo {{
+                  endCursor
+                  startCursor
+                }}
+                edges {{
+                  node {{
+                    ... on Repository {{
+                      url
+                      owner {{
+                        login
+                      }}
+                      name
+                      defaultBranchRef {{
+                        name
+                      }}
+                    }}
+                  }}
+                }}
+              }}
+            }}
+            """}
+        api_response_keyword = "search"
+    elif key_word == "file_content":
+        query = {'query': f"""
+            {{
+              repository(name: "{repository}", owner: "{owner}") {{
+                object(expression: "{expression}") {{
+                  ... on Blob {{
+                    text
+                  }}
+                }}
+              }}
+            }}            
+            """}
+        api_response_keyword = "repository"
+    elif key_word == "last_open_issue":
+        query = {'query': f"""
+            {{
+              repository(name: "{repository}", owner: "{owner}") {{
+                issues(last: 1, states: OPEN) {{
+                  edges {{
+                    node {{
+                      createdAt
+                    }}
+                  }}
+                }}
+              }}
+            }}            
+            """}
+        api_response_keyword = "repository"
+    elif key_word == "last_closed_issue":
+        query = {'query': f"""
+            {{
+              repository(name: "{repository}", owner: "{owner}") {{
+                issues(last: 1, states: CLOSED) {{
+                  edges {{
+                    node {{
+                      createdAt
+                    }}
+                  }}
+                }}
+              }}
+            }}            
+            """}
+        api_response_keyword = "repository"
+    else:
+        query = {'query': f"""
+    {{
+      repository(name: "{repository}", owner: "{owner}") {{
+        object(expression: "{expression}") {{
+          ... on Tree {{
+            entries {{
+              name
+              path
+            }}
+          }}
+        }}
+      }}
+    }}
+    """}
+        api_response_keyword = "repository"
+
+    api_response = request_to_api(query)
+    api_response_json = api_response.json()["data"][api_response_keyword] if api_response else None
+
+    return api_response_json
+
+
+def filter_repositories_workflow_files(repositories: list) -> list:
+    """
+    Get the workflow files from repositories using GitHub Actions.
+
+    :param repositories: A list of repositories.
+    :return: A list a workflow files contents.
+    """
+    number_of_threads = config.rq4_number_of_threads
+    number_of_threads = number_of_threads if number_of_threads > 0 else 4
+    number_of_threads = number_of_threads if number_of_threads < 11 else 4
+
+    threads = []
+    yml_content = []
+
+    lists_of_repositories = numpy.array_split(repositories, number_of_threads)
+    for array in lists_of_repositories:
+        threads.append(threading.Thread(target=thread_filter_repositories_workflow_files, args=(yml_content, array)))
+
+    for thread in threads:
+        thread.start()
+
+    for thread in threads:
+        thread.join()
+
+    return yml_content
+
+
+def thread_filter_repositories_workflow_files(yml_content: list, repositories: list) -> None:
+    """
+    Filter repositories and extract the content of workflow files.
+
+    :param yml_content: List with the content of workflow files. Will be populated by threads, should be empty at first.
+    :param repositories: The list of repositories that will be analyzed by a thread.
+    """
+    for node in repositories:
+        repository = node["node"]
+        owner = repository["owner"]["login"]
+        repo_name = repository["name"]
+        branch = repository["defaultBranchRef"]["name"]
+        expression = f"{branch}:.github/workflows"
+        api_response_json = get_api("content_of_repo", repo_name, owner, expression)
+        if api_response_json and api_response_json["object"]:
+            entries = api_response_json["object"]["entries"]
+            for entry in entries:
+                path = entry["path"]
+                if ".yml" in path or ".yaml" in path:
+                    expression = f"{branch}:{path}"
+                    json_content = get_api("file_content", owner=owner, repository=repo_name, expression=expression)
+                    content = json_content["object"]["text"] if json_content else ""
+                    if content:
+                        yml_content.append(content)
+
+
+def actions_per_workflow_file(list_of_workflow_files_contents: numpy.ndarray) -> tuple[list, dict, int]:
+    """
+    Count the number of Actions per workflow files.
+
+    :param list_of_workflow_files_contents: List with the content of workflow files.
+    :return: A tuple with the number of Actions per workflow files, a dictionary with the count of each Action usage,
+    and the number of workflow files not using Actions available on the Marketplace.
+    """
+    sqlite_connection = sqlite3.connect(f"{files_path_main}/{first_file_name_main}")
+    sqlite_cursor = sqlite_connection.cursor()
+
+    list_of_actions_on_marketplace = get_all_actions_names(sqlite_cursor)
+    list_of_actions_on_marketplace = [f"{action[0]}/{action[1]}" for action in list_of_actions_on_marketplace]
+
+    sqlite_connection.close()
+
+    total_of_actions = []
+    actions_counters = {}
+    no_actions = 0
+    for workflow_content in list_of_workflow_files_contents:
+        actions_counter = 0
+        pre_content = workflow_content.replace("on:", "trigger:").replace("\t", "    ")
+        pre_content = re.sub(r"\n+", "\n", pre_content)
+        content = yaml.safe_load(pre_content)
+        at_least_one_action = False
+        if content and "jobs" in content.keys():
+            jobs = content["jobs"]
+            for job in jobs:
+                if "steps" in jobs[job].keys():
+                    steps = jobs[job]["steps"]
+                    for step in steps:
+                        step_keys = step.keys()
+                        for key in step_keys:
+                            if key == "uses":
+                                use = step[key]
+                                if "@" in use:
+                                    use = use.split("@")[0]
+                                    if use in list_of_actions_on_marketplace:
+                                        at_least_one_action = True
+                                        actions_counter += 1
+                                        if use not in actions_counters:
+                                            actions_counters[use] = 1
+                                        else:
+                                            actions_counters[use] += 1
+        total_of_actions.append(actions_counter)
+        no_actions = no_actions + 1 if not at_least_one_action else no_actions
+    return total_of_actions, actions_counters, no_actions
+
+
 def rq5() -> None:
     """
     Determine the popularity of the Actions.
@@ -1218,7 +1512,9 @@ def rq5() -> None:
     actions_with_metrics = get_actions_with_metrics(sqlite_cursor)
 
     top_n = 1000
-    n_most_popular_actions(actions_with_metrics, top_n, sqlite_cursor)
+    most_popular = n_most_popular_actions(actions_with_metrics, top_n, sqlite_cursor)
+    sqlite_connection.close()
+    print(most_popular)
 
 
 def get_actions_with_metrics(sqlite_cursor: sqlite3.Cursor) -> dict:
@@ -1338,7 +1634,15 @@ def get_specific_action_contributors(sqlite_cursor: sqlite3.Cursor, action: tupl
     return contributors_of_action
 
 
-def n_most_popular_actions(actions_with_metrics, n, sqlite_cursor):
+def n_most_popular_actions(actions_with_metrics: dict, n: int, sqlite_cursor: sqlite3.Cursor) -> list:
+    """
+    Show the list of most popular owners, categories, and Actions.
+
+    :param actions_with_metrics: The dictionary of Actions along with their number of stars, forks, ...
+    :param n: The n top Actions to show.
+    :param sqlite_cursor: The cursor for the database connection.
+    :return: The most popular Actions.
+    """
     actions_with_scores = []
     for action in actions_with_metrics:
         stars = actions_with_metrics[action]["stars"]
@@ -1383,10 +1687,17 @@ def n_most_popular_actions(actions_with_metrics, n, sqlite_cursor):
             one_action += 1
     print(f"Owner with only one Action: {one_action} / {len(owners_counter)}")
     print(categories_counter)
-    print(top_n)
+    return top_n
 
 
-def get_categories_of_action(sqlite_cursor, action):
+def get_categories_of_action(sqlite_cursor: sqlite3.Cursor, action: tuple[str, str, str] | tuple[str, str]) -> list:
+    """
+    Get the list of categories (max len = 2) for an Action.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    :param action: The specific Action (owner, repository, name) | (owner, repository).
+    :return: The categories for an Action.
+    """
     get_category_of_action_query = """
     SELECT category FROM categories WHERE owner = ? AND repository = ?;
     """
@@ -1397,6 +1708,136 @@ def get_categories_of_action(sqlite_cursor, action):
     for category_tuple in categories_tuples:
         categories.append(category_tuple[0])
     return categories
+
+
+def rq6() -> None:
+    """
+    Determine the number of issues per Action.
+    """
+    sqlite_connection = sqlite3.connect(f"{files_path_main}/{first_file_name_main}")
+    sqlite_cursor = sqlite_connection.cursor()
+
+    well_maintained_actions, not_well_maintained_actions = number_of_well_not_well_maintained_actions(sqlite_cursor)
+    print("-" * 10)
+    number_of_issues(sqlite_cursor, well_maintained_actions)
+    print("-" * 10)
+    number_of_issues(sqlite_cursor, not_well_maintained_actions)
+    print("-" * 10)
+    number_of_actions_with_issues(sqlite_cursor)
+    print("-" * 10)
+    number_of_actions_with_open_issues(sqlite_cursor)
+    print("-" * 10)
+    number_of_actions_with_closed_issues(sqlite_cursor)
+
+    sqlite_connection.close()
+
+
+def number_of_well_not_well_maintained_actions(sqlite_cursor: sqlite3.Cursor) -> tuple[list, list]:
+    """
+    Get the number of not well maintained Actions, Actions with one open issues, and Actions without issues.
+    Also get the list of well/not well maintained Actions.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    :return: The list of well and the list of not well maintained Actions.
+    """
+    actions = get_all_actions_names(sqlite_cursor)
+    open_closed_query = """
+    SELECT open, closed FROM issues WHERE owner=? AND repository=?;
+    """
+
+    not_well_maintained_actions = []
+    one_open_issue = 0
+    no_issues = 0
+    well_maintained = []
+    for owner, repository, _ in actions:
+        open_issues, closed_issues = sqlite_cursor.execute(open_closed_query, (owner, repository)).fetchone()
+        issues = open_issues + closed_issues
+        if issues == 1 and open_issues == 1:
+            one_open_issue += 1
+        more_open_issues = open_issues > closed_issues
+        if more_open_issues and closed_issues != 0:
+            percentage = (open_issues / issues) * 100
+            if percentage > 70:
+                not_well_maintained_actions.append((owner, repository))
+            else:
+                well_maintained.append((owner, repository))
+        elif more_open_issues:
+            not_well_maintained_actions.append((owner, repository))
+        elif issues == 0:
+            no_issues += 1
+        else:
+            well_maintained.append((owner, repository))
+
+    print(f"Number of not well maintained Actions: {len(not_well_maintained_actions)}")
+    print(f"Number of Actions with one open issue: {one_open_issue}")
+    print(f"Number of Actions without issue: {no_issues}")
+    return well_maintained, not_well_maintained_actions
+
+
+def number_of_issues(sqlite_cursor: sqlite3.Cursor, actions) -> None:
+    """
+    Print the number of issues for a list of Actions.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    :param actions: The list of Actions for which printing issues. List is constituted of tuples(owner, repository)
+    """
+    number_of_issues_query = """
+    SELECT open, closed FROM issues WHERE owner=? AND repository=?;
+    """
+    open_issues_list = []
+    closed_issues_list = []
+    for owner, repository in actions:
+        open_closed = sqlite_cursor.execute(number_of_issues_query, (owner, repository)).fetchone()
+        open_issues = open_closed[0]
+        closed_issues = open_closed[1]
+        open_issues_list.append(open_issues)
+        closed_issues_list.append(closed_issues)
+
+    compute_statistics(open_issues_list, "of open issues")
+    seaborn.boxplot(y=open_issues_list)
+    plt.show()
+    compute_statistics(closed_issues_list, "of closed issues")
+    seaborn.boxplot(y=closed_issues_list)
+    plt.show()
+
+
+def number_of_actions_with_issues(sqlite_cursor: sqlite3.Cursor) -> None:
+    """
+    Print the number of Actions with issues.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    """
+    actions_with_issues_query = """
+    SELECT COUNT(*) FROM issues WHERE closed <> 0 OR open <> 0;
+    """
+    actions_with_issues = sqlite_cursor.execute(actions_with_issues_query).fetchone()[0]
+    print(f"There is {actions_with_issues} Actions with issues (open or closed or both).")
+
+
+def number_of_actions_with_open_issues(sqlite_cursor: sqlite3.Cursor) -> None:
+    """
+    Print the number of Actions with only open issues.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    """
+    actions_with_only_open_issues_query = """
+    SELECT COUNT(*) FROM issues WHERE closed = 0 AND open <> 0;
+    """
+    actions_with_open_issues = sqlite_cursor.execute(actions_with_only_open_issues_query).fetchone()[0]
+    print(f"There is {actions_with_open_issues} Actions with open issues and no closed ones.")
+
+
+def number_of_actions_with_closed_issues(sqlite_cursor: sqlite3.Cursor) -> None:
+    """
+    Print the number of Actions with only closed issues.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    """
+    actions_with_only_closed_issues_query = """
+    SELECT COUNT(*) FROM issues WHERE closed <> 0 AND open = 0;
+    """
+    actions_with_closed_issues = sqlite_cursor.execute(actions_with_only_closed_issues_query).fetchone()[0]
+    print(f"There is {actions_with_closed_issues} Actions with closed issues and no open ones.")
 
 
 def rq7() -> None:
@@ -1420,6 +1861,19 @@ def rq7() -> None:
 
     count_verified_actions(sqlite_cursor)
     print(separator)
+
+    actions_with_metrics = get_actions_with_metrics(sqlite_cursor)
+    popular_actions = n_most_popular_actions(actions_with_metrics, 10, sqlite_cursor)
+    n_most_popular_verified(sqlite_cursor, popular_actions)
+    print(separator)
+
+    count_verified_categories = verified_per_categories(sqlite_cursor)
+    percentages = []
+    for category, verified, total in count_verified_categories:
+        percent = round(verified / total * 100, 2)
+        percentages.append((category, verified, total, percent))
+    percentages.sort(key=lambda x: x[3], reverse=True)
+    print(percentages)
 
     sqlite_connection.close()
 
@@ -1512,7 +1966,7 @@ def count_verified_users(sqlite_cursor: sqlite3.Cursor) -> None:
     :param sqlite_cursor: The cursor for the database connection.
     """
     number_of_verified_owners_query = """
-    SELECT COUNT(DISTINCT owner) FROM actions WHERE verified=1;
+    SELECT COUNT(DISTINCT owner) FROM actions WHERE verified=0;
     """
     number_of_verified_owners = sqlite_cursor.execute(number_of_verified_owners_query).fetchone()[0]
     print(f"Number of verified owners: {number_of_verified_owners}")
@@ -1525,10 +1979,171 @@ def count_verified_actions(sqlite_cursor: sqlite3.Cursor) -> None:
     :param sqlite_cursor: The cursor for the database connection.
     """
     number_of_verified_actions_query = """
-    SELECT COUNT(name) FROM actions WHERE verified=1;
+    SELECT COUNT(name) FROM actions WHERE verified=0;
     """
     number_of_verified_actions = sqlite_cursor.execute(number_of_verified_actions_query).fetchone()[0]
     print(f"Number of verified Actions: {number_of_verified_actions}")
+
+
+def n_most_popular_verified(sqlite_cursor: sqlite3.Cursor, popular_actions: list) -> None:
+    """
+    Print the number of verified Actions among the list of most popular ones.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    :param popular_actions: List of most popular Actions
+    """
+    check_verified_query = """
+    SELECT verified FROM actions WHERE owner=? AND repository=?;
+    """
+    number_of_verified = 0
+    number_of_unverified = 0
+    for action_tuple in popular_actions:
+        owner, repository, _ = action_tuple[0]
+        verified = sqlite_cursor.execute(check_verified_query, (owner, repository)).fetchone()[0]
+        # well, I chose 0 as "verified"... I leave it like this.
+        is_verified = verified == 0
+        if is_verified:
+            number_of_verified += 1
+        else:
+            number_of_unverified += 1
+
+    print(f"Verified popular Actions: {number_of_verified} / {len(popular_actions)}")
+    print(f"Unverified popular Actions: {number_of_unverified} / {len(popular_actions)}")
+
+
+def verified_per_categories(sqlite_cursor: sqlite3.Cursor) -> list:
+    """
+    Get the list with the number of verified Actions per categories.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    :return: List of categories with their number of verified Actions.
+    """
+    verified_in_category = """
+    SELECT COUNT(*) FROM
+    (SELECT actions.owner, actions.repository, actions.verified, categories.category
+    FROM actions, categories 
+    WHERE actions.owner=categories.owner AND actions.repository=categories.repository
+    AND actions.verified=0 AND categories.category=?);
+    """
+    categories_verified_total = []
+    for category in categories_main:
+        number_of_verified = sqlite_cursor.execute(verified_in_category, (category,)).fetchone()[0]
+        total_actions = count_actions_for_category(sqlite_cursor, category)
+        categories_verified_total.append((category, number_of_verified, total_actions))
+    return categories_verified_total
+
+
+def count_actions_for_category(sqlite_cursor: sqlite3.Cursor, category: str) -> int:
+    """
+    Get the number of Actions for a category.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    :param category: The category.
+    :return: The number of Actions in the category.
+    """
+    count_actions_category = """
+    SELECT COUNT(*) FROM categories WHERE category=?;
+    """
+    number_of_actions = sqlite_cursor.execute(count_actions_category, (category,)).fetchone()[0]
+    return number_of_actions
+
+
+def rq8():
+    """
+    Observe the triggers used in workflow files.
+    """
+    number_of_repositories = config.rq8_number_of_repositories
+    yml_file = f"outputs/yml_files_{number_of_repositories}.npy"
+
+    already_fetch_yml_files = os.path.exists(yml_file)
+    if not already_fetch_yml_files:
+        print("You should get YML files with RQ4 first.")
+        exit()
+
+    list_of_workflow_files_contents = numpy.load(yml_file)
+    actions_triggers_in_workflows = get_actions_triggers_in_workflows(list_of_workflow_files_contents)
+    actions_triggers_in_workflows = sorted(actions_triggers_in_workflows.items(), key=lambda x: x[1], reverse=True)
+    actions_triggers_in_workflows = dict(actions_triggers_in_workflows)
+    number_of_triggers = get_triggers(actions_triggers_in_workflows)
+    print(actions_triggers_in_workflows)
+    print(number_of_triggers)
+    total_triggers = 0
+    for trigger in number_of_triggers:
+        total_triggers += number_of_triggers[trigger]
+    print(f"Total number of triggers: {total_triggers}")
+
+
+def get_actions_triggers_in_workflows(workflow_files: numpy.ndarray) -> dict:
+    """
+    Get the list of workflow files and returns the times each Action has been triggered and the kind of trigger.
+    The key of the returned dictionary is a tuple (trigger, category) and the key is an int representing the times
+    triggered.
+
+    :param workflow_files: The list of workflow files.
+    :return: The times each Action has been triggered and the kind of trigger in a dictionary.
+    """
+    sqlite_connection = sqlite3.connect(f"{files_path_main}/{first_file_name_main}")
+    sqlite_cursor = sqlite_connection.cursor()
+
+    list_of_actions_on_marketplace = get_all_actions_names(sqlite_cursor)
+    list_of_actions_on_marketplace = [f"{action[0]}/{action[1]}" for action in list_of_actions_on_marketplace]
+
+    triggers_categories_counter = {}
+    for workflow_content in workflow_files:
+        pre_content = workflow_content.replace("on:", "trigger:").replace("\t", "    ")
+        pre_content = re.sub(r"\n+", "\n", pre_content)
+        content = yaml.safe_load(pre_content)
+        if content and "jobs" in content.keys() and "trigger" in content.keys():
+            triggers = []
+            if type(content["trigger"]) is dict:
+                triggers = content["trigger"].keys()
+            elif type(content["trigger"]) is list:
+                triggers = content["trigger"]
+            elif type(content["trigger"]) is str:
+                triggers = [content["trigger"]]
+            jobs = content["jobs"]
+            for job in jobs:
+                if "steps" in jobs[job].keys():
+                    steps = jobs[job]["steps"]
+                    for step in steps:
+                        step_keys = step.keys()
+                        for key in step_keys:
+                            if key == "uses":
+                                use = step[key]
+                                if "@" in use:
+                                    use = use.split("@")[0]
+                                    if use in list_of_actions_on_marketplace:
+                                        for trigger in triggers:
+                                            owner, repository = use.split("/")
+                                            categories = get_categories_of_action(sqlite_cursor, (owner, repository))
+                                            for category in categories:
+                                                dictionary_key = (trigger, category)
+                                                if dictionary_key not in triggers_categories_counter:
+                                                    triggers_categories_counter[dictionary_key] = 1
+                                                else:
+                                                    triggers_categories_counter[dictionary_key] += 1
+
+    sqlite_connection.close()
+
+    return triggers_categories_counter
+
+
+def get_triggers(actions_triggers_in_workflows: dict) -> dict:
+    """
+    Get the times a trigger has been set.
+
+    :param actions_triggers_in_workflows: The dictionary with the number of times an Action has been triggered.
+    :return: The times each trigger has been set.
+    """
+    triggers_counters = {}
+    for key in actions_triggers_in_workflows:
+        trigger = key[0]
+        number = actions_triggers_in_workflows[key]
+        if trigger not in triggers_counters:
+            triggers_counters[trigger] = number
+        else:
+            triggers_counters[trigger] += number
+    return triggers_counters
 
 
 if __name__ == "__main__":
@@ -1537,6 +2152,7 @@ if __name__ == "__main__":
     files_names_main.sort()
 
     first_file_name_main = files_names_main[0]
+    last_file_name_main = files_names_main[-1]
 
     categories_main = [
         'api-management',
@@ -1579,11 +2195,20 @@ if __name__ == "__main__":
     if config.actions_technical_lag:
         actions_technical_lag()
 
+    if config.rq4:
+        rq4()
+
     if config.rq5:
         rq5()
 
+    if config.rq6:
+        rq6()
+
     if config.rq7:
         rq7()
+
+    if config.rq8:
+        rq8()
 
     # ------------------------------------------------------------------------------------------------------------------
 
