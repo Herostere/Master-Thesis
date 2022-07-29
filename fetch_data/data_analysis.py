@@ -78,30 +78,6 @@ def market_growing_over_time(category: str = None) -> None:
         plt.show()
 
 
-def show_bar_plots(x_axis: list, y_axis: list, orient: str, text_orient: bool = None) -> None:
-    """
-    Show a bar plot.
-
-    :param x_axis: The list of values for the x axis.
-    :param y_axis: The list of values for the y axis.
-    :param orient: The plot orientation.
-    :param text_orient: True if the x axis text should be vertical.
-    """
-    bar_plot = seaborn.barplot(x=x_axis, y=y_axis, orient=orient, color="steelblue")
-    # bar_plot.bar_label(bar_plot.containers[0])
-    # for elem in bar_plot.patches:
-    #     x_position = elem.get_x()
-    #     width = elem.get_width()
-    #     center = x_position + width / 2
-    #
-    #     new_width = width / 1.5
-    #     elem.set_width(new_width)
-    #     elem.set_x(center - new_width / 2)
-    if text_orient:
-        plt.xticks(rotation=90)
-    plt.show()
-
-
 def compute_actions_per_categories() -> list:
     """
     Compute the number of actions for each category.
@@ -495,6 +471,30 @@ def days_between_dates(dates: list) -> list:
         j += 1
 
     return days
+
+
+def show_bar_plots(x_axis: list, y_axis: list, orient: str, text_orient: bool = None) -> None:
+    """
+    Show a bar plot.
+
+    :param x_axis: The list of values for the x axis.
+    :param y_axis: The list of values for the y axis.
+    :param orient: The plot orientation.
+    :param text_orient: True if the x axis text should be vertical.
+    """
+    seaborn.barplot(x=x_axis, y=y_axis, orient=orient, color="steelblue")
+    # bar_plot.bar_label(bar_plot.containers[0])
+    # for elem in bar_plot.patches:
+    #     x_position = elem.get_x()
+    #     width = elem.get_width()
+    #     center = x_position + width / 2
+    #
+    #     new_width = width / 1.5
+    #     elem.set_width(new_width)
+    #     elem.set_x(center - new_width / 2)
+    if text_orient:
+        plt.xticks(rotation=90)
+    plt.show()
 
 
 def ymls_content_start_threads() -> None:
@@ -1206,6 +1206,180 @@ def get_actions_sample(exclude_popular: bool) -> dict:
                 break
 
     return sample
+
+
+def rq1() -> None:
+    """
+    Observe the number of Actions on the Marketplace.
+    """
+    first_observation = False
+    second_observation = False
+    third_observation = True
+
+    if first_observation:
+        dates, number_of_actions, lists_of_actions = get_number_of_actions_all_files()
+        seaborn.scatterplot(x=dates, y=number_of_actions)
+        seaborn.lineplot(x=dates, y=number_of_actions)
+        plt.show()
+
+        new_actions_list = []
+        actions_lost_list = []
+
+        for i in range(len(lists_of_actions)-1):
+            j = i + 1
+            new_actions = 0
+            actions_lost = 0
+            first_list = lists_of_actions[i]
+            second_list = lists_of_actions[j]
+            for action in second_list:
+                if action not in first_list:
+                    new_actions += 1
+            for action in first_list:
+                if action not in second_list:
+                    actions_lost += 1
+            new_actions_list.append(new_actions)
+            actions_lost_list.append(actions_lost)
+            print(f"Between {dates[i]} and {dates[j]}: {new_actions} new Actions.")
+            print(f"Between {dates[i]} and {dates[j]}: {actions_lost} Actions lost.")
+            i += 1
+
+        seaborn.scatterplot(x=dates[1:], y=new_actions_list, color='mediumseagreen')
+        seaborn.lineplot(x=dates[1:], y=new_actions_list, color='mediumseagreen', label="New Actions")
+        seaborn.scatterplot(x=dates[1:], y=actions_lost_list, color='darkorange')
+        seaborn.lineplot(x=dates[1:], y=actions_lost_list, color='darkorange', label="Actions lost")
+        plt.show()
+
+    if second_observation:
+        dates, number_of_actions = get_number_of_actions_categories()
+        for i in range(len(categories_main)):
+            print(categories_main[i])
+            category_values = [values[i] for values in number_of_actions]
+            print(category_values)
+            seaborn.scatterplot(x=dates, y=category_values)
+            seaborn.lineplot(x=dates, y=category_values)
+            plt.show()
+            print("-" * 10)
+
+    if third_observation:
+        dates, list_categories_added, list_categories_deleted = get_actions_in_category()
+        print()
+
+
+def get_number_of_actions_all_files() -> tuple[list, list, list]:
+    """
+    Get the number of Actions for the different dates, and the list of Actions.
+
+    :return: The different dates in a list, the number of Actions in a list, and the list of Actions
+    """
+    dates = []
+    number_of_actions = []
+    lists_of_actions = []
+
+    for file in files_names_main:
+        sqlite_connection = sqlite3.connect(f"{files_path_main}/{file}")
+        sqlite_cursor = sqlite_connection.cursor()
+
+        dates.append(file.split("actions_data_")[1].split(".db")[0].replace("_", "/"))
+
+        number_of_actions_query = """
+        SELECT COUNT(*) FROM actions;
+        """
+        local_number_of_actions = sqlite_cursor.execute(number_of_actions_query).fetchone()[0]
+        number_of_actions.append(local_number_of_actions)
+
+        local_list_of_actions = get_all_actions_names(sqlite_cursor)
+        lists_of_actions.append(local_list_of_actions)
+
+        sqlite_connection.close()
+
+    return dates, number_of_actions, lists_of_actions
+
+
+def get_actions_in_category() -> tuple[list[tuple[str, str]], list[dict], list[dict]]:
+    """
+    Get the added/deleted categories for the different files.
+
+    :return: The dates, the list of added categories, and the list of deleted categories.
+    """
+    dates = []
+
+    list_categories_added = []
+    list_categories_deleted = []
+
+    for i in range(len(files_names_main) - 1):
+        j = i + 1
+
+        categories_added = {}
+        categories_deleted = {}
+
+        date_1 = files_names_main[i].split("actions_data_")[1].split(".db")[0].replace("_", "/")
+        date_2 = files_names_main[j].split("actions_data_")[1].split(".db")[0].replace("_", "/")
+        dates.append((date_1, date_2))
+
+        sqlite_connection_1 = sqlite3.connect(f"{files_path_main}/{files_names_main[i]}")
+        sqlite_cursor_1 = sqlite_connection_1.cursor()
+        sqlite_connection_2 = sqlite3.connect(f"{files_path_main}/{files_names_main[j]}")
+        sqlite_cursor_2 = sqlite_connection_2.cursor()
+
+        list_of_actions_1 = get_all_actions_names(sqlite_cursor_1)
+        list_of_actions_2 = get_all_actions_names(sqlite_cursor_2)
+
+        for action in list_of_actions_2:
+            if action in list_of_actions_1:
+                categories_1 = get_categories_of_action(sqlite_cursor_1, action)
+                categories_2 = get_categories_of_action(sqlite_cursor_2, action)
+
+                for category in categories_2:
+                    if category not in categories_1:
+                        if category not in categories_added:
+                            categories_added[category] = 1
+                        else:
+                            categories_added[category] += 1
+
+                for category in categories_1:
+                    if category not in categories_2:
+                        if category not in categories_deleted:
+                            categories_deleted[category] = 1
+                        else:
+                            categories_deleted[category] += 1
+
+        sqlite_connection_1.close()
+        sqlite_connection_2.close()
+
+        list_categories_added.append(categories_added)
+        list_categories_deleted.append(categories_deleted)
+
+    return dates, list_categories_added, list_categories_deleted
+
+
+def get_number_of_actions_categories() -> tuple[list, list]:
+    """
+    Get the number of Actions for all categories on different dates.
+
+    :return: A list of dates, and a list of lists containing the values.
+    """
+    dates = []
+    values = []
+
+    for file in files_names_main:
+        sqlite_connection = sqlite3.connect(f"{files_path_main}/{file}")
+        sqlite_cursor = sqlite_connection.cursor()
+
+        dates.append(file.split("actions_data_")[1].split(".db")[0].replace("_", "/"))
+
+        values_categories = []
+        for category in categories_main:
+
+            number_of_actions_query = """
+            SELECT COUNT(*) FROM categories WHERE category=?;
+            """
+            local_number_of_actions = sqlite_cursor.execute(number_of_actions_query, (category,)).fetchone()[0]
+            values_categories.append(local_number_of_actions)
+
+        values.append(values_categories)
+        sqlite_connection.close()
+
+    return dates, values
 
 
 def rq4() -> None:
@@ -2194,6 +2368,9 @@ if __name__ == "__main__":
 
     if config.actions_technical_lag:
         actions_technical_lag()
+
+    if config.rq1:
+        rq1()
 
     if config.rq4:
         rq4()
