@@ -1262,7 +1262,22 @@ def rq1() -> None:
 
     if third_observation:
         dates, list_categories_added, list_categories_deleted = get_actions_in_category()
-        print()
+        overall_added = {}
+        overall_deleted = {}
+        for dict_added in list_categories_added:
+            for category in dict_added:
+                if category not in overall_added:
+                    overall_added[category] = dict_added[category]
+                else:
+                    overall_added[category] += dict_added[category]
+        for dict_deleted in list_categories_deleted:
+            for category in dict_deleted:
+                if category not in overall_deleted:
+                    overall_deleted[category] = dict_deleted[category]
+                else:
+                    overall_deleted[category] += dict_deleted[category]
+        print(overall_added)
+        print(overall_deleted)
 
 
 def get_number_of_actions_all_files() -> tuple[list, list, list]:
