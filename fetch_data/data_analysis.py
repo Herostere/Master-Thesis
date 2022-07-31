@@ -24,328 +24,6 @@ import yaml.parser
 import yaml.scanner
 
 
-def most_commonly_proposed() -> None:
-    """
-    Shows the number of categories that falls in each section.
-    Sections are:
-        - > 700
-        - > 550
-        - > 400
-        - > 250
-        - > 100
-        - >= 0
-    """
-    sections_categories = {
-        "> 700": 0,
-        "> 550": 0,
-        "> 400": 0,
-        "> 250": 0,
-        "> 100": 0,
-        ">= 0": 0,
-    }
-
-    categories_700 = []
-    categories_550 = []
-    categories_400 = []
-    categories_250 = []
-    categories_100 = []
-    categories_0 = []
-
-    for i, number in enumerate(actions_per_categories_main):
-        if number > 700:
-            sections_categories["> 700"] += 1
-            categories_700.append(categories_main[i])
-        elif number > 550:
-            sections_categories["> 550"] += 1
-            categories_550.append(categories_main[i])
-        elif number > 400:
-            sections_categories["> 400"] += 1
-            categories_400.append(categories_main[i])
-        elif number > 250:
-            sections_categories["> 250"] += 1
-            categories_250.append(categories_main[i])
-        elif number > 100:
-            sections_categories["> 100"] += 1
-            categories_100.append(categories_main[i])
-        else:
-            sections_categories[">= 0"] += 1
-            categories_0.append(categories_main[i])
-
-    # show_bar_plots(list(sections_categories.keys()), list(sections_categories.values()), "v",
-    #                "Number of Actions For the Categories")
-
-    print(f'The categories "{", ".join(categories_700)}" ({len(categories_700)}) have more than 700 actions.')
-    print(f'The categories "{", ".join(categories_550)}" ({len(categories_550)}) have more than 550 actions.')
-    print(f'The categories "{", ".join(categories_400)}" ({len(categories_400)}) have more than 400 actions.')
-    print(f'The categories "{", ".join(categories_250)}" ({len(categories_250)}) have more than 250 actions.')
-    print(f'The categories "{", ".join(categories_100)}" ({len(categories_100)}) have more than 100 actions.')
-    print(f'The categories "{", ".join(categories_0)}" ({len(categories_0)}) have more than 0 actions.')
-
-
-def actions_technical_lag() -> None:
-    """
-    Determine the technical lag of the Actions.
-    """
-    fetch_repositories_query = """
-    SELECT DISTINCT owner, repository FROM versions;
-    """
-    first_file_name = files_names_main[0]
-    sqlite_connection = sqlite3.connect(f"{files_path_main}/{first_file_name}")
-    sqlite_cursor = sqlite_connection.cursor()
-    owners_repositories = sqlite_cursor.execute(fetch_repositories_query).fetchall()
-
-    overall_major_updates_lag = []
-    overall_minor_updates_lag = []
-    overall_patch_updates_lag = []
-
-    overall_number_of_versions = 0
-
-    legacy = 0
-    refused = 0
-    inconsistencies = 0
-
-    for owner, repository in owners_repositories:
-        fetch_date_and_versions_query = """
-        SELECT date, version FROM versions WHERE owner=? AND repository=?;
-        """
-        dates_and_versions = sqlite_cursor.execute(fetch_date_and_versions_query, (owner, repository)).fetchall()
-        dates_and_versions.sort(key=lambda tup: tup[0])
-        major_updates_lag = []
-        minor_updates_lag = []
-        patch_updates_lag = []
-
-        overall_number_of_versions += len(dates_and_versions)
-
-        run = False
-        i = 0
-        while i < len(dates_and_versions):
-            try:
-                previous_date = datetime.strptime(dates_and_versions[i][0], "%Y-%m-%d %H:%M:%S")
-                previous_major_date = previous_date
-                previous_minor_date = previous_date
-                previous_patch_date = previous_date
-                previous_version = packaging_version.parse(str(dates_and_versions[i][1]))
-
-                test_previous = re.search(r"\d+(\.\d+){0,2}", str(previous_version))
-
-                if type(previous_version) is packaging.version.LegacyVersion and test_previous:
-                    legacy += 1
-                    test_previous = test_previous.span()
-                    previous_version_string = str(previous_version)[test_previous[0]:test_previous[1]]
-                    previous_version = packaging_version.parse(previous_version_string)
-                elif type(previous_version) is packaging.version.LegacyVersion:
-                    refused += 1
-
-                previous_major = previous_version.major
-                previous_minor = previous_version.minor
-                previous_patch = previous_version.micro
-
-                run = True
-                break
-            except AttributeError:
-                i += 1
-
-        if run:
-            for date_version in dates_and_versions[i+1:]:
-                current_date = datetime.strptime(date_version[0], "%Y-%m-%d %H:%M:%S")
-                current_version = packaging_version.parse(str(date_version[1]))
-
-                test_current = re.search(r"\d+(\.\d+){0,2}", str(current_version))
-
-                if type(current_version) is packaging.version.LegacyVersion and test_current:
-                    legacy += 1
-                    test_current = test_current.span()
-                    current_version_sting = str(current_version)[test_current[0]:test_current[1]]
-                    current_version = packaging_version.parse(current_version_sting)
-                elif type(current_version) is packaging.version.LegacyVersion:
-                    refused += 1
-
-                try:
-                    current_major = current_version.major
-                    current_minor = current_version.minor
-                    current_patch = current_version.micro
-                except AttributeError:
-                    continue
-
-                if current_major > previous_major:
-                    difference = current_date - previous_major_date
-                    elapsed_seconds = difference.seconds
-                    elapsed_days = difference.days
-                    days_seconds = elapsed_days * 24 * 60 * 60
-                    major_updates_lag.append(elapsed_seconds + days_seconds)
-                    previous_major_date = current_date
-                    previous_major = current_major
-                    previous_minor = current_minor
-                    previous_patch = current_patch
-                elif current_major == previous_major and current_minor > previous_minor:
-                    difference = current_date - previous_minor_date
-                    elapsed_seconds = difference.seconds
-                    elapsed_days = difference.days
-                    days_seconds = elapsed_days * 24 * 60 * 60
-                    minor_updates_lag.append(elapsed_seconds + days_seconds)
-                    previous_minor_date = current_date
-                    previous_minor = current_minor
-                    previous_patch = current_patch
-                elif current_major == previous_major and current_minor == previous_minor and current_patch > previous_patch:
-                    difference = current_date - previous_patch_date
-                    elapsed_seconds = difference.seconds
-                    elapsed_days = difference.days
-                    days_seconds = elapsed_days * 24 * 60 * 60
-                    patch_updates_lag.append(elapsed_seconds + days_seconds)
-                    previous_patch_date = current_date
-                    previous_patch = current_patch
-                else:
-                    inconsistencies += 1
-                    previous_major = current_major
-                    previous_minor = current_minor
-                    previous_patch = current_patch
-
-            for element in major_updates_lag:
-                overall_major_updates_lag.append(element)
-            for element in minor_updates_lag:
-                overall_minor_updates_lag.append(element)
-            for element in patch_updates_lag:
-                overall_patch_updates_lag.append(element)
-
-    sqlite_connection.close()
-
-    overall_median_major_updates_lag = statistics.median(overall_major_updates_lag)
-    overall_median_minor_updates_lag = statistics.median(overall_minor_updates_lag)
-    overall_median_patch_updates_lag = statistics.median(overall_patch_updates_lag)
-
-    # print(f"Overall number of versions: {overall_number_of_versions}")
-    # print(f"Number of legacy converted to pep440: {legacy}")
-    # print(f"Number of refused: {refused}")
-    # print(f"Number of inconsistencies: {inconsistencies}")
-
-    seaborn.boxplot(y=overall_major_updates_lag)
-    plt.show()
-    median = statistics.median(overall_major_updates_lag)
-    q1 = numpy.percentile(overall_major_updates_lag, 25)
-    q3 = numpy.percentile(overall_major_updates_lag, 75)
-    iqr = q3 - q1
-    minimum = min(overall_major_updates_lag)
-    maximum = max(overall_major_updates_lag)
-    print(f"Major median: {convert_seconds(median)}")
-    print(f"Major q1: {convert_seconds(q1)}")
-    print(f"Major q3: {convert_seconds(q3)}")
-    print(f"Major IQR: {convert_seconds(iqr)}")
-    print(f"Major max: {convert_seconds(maximum)}")
-    print(f"Major min: {convert_seconds(minimum)}")
-    # seaborn.histplot(x=overall_major_updates_lag)
-    # plt.show()
-    # print(f"Number of detected major updates: {len(overall_major_updates_lag)}")
-    # print(f"Seconds between major: {overall_median_major_updates_lag}")
-    statistic, pvalue = mannwhitneyu(overall_minor_updates_lag, overall_patch_updates_lag)
-    # print(pvalue)
-
-    seaborn.boxplot(y=overall_minor_updates_lag)
-    plt.show()
-    median = statistics.median(overall_minor_updates_lag)
-    q1 = numpy.percentile(overall_minor_updates_lag, 25)
-    q3 = numpy.percentile(overall_minor_updates_lag, 75)
-    iqr = q3 - q1
-    minimum = min(overall_minor_updates_lag)
-    maximum = max(overall_minor_updates_lag)
-    print(f"Minor median: {convert_seconds(median)}")
-    print(f"Minor q1: {convert_seconds(q1)}")
-    print(f"Minor q3: {convert_seconds(q3)}")
-    print(f"Minor IQR: {convert_seconds(iqr)}")
-    print(f"Minor max: {convert_seconds(maximum)}")
-    print(f"Minor min: {convert_seconds(minimum)}")
-    # seaborn.histplot(x=overall_minor_updates_lag)
-    # plt.show()
-    # print(f"Number of detected minor updates: {len(overall_minor_updates_lag)}")
-    # print(f"Seconds between minor: {overall_median_minor_updates_lag}")
-
-    seaborn.boxplot(y=overall_patch_updates_lag)
-    plt.show()
-    median = statistics.median(overall_patch_updates_lag)
-    q1 = numpy.percentile(overall_patch_updates_lag, 25)
-    q3 = numpy.percentile(overall_patch_updates_lag, 75)
-    iqr = q3 - q1
-    minimum = min(overall_patch_updates_lag)
-    maximum = max(overall_patch_updates_lag)
-    print(f"Patch median: {convert_seconds(median)}")
-    print(f"Patch q1: {convert_seconds(q1)}")
-    print(f"Patch q3: {convert_seconds(q3)}")
-    print(f"Patch IQR: {convert_seconds(iqr)}")
-    print(f"Patch max: {convert_seconds(maximum)}")
-    print(f"Patch min: {convert_seconds(minimum)}")
-    # seaborn.histplot(x=overall_patch_updates_lag)
-    # plt.show()
-    # print(f"Number of detected patch updates: {len(overall_patch_updates_lag)}")
-    # print(f"Seconds between patch: {overall_median_patch_updates_lag}")
-
-
-def convert_seconds(seconds: float) -> str:
-    """
-    Convert the number of seconds to days, hours, minutes, and seconds.
-
-    :param seconds: The number of seconds.
-    :return: A string indicating the number of days, hours, minutes, and seconds.
-    """
-    minutes, seconds = divmod(seconds, 60)
-    hours, minutes = divmod(minutes, 60)
-    days, hours = divmod(hours, 24)
-
-    sentence = f"{days} days, {hours} hours, {minutes} minutes, {seconds} seconds"
-    return sentence
-
-
-def compute_sample_size(population_size: int) -> int:
-    """
-    Compute the sample size for a population.
-
-    :param population_size: The total size of the population.
-    :return: The sample size.
-    """
-    sample_for_infinite_population = (1.96 ** 2) * 0.5 * (1 - 0.5) / (0.05 ** 2)
-    sample_size = sample_for_infinite_population / (1 + ((sample_for_infinite_population - 1) / population_size))
-    sample_size = math.ceil(sample_size)
-
-    return sample_size
-
-
-def sort_dates_keys(versions: list) -> list:
-    """
-    Sort the dates for each version.
-
-    :param versions: The list representing the sample of versions.
-    :return: The sorted list of versions.
-    """
-    for i, dictionary in enumerate(versions):
-        dictionary_keys = list(dictionary.keys())
-        dates = [datetime.strptime(dk, "%d/%m/%Y") for dk in dictionary_keys]
-        dates.sort()
-        sorted_dates = [datetime.strftime(dk, "%d/%m/%Y") for dk in dates]
-        versions[i] = {}
-        for date in sorted_dates:
-            versions[i][date] = dictionary[date]
-
-    return versions
-
-
-def days_between_dates(dates: list) -> list:
-    """
-    Determine the days between dates placed in a list.
-
-    :param dates: A list with the dates.
-    :return: The list of days between the dates in the list.
-    """
-    i = 0
-    j = 1
-
-    days = []
-    while j < len(dates):
-        difference = abs(datetime.strptime(dates[i], "%d/%m/%Y") - datetime.strptime(dates[j], "%d/%m/%Y"))
-        days.append(difference.days)
-        i += 1
-        j += 1
-
-    return days
-
-
 def rq1() -> None:
     """
     Observe the number of Actions on the Marketplace.
@@ -586,7 +264,266 @@ def number_of_actions_per_categories() -> dict:
 
 
 def rq3() -> None:
-    
+    fetch_repositories_query = """
+        SELECT DISTINCT owner, repository FROM versions;
+        """
+    first_file_name = files_names_main[0]
+    sqlite_connection = sqlite3.connect(f"{files_path_main}/{first_file_name}")
+    sqlite_cursor = sqlite_connection.cursor()
+    owners_repositories = sqlite_cursor.execute(fetch_repositories_query).fetchall()
+
+    overall_major_updates_lag = []
+    overall_minor_updates_lag = []
+    overall_patch_updates_lag = []
+
+    overall_number_of_versions = 0
+
+    legacy = 0
+    refused = 0
+    inconsistencies = 0
+
+    for owner, repository in owners_repositories:
+        fetch_date_and_versions_query = """
+            SELECT date, version FROM versions WHERE owner=? AND repository=?;
+            """
+        dates_and_versions = sqlite_cursor.execute(fetch_date_and_versions_query, (owner, repository)).fetchall()
+        dates_and_versions.sort(key=lambda tup: tup[0])
+        major_updates_lag = []
+        minor_updates_lag = []
+        patch_updates_lag = []
+
+        overall_number_of_versions += len(dates_and_versions)
+
+        run = False
+        i = 0
+        while i < len(dates_and_versions):
+            try:
+                previous_date = datetime.strptime(dates_and_versions[i][0], "%Y-%m-%d %H:%M:%S")
+                previous_major_date = previous_date
+                previous_minor_date = previous_date
+                previous_patch_date = previous_date
+                not_ready_version = str(dates_and_versions[i][1])
+                previous_version = packaging_version.parse(not_ready_version)
+
+                test_previous = re.search(r"\d+(\.\d+){0,2}", str(previous_version))
+
+                if type(previous_version) is packaging.version.LegacyVersion and test_previous:
+                    legacy += 1
+                    test_previous = test_previous.span()
+                    previous_version_string = str(previous_version)[test_previous[0]:test_previous[1]]
+                    previous_version = packaging_version.parse(previous_version_string)
+                elif type(previous_version) is packaging.version.LegacyVersion:
+                    refused += 1
+
+                previous_major = previous_version.major
+                previous_minor = previous_version.minor
+                previous_patch = previous_version.micro
+
+                run = True
+                break
+            except AttributeError:
+                refused += 1
+                i += 1
+
+        if run:
+            for date_version in dates_and_versions[i + 1:]:
+                current_date = datetime.strptime(date_version[0], "%Y-%m-%d %H:%M:%S")
+                current_version = packaging_version.parse(str(date_version[1]))
+
+                test_current = re.search(r"\d+(\.\d+){0,2}", str(current_version))
+
+                if type(current_version) is packaging.version.LegacyVersion and test_current:
+                    legacy += 1
+                    test_current = test_current.span()
+                    current_version_sting = str(current_version)[test_current[0]:test_current[1]]
+                    current_version = packaging_version.parse(current_version_sting)
+                elif type(current_version) is packaging.version.LegacyVersion:
+                    refused += 1
+
+                try:
+                    current_major = current_version.major
+                    current_minor = current_version.minor
+                    current_patch = current_version.micro
+                except AttributeError:
+                    continue
+
+                if current_major > previous_major:
+                    difference = current_date - previous_major_date
+                    elapsed_seconds = difference.seconds
+                    elapsed_days = difference.days
+                    days_seconds = elapsed_days * 24 * 60 * 60
+                    major_updates_lag.append(elapsed_seconds + days_seconds)
+                    previous_major_date = current_date
+                    previous_major = current_major
+                    previous_minor = current_minor
+                    previous_patch = current_patch
+                elif current_major == previous_major and current_minor > previous_minor:
+                    difference = current_date - previous_minor_date
+                    elapsed_seconds = difference.seconds
+                    elapsed_days = difference.days
+                    days_seconds = elapsed_days * 24 * 60 * 60
+                    minor_updates_lag.append(elapsed_seconds + days_seconds)
+                    previous_minor_date = current_date
+                    previous_minor = current_minor
+                    previous_patch = current_patch
+                elif current_major == previous_major and current_minor == previous_minor and current_patch > previous_patch:
+                    difference = current_date - previous_patch_date
+                    elapsed_seconds = difference.seconds
+                    elapsed_days = difference.days
+                    days_seconds = elapsed_days * 24 * 60 * 60
+                    patch_updates_lag.append(elapsed_seconds + days_seconds)
+                    previous_patch_date = current_date
+                    previous_patch = current_patch
+                else:
+                    inconsistencies += 1
+                    previous_major = current_major
+                    previous_minor = current_minor
+                    previous_patch = current_patch
+
+            for element in major_updates_lag:
+                overall_major_updates_lag.append(element)
+            for element in minor_updates_lag:
+                overall_minor_updates_lag.append(element)
+            for element in patch_updates_lag:
+                overall_patch_updates_lag.append(element)
+
+    sqlite_connection.close()
+
+    compute_statistics(overall_major_updates_lag, "for major releases.")
+    compute_statistics(overall_minor_updates_lag, "for minor releases.")
+    compute_statistics(overall_patch_updates_lag, "for patch releases.")
+
+    print(f"Overall number of versions: {overall_number_of_versions}")
+    print(f"Number of legacy converted to pep440: {legacy}")
+    print(f"Number of refused: {refused}")
+    print(f"Number of inconsistencies: {inconsistencies}")
+
+    seaborn.boxplot(y=overall_major_updates_lag)
+    plt.show()
+    # median = statistics.median(overall_major_updates_lag)
+    # q1 = numpy.percentile(overall_major_updates_lag, 25)
+    # q3 = numpy.percentile(overall_major_updates_lag, 75)
+    # iqr = q3 - q1
+    # minimum = min(overall_major_updates_lag)
+    # maximum = max(overall_major_updates_lag)
+    # print(f"Major median: {convert_seconds(median)}")
+    # print(f"Major q1: {convert_seconds(q1)}")
+    # print(f"Major q3: {convert_seconds(q3)}")
+    # print(f"Major IQR: {convert_seconds(iqr)}")
+    # print(f"Major max: {convert_seconds(maximum)}")
+    # print(f"Major min: {convert_seconds(minimum)}")
+    # seaborn.histplot(x=overall_major_updates_lag)
+    # plt.show()
+    # print(f"Number of detected major updates: {len(overall_major_updates_lag)}")
+    # print(f"Seconds between major: {overall_median_major_updates_lag}")
+    statistic, pvalue = mannwhitneyu(overall_minor_updates_lag, overall_patch_updates_lag)
+    # print(pvalue)
+
+    seaborn.boxplot(y=overall_minor_updates_lag)
+    plt.show()
+    median = statistics.median(overall_minor_updates_lag)
+    q1 = numpy.percentile(overall_minor_updates_lag, 25)
+    q3 = numpy.percentile(overall_minor_updates_lag, 75)
+    iqr = q3 - q1
+    minimum = min(overall_minor_updates_lag)
+    maximum = max(overall_minor_updates_lag)
+    # print(f"Minor median: {convert_seconds(median)}")
+    # print(f"Minor q1: {convert_seconds(q1)}")
+    # print(f"Minor q3: {convert_seconds(q3)}")
+    # print(f"Minor IQR: {convert_seconds(iqr)}")
+    # print(f"Minor max: {convert_seconds(maximum)}")
+    # print(f"Minor min: {convert_seconds(minimum)}")
+    # seaborn.histplot(x=overall_minor_updates_lag)
+    # plt.show()
+    # print(f"Number of detected minor updates: {len(overall_minor_updates_lag)}")
+    # print(f"Seconds between minor: {overall_median_minor_updates_lag}")
+
+    seaborn.boxplot(y=overall_patch_updates_lag)
+    plt.show()
+    median = statistics.median(overall_patch_updates_lag)
+    q1 = numpy.percentile(overall_patch_updates_lag, 25)
+    q3 = numpy.percentile(overall_patch_updates_lag, 75)
+    iqr = q3 - q1
+    minimum = min(overall_patch_updates_lag)
+    maximum = max(overall_patch_updates_lag)
+    # print(f"Patch median: {convert_seconds(median)}")
+    # print(f"Patch q1: {convert_seconds(q1)}")
+    # print(f"Patch q3: {convert_seconds(q3)}")
+    # print(f"Patch IQR: {convert_seconds(iqr)}")
+    # print(f"Patch max: {convert_seconds(maximum)}")
+    # print(f"Patch min: {convert_seconds(minimum)}")
+    # seaborn.histplot(x=overall_patch_updates_lag)
+    # plt.show()
+    # print(f"Number of detected patch updates: {len(overall_patch_updates_lag)}")
+    # print(f"Seconds between patch: {overall_median_patch_updates_lag}")
+
+
+def convert_seconds(seconds: float) -> str:
+    """
+    Convert the number of seconds to days, hours, minutes, and seconds.
+
+    :param seconds: The number of seconds.
+    :return: A string indicating the number of days, hours, minutes, and seconds.
+    """
+    minutes, seconds = divmod(seconds, 60)
+    hours, minutes = divmod(minutes, 60)
+    days, hours = divmod(hours, 24)
+
+    sentence = f"{days} days, {hours} hours, {minutes} minutes, {seconds} seconds"
+    return sentence
+
+
+def compute_sample_size(population_size: int) -> int:
+    """
+    Compute the sample size for a population.
+
+    :param population_size: The total size of the population.
+    :return: The sample size.
+    """
+    sample_for_infinite_population = (1.96 ** 2) * 0.5 * (1 - 0.5) / (0.05 ** 2)
+    sample_size = sample_for_infinite_population / (1 + ((sample_for_infinite_population - 1) / population_size))
+    sample_size = math.ceil(sample_size)
+
+    return sample_size
+
+
+def sort_dates_keys(versions: list) -> list:
+    """
+    Sort the dates for each version.
+
+    :param versions: The list representing the sample of versions.
+    :return: The sorted list of versions.
+    """
+    for i, dictionary in enumerate(versions):
+        dictionary_keys = list(dictionary.keys())
+        dates = [datetime.strptime(dk, "%d/%m/%Y") for dk in dictionary_keys]
+        dates.sort()
+        sorted_dates = [datetime.strftime(dk, "%d/%m/%Y") for dk in dates]
+        versions[i] = {}
+        for date in sorted_dates:
+            versions[i][date] = dictionary[date]
+
+    return versions
+
+
+def days_between_dates(dates: list) -> list:
+    """
+    Determine the days between dates placed in a list.
+
+    :param dates: A list with the dates.
+    :return: The list of days between the dates in the list.
+    """
+    i = 0
+    j = 1
+
+    days = []
+    while j < len(dates):
+        difference = abs(datetime.strptime(dates[i], "%d/%m/%Y") - datetime.strptime(dates[j], "%d/%m/%Y"))
+        days.append(difference.days)
+        i += 1
+        j += 1
+
+    return days
 
 
 def rq4() -> None:
@@ -896,6 +833,8 @@ def rq5() -> None:
     most_popular = n_most_popular_actions(actions_with_metrics, top_n, sqlite_cursor)
     sqlite_connection.close()
     print(most_popular)
+
+    sqlite_cursor.close()
 
 
 def get_actions_with_metrics(sqlite_cursor: sqlite3.Cursor) -> dict:
