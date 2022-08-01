@@ -1,7 +1,6 @@
 """
 This script is used to analyse the data about GitHub Actions.
 """
-from collections import Counter
 from datetime import datetime
 from fetch_data import request_to_api
 from packaging import version as packaging_version

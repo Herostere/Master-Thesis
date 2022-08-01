@@ -153,7 +153,7 @@ def fetch_data_multithread() -> None:
     global number_of_threads
     categories = numpy.load("categories.npy")
 
-    sqlite_connection = sqlite3.connect(f"outputs/actions_data_{CURRENT_DATE}.db")
+    sqlite_connection = sqlite3.connect(file_name_main)
     sqlite_cursor = sqlite_connection.cursor()
 
     sqlite_create_main_table = """
@@ -981,6 +981,8 @@ if __name__ == "__main__":
         """
         Fetch the categories.
         """
+        file_name_main = f"outputs/actions_data_{CURRENT_DATE}.db"
+
         number_of_threads = 0
         # SESSION = requests.Session()
         # SESSION.cookies['user_session'] = os.getenv("CONNECTION_COOKIE")
@@ -996,7 +998,7 @@ if __name__ == "__main__":
         if run_fetch_data:
             fetch_data_multithread()
 
-            sqlite_connection_main = sqlite3.connect(f"outputs/actions_data_{CURRENT_DATE}.db")
+            sqlite_connection_main = sqlite3.connect(file_name_main)
             sqlite_cursor_main = sqlite_connection_main.cursor()
             number_of_actions = sqlite_cursor_main.execute("SELECT COUNT(owner) FROM actions;").fetchone()[0]
             sqlite_connection_main.close()
