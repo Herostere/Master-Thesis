@@ -223,19 +223,7 @@ def rq2() -> None:
     categories_to_display = list(actions_per_categories.keys())
     actions_to_display = list(actions_per_categories.values())
 
-    q1 = numpy.percentile(actions_to_display, 25)
-    q3 = numpy.percentile(actions_to_display, 75)
-    median = statistics.median(actions_to_display)
-    iqr = q3 - q1
-    maximum = max(actions_to_display)
-    minimum = min(actions_to_display)
-
-    print(f"Median: {median}")
-    print(f"Maximum: {maximum}")
-    print(f"Minimum: {minimum}")
-    print(f"Q1: {q1}")
-    print(f"Q3: {q3}")
-    print(f"IQR: {iqr}")
+    compute_statistics(actions_to_display, "of actions per categories")
 
     if first_observation:
         bar_plot = seaborn.barplot(x=categories_to_display, y=actions_to_display, orient="v", color="steelblue")
