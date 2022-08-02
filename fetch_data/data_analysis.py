@@ -7,7 +7,6 @@ from packaging import version as packaging_version
 from scipy.stats import mannwhitneyu
 
 import data_analysis_config as config
-import math
 import matplotlib.pyplot as plt
 import numpy
 import packaging.version
@@ -458,20 +457,6 @@ def convert_seconds(seconds: float) -> str:
 
     sentence = f"{days} days, {hours} hours, {minutes} minutes, {seconds} seconds"
     return sentence
-
-
-def compute_sample_size(population_size: int) -> int:
-    """
-    Compute the sample size for a population.
-
-    :param population_size: The total size of the population.
-    :return: The sample size.
-    """
-    sample_for_infinite_population = (1.96 ** 2) * 0.5 * (1 - 0.5) / (0.05 ** 2)
-    sample_size = sample_for_infinite_population / (1 + ((sample_for_infinite_population - 1) / population_size))
-    sample_size = math.ceil(sample_size)
-
-    return sample_size
 
 
 def sort_dates_keys(versions: list) -> list:
