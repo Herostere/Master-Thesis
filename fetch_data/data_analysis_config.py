@@ -3,7 +3,7 @@ Configuration file for "data_analysis.py"
 """
 files_path = r"D:\Master-Thesis\fetch_data\outputs\current"
 
-rq1 = False
+rq1 = True
 rq2 = False
 rq3 = False
 rq4 = False

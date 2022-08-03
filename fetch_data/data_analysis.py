@@ -32,12 +32,13 @@ def rq1() -> None:
 
     if first_observation:
         dates, number_of_actions, lists_of_actions = get_number_of_actions_all_files()
+        print(f"Overall number of Actions on the different dates: {number_of_actions}")
         seaborn.scatterplot(x=dates, y=number_of_actions)
         seaborn.lineplot(x=dates, y=number_of_actions)
         plt.show()
 
-        new_actions_list = []
-        actions_lost_list = []
+        actions_added_list = []
+        actions_deleted_list = []
 
         for i in range(len(lists_of_actions)-1):
             j = i + 1
@@ -51,16 +52,17 @@ def rq1() -> None:
             for action in first_list:
                 if action not in second_list:
                     actions_lost += 1
-            new_actions_list.append(new_actions)
-            actions_lost_list.append(actions_lost)
-            print(f"Between {dates[i]} and {dates[j]}: {new_actions} new Actions.")
-            print(f"Between {dates[i]} and {dates[j]}: {actions_lost} Actions lost.")
+            actions_added_list.append(new_actions)
+            actions_deleted_list.append(actions_lost)
+            print(f"Between {dates[i]} and {dates[j]}: {new_actions} Actions added.")
+            print(f"Between {dates[i]} and {dates[j]}: {actions_lost} Actions removed.")
+            print("**" * 5)
             i += 1
 
-        seaborn.scatterplot(x=dates[1:], y=new_actions_list, color='mediumseagreen')
-        seaborn.lineplot(x=dates[1:], y=new_actions_list, color='mediumseagreen', label="New Actions")
-        seaborn.scatterplot(x=dates[1:], y=actions_lost_list, color='darkorange')
-        seaborn.lineplot(x=dates[1:], y=actions_lost_list, color='darkorange', label="Actions lost")
+        seaborn.scatterplot(x=dates[1:], y=actions_added_list, color='mediumseagreen')
+        seaborn.lineplot(x=dates[1:], y=actions_added_list, color='mediumseagreen', label="Actions added")
+        seaborn.scatterplot(x=dates[1:], y=actions_deleted_list, color='darkorange')
+        seaborn.lineplot(x=dates[1:], y=actions_deleted_list, color='darkorange', label="Actions removed")
         plt.show()
 
     if second_observation:
@@ -90,8 +92,8 @@ def rq1() -> None:
                     overall_deleted[category] = dict_deleted[category]
                 else:
                     overall_deleted[category] += dict_deleted[category]
-        print(overall_added)
-        print(overall_deleted)
+        print(f"Times added: {overall_added}")
+        print(f"Time deleted: {overall_deleted}")
 
 
 def get_number_of_actions_all_files() -> tuple[list, list, list]:
@@ -244,7 +246,7 @@ def number_of_actions_per_categories() -> dict:
     _, actions_per_categories = get_number_of_actions_categories()
     to_sort_by_keys = {}
     for i in range(len(categories_main)):
-        to_sort_by_keys[categories_main[i]] = actions_per_categories[0][i]
+        to_sort_by_keys[categories_main[i]] = actions_per_categories[-1][i]
     sorted_by_keys = {k: to_sort_by_keys[k] for k in sorted(to_sort_by_keys, key=to_sort_by_keys.get, reverse=True)}
     return sorted_by_keys
 
@@ -751,7 +753,7 @@ def actions_per_workflow_file(list_of_workflow_files_contents: numpy.ndarray) ->
     :return: A tuple with the number of Actions per workflow files, a dictionary with the count of each Action usage,
     and the number of workflow files not using Actions available on the Marketplace.
     """
-    sqlite_connection = sqlite3.connect(f"{files_path_main}/{first_file_name_main}")
+    sqlite_connection = sqlite3.connect(f"{files_path_main}/{last_file_name_main}")
     sqlite_cursor = sqlite_connection.cursor()
 
     list_of_actions_on_marketplace = get_all_actions_names(sqlite_cursor)
@@ -796,7 +798,7 @@ def rq5() -> None:
     """
     Determine the popularity of the Actions.
     """
-    sqlite_connection = sqlite3.connect(f"{files_path_main}/{first_file_name_main}")
+    sqlite_connection = sqlite3.connect(f"{files_path_main}/{last_file_name_main}")
     sqlite_cursor = sqlite_connection.cursor()
 
     actions_with_metrics = get_actions_with_metrics(sqlite_cursor)
@@ -1006,7 +1008,7 @@ def rq6() -> None:
     """
     Determine the number of issues per Action.
     """
-    sqlite_connection = sqlite3.connect(f"{files_path_main}/{first_file_name_main}")
+    sqlite_connection = sqlite3.connect(f"{files_path_main}/{last_file_name_main}")
     sqlite_cursor = sqlite_connection.cursor()
 
     well_maintained_actions, not_well_maintained_actions = number_of_well_not_well_maintained_actions(sqlite_cursor)
@@ -1137,7 +1139,7 @@ def rq7() -> None:
     Check the proportion of verified users on the Marketplace, the total number of users and the proportion of
     verified ones.
     """
-    sqlite_connection = sqlite3.connect(f"{files_path_main}/{first_file_name_main}")
+    sqlite_connection = sqlite3.connect(f"{files_path_main}/{last_file_name_main}")
     sqlite_cursor = sqlite_connection.cursor()
 
     separator = "-" * 10
@@ -1374,7 +1376,7 @@ def get_actions_triggers_in_workflows(workflow_files: numpy.ndarray) -> dict:
     :param workflow_files: The list of workflow files.
     :return: The times each Action has been triggered and the kind of trigger in a dictionary.
     """
-    sqlite_connection = sqlite3.connect(f"{files_path_main}/{first_file_name_main}")
+    sqlite_connection = sqlite3.connect(f"{files_path_main}/{last_file_name_main}")
     sqlite_cursor = sqlite_connection.cursor()
 
     list_of_actions_on_marketplace = get_all_actions_names(sqlite_cursor)
