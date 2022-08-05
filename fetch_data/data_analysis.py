@@ -4,7 +4,7 @@ This script is used to analyse the data about GitHub Actions.
 from datetime import datetime
 from fetch_data import request_to_api
 from packaging import version as packaging_version
-from scipy.stats import mannwhitneyu
+from scipy.stats import mannwhitneyu, ttest_ind
 
 import data_analysis_config as config
 import matplotlib.pyplot as plt
@@ -252,17 +252,23 @@ def number_of_actions_per_categories() -> dict:
 
 
 def rq3() -> None:
+    perform_t_test = True
+    perform_mann_whitney_u_test = True
+    compute_lag_statistics = True
+    show_general_information = True
+    show_plots = True
+
     fetch_repositories_query = """
         SELECT DISTINCT owner, repository FROM versions;
         """
-    first_file_name = files_names_main[0]
-    sqlite_connection = sqlite3.connect(f"{files_path_main}/{first_file_name}")
+    sqlite_connection = sqlite3.connect(f"{files_path_main}/{last_file_name_main}")
     sqlite_cursor = sqlite_connection.cursor()
     owners_repositories = sqlite_cursor.execute(fetch_repositories_query).fetchall()
 
     overall_major_updates_lag = []
     overall_minor_updates_lag = []
     overall_patch_updates_lag = []
+    overall_updates_lag = []
 
     overall_number_of_versions = 0
 
@@ -284,6 +290,13 @@ def rq3() -> None:
 
         run = False
         i = 0
+        previous_date = None
+        previous_major = None
+        previous_minor = None
+        previous_patch = None
+        previous_major_date = None
+        previous_minor_date = None
+        previous_patch_date = None
         while i < len(dates_and_versions):
             try:
                 previous_date = datetime.strptime(dates_and_versions[i][0], "%Y-%m-%d %H:%M:%S")
@@ -316,6 +329,13 @@ def rq3() -> None:
         if run:
             for date_version in dates_and_versions[i + 1:]:
                 current_date = datetime.strptime(date_version[0], "%Y-%m-%d %H:%M:%S")
+
+                difference_for_overall = current_date - previous_date
+                elapsed_seconds_for_overall = difference_for_overall.seconds
+                elapsed_days_for_overall = difference_for_overall.days
+                days_seconds_for_overall = elapsed_days_for_overall * 24 * 60 * 60
+                overall_updates_lag.append(elapsed_seconds_for_overall + days_seconds_for_overall)
+
                 current_version = packaging_version.parse(str(date_version[1]))
 
                 test_current = re.search(r"\d+(\.\d+){0,2}", str(current_version))
@@ -377,73 +397,53 @@ def rq3() -> None:
 
     sqlite_connection.close()
 
-    compute_statistics(overall_major_updates_lag, "for major releases.")
-    compute_statistics(overall_minor_updates_lag, "for minor releases.")
-    compute_statistics(overall_patch_updates_lag, "for patch releases.")
+    if perform_t_test:
+        print(ttest_ind(a=overall_major_updates_lag, b=overall_minor_updates_lag))
+        print(ttest_ind(a=overall_major_updates_lag, b=overall_patch_updates_lag))
+        print(ttest_ind(a=overall_minor_updates_lag, b=overall_patch_updates_lag))
+        print('-' * 20)
 
-    print(f"Overall number of versions: {overall_number_of_versions}")
-    print(f"Number of legacy converted to pep440: {legacy}")
-    print(f"Number of refused: {refused}")
-    print(f"Number of inconsistencies: {inconsistencies}")
+    if perform_mann_whitney_u_test:
+        print(mannwhitneyu(overall_major_updates_lag, overall_minor_updates_lag))
+        print(mannwhitneyu(overall_major_updates_lag, overall_patch_updates_lag))
+        print(mannwhitneyu(overall_minor_updates_lag, overall_patch_updates_lag))
+        print('-' * 20)
 
-    seaborn.boxplot(y=overall_major_updates_lag)
-    plt.show()
-    # median = statistics.median(overall_major_updates_lag)
-    # q1 = numpy.percentile(overall_major_updates_lag, 25)
-    # q3 = numpy.percentile(overall_major_updates_lag, 75)
-    # iqr = q3 - q1
-    # minimum = min(overall_major_updates_lag)
-    # maximum = max(overall_major_updates_lag)
-    # print(f"Major median: {convert_seconds(median)}")
-    # print(f"Major q1: {convert_seconds(q1)}")
-    # print(f"Major q3: {convert_seconds(q3)}")
-    # print(f"Major IQR: {convert_seconds(iqr)}")
-    # print(f"Major max: {convert_seconds(maximum)}")
-    # print(f"Major min: {convert_seconds(minimum)}")
-    # seaborn.histplot(x=overall_major_updates_lag)
-    # plt.show()
-    # print(f"Number of detected major updates: {len(overall_major_updates_lag)}")
-    # print(f"Seconds between major: {overall_median_major_updates_lag}")
-    statistic, pvalue = mannwhitneyu(overall_minor_updates_lag, overall_patch_updates_lag)
-    # print(pvalue)
+    if compute_lag_statistics:
+        compute_statistics(overall_major_updates_lag, "for major releases.")
+        print('x' * 10)
+        compute_statistics(overall_minor_updates_lag, "for minor releases.")
+        print('x' * 10)
+        compute_statistics(overall_patch_updates_lag, "for patch releases.")
+        print('x' * 10)
+        compute_statistics(overall_updates_lag, "for all releases.")
+        print('-' * 20)
 
-    seaborn.boxplot(y=overall_minor_updates_lag)
-    plt.show()
-    median = statistics.median(overall_minor_updates_lag)
-    q1 = numpy.percentile(overall_minor_updates_lag, 25)
-    q3 = numpy.percentile(overall_minor_updates_lag, 75)
-    iqr = q3 - q1
-    minimum = min(overall_minor_updates_lag)
-    maximum = max(overall_minor_updates_lag)
-    # print(f"Minor median: {convert_seconds(median)}")
-    # print(f"Minor q1: {convert_seconds(q1)}")
-    # print(f"Minor q3: {convert_seconds(q3)}")
-    # print(f"Minor IQR: {convert_seconds(iqr)}")
-    # print(f"Minor max: {convert_seconds(maximum)}")
-    # print(f"Minor min: {convert_seconds(minimum)}")
-    # seaborn.histplot(x=overall_minor_updates_lag)
-    # plt.show()
-    # print(f"Number of detected minor updates: {len(overall_minor_updates_lag)}")
-    # print(f"Seconds between minor: {overall_median_minor_updates_lag}")
+    if show_general_information:
+        print(f"Overall number of versions: {overall_number_of_versions}")
+        print(f"Number of legacy converted to pep440: {legacy}")
+        print(f"Number of refused: {refused}")
+        print(f"Number of inconsistencies: {inconsistencies}")
+        print(f"Number of detected major updates: {len(overall_major_updates_lag)}")
+        print(f"Number of detected minor updates: {len(overall_minor_updates_lag)}")
+        print(f"Number of detected patch updates: {len(overall_patch_updates_lag)}")
+        print('-' * 20)
 
-    seaborn.boxplot(y=overall_patch_updates_lag)
-    plt.show()
-    median = statistics.median(overall_patch_updates_lag)
-    q1 = numpy.percentile(overall_patch_updates_lag, 25)
-    q3 = numpy.percentile(overall_patch_updates_lag, 75)
-    iqr = q3 - q1
-    minimum = min(overall_patch_updates_lag)
-    maximum = max(overall_patch_updates_lag)
-    # print(f"Patch median: {convert_seconds(median)}")
-    # print(f"Patch q1: {convert_seconds(q1)}")
-    # print(f"Patch q3: {convert_seconds(q3)}")
-    # print(f"Patch IQR: {convert_seconds(iqr)}")
-    # print(f"Patch max: {convert_seconds(maximum)}")
-    # print(f"Patch min: {convert_seconds(minimum)}")
-    # seaborn.histplot(x=overall_patch_updates_lag)
-    # plt.show()
-    # print(f"Number of detected patch updates: {len(overall_patch_updates_lag)}")
-    # print(f"Seconds between patch: {overall_median_patch_updates_lag}")
+    if show_plots:
+        fig, axs = plt.subplots(ncols=3)
+        plot_major = seaborn.boxplot(y=overall_major_updates_lag, ax=axs[0])
+        plot_minor = seaborn.boxplot(y=overall_minor_updates_lag, ax=axs[1], color='MediumSeaGreen')
+        plot_patch = seaborn.boxplot(y=overall_patch_updates_lag, ax=axs[2], color='Brown')
+        plot_major.set(title="Major releases")
+        plot_minor.set(title="Minor releases")
+        plot_patch.set(title="Path releases")
+        plot_major.set(yscale='log')
+        plot_minor.set(yscale='log')
+        plot_patch.set(yscale='log')
+        plt.show()
+        plot_any = seaborn.boxplot(y=overall_updates_lag)
+        plot_any.set(yscale='log')
+        plt.show()
 
 
 def convert_seconds(seconds: float) -> str:
@@ -745,11 +745,14 @@ def thread_filter_repositories_workflow_files(yml_content: list, repositories: l
                         yml_content.append(content)
 
 
-def actions_per_workflow_file(list_of_workflow_files_contents: numpy.ndarray) -> tuple[list, dict, int]:
+def actions_per_workflow_file(list_of_workflow_files_contents, ignore_checkout=False) -> tuple[list, dict, int]:
     """
     Count the number of Actions per workflow files.
 
     :param list_of_workflow_files_contents: List with the content of workflow files.
+    :param ignore_checkout: True if we want to ignore "checkout" in the count of Actions.
+    :type list_of_workflow_files_contents: numpy.ndarray
+    :type ignore_checkout: bool
     :return: A tuple with the number of Actions per workflow files, a dictionary with the count of each Action usage,
     and the number of workflow files not using Actions available on the Marketplace.
     """
@@ -782,7 +785,8 @@ def actions_per_workflow_file(list_of_workflow_files_contents: numpy.ndarray) ->
                                 use = step[key]
                                 if "@" in use:
                                     use = use.split("@")[0]
-                                    if use in list_of_actions_on_marketplace:
+                                    checkout = use == "actions/checkout"
+                                    if use in list_of_actions_on_marketplace and ignore_checkout:
                                         at_least_one_action = True
                                         actions_counter += 1
                                         if use not in actions_counters:
