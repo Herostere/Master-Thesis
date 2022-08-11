@@ -511,19 +511,37 @@ def rq4() -> None:
         list_of_workflow_files_contents = get_workflow_files(number_of_repositories)
         numpy.save(f"outputs/yml_files_{number_of_repositories}.npy", list_of_workflow_files_contents)
     list_of_workflow_files_contents = numpy.load(f"outputs/yml_files_{number_of_repositories}.npy")
-    total_of_actions, actions_counters, no_actions = actions_per_workflow_file(list_of_workflow_files_contents)
+    ignore_checkout = config.rq4_ignore_checkout
+    total_of_actions, total_of_distinct_actions, actions_counters, no_actions, checkouts = actions_per_workflow_file(
+        list_of_workflow_files_contents, ignore_checkout)
     actions_counters = sorted(actions_counters.items(), key=lambda x: x[1], reverse=True)
     actions_counters = dict(actions_counters)
 
     compute_statistics(total_of_actions, "of Actions per workflow file")
+    print('-' * 10)
+    compute_statistics(total_of_distinct_actions, "of distinct Actions per workflow file")
+    print('-' * 10)
     print(actions_counters)
+    print('-' * 10)
     print(f"Overall distinct Actions: {len(actions_counters)}")
+    print('-' * 10)
     print(f"Not using Actions available on marketplace: {no_actions}")
-    seaborn.boxplot(y=total_of_actions)
+    print('-' * 10)
+    print(f"Workflow files using checkout: {checkouts}")
+    fig, axs = plt.subplots(ncols=2)
+    plot_total = seaborn.boxplot(y=total_of_actions, ax=axs[0])
+    plot_distinct_total = seaborn.boxplot(y=total_of_distinct_actions, ax=axs[1], color='MediumSeaGreen')
+    plot_total.set(title="# of Actions")
+    plot_distinct_total.set(title="# of distinct Actions")
     plt.show()
     actions_uses = [actions_counters[action] for action in actions_counters]
     compute_statistics(actions_uses, "of uses for Actions")
-    seaborn.boxplot(y=actions_uses)
+    p_25, p_75 = numpy.percentile(actions_uses, [25, 75])
+    iqr = p_75 - p_25
+    upper_bound = p_75 + 1.5 * iqr
+    lower_bound = p_25 - 1.5 * iqr
+    actions_uses_no_outliers = [number for number in actions_uses if lower_bound <= number <= upper_bound]
+    seaborn.boxplot(y=actions_uses_no_outliers)
     plt.show()
 
 
@@ -745,7 +763,7 @@ def thread_filter_repositories_workflow_files(yml_content: list, repositories: l
                         yml_content.append(content)
 
 
-def actions_per_workflow_file(list_of_workflow_files_contents, ignore_checkout=False) -> tuple[list, dict, int]:
+def actions_per_workflow_file(list_of_workflow_files_contents, ignore_checkout=False):
     """
     Count the number of Actions per workflow files.
 
@@ -753,8 +771,10 @@ def actions_per_workflow_file(list_of_workflow_files_contents, ignore_checkout=F
     :param ignore_checkout: True if we want to ignore "checkout" in the count of Actions.
     :type list_of_workflow_files_contents: numpy.ndarray
     :type ignore_checkout: bool
-    :return: A tuple with the number of Actions per workflow files, a dictionary with the count of each Action usage,
-    and the number of workflow files not using Actions available on the Marketplace.
+    :return: A tuple with the number of Actions per workflow file, the number of distinct Actions per workflow file
+    a dictionary with the count of each Action usage, the number of workflow files not using Actions available on the
+    Marketplace, and the number of workflow files using the checkout Action.
+    :rtype: tuple[list, list, dict, int, int]
     """
     sqlite_connection = sqlite3.connect(f"{files_path_main}/{last_file_name_main}")
     sqlite_cursor = sqlite_connection.cursor()
@@ -765,10 +785,14 @@ def actions_per_workflow_file(list_of_workflow_files_contents, ignore_checkout=F
     sqlite_connection.close()
 
     total_of_actions = []
+    total_of_distinct_actions = []
     actions_counters = {}
     no_actions = 0
+    checkouts = 0
     for workflow_content in list_of_workflow_files_contents:
         actions_counter = 0
+        distinct_actions = []
+        uses_checkout = False
         pre_content = workflow_content.replace("on:", "trigger:").replace("\t", "    ")
         pre_content = re.sub(r"\n+", "\n", pre_content)
         content = yaml.safe_load(pre_content)
@@ -783,19 +807,24 @@ def actions_per_workflow_file(list_of_workflow_files_contents, ignore_checkout=F
                         for key in step_keys:
                             if key == "uses":
                                 use = step[key]
-                                if "@" in use:
-                                    use = use.split("@")[0]
-                                    checkout = use == "actions/checkout"
-                                    if use in list_of_actions_on_marketplace and ignore_checkout:
-                                        at_least_one_action = True
-                                        actions_counter += 1
-                                        if use not in actions_counters:
-                                            actions_counters[use] = 1
-                                        else:
-                                            actions_counters[use] += 1
+                                use = use.split("@")[0] if "@" in use else use
+                                checkout = use == "actions/checkout"
+                                uses_checkout = True if checkout else uses_checkout
+                                should_ignore = checkout and ignore_checkout
+                                if use in list_of_actions_on_marketplace and not should_ignore:
+                                    at_least_one_action = True
+                                    actions_counter += 1
+                                    if use not in distinct_actions:
+                                        distinct_actions.append(use)
+                                    if use not in actions_counters:
+                                        actions_counters[use] = 1
+                                    else:
+                                        actions_counters[use] += 1
         total_of_actions.append(actions_counter)
+        total_of_distinct_actions.append(len(distinct_actions))
         no_actions = no_actions + 1 if not at_least_one_action else no_actions
-    return total_of_actions, actions_counters, no_actions
+        checkouts = checkouts + 1 if uses_checkout else checkouts
+    return total_of_actions, total_of_distinct_actions, actions_counters, no_actions, checkouts
 
 
 def rq5() -> None:
