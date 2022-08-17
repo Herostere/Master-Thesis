@@ -200,9 +200,10 @@ def fetch_data_multithread() -> None:
     CREATE TABLE IF NOT EXISTS issues (
         owner TEXT,
         repository TEXT,
-        closed INTEGER,
-        open INTEGER,
-        PRIMARY KEY (owner, repository),
+        state TEXT,
+        created TEXT,
+        closed TEXT,
+        PRIMARY KEY (owner, repository, state, created, closed),
         FOREIGN KEY (owner, repository) REFERENCES actions (owner, repository)
     );
     """
@@ -296,18 +297,23 @@ def insert_actions(action_data: dict, cursor: sqlite3.Cursor, owner: str, reposi
     :param owner: The name of the owner.
     :param repository: The name of the repository.
     """
-    forks = action_data["forks"]
-    name = action_data["name"]
-    stars = action_data["stars"]
-    verified = 0 if action_data["verified"] else 1
-    watchers = action_data["watchers"]
+    if "forks" in action_data.keys():
+        forks = action_data["forks"]
+    if "name" in action_data.keys():
+        name = action_data["name"]
+    if "stars" in action_data.keys():
+        stars = ["stars"]
+    if "verified" in action_data.keys():
+        verified = 0 if action_data["verified"] else 1
+    if "watchers" in action_data.keys():
+        watchers = action_data["watchers"]
     insert_main = """
     INSERT INTO actions (forks, name, owner, repository, stars, verified, watchers)
     VALUES (?, ?, ?, ?, ?, ?, ?);
     """
     try:
         cursor.execute(insert_main, (forks, name, owner, repository, stars, verified, watchers))
-    except sqlite3.IntegrityError:
+    except (sqlite3.IntegrityError, UnboundLocalError):
         pass
 
 
@@ -340,16 +346,17 @@ def insert_contributors(action_data: dict, cursor: sqlite3.Cursor, owner: str, r
     :param owner: The name of the owner.
     :param repository: The name of the repository.
     """
-    contributors = action_data["contributors"]
-    for contributor in contributors:
-        insert_contributor = """
-        INSERT INTO contributors (owner, repository, contributor)
-        VALUES (?, ?, ?);
-        """
-        try:
-            cursor.execute(insert_contributor, (owner, repository, contributor))
-        except sqlite3.IntegrityError:
-            pass
+    if "contributors" in action_data.keys():
+        contributors = action_data["contributors"]
+        for contributor in contributors:
+            insert_contributor = """
+            INSERT INTO contributors (owner, repository, contributor)
+            VALUES (?, ?, ?);
+            """
+            try:
+                cursor.execute(insert_contributor, (owner, repository, contributor))
+            except sqlite3.IntegrityError:
+                pass
 
 
 def insert_dependents(action_data: dict, cursor: sqlite3.Cursor, owner: str, repository: str) -> None:
@@ -361,17 +368,18 @@ def insert_dependents(action_data: dict, cursor: sqlite3.Cursor, owner: str, rep
     :param owner: The name of the owner.
     :param repository: The name of the repository.
     """
-    dependents = action_data["dependents"]
-    number = dependents["number"]
-    package_url = dependents["package_url"]
-    insert_dependent = """
-    INSERT INTO dependents (owner, repository, number, package_url)
-    VALUES (?, ?, ?, ?);
-    """
-    try:
-        cursor.execute(insert_dependent, (owner, repository, number, package_url))
-    except sqlite3.IntegrityError:
-        pass
+    if "dependents" in action_data.keys():
+        dependents = action_data["dependents"]
+        number = dependents["number"]
+        package_url = dependents["package_url"]
+        insert_dependent = """
+        INSERT INTO dependents (owner, repository, number, package_url)
+        VALUES (?, ?, ?, ?);
+        """
+        try:
+            cursor.execute(insert_dependent, (owner, repository, number, package_url))
+        except sqlite3.IntegrityError:
+            pass
 
 
 def insert_issues(action_data: dict, cursor: sqlite3.Cursor, owner: str, repository: str) -> None:
@@ -383,17 +391,32 @@ def insert_issues(action_data: dict, cursor: sqlite3.Cursor, owner: str, reposit
     :param owner: The name of the owner.
     :param repository: The name of the repository.
     """
-    issues = action_data["issues"]
-    closed_issues = issues["closed"]
-    open_issues = issues["open"]
-    insert_issue = """
-    INSERT INTO issues (owner, repository, closed, open)
-    VALUES (?, ?, ?, ?);
-    """
-    try:
-        cursor.execute(insert_issue, (owner, repository, closed_issues, open_issues))
-    except sqlite3.IntegrityError:
-        pass
+    if "issues" in action_data.keys():
+        issues = action_data["issues"]
+        if len(issues) == 0:
+            state = None
+            created = None
+            closed = None
+            insert_issue = """
+            INSERT INTO issues (owner, repository, state, created, closed)
+            VALUES (?, ?, ?, ?, ?);
+            """
+            try:
+                cursor.execute(insert_issue, (owner, repository, state, created, closed))
+            except sqlite3.IntegrityError:
+                pass
+        for issue in issues:
+            state = issue[0]
+            created = issue[1]
+            closed = issue[2]
+            insert_issue = """
+            INSERT INTO issues (owner, repository, state, created, closed)
+            VALUES (?, ?, ?, ?, ?);
+            """
+            try:
+                cursor.execute(insert_issue, (owner, repository, state, created, closed))
+            except sqlite3.IntegrityError:
+                pass
 
 
 def insert_versions(action_data: dict, cursor: sqlite3.Cursor, owner: str, repository: str) -> None:
@@ -405,18 +428,19 @@ def insert_versions(action_data: dict, cursor: sqlite3.Cursor, owner: str, repos
     :param owner: The name of the owner.
     :param repository: The name of the repository.
     """
-    versions = action_data["versions"]
-    for version in versions:
-        date = version[0]
-        tag = version[1]
-        insert_version = """
-        INSERT INTO versions (owner, repository, date, version)
-        VALUES (?, ?, ?, ?);
-        """
-        try:
-            cursor.execute(insert_version, (owner, repository, date, tag))
-        except sqlite3.IntegrityError:
-            pass
+    if "versions" in action_data.keys():
+        versions = action_data["versions"]
+        for version in versions:
+            date = version[0]
+            tag = version[1]
+            insert_version = """
+            INSERT INTO versions (owner, repository, date, version)
+            VALUES (?, ?, ?, ?);
+            """
+            try:
+                cursor.execute(insert_version, (owner, repository, date, tag))
+            except sqlite3.IntegrityError:
+                pass
 
 
 def get_max_page(category: str) -> int:
@@ -660,7 +684,7 @@ def get_api(key: str, owner: str, repo_name: str) -> int | dict | list:
                    "stars": "stargazerCount",
                    "watchers": "watchers { totalCount }",
                    "forks": "forks { totalCount }",
-                   "issues": "issues(first: 100) { totalCount edges { cursor node { state } } }",
+                   "issues": "issues(first: 100) { totalCount edges { cursor node { state createdAt closedAt } } }",
                    }
 
         query = {'query': f"""
@@ -782,13 +806,16 @@ def extract(api_answer: requests.Response, key: str) -> int | dict | list:
             return forks
 
         elif key == "issues":
-            final_issues = {"open": 0, "closed": 0}
+            final_issues = []
             gathered_issues = extract_all(api_answer, key)
             for issue in gathered_issues:
-                if issue["node"]["state"] == "CLOSED":
-                    final_issues["closed"] += 1
-                elif issue["node"]["state"] == "OPEN":
-                    final_issues["open"] += 1
+                try:
+                    state = issue["node"]["state"]
+                    created_at = issue["node"]["createdAt"]
+                    closed_at = issue["node"]["closedAt"]
+                    final_issues.append((state, created_at, closed_at))
+                except KeyError:
+                    continue
             return final_issues
 
     else:

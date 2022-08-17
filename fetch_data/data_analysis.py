@@ -838,7 +838,6 @@ def rq5() -> None:
 
     top_n = 1000
     most_popular = n_most_popular_actions(actions_with_metrics, top_n, sqlite_cursor)
-    sqlite_connection.close()
     print(most_popular)
 
     sqlite_cursor.close()
@@ -978,7 +977,7 @@ def n_most_popular_actions(actions_with_metrics: dict, n: int, sqlite_cursor: sq
         dependents = actions_with_metrics[action]["dependents"]
         contributors = actions_with_metrics[action]["contributors"]
 
-        score = 25 * stars + 75 * forks + 50 * watchers + 100 * contributors + dependents
+        score = 0.1 * stars + 0.25 * forks + 0.2 * watchers + 0.4 * contributors + 0.05 * dependents
         actions_with_scores.append((action, score))
 
     actions_with_scores.sort(key=lambda x: x[1], reverse=True)
@@ -1006,6 +1005,9 @@ def n_most_popular_actions(actions_with_metrics: dict, n: int, sqlite_cursor: sq
     owners_counter = sorted(owners_counter.items(), key=lambda x: x[1], reverse=True)
     owners_counter = dict(owners_counter)
     print(owners_counter)
+    actions_per_owner = list(owners_counter.values())
+    compute_statistics(actions_per_owner, "Actions per owner")
+    plt.show()
     categories_counter = sorted(categories_counter.items(), key=lambda x: x[1], reverse=True)
     categories_counter = dict(categories_counter)
     one_action = 0
@@ -1044,127 +1046,139 @@ def rq6() -> None:
     sqlite_connection = sqlite3.connect(f"{files_path_main}/{last_file_name_main}")
     sqlite_cursor = sqlite_connection.cursor()
 
-    well_maintained_actions, not_well_maintained_actions = number_of_well_not_well_maintained_actions(sqlite_cursor)
+    well_maintained_actions, not_well_maintained_actions, time_to_resolve, open_since = \
+        number_of_well_not_well_maintained_actions(sqlite_cursor)
     print("-" * 10)
-    number_of_issues(sqlite_cursor, well_maintained_actions)
+    compute_statistics(time_to_resolve, "to resolve issues")
+    seaborn.boxplot(y=time_to_resolve).set(yscale="log")
+    plt.show()
     print("-" * 10)
-    number_of_issues(sqlite_cursor, not_well_maintained_actions)
+    compute_statistics(open_since, "since open issues")
+    seaborn.boxplot(y=open_since).set(yscale="log")
+    plt.show()
     print("-" * 10)
-    number_of_actions_with_issues(sqlite_cursor)
+    number_of_actions_with_only_closed_issues(sqlite_cursor)
     print("-" * 10)
-    number_of_actions_with_open_issues(sqlite_cursor)
-    print("-" * 10)
-    number_of_actions_with_closed_issues(sqlite_cursor)
+    number_of_actions_with_only_open_issues(sqlite_cursor)
 
     sqlite_connection.close()
 
 
-def number_of_well_not_well_maintained_actions(sqlite_cursor: sqlite3.Cursor) -> tuple[list, list]:
+def number_of_well_not_well_maintained_actions(sqlite_cursor: sqlite3.Cursor) -> tuple[list, list, list, list]:
     """
-    Get the number of not well maintained Actions, Actions with one open issues, and Actions without issues.
+    Get the number of not well maintained Actions, and Actions without issues.
     Also get the list of well/not well maintained Actions.
 
     :param sqlite_cursor: The cursor for the database connection.
-    :return: The list of well and the list of not well maintained Actions.
+    :return: The list of well, the list of not well maintained Actions, the times to resolve issue, and the time
+    since issues are open.
     """
     actions = get_all_actions_names(sqlite_cursor)
     open_closed_query = """
-    SELECT open, closed FROM issues WHERE owner=? AND repository=?;
+    SELECT state, created, closed FROM issues WHERE owner=? AND repository=?;
     """
 
     not_well_maintained_actions = []
-    one_open_issue = 0
     no_issues = 0
-    well_maintained = []
+    well_maintained_actions = []
+    overall_time_to_resolve = []
+    open_since = []
+    total_issues = 0
     for owner, repository, _ in actions:
-        open_issues, closed_issues = sqlite_cursor.execute(open_closed_query, (owner, repository)).fetchone()
-        issues = open_issues + closed_issues
-        if issues == 1 and open_issues == 1:
-            one_open_issue += 1
-        more_open_issues = open_issues > closed_issues
-        if more_open_issues and closed_issues != 0:
-            percentage = (open_issues / issues) * 100
-            if percentage > 70:
-                not_well_maintained_actions.append((owner, repository))
-            else:
-                well_maintained.append((owner, repository))
-        elif more_open_issues:
-            not_well_maintained_actions.append((owner, repository))
-        elif issues == 0:
+        issues = sqlite_cursor.execute(open_closed_query, (owner, repository)).fetchall()
+        good_issues = 0
+        bad_issues = 0
+        time_to_resolve = []
+        if len(issues) == 1 and issues[0][0] is None:
             no_issues += 1
+            continue
+        for issue in issues:
+            if issue[0] is None:
+                continue
+            state, created, closed = issue
+            total_issues += 1
+            if state == "OPEN":
+                created = datetime.strptime(created, "%Y-%m-%dT%H:%M:%SZ")
+                now = datetime.now()
+                difference = now - created
+                elapsed_seconds = difference.seconds
+                elapsed_days = difference.days
+                days_seconds = elapsed_days * 24 * 60 * 60
+                overall_elapsed_seconds = days_seconds + elapsed_seconds
+                two_months_seconds = 5259492
+                if overall_elapsed_seconds > two_months_seconds:
+                    bad_issues += 1
+                else:
+                    good_issues += 1
+                open_since.append(overall_elapsed_seconds)
+            else:
+                created = datetime.strptime(created, "%Y-%m-%dT%H:%M:%SZ")
+                closed = datetime.strptime(closed, "%Y-%m-%dT%H:%M:%SZ")
+                difference = closed - created
+                elapsed_seconds = difference.seconds
+                elapsed_days = difference.days
+                days_seconds = elapsed_days * 24 * 60 * 60
+                overall_elapsed_seconds = days_seconds + elapsed_seconds
+                two_months_seconds = 5259492
+                if overall_elapsed_seconds > two_months_seconds:
+                    bad_issues += 1
+                else:
+                    good_issues += 1
+                time_to_resolve.append(overall_elapsed_seconds)
+        for t_time in time_to_resolve:
+            overall_time_to_resolve.append(t_time)
+        if good_issues > 0 and good_issues >= bad_issues:
+            well_maintained_actions.append((owner, repository))
         else:
-            well_maintained.append((owner, repository))
+            not_well_maintained_actions.append((owner, repository))
 
+    print(f"Total number of issues: {total_issues}")
+    print(f"Number of well maintained Actions: {len(well_maintained_actions)}")
     print(f"Number of not well maintained Actions: {len(not_well_maintained_actions)}")
-    print(f"Number of Actions with one open issue: {one_open_issue}")
     print(f"Number of Actions without issue: {no_issues}")
-    return well_maintained, not_well_maintained_actions
+    return well_maintained_actions, not_well_maintained_actions, overall_time_to_resolve, open_since
 
 
-def number_of_issues(sqlite_cursor: sqlite3.Cursor, actions) -> None:
-    """
-    Print the number of issues for a list of Actions.
-
-    :param sqlite_cursor: The cursor for the database connection.
-    :param actions: The list of Actions for which printing issues. List is constituted of tuples(owner, repository)
-    """
-    number_of_issues_query = """
-    SELECT open, closed FROM issues WHERE owner=? AND repository=?;
-    """
-    open_issues_list = []
-    closed_issues_list = []
-    for owner, repository in actions:
-        open_closed = sqlite_cursor.execute(number_of_issues_query, (owner, repository)).fetchone()
-        open_issues = open_closed[0]
-        closed_issues = open_closed[1]
-        open_issues_list.append(open_issues)
-        closed_issues_list.append(closed_issues)
-
-    compute_statistics(open_issues_list, "of open issues")
-    seaborn.boxplot(y=open_issues_list)
-    plt.show()
-    compute_statistics(closed_issues_list, "of closed issues")
-    seaborn.boxplot(y=closed_issues_list)
-    plt.show()
-
-
-def number_of_actions_with_issues(sqlite_cursor: sqlite3.Cursor) -> None:
-    """
-    Print the number of Actions with issues.
-
-    :param sqlite_cursor: The cursor for the database connection.
-    """
-    actions_with_issues_query = """
-    SELECT COUNT(*) FROM issues WHERE closed <> 0 OR open <> 0;
-    """
-    actions_with_issues = sqlite_cursor.execute(actions_with_issues_query).fetchone()[0]
-    print(f"There is {actions_with_issues} Actions with issues (open or closed or both).")
-
-
-def number_of_actions_with_open_issues(sqlite_cursor: sqlite3.Cursor) -> None:
-    """
-    Print the number of Actions with only open issues.
-
-    :param sqlite_cursor: The cursor for the database connection.
-    """
-    actions_with_only_open_issues_query = """
-    SELECT COUNT(*) FROM issues WHERE closed = 0 AND open <> 0;
-    """
-    actions_with_open_issues = sqlite_cursor.execute(actions_with_only_open_issues_query).fetchone()[0]
-    print(f"There is {actions_with_open_issues} Actions with open issues and no closed ones.")
-
-
-def number_of_actions_with_closed_issues(sqlite_cursor: sqlite3.Cursor) -> None:
+def number_of_actions_with_only_closed_issues(sqlite_cursor: sqlite3.Cursor) -> None:
     """
     Print the number of Actions with only closed issues.
 
     :param sqlite_cursor: The cursor for the database connection.
     """
-    actions_with_only_closed_issues_query = """
-    SELECT COUNT(*) FROM issues WHERE closed <> 0 AND open = 0;
+    actions_with_open_issues_query = """
+    SELECT owner, repository FROM issues WHERE state="OPEN";
     """
-    actions_with_closed_issues = sqlite_cursor.execute(actions_with_only_closed_issues_query).fetchone()[0]
-    print(f"There is {actions_with_closed_issues} Actions with closed issues and no open ones.")
+    actions_with_closed_issues_query = """
+    SELECT DISTINCT owner, repository FROM issues WHERE state is NOT "OPEN" AND state IS NOT NULL;
+    """
+    actions_with_open_issues = sqlite_cursor.execute(actions_with_open_issues_query).fetchall()
+    actions_with_closed_issues = sqlite_cursor.execute(actions_with_closed_issues_query).fetchall()
+    counter = 0
+    for action in actions_with_closed_issues:
+        if action not in actions_with_open_issues:
+            counter += 1
+    print(f"There is {counter} Actions with closed issues and no open ones.")
+
+
+def number_of_actions_with_only_open_issues(sqlite_cursor: sqlite3.Cursor) -> None:
+    """
+    Print the number of Actions with only open issues.
+
+    :param sqlite_cursor: The cursor for the database connection.
+    """
+    actions_with_open_issues_query = """
+    SELECT DISTINCT owner, repository FROM issues WHERE state="OPEN";
+    """
+    actions_with_closed_issues_query = """
+    SELECT DISTINCT owner, repository FROM issues WHERE state is NOT "OPEN" AND state IS NOT NULL;
+    """
+    actions_with_open_issues = sqlite_cursor.execute(actions_with_open_issues_query).fetchall()
+    actions_with_closed_issues = sqlite_cursor.execute(actions_with_closed_issues_query).fetchall()
+    counter = 0
+    for action in actions_with_open_issues:
+        if action not in actions_with_closed_issues:
+            counter += 1
+    print(f"There is {counter} Actions with open issues and no closed ones.")
 
 
 def rq7() -> None:
@@ -1190,7 +1204,7 @@ def rq7() -> None:
     print(separator)
 
     actions_with_metrics = get_actions_with_metrics(sqlite_cursor)
-    popular_actions = n_most_popular_actions(actions_with_metrics, 10, sqlite_cursor)
+    popular_actions = n_most_popular_actions(actions_with_metrics, 100, sqlite_cursor)
     n_most_popular_verified(sqlite_cursor, popular_actions)
     print(separator)
 
