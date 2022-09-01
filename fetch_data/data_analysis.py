@@ -1,6 +1,7 @@
 """
 This script is used to analyse the data about GitHub Actions.
 """
+from cliffs_delta import cliffs_delta
 from datetime import datetime
 from fetch_data import request_to_api
 from packaging import version as packaging_version
@@ -254,6 +255,7 @@ def number_of_actions_per_categories() -> dict:
 def rq3() -> None:
     perform_t_test = True
     perform_mann_whitney_u_test = True
+    perform_cliffs_delta_test = True
     compute_lag_statistics = True
     show_general_information = True
     show_plots = True
@@ -407,6 +409,12 @@ def rq3() -> None:
         print(mannwhitneyu(overall_major_updates_lag, overall_minor_updates_lag))
         print(mannwhitneyu(overall_major_updates_lag, overall_patch_updates_lag))
         print(mannwhitneyu(overall_minor_updates_lag, overall_patch_updates_lag))
+        print('-' * 20)
+
+    if perform_cliffs_delta_test:
+        print(cliffs_delta(overall_major_updates_lag, overall_minor_updates_lag))
+        print(cliffs_delta(overall_major_updates_lag, overall_patch_updates_lag))
+        print(cliffs_delta(overall_minor_updates_lag, overall_patch_updates_lag))
         print('-' * 20)
 
     if compute_lag_statistics:
