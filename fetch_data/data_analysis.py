@@ -23,13 +23,18 @@ import yaml.parser
 import yaml.scanner
 
 
+REPOSITORIES = 0
+REPOSITORIES_WITH_WORKFLOWS = 0
+
+
 def rq1() -> None:
     """
     Observe the number of Actions on the Marketplace.
     """
-    first_observation = True
-    second_observation = True
-    third_observation = True
+    first_observation = False
+    second_observation = False
+    third_observation = False
+    presentation_observation = True
 
     if first_observation:
         dates, number_of_actions, lists_of_actions = get_number_of_actions_all_files()
@@ -95,6 +100,35 @@ def rq1() -> None:
                     overall_deleted[category] += dict_deleted[category]
         print(f"Times added: {overall_added}")
         print(f"Time deleted: {overall_deleted}")
+
+    if presentation_observation:
+        dates, _, _ = get_number_of_actions_all_files()
+        names = []
+        new = []
+        removed = []
+        for file in files_names_main:
+            sqlite_connection = sqlite3.connect(f"{files_path_main}/{file}")
+            sqlite_cursor = sqlite_connection.cursor()
+            local_names = get_all_actions_names(sqlite_cursor)
+            names.append(local_names)
+            sqlite_connection.close()
+
+        for j in range(1, len(names)):
+            local_new = 0
+            local_removed = 0
+            for element in names[j]:
+                if element not in names[j-1]:
+                    local_new += 1
+            for element in names[j-1]:
+                if element not in names[j]:
+                    local_removed += 1
+            new.append(local_new)
+            removed.append(local_removed)
+        seaborn.scatterplot(x=dates[1:], y=new, color='mediumseagreen')
+        seaborn.lineplot(x=dates[1:], y=new, color='mediumseagreen', label="Actions added")
+        seaborn.scatterplot(x=dates[1:], y=removed, color='darkorange')
+        seaborn.lineplot(x=dates[1:], y=removed, color='darkorange', label="Actions removed")
+        plt.show()
 
 
 def get_number_of_actions_all_files() -> tuple[list, list, list]:
@@ -514,11 +548,12 @@ def rq4() -> None:
     """
     number_of_repositories = config.rq4_number_of_repositories
 
-    already_fetch_yml_files = os.path.exists(f"outputs/yml_files_{number_of_repositories}.npy")
+    already_fetch_yml_files = os.path.exists(f"outputs/n_yml_files_{number_of_repositories}.npy")
     if not already_fetch_yml_files:
         list_of_workflow_files_contents = get_workflow_files(number_of_repositories)
-        numpy.save(f"outputs/yml_files_{number_of_repositories}.npy", list_of_workflow_files_contents)
-    list_of_workflow_files_contents = numpy.load(f"outputs/yml_files_{number_of_repositories}.npy")
+        numpy.save(f"outputs/n_yml_files_{number_of_repositories}.npy", list_of_workflow_files_contents)
+    list_of_workflow_files_contents = numpy.load(f"outputs/n_yml_files_{number_of_repositories}.npy")
+    print(list_of_workflow_files_contents)
     ignore_checkout = config.rq4_ignore_checkout
     total_of_actions, total_of_distinct_actions, actions_counters, no_actions, checkouts = actions_per_workflow_file(
         list_of_workflow_files_contents, ignore_checkout)
@@ -579,6 +614,8 @@ def get_workflow_files(number_of_files: int) -> list:
             number_of_workflow_files = len(workflow_files_contents)
             print("-"*10 + " " + str(number_of_workflow_files))
 
+    print(f"Repositories: {REPOSITORIES}")
+    print(f"Repositories with yml: {REPOSITORIES_WITH_WORKFLOWS}")
     return workflow_files_contents[:number_of_files]
 
 
@@ -599,33 +636,92 @@ def get_api(key_word, repository=None, owner=None, expression=None, end_cursor=N
     :return: The JSON with the requested data or None if error in the response.
     """
     if key_word == "repositories" and not end_cursor:
+        # query = {'query': f"""
+        #     {{
+        #       search(query: "is:public pushed:>=2021-07-20", type: REPOSITORY, first: 100) {{
+        #         repositoryCount
+        #         pageInfo {{
+        #           endCursor
+        #           startCursor
+        #         }}
+        #         edges {{
+        #           node {{
+        #             ... on Repository {{
+        #               url
+        #               owner {{
+        #                 login
+        #               }}
+        #               name
+        #               defaultBranchRef {{
+        #                 name
+        #               }}
+        #             }}
+        #           }}
+        #         }}
+        #       }}
+        #     }}
+        # """}
         query = {'query': f"""
-    {{
-      search(query: "is:public pushed:>=2021-07-20", type: REPOSITORY, first: 100) {{
-        repositoryCount
-        pageInfo {{
-          endCursor
-          startCursor
-        }}
-        edges {{
-          node {{
-            ... on Repository {{
-              url
-              owner {{
-                login
-              }}
-              name
-              defaultBranchRef {{
-                name
+            {{
+              search(query: "is:public pushed:>=2021-07-20", type: REPOSITORY, first: 100) {{
+                repositoryCount
+                pageInfo {{
+                  endCursor
+                  startCursor
+                }}
+                edges {{
+                  node {{
+                    ... on Repository {{
+                      url
+                      owner {{
+                        login
+                      }}
+                      name
+                      isFork
+                      defaultBranchRef {{
+                        name
+                        target {{
+                          ... on Commit {{
+                            history {{
+                              totalCount
+                            }}
+                          }}
+                        }}
+                      }}
+                      stargazerCount
+                    }}
+                  }}
+                }}
               }}
             }}
-          }}
-        }}
-      }}
-    }}
-    """}
+        """}
         api_response_keyword = "search"
     elif key_word == "repositories":
+        # query = {'query': f"""
+        #     {{
+        #       search(query: "is:public pushed:>=2021-07-20", type: REPOSITORY, first: 100, after: "{end_cursor}") {{
+        #         repositoryCount
+        #         pageInfo {{
+        #           endCursor
+        #           startCursor
+        #         }}
+        #         edges {{
+        #           node {{
+        #             ... on Repository {{
+        #               url
+        #               owner {{
+        #                 login
+        #               }}
+        #               name
+        #               defaultBranchRef {{
+        #                 name
+        #               }}
+        #             }}
+        #           }}
+        #         }}
+        #       }}
+        #     }}
+        # """}
         query = {'query': f"""
             {{
               search(query: "is:public pushed:>=2021-07-20", type: REPOSITORY, first: 100, after: "{end_cursor}") {{
@@ -642,15 +738,24 @@ def get_api(key_word, repository=None, owner=None, expression=None, end_cursor=N
                         login
                       }}
                       name
+                      isFork
                       defaultBranchRef {{
                         name
+                        target {{
+                          ... on Commit {{
+                            history {{
+                              totalCount
+                            }}
+                          }}
+                        }}
                       }}
+                      stargazerCount
                     }}
                   }}
                 }}
               }}
             }}
-            """}
+        """}
         api_response_keyword = "search"
     elif key_word == "file_content":
         query = {'query': f"""
@@ -726,8 +831,8 @@ def filter_repositories_workflow_files(repositories: list) -> list:
     :return: A list a workflow files contents.
     """
     number_of_threads = config.rq4_number_of_threads
-    number_of_threads = number_of_threads if number_of_threads > 0 else 4
-    number_of_threads = number_of_threads if number_of_threads < 11 else 4
+    number_of_threads = number_of_threads if number_of_threads > 0 else 10
+    # number_of_threads = number_of_threads if number_of_threads < 11 else 4
 
     threads = []
     yml_content = []
@@ -742,6 +847,7 @@ def filter_repositories_workflow_files(repositories: list) -> list:
     for thread in threads:
         thread.join()
 
+    yml_content = [content for content in yml_content if content]
     return yml_content
 
 
@@ -752,18 +858,31 @@ def thread_filter_repositories_workflow_files(yml_content: list, repositories: l
     :param yml_content: List with the content of workflow files. Will be populated by threads, should be empty at first.
     :param repositories: The list of repositories that will be analyzed by a thread.
     """
+    global REPOSITORIES
+    global REPOSITORIES_WITH_WORKFLOWS
+
     for node in repositories:
         repository = node["node"]
         owner = repository["owner"]["login"]
         repo_name = repository["name"]
         branch = repository["defaultBranchRef"]["name"]
         expression = f"{branch}:.github/workflows"
+        is_fork = repository["isFork"]
+        commits = repository["defaultBranchRef"]["target"]["history"]["totalCount"]
+        stars = repository["stargazerCount"]
+        if is_fork or commits < 100 or stars < 100:
+            continue
         api_response_json = get_api("content_of_repo", repo_name, owner, expression)
+        REPOSITORIES += 1
         if api_response_json and api_response_json["object"]:
+            not_already_counted = True
             entries = api_response_json["object"]["entries"]
             for entry in entries:
                 path = entry["path"]
                 if ".yml" in path or ".yaml" in path:
+                    if not_already_counted:
+                        REPOSITORIES_WITH_WORKFLOWS += 1
+                        not_already_counted = False
                     expression = f"{branch}:{path}"
                     json_content = get_api("file_content", owner=owner, repository=repo_name, expression=expression)
                     content = json_content["object"]["text"] if json_content else ""
@@ -1402,7 +1521,7 @@ def rq8():
     Observe the triggers used in workflow files.
     """
     number_of_repositories = config.rq8_number_of_repositories
-    yml_file = f"outputs/yml_files_{number_of_repositories}.npy"
+    yml_file = f"outputs/n_yml_files_{number_of_repositories}.npy"
 
     already_fetch_yml_files = os.path.exists(yml_file)
     if not already_fetch_yml_files:
@@ -1414,12 +1533,26 @@ def rq8():
     actions_triggers_in_workflows = sorted(actions_triggers_in_workflows.items(), key=lambda x: x[1], reverse=True)
     actions_triggers_in_workflows = dict(actions_triggers_in_workflows)
     number_of_triggers = get_triggers(actions_triggers_in_workflows)
+    number_of_triggers = sorted(number_of_triggers.items(), key=lambda x: x[1], reverse=True)
+    number_of_triggers = dict(number_of_triggers)
     print(actions_triggers_in_workflows)
     print(number_of_triggers)
     total_triggers = 0
     for trigger in number_of_triggers:
         total_triggers += number_of_triggers[trigger]
     print(f"Total number of triggers: {total_triggers}")
+
+    triggers_in_files = get_triggers_in_files(list_of_workflow_files_contents)
+    triggers_in_files = sorted(triggers_in_files.items(), key=lambda x: x[1], reverse=True)
+    triggers_in_files = dict(triggers_in_files)
+    print(f"Triggers in files: {triggers_in_files}")
+
+    keys = list(number_of_triggers.keys())
+    items = list(number_of_triggers.values())
+    bar_plot = seaborn.barplot(x=keys, y=items, orient="v", color="steelblue")
+    bar_plot.bar_label(bar_plot.containers[0])
+    plt.xticks(rotation=90)
+    plt.show()
 
 
 def get_actions_triggers_in_workflows(workflow_files: numpy.ndarray) -> dict:
@@ -1493,6 +1626,36 @@ def get_triggers(actions_triggers_in_workflows: dict) -> dict:
         else:
             triggers_counters[trigger] += number
     return triggers_counters
+
+
+def get_triggers_in_files(workflow_files: numpy.ndarray) -> dict:
+    """
+    Get the list of workflow files and returns the proportion of files in which this trigger appears.
+
+    :param workflow_files: The list of workflow files.
+    :return: The proportion of files in which each trigger appears.
+    """
+    triggers_counter = {}
+
+    for workflow_content in workflow_files:
+        pre_content = workflow_content.replace("on:", "trigger:").replace("\t", "    ")
+        pre_content = re.sub(r"\n+", "\n", pre_content)
+        content = yaml.safe_load(pre_content)
+        if content and "jobs" in content.keys() and "trigger" in content.keys():
+            triggers = []
+            if type(content["trigger"]) is dict:
+                triggers = content["trigger"].keys()
+            elif type(content["trigger"]) is list:
+                triggers = content["trigger"]
+            elif type(content["trigger"]) is str:
+                triggers = [content["trigger"]]
+            for trigger in triggers:
+                if trigger not in triggers_counter.keys():
+                    triggers_counter[trigger] = 1
+                else:
+                    triggers_counter[trigger] += 1
+
+    return triggers_counter
 
 
 if __name__ == "__main__":

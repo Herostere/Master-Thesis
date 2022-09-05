@@ -752,6 +752,10 @@ def request_to_api(query: dict | None, url: str = None) -> requests.Response | N
             except requests.exceptions.ConnectionError:
                 time.sleep(60)
                 return request_to_api(query)
+            except requests.exceptions.ChunkedEncodingError:
+                return None
+            except json.decoder.JSONDecodeError:
+                return None
 
     else:
         try:
@@ -897,9 +901,7 @@ def get_remaining_api_calls(rest: bool = False) -> bool:
                         return True
 
                     break
-                except TypeError:
-                    time.sleep(1)
-                except json.decoder.JSONDecodeError:
+                except (TypeError, json.decoder.JSONDecodeError, KeyError):
                     time.sleep(1)
     else:
         for token in GITHUB_TOKENS:
