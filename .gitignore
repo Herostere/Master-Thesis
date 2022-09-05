@@ -135,3 +135,5 @@ fetch_data/outputs/yml_files_10000.npy
 fetch_data/outputs/yml_files_5000.npy
 fetch_data/outputs/yml_files_50000.npy
 Masters_Thesis-Source_Code-Bossart_Laurent.zip
+fetch_data/outputs/n_yml_files_50000.npy
+fetch_data/outputs/n_yml_files_50001.npy
